@@ -8,6 +8,7 @@ export type RootStackParamList = {
     ChangePassword: undefined;
 
     // Main App
+    MainTabs: undefined;
     Home: undefined;
 
     // Teacher Screens

@@ -7,8 +7,8 @@ import {
     ScrollView,
     Image,
     RefreshControl,
-    ImageBackground,
     Dimensions,
+    StatusBar,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -17,6 +17,7 @@ import { homeService } from '../../services/home/homeService';
 import { theme } from '../../constants/theme';
 
 const { width } = Dimensions.get('window');
+const CARD_WIDTH = (width - 48 - 24) / 3; // 48 for padding, 24 for gaps
 
 interface AcademicsData {
     myClassCount: number;
@@ -68,7 +69,7 @@ export const AcademicsScreen: React.FC = () => {
                 lessonPlansCount,
                 circularsCount,
                 notificationsCount,
-                studentAttendanceCount: 0, // API endpoint not available
+                studentAttendanceCount: 0,
             });
         } catch (error) {
             console.error('Error loading academics data:', error);
@@ -85,30 +86,38 @@ export const AcademicsScreen: React.FC = () => {
 
     const renderHeader = () => (
         <View style={styles.header}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Text style={styles.backButton}>←</Text>
+            <TouchableOpacity
+                style={styles.backButtonContainer}
+                onPress={() => navigation.goBack()}
+            >
+                <Image
+                    source={require('../../assets/images/back.svg')}
+                    style={styles.backIcon}
+                    resizeMode="contain"
+                />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>Academics</Text>
-            <View style={{ width: 24 }} />
+            <View style={styles.headerRight} />
         </View>
     );
 
     const renderBanner = () => (
         <View style={styles.bannerContainer}>
             <LinearGradient
-                colors={['#6B46C1', '#8B5CF6']}
+                colors={['#7C3AED', '#9333EA']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.banner}
             >
                 <View style={styles.bannerContent}>
                     <Text style={styles.bannerText}>
-                        "Empower Student Creativity with Assignments & Projects"
+                        "Empower Student{'\n'}Creativity with{'\n'}Assignments & Projects"
                     </Text>
                 </View>
+                {/* Decorative Circles */}
                 <View style={styles.bannerDecorative}>
-                    <View style={[styles.circle, { width: 70, height: 70, top: 20, right: 20 }]} />
-                    <View style={[styles.circle, { width: 50, height: 50, bottom: 30, right: 100 }]} />
+                    <View style={[styles.circle, styles.circleTopRight]} />
+                    <View style={[styles.circle, styles.circleBottomRight]} />
                 </View>
             </LinearGradient>
         </View>
@@ -118,28 +127,23 @@ export const AcademicsScreen: React.FC = () => {
         title,
         label,
         count,
-        icon,
-        gradientColors,
+        iconSource,
+        iconBgColor,
         onPress,
     }: {
         title: string;
         label: string;
         count: number;
-        icon: any;
-        gradientColors: string[];
+        iconSource: any;
+        iconBgColor: string;
         onPress: () => void;
     }) => (
-        <TouchableOpacity style={styles.cardWrapper} onPress={onPress}>
-            <LinearGradient
-                colors={gradientColors}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={styles.iconCircle}
-            >
-                <Image source={icon} style={styles.cardIcon} resizeMode="contain" />
-            </LinearGradient>
-            <Text style={styles.cardTitle}>{title}</Text>
-            <View style={styles.cardLabel}>
+        <TouchableOpacity style={styles.cardWrapper} onPress={onPress} activeOpacity={0.7}>
+            <View style={[styles.iconCircle, { backgroundColor: iconBgColor }]}>
+                <Image source={iconSource} style={styles.cardIcon} resizeMode="contain" />
+            </View>
+            <Text style={styles.cardTitle} numberOfLines={2}>{title}</Text>
+            <View style={styles.cardLabelRow}>
                 <Text style={styles.cardLabelText}>{label}</Text>
                 {count > 0 && (
                     <View style={styles.countBadge}>
@@ -150,13 +154,72 @@ export const AcademicsScreen: React.FC = () => {
         </TouchableOpacity>
     );
 
+    const academicItems = [
+        {
+            title: 'Class',
+            label: 'Classes',
+            count: academicsData.myClassCount,
+            iconSource: require('../../assets/images/classes.svg'),
+            iconBgColor: '#8B5CF6',
+            screen: 'TeacherClasses',
+        },
+        {
+            title: 'Assignments',
+            label: 'Total',
+            count: academicsData.assignmentsCount,
+            iconSource: require('../../assets/images/assignments.svg'),
+            iconBgColor: '#22C55E',
+            screen: 'Assignments',
+        },
+        {
+            title: 'Lesson plan',
+            label: 'Lessons',
+            count: academicsData.lessonPlansCount,
+            iconSource: require('../../assets/images/lessonplan.svg'),
+            iconBgColor: '#3B82F6',
+            screen: 'LessonPlan',
+        },
+        {
+            title: 'Circulars',
+            label: 'Circulars',
+            count: academicsData.circularsCount,
+            iconSource: require('../../assets/images/circulars.svg'),
+            iconBgColor: '#EF4444',
+            screen: 'Circulars',
+        },
+        {
+            title: 'Notifications',
+            label: 'Alerts',
+            count: academicsData.notificationsCount,
+            iconSource: require('../../assets/images/notifications.svg'),
+            iconBgColor: '#F59E0B',
+            screen: 'Notifications',
+        },
+        {
+            title: 'Student attendance',
+            label: 'Records',
+            count: academicsData.studentAttendanceCount,
+            iconSource: require('../../assets/images/student_attandance.svg'),
+            iconBgColor: '#06B6D4',
+            screen: 'AttendanceClasses',
+        },
+    ];
+
     return (
         <View style={styles.container}>
+            <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
             {renderHeader()}
             <ScrollView
                 style={styles.content}
+                contentContainerStyle={styles.scrollContent}
+                showsVerticalScrollIndicator={false}
                 refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={handleRefresh}
+                        colors={['#7C3AED']}
+                        tintColor="#7C3AED"
+                    />
                 }
             >
                 {renderBanner()}
@@ -164,96 +227,52 @@ export const AcademicsScreen: React.FC = () => {
                 {/* Academic Cards Grid */}
                 <View style={styles.cardsContainer}>
                     <View style={styles.row}>
-                        <View style={styles.cardCol}>
+                        {academicItems.slice(0, 3).map((item, index) => (
                             <AcademicCard
-                                title="Class"
-                                label="Classes"
-                                count={academicsData.myClassCount}
-                                icon={require('../../assets/images/classes.svg')}
-                                gradientColors={['#7C3AED', '#A78BFA']}
-                                onPress={() => navigation.navigate('TeacherClasses')}
+                                key={index}
+                                title={item.title}
+                                label={item.label}
+                                count={item.count}
+                                iconSource={item.iconSource}
+                                iconBgColor={item.iconBgColor}
+                                onPress={() => navigation.navigate(item.screen as never)}
                             />
-                        </View>
-                        <View style={styles.cardCol}>
+                        ))}
+                    </View>
+                    <View style={styles.row}>
+                        {academicItems.slice(3, 6).map((item, index) => (
                             <AcademicCard
-                                title="Assignments"
-                                label="Total"
-                                count={academicsData.assignmentsCount}
-                                icon={require('../../assets/images/assignments.svg')}
-                                gradientColors={['#22C55E', '#86EFAC']}
-                                onPress={() => navigation.navigate('Assignments')}
+                                key={index}
+                                title={item.title}
+                                label={item.label}
+                                count={item.count}
+                                iconSource={item.iconSource}
+                                iconBgColor={item.iconBgColor}
+                                onPress={() => navigation.navigate(item.screen as never)}
                             />
-                        </View>
-                        <View style={styles.cardCol}>
-                            <AcademicCard
-                                title="Lesson plan"
-                                label="Lessons"
-                                count={academicsData.lessonPlansCount}
-                                icon={require('../../assets/images/lessonplan.svg')}
-                                gradientColors={['#3B82F6', '#93C5FD']}
-                                onPress={() => navigation.navigate('LessonPlan')}
-                            />
-                        </View>
+                        ))}
                     </View>
 
-                    <View style={styles.row}>
-                        <View style={styles.cardCol}>
-                            <AcademicCard
-                                title="Circulars"
-                                label="Circulars"
-                                count={academicsData.circularsCount}
-                                icon={require('../../assets/images/circulars.svg')}
-                                gradientColors={['#EF4444', '#F87171']}
-                                onPress={() => navigation.navigate('Circulars')}
-                            />
-                        </View>
-                        <View style={styles.cardCol}>
-                            <AcademicCard
-                                title="Notifications"
-                                label="Alerts"
-                                count={academicsData.notificationsCount}
-                                icon={require('../../assets/images/notifications.svg')}
-                                gradientColors={['#F59E0B', '#FCD34D']}
-                                onPress={() => navigation.navigate('Notifications')}
-                            />
-                        </View>
-                        <View style={styles.cardCol}>
-                            <AcademicCard
-                                title="Student attendance"
-                                label="Records"
-                                count={academicsData.studentAttendanceCount}
-                                icon={require('../../assets/images/student_attandance.svg')}
-                                gradientColors={['#06B6D4', '#67E8F9']}
-                                onPress={() => navigation.navigate('AttendanceClasses')}
-                            />
-                        </View>
-                    </View>
-
-                    <View style={styles.row}>
-                        <View style={styles.cardCol}>
-                            <TouchableOpacity
-                                style={styles.timeTableCard}
-                                onPress={() => navigation.navigate('StaffTimetable')}
-                            >
-                                <LinearGradient
-                                    colors={['#DC2626', '#FCA5A5']}
-                                    start={{ x: 0, y: 0 }}
-                                    end={{ x: 1, y: 1 }}
-                                    style={styles.iconCircle}
-                                >
-                                    <Image
-                                        source={require('../../assets/images/timetable.svg')}
-                                        style={styles.cardIcon}
-                                        resizeMode="contain"
-                                    />
-                                </LinearGradient>
-                                <Text style={styles.cardTitle}>Time Table</Text>
-                            </TouchableOpacity>
-                        </View>
+                    {/* Time Table Card - Full Width Style */}
+                    <View style={styles.timetableRow}>
+                        <TouchableOpacity
+                            style={styles.timeTableCard}
+                            onPress={() => navigation.navigate('StaffTimetable' as never)}
+                            activeOpacity={0.7}
+                        >
+                            <View style={[styles.iconCircle, { backgroundColor: '#DC2626' }]}>
+                                <Image
+                                    source={require('../../assets/images/timetable.svg')}
+                                    style={styles.cardIcon}
+                                    resizeMode="contain"
+                                />
+                            </View>
+                            <Text style={styles.cardTitle}>Time Table</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
-                <View style={{ height: 40 }} />
+                <View style={styles.bottomSpacer} />
             </ScrollView>
         </View>
     );
@@ -262,7 +281,7 @@ export const AcademicsScreen: React.FC = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F3F4F6',
+        backgroundColor: '#F5F5F5',
     },
     header: {
         flexDirection: 'row',
@@ -271,44 +290,62 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingTop: 50,
         paddingBottom: 16,
-        backgroundColor: '#fff',
+        backgroundColor: '#FFFFFF',
         borderBottomWidth: 1,
-        borderBottomColor: '#E5E7EB',
+        borderBottomColor: '#E5E5E5',
     },
-    backButton: {
-        fontSize: 24,
-        color: '#1F2937',
-        fontWeight: '600',
+    backButtonContainer: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: '#F5F5F5',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    backIcon: {
+        width: 20,
+        height: 20,
+        tintColor: '#1F2937',
     },
     headerTitle: {
         fontSize: 18,
         fontWeight: '600',
         color: '#1F2937',
+        flex: 1,
+        textAlign: 'center',
+    },
+    headerRight: {
+        width: 40,
     },
     content: {
         flex: 1,
     },
+    scrollContent: {
+        paddingBottom: 20,
+    },
     bannerContainer: {
         paddingHorizontal: 16,
         paddingTop: 16,
-        paddingBottom: 24,
+        paddingBottom: 20,
     },
     banner: {
         borderRadius: 16,
-        padding: 20,
-        minHeight: 140,
+        padding: 24,
+        minHeight: 150,
         overflow: 'hidden',
         position: 'relative',
     },
     bannerContent: {
         flex: 1,
         justifyContent: 'center',
+        maxWidth: '70%',
     },
     bannerText: {
         fontSize: 18,
         fontWeight: '700',
-        color: '#fff',
+        color: '#FFFFFF',
         lineHeight: 26,
+        letterSpacing: 0.3,
     },
     bannerDecorative: {
         position: 'absolute',
@@ -319,82 +356,95 @@ const styles = StyleSheet.create({
     },
     circle: {
         position: 'absolute',
-        backgroundColor: '#D4D34A',
-        borderRadius: 50,
-        opacity: 0.8,
+        backgroundColor: '#FACC15',
+        borderRadius: 100,
+    },
+    circleTopRight: {
+        width: 80,
+        height: 80,
+        top: -10,
+        right: -10,
+        opacity: 0.9,
+    },
+    circleBottomRight: {
+        width: 60,
+        height: 60,
+        bottom: 20,
+        right: 60,
+        opacity: 0.85,
     },
     cardsContainer: {
         paddingHorizontal: 16,
-        paddingBottom: 16,
     },
     row: {
         flexDirection: 'row',
-        marginBottom: 20,
-        gap: 16,
+        justifyContent: 'space-between',
+        marginBottom: 16,
+        gap: 12,
     },
-    cardCol: {
-        flex: 1,
+    timetableRow: {
+        flexDirection: 'row',
+        marginTop: 4,
     },
     cardWrapper: {
+        flex: 1,
         alignItems: 'center',
-        backgroundColor: '#fff',
-        borderRadius: 12,
-        padding: 16,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 16,
+        paddingVertical: 20,
+        paddingHorizontal: 8,
         elevation: 2,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.08,
+        shadowRadius: 4,
     },
     timeTableCard: {
         alignItems: 'center',
-        backgroundColor: '#fff',
-        borderRadius: 12,
-        padding: 16,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 16,
+        paddingVertical: 20,
+        paddingHorizontal: 24,
         elevation: 2,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.08,
+        shadowRadius: 4,
     },
     iconCircle: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
+        width: 56,
+        height: 56,
+        borderRadius: 28,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 12,
-        elevation: 3,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.15,
-        shadowRadius: 3,
     },
     cardIcon: {
-        width: 30,
-        height: 30,
-        tintColor: '#fff',
+        width: 28,
+        height: 28,
+        tintColor: '#FFFFFF',
     },
     cardTitle: {
-        fontSize: 14,
+        fontSize: 13,
         fontWeight: '600',
         color: '#1F2937',
         textAlign: 'center',
-        marginBottom: 4,
+        marginBottom: 6,
+        lineHeight: 18,
     },
-    cardLabel: {
+    cardLabelRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 4,
+        gap: 6,
     },
     cardLabelText: {
-        fontSize: 12,
+        fontSize: 11,
         color: '#6B7280',
         fontWeight: '500',
     },
     countBadge: {
         backgroundColor: '#EF4444',
-        borderRadius: 12,
+        borderRadius: 10,
         minWidth: 20,
         height: 20,
         justifyContent: 'center',
@@ -402,9 +452,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 6,
     },
     countBadgeText: {
-        color: '#fff',
-        fontSize: 11,
+        color: '#FFFFFF',
+        fontSize: 10,
         fontWeight: '700',
+    },
+    bottomSpacer: {
+        height: 40,
     },
 });
 

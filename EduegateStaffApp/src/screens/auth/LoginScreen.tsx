@@ -53,7 +53,7 @@ export const LoginScreen: React.FC = () => {
             }
 
             // Navigate to home screen
-            navigation.navigate('Home');
+            navigation.navigate('MainTabs');
 
         } catch (err: any) {
             console.error('Login error:', err);

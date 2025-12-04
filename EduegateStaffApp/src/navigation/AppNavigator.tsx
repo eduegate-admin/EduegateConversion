@@ -3,7 +3,7 @@ import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../screens/auth/LoginScreen';
-import { HomeScreen } from '../screens/home/HomeScreen';
+import { TabNavigator } from './TabNavigator';
 import { AttendanceClassesScreen } from '../screens/teacher/AttendanceClassesScreen';
 import { PlaceholderScreen } from '../components/PlaceholderScreen';
 import { RootStackParamList } from '../types/navigation';
@@ -34,7 +34,7 @@ export const AppNavigator: React.FC = () => {
     const checkAuthStatus = async () => {
         try {
             const isAuthenticated = await authService.isAuthenticated();
-            setInitialRoute(isAuthenticated ? 'Home' : 'Login');
+            setInitialRoute(isAuthenticated ? 'MainTabs' : 'Login');
         } catch (error) {
             console.error('Auth check failed:', error);
             setInitialRoute('Login');
@@ -119,8 +119,8 @@ export const AppNavigator: React.FC = () => {
 
                 {/* ========== MAIN APP SCREENS ========== */}
                 <Stack.Screen
-                    name="Home"
-                    component={HomeScreen}
+                    name="MainTabs"
+                    component={TabNavigator}
                     options={{
                         gestureEnabled: false, // Prevent swipe back from home
                     }}
