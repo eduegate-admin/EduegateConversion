@@ -1,0 +1,29 @@
+﻿<section class="" ng-controller="HomeBannerController" ng-init="init()">
+    <div ng-show="ShowLoaders" id="HomeBannerLoader" class="LoaderSmall ">
+        <div>
+            <i class="fa fa-spinner fa-pulse"></i>
+        </div>
+    </div>
+    <div class="container" >
+        <div class="dsh-count-list card-item">
+            <div class="main-carousel"  id="demo-slider1" >
+                    <div ng-repeat="banner in $root.HomeBanners" class="carousel-cell h-250px">
+                        <!--<a href="" ng-click="WebView(banner.Link)" ng-if="banner.isInternalLink == false && banner.Link != '' && banner.Link != null"><img ng-src="{{banner.BannerFile}}" /></a>
+                                    <a href="" ui-sref="banner.Link" ng-if="banner.isInternalLink == true && banner.Link != '' && banner.Link != null"><img ng-src="{{banner.BannerFile}}" /></a>
+                                    <img ng-src="{{banner.BannerFile}}" ng-if="banner.Link == '' || banner.Link == null" />-->
+                        <a class="overflow-hidden  rounded-3 custom-12  me-5"
+                            ng-if="banner.isInternalLink == true && banner.Link != '' && banner.Link != undefined && banner.Link != null"
+                            ui-sref="{{banner.Link}}"><img ng-src="{{banner.BannerFile}}" loading="lazy" /></a>
+                        <a class="overflow-hidden rounded-3 custom-14  me-5"
+                            ng-if="banner.isInternalLink == false && banner.Link != '' && banner.Link != undefined && banner.Link != null"
+                            ng-click="$root.WebView(banner.Link)"><img ng-src="{{banner.BannerFile}}"
+                                loading="lazy" /></a>
+                        <a class="overflow-hidden rounded-3 custom-16-8   bg-secondary overflow-hidden w-100"
+                            ng-if="banner.isInternalLink == false && (banner.Link == '' || banner.Link == undefined || banner.Link == null)"><img
+                                ng-src="{{banner.BannerFile}}"  onerror="this.onerror=null;this.src='./images/no-image.jpg'"  loading="lazy" /></a>
+                        <!--<a href="" ng-click="$root.WebView('http://www.adcs.ae')"><img ng-src="{{banner.BannerFile}}" /></a>-->
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>

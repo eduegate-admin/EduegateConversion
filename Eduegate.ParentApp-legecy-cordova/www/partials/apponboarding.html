@@ -1,0 +1,103 @@
+<div class="app-page flex-column flex-column-fluid">
+  <div
+    class="app-toolbar py-3 py-lg-0 position-fixed bottom-0 start-50 translate-middle mb-3 d-flex  z-index-3   flex-center   ">
+    <div class="app-container container-xxl">
+      <div class=" d-flex justify-content-end">
+        <button type="button"
+          class="waves-effect waves-light btn btn-sm btn-outline fw-lighter fs-4 me-2 mb-2   btn-color-gray-300 rounded-2"
+          ng-click="completeOnboarding()">
+          <!-- <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/skip .svg" class="h-15px me-3" alt="My Happy SVG" /> -->
+          Get Started</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-content flex-column-fluid app-onboarding-container" style="    ">
+
+    <div class="main-carousel" data-flickity='{ "freeScroll": true }' id="demo-slider1">
+      <div class="carousel-cell m-0" ng-repeat="banner in HomeBanners">
+        <img ng-src="{{banner.imageUrl}}"
+          on-error-src="./clients/{{$root.ClientSettings.Client}}/images/banner_slider_{{$index + 1}}.png"
+          alt="image" />
+
+        <div class="position-absolute text-banner px-10 mx-10 h-50 w-100 bgi-size-contain bgi-no-repeat" style="
+              bottom: 200px;
+              background-position: bottom left;
+              background-image: url('{{banner.textUrl}}'); ">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<style>
+  .text-banner {
+    background-size: calc(100%  - 2.5rem ) ;
+
+  }
+
+  .app-root , .app-page{
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .app-content {
+    padding-bottom: 0 !important;
+
+  }
+
+  .flickity-page-dots {
+    bottom: 112px;
+  }
+
+  .flickity-page-dots .dot {
+    width: 8px;
+    height: 8px;
+    opacity: 1;
+    background: #A2A2A2;
+    border-radius: 50%;
+    margin: 0 4px;
+  }
+
+  .flickity-page-dots .dot.is-selected {
+    background: white;
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Make Flickity carousel fill the screen */
+  .main-carousel {
+    height: 100vh;
+    /* Full viewport height */
+    width: 100vw;
+    /* Full viewport width */
+  }
+
+  .carousel-cell {
+    display: block;
+    height: 100vh;
+    /* Each cell also takes up full height */
+    width: 100vw;
+    /* Each cell takes up full width */
+    position: relative;
+    /* So we can position the image inside */
+    overflow: hidden;
+    /* Hide overflow to avoid crop issues */
+  }
+
+  /* Image inside Flickity cell */
+  .carousel-cell img {
+    position: absolute;
+    top: 0;
+    /* Position image at the bottom */
+    left: 50%;
+    max-height: fit-content;
+    border-radius: 0px;
+    /* Center image horizontally */
+    transform: translateX(-50%) !important;
+    /* Align center */
+    object-fit: cover;
+    /* Ensure image scales without distorting */
+  }
+</style>

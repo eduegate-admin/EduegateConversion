@@ -1,0 +1,126 @@
+<div class="app-page flex-column flex-column-fluid" controller="ProfileController">
+
+
+    <div class="app-content flex-column-fluid">
+        <div class="app-header d-flex shodow-sm">
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+                id="kt_app_header_container">
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                    <a ui-sref="onlinestore({loadBlocks:false})" ui-sref-opts="{reload: true}">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg"
+                            class="h-25px">
+                    </a>
+                </div>
+                <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+                    <div class="d-flex align-items-center d-lg-none ms-2">
+                        <span class="svg-icon svg-icon-2x position-relative" ui-sref="singlecheckout">
+                            <span
+                                class="rounded-circle position-absolute bg-dark badge translate-end bottom-100 start-100 h-20px w-20px fs-9 text-grey-800 mb-n3 ms-n3 d-flex flex-center"
+                                ng-bind="ShoppingCartCount"
+                                ng-if="ShoppingCartCount > 0">5</span><!-- end ngIf: ShoppingCartCount > 0 -->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+                                fill="currentColor"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                <path
+                                    d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z">
+                                </path>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        Allergy Details
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5" ng-init="init()">
+            <div class="row gy-5 g-xl-10">
+                <div class="col-xl-4">
+                    <div class="d-flex align-items-center flex-column mb-5 mx-5">
+                        <div class="text-center">
+                            <a class="text-gray-800 text-hover-primary fs-4 fw-bolder">{{UserDetail.UserName}}</a><br>
+                            <a class="text-gray-800 text-hover-primary fs-4 fw-bolder">{{UserDetail.LoginUserID}}</a>
+                            <span class="text-gray-600 fw-semibold d-block fs-7 mb-1">Parent</span>
+                        </div>
+                    </div>
+                </div>
+                <div  class="col-xl-4">
+                    <div class="accordion" id="kt_accordion_1" >
+                        <div class="accordion-item" ng-repeat="ward in MyWards" >
+                            <h2 class="accordion-header border" id="kt_accordion_1_header_2">
+                                <button class="accordion-button fs-4 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#kt_accordion_1_body_{{$index}}"
+                                    aria-expanded="false" aria-controls="kt_accordion_1_body_{{$index}}">
+                                    <div class="d-flex fs-6 fw-bold align-items-start w-100 justify-content-between flex-column">
+                                        <div class="d-flex flex-center">
+                                            <div class="text-gray-700 flex-grow-1 ">{{ward.FirstName}} {{ward.MiddleName}} {{ward.LastName}}</div>
+
+                                            <span class="badge bg-primary text-inverse-primary py-2 px-3 ms-5">
+                                                {{ward.AdmissionNumber}}
+
+
+                                            </span>
+                                        </div>
+                                        <span class="badge bg-primary text-inverse-primary py-2 px-3">
+                                            {{ward.ClassName}}
+                                        </span>
+                                    </div>
+                                </button>
+                            </h2>
+                            <div id="kt_accordion_1_body_{{$index}}" class="accordion-collapse collapse show" ng-class='{show:$first}' aria-labelledby="kt_accordion_1_header_{{$index}}"  data-bs-parent="#kt_accordion_{{$index}}">
+                                <div class="accordion-body">
+                                    <div class="row g-5">
+                                            <div class="my-5">
+                                                Selected Student Allergies
+                                                <div ng-repeat="sustudentAllergies in StudentAllergies">
+                                                    <div class="" ng-if="ward.StudentIID == sustudentAllergies.StudentID">
+                                                        <span class="badge bg-primary text-inverse-primary py-2 px-3 me-3 mb-3"
+                                                            ng-repeat="Allergiesa in sustudentAllergies.Allergies">{{Allergiesa.AllergyName}} -
+                                                            {{Allergiesa.AllergySeverityName}} </span>
+                                                    </div>
+                                                </div>
+                                                <div class="card" ng-repeat="allergy in Allergies">
+                                                    <div class="card-body">
+                                                        <div class="form-group d-flex align-items-center mb-3">
+                                                            <div class="d-flex flex-column me-4">
+                                                                <h4 class="fw-bold text-dark mb-0">{{allergy.Value}}</h4>
+                                                            </div>
+                                                            <div class="d-flex justify-content-end">
+                                                                <div class="form-check form-check-custom form-check-solid form-check-success form-switch">
+                                                                    <input type="hidden" value="false" name="layout-allergy-{{ward.FirstName}}-{{allergy.Value}}">
+                                                                    <input ng-model="checked" class="form-check-input w-45px h-30px" type="checkbox" value="true"  name="layout-allergy-{{ward.FirstName}}-{{allergy.Value}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group " ng-repeat="severity in Severity">
+                                                            <div class="d-flex gap-7 mb-3">
+                                                                <div class="form-check form-check-custom form-check-success form-check-solid form-check-sm">
+                                                                    <input  ng-model="value"  ng-disabled="!checked" value="{{severity.Key}}" ng-change="SaveAllergies($event, ward.StudentIID, {{allergy.Key}}, severity)" class="form-check-input" type="radio" checked=""  id="layout-severity-{{ward.FirstName}}-{{allergy.Value}}-{{severity.Value}}" name="layout-severity-{{ward.FirstName}}-{{allergy.Value}}">
+                                                                    <label class="form-check-label text-gray-700 fw-bold text-nowrap" for="layout-severity-{{ward.FirstName}}-{{allergy.Value}}-{{severity.Value}}">{{severity.Value}} </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

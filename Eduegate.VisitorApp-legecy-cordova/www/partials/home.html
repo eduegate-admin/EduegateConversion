@@ -1,0 +1,9 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="HomeController" ng-init="Init()">
+    <!-- <div class="headerBar">
+        <ng-include src="'partials/header.html'"></ng-include>
+    </div>   -->
+    
+    <div class="excludeHeaderInner fullheight overflowY" ng-if="IsLoggedIn">
+        <ng-include src="'partials/superadminhome.html'"></ng-include>
+    </div>   
+</div>

@@ -1,0 +1,292 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="FeePaymentController">
+    <div class="app-content flex-column-fluid">
+        <div class="app-header d-flex shodow-sm">
+            <!--begin::Header container-->
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12 ">
+                <!--begin::Logo-->
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                    <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                    </a>
+                </div>
+                <!--end::Logo-->
+                <!--begin::Header mobile toggle-->
+                <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+
+                </div>
+                <!--end::Header mobile toggle-->
+            </div>
+            <!--end::Header container-->
+        </div>
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">Fee
+                        payment
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5 mb-20 ios-pb-10">
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+                    <div class="row g-6 g-xl-9" ng-init="init()">
+                        <div class="col-xl-4" ng-show="$root.ShowLoader == false">
+                            <div class="d-flex h-100 ">
+                                <div class="w-100 d-flex flex-column  rounded-2 theme-dark-bg-body py-10 px-10 bg-white rounded-3" >
+                                    <div class="mb-7">
+                                        <h1 class="text-grey-900 mb-5 fw-bolder">Student Fee Summary</h1>
+                                        <div class="d-flex justify-content-between">
+                                        <div class="text-grey-800 fs-4  mb-5">
+                                            Grand total amount for payment
+                                        </div>
+
+                                        <div class="text-grey-900">
+                                            <span class="text-gray-900  fs-4  fw-bold me-12 "  data-highlightword="{{$root.DefaultDisplayCurrency}}"></span>
+                                            <span class="text-gray-900  fs-3  fw-bolder " ng-bind="GetTotalFeePayAmount(FeeDueDetails)|number:2 "></span>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="text-grey-900 mb-5 fs-4 fw-bold">Payment Method</div>
+
+                                    <div class="w-100  px-3" data-kt-buttons="true">
+
+                                        <label class="btn rounded-2 btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-stack text-start p-3 mb-5">
+                                            <div class="d-flex align-items-center me-2">
+                                                <div class="d-flex align-items-center">
+                                                    <a class="symbol symbol-50px">
+                                                        <span class="symbol-label">
+
+                                                        <img src="./images/credit_card.png" class="h-40px"/>
+
+                                                        </span>
+
+                                                    </a>
+                                                    <div class="ms-5">
+                                                        <div class="text-gray-800 text-hover-primary fs-5 fw-bold">Debit card</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
+                                                <input class="form-check-input" type="radio" id="Debit" name="PaymentMethod" value="Debit" checked ng-click="ChangePaymentMethod('DebitCard')">
+                                            </div>
+                                        </label>
+                                        <label class="btn rounded-2 btn-outline btn-outline-dashed btn-active-light-primary d-flex flex-stack text-start p-3 mb-5 w-100">
+                                            <div class="d-flex align-items-center me-2">
+                                                <div class="d-flex align-items-center">
+                                                    <a class="symbol symbol-50px">
+                                                        <span class="symbol-label">
+                                                            <img src="./images/debit_card.png" class="h-40px"/>
+
+                                                        </span>
+                                                    </a>
+                                                    <div class="ms-5">
+                                                        <div class="text-gray-800 text-hover-primary fs-5 fw-bold">Credit card</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
+                                                <input class="form-check-input" type="radio" id="Credit" name="PaymentMethod" value="Credit"  ng-click="ChangePaymentMethod('CreditCard')">
+                                            </div>
+                                        </label>
+
+                                    </div>
+                                    <div class="d-flex flex-end">
+                                    <button class="btn btn-primary mt-4" type="submit" ng-click="FeePaymentClick()"  ng-disabled="IsClickToPay">
+                                        Proceed to Pay
+                                    </button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="accordion" id="kt_accordion_1">
+
+
+                                <div class="accordion-item" ng-repeat="gridModel in FeeDueDetails track by $index"
+                                ng-init="current2 = $parent.start; $parent.start=$parent.start+1;">
+                                    <h2 class="accordion-header" id="kt_accordion_1_header_2">
+                                        <button class="accordion-button fs-4 fw-bold collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#kt_accordion_1_body_{{$index}}"
+                                            aria-expanded="false" aria-controls="kt_accordion_1_body_{{$index}}">
+
+                                            <div
+                                                class="d-flex fs-6 fw-bold align-items-center w-100 justify-content-between">
+
+                                                <div class="d-flex flex-column">
+                                                    <div class="text-gray-700 flex-grow-1 me-4 mb-3">
+                                                        {{gridModel.StudentName}}</div>
+                                                    <div
+                                                        class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap ">
+                                                        Total amount :&nbsp;
+                                                        <span class="" data-highlightword="{{$root.DefaultDisplayCurrency}}">&nbsp;{{gridModel.OldTotalAmount   | currency : $root.DefaultDisplayCurrency }}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex flex-column  align-items-end me-6">
+                                                    <div class="fw-bold fs-6 text-gray-800 d-flex   mb-3">
+                                                        Pay
+                                                    </div>
+                                                    <span class="text-gray-900  fs-4  fw-bold "  data-highlightword="{{$root.DefaultDisplayCurrency}}">
+                                                    <div class="fw-bolder text-nowrap text-xxl-end ms-12">{{gridModel.NowPaying|number:2 }}</div></span>
+                                                </div>
+
+                                            </div>
+
+                                        </button>
+                                    </h2>
+                                    <div id="kt_accordion_1_body_{{$index}}" class="accordion-collapse collapse"
+                                        ng-class='{show:$first}' aria-labelledby="kt_accordion_1_header_{{$index}}"
+                                        data-bs-parent="#kt_accordion_{{$index}}">
+                                        <div class="accordion-body">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle gs-0 gy-6">
+                                                    <thead>
+                                                        <tr ng-if="gridModel.StudentFeeDueTypes.length > 0">
+                                                            <th class="border-0">
+                                                                <div class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="1" id="flexCheckStudentDefault_{{$index}}" ng-model="gridModel.IsSelected" ng-change="UpdateStudentFee(gridModel)"/>
+                                                                </div>
+                                                            </th>
+
+                                                            <th class="min-w-100px border-0">Fee master</th>
+                                                            <th class="text-end min-w-50px border-0">
+                                                                <span class="text-gray-900  fs-4  fw-bold me-12"  data-highlightword="{{$root.DefaultDisplayCurrency}}"></span>
+
+                                                                Amount</th>
+                                                            <th class="text-end border-0"></th>
+                                                        </tr>
+                                                        <tr ng-if="gridModel.StudentFeeDueTypes.length == 0">
+                                                            <span>There is no dues found!</span>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr
+                                                            ng-repeat="gridTypeModel in gridModel.StudentFeeDueTypes track by $index">
+                                                            <td>
+                                                                <div class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="1" id="flexCheckTypeDefault_{{$index}}" ng-model="gridTypeModel.IsPayingNow" ng-change="UpdateTypeFee(gridTypeModel, gridModel)"/>
+                                                                </div>
+                                                            </td>
+                                                            <td data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">
+                                                                <span
+                                                                    class="text-gray-600 fw-bold fs-6"  >{{gridTypeModel.FeeMaster.Value}} &nbsp;
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                                                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                                                      </svg>
+                                                                    </span>
+                                                            </td>
+                                                            <td class="text-end">
+
+                                                                <span ng-class="{'text-decoration-line-through' : gridTypeModel.Amount != gridTypeModel.NowPaying }"
+                                                                    class="text-gray-800 fw-bold fs-6 ms-6 text-nowrap">&nbsp;{{gridTypeModel.Amount|number:2 }} </span>
+                                                                    <span ng-if="gridTypeModel.IsPayingNow == true && gridTypeModel.Amount != gridTypeModel.NowPaying"
+                                                                    class="text-warning fw-bold fs-6 ms-6 text-nowrap">&nbsp;{{gridTypeModel.NowPaying|number:2 }} </span>
+                                                            </td>
+                                                            <td class=" text-end" >
+                                                                <div class="d-flex justify-content-end flex-shrink-0" data-bs-toggle="modal"  data-bs-backdrop="static"   data-bs-target="#kt_modal_{{$index}}{{current2}}" ng-if="gridTypeModel.FeeDueMonthlySplit.length > 0">
+
+
+                                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
+                                                                    <span class="svg-icon svg-icon-3">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
+                                                                            <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"/>
+                                                                          </svg>
+                                                                    </span>
+                                                                </div>
+                                                                <script>
+                                                                    $('#kt_modal_{{$index}}{{current2}}').appendTo("body")
+                                                                </script>
+
+                                                                <div class="modal fade"  id="kt_modal_{{$index}}{{current2}}"
+                                                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"   data-bs-backdrop="static" data-bs-keyboard="false"  >
+                                                                    <div class="modal-dialog p-5 p-lg-10 modal-dialog-centered">
+                                                                        <div class="modal-content  " style="z-index: 10000;">
+                                                                            <div class="modal-body scroll-y pb-0">
+                                                                                <div class="">
+                                                                                    <div class="flex-column" role="tablist">
+                                                                                        <label ng-repeat="gridModelMonth in gridTypeModel.FeeDueMonthlySplit track by $index"
+                                                                                            class="btn btn-outline  btn-color-dark  d-flex flex-stack text-start p-6 mb-6 "
+
+                                                                                            ng-class="{'btn-active-primary ' : gridModelMonth.IsRowSelected == true}"
+                                                                                            data-bs-toggle="tab" data-bs-target="#kt_upgrade_plan_startup" aria-selected="true" role="tab">
+                                                                                            <div class="d-flex align-items-center me-2">
+                                                                                                <div class="flex-grow-1">
+                                                                                                    <div class="d-flex align-items-center fs-2 fw-bold flex-wrap">
+                                                                                                        {{gridModelMonth.MonthName}}
+                                                                                                        {{gridModelMonth.Year}}
+                                                                                                    </div>
+                                                                                                    <div class="fw-bold opacity-75">
+                                                                                                        Amount : {{gridModelMonth.TotalAmount}}
+                                                                                                    </div>
+                                                                                                    <div class="fw-bold opacity-75">
+                                                                                                        Credit Note : {{gridModelMonth.CreditNote}}
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="ms-5">
+                                                                                                <span class="mb-2">QAR</span>
+                                                                                                <span class="fs-3x fw-bold">
+                                                                                                    {{gridModelMonth.NowPaying}} </span>
+                                                                                            </div>
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer d-flex justify-content-end">
+
+                                                                                <button type="button" class="btn btn-primary me-5" data-bs-dismiss="modal">Done</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"
+                                ng-if="!ShowLoader && FeeDueDetails.length == 0">
+                                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4"><svg width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5"
+                                            fill="currentColor" />
+                                        <rect x="7" y="15.3137" width="12" height="2" rx="1"
+                                            transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                        <rect x="8.41422" y="7" width="12" height="2" rx="1"
+                                            transform="rotate(45 8.41422 7)" fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <div class="d-flex flex-column">
+                                    <h3 class="mb-1 text-danger">Not found!</h3>
+                                    <span>There is no due details found!</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="fixed-bottom ">
+                    <div class="app-toolbar d-flex d-grid gap-2 px-5 py-2 justify-content-between align-items-center ios-pb-10 bg-white">
+                        <div class="text-center">
+
+                            <span class="text-gray-900  fs-4  fw-bold me-6 "  data-highlightword="{{$root.DefaultDisplayCurrency}}"></span>
+                            <span class="text-gray-900  fs-4  fw-bold ms-6"  ng-bind="GetTotalFeePayAmount(FeeDueDetails)|number:2"></span>
+                        </div>
+                        <button class="btn  btn-primary fs-3 fw-bolder  rounded-4 " ng-click="FeePaymentClick()" >Proceed to Pay</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,460 @@
+﻿<div class="app-page flex-column flex-column-fluid">
+    <div class="app-content flex-column-fluid">
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-toolbar  w-100 ">
+
+            <div class="app-container  container-xxl d-flex flex-column">
+                <div class=" card-xl-stretch mb-20">
+
+                    <div class="card-body p-0">
+                        <div class="card-p position-relative">
+                            <div class="form-horizontal panel-body pb-2 pt-4">
+                                <div class="scheduleWrapper innertab subject first">
+                                    <div class="d-flex flex-center">
+                                        <div class="">
+                                            <select id="attendanceMonth" ng-change="getStudentAttendance()"
+                                                ng-disabled="true"
+                                                class="select-arrow rounded-3 text-gray-100 border-0 fs-2x h-auto"
+                                                ng-model="SelectedDate.SelectedMonth">
+                                                <option value="0">Jan</option>
+                                                <option value="1">Feb</option>
+                                                <option value="2">Mar</option>
+                                                <option value="3">Apr</option>
+                                                <option value="4">May</option>
+                                                <option value="5">Jun</option>
+                                                <option value="6">Jul</option>
+                                                <option value="7">Aug</option>
+                                                <option value="8">Sep</option>
+                                                <option value="9">Oct</option>
+                                                <option value="10">Nov</option>
+                                                <option value="11">Dec</option>
+                                            </select>
+                                        </div>
+                                        <div class="">
+                                            <select id="attendanceYear" ng-change="getStudentAttendance()"
+                                                ng-disabled="true"
+                                                class="select-arrow rounded-3  text-gray-100 border-0 fs-2x h-auto"
+                                                ng-model="SelectedDate.SelectedYear">
+                                                <option ng-repeat="year in Years track by $index" value="{{year}}">
+                                                    {{year}}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <!-- <div class="col-6 h-1px" style=" visibility: hidden">
+                                            <label>Day</label>
+                                            <select id="attendanceDay" ng-change="getStudentAttendance()"
+                                                class="select-arrow rounded-3" ng-model="SelectedDate.SelectedDay">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                                                <option value="24">24</option>
+                                                <option value="25">25</option>
+                                                <option value="26">26</option>
+                                                <option value="27">27</option>
+                                                <option value="28">28</option>
+                                                <option value="29">29</option>
+                                                <option value="30">30</option>
+                                                <option value="31">31</option>
+                                            </select>
+                                        </div> -->
+                                    </div>
+
+
+                                    <div class="row">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="nav flex-nowrap overflow-auto nav-stretch nav-pills nav-pills-custom nav-pills-active-custom d-flex justify-content-between mb-8 px-5"
+                            role="tablist" id="dateTabList">
+                            <!-- Loop to generate date tabs -->
+                            <li class="nav-item p-0 ms-0" role="presentation" ng-repeat="date in dateRange">
+                                <a class="nav-link btn d-flex flex-column flex-center rounded-2 min-w-45px py-4 px-5 btn-active-info"
+                                    id="attendanceDay{{ $index }}" ng-click="getStudentAttendance(date)"
+                                    data-bs-toggle="tab" href="#kt_timeline_widget_3_tab_content_{{$index + 1}}"
+                                    aria-selected="{{isSelectedDate(date) ? 'true' : 'true'}}" role="tab" tabindex="-1">
+                                    <span class="fs-6 fw-semibold">{{date.dayName}}</span>
+                                    <span class="fs-2x fw-bold text-gray-500">{{date.date}}</span>
+                                </a>
+                            </li>
+                        </ul>
+
+
+
+
+
+                        <!--end::Stats-->
+                    </div>
+                    <!--end::Body-->
+                </div>
+
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5  mt-n5 rounded-3 bg-light">
+            <span class="red inputerror" style="text-align: center;" ng-="ErrorMessage"
+                ng-if="ErrorMessage!=''">{{ErrorMessage}}</span>
+
+            <div class="row g-6 g-xl-9">
+                <div class="col-md-6 col-xxl-4">
+                    <div class="card mt-n20">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="mb-2">Class</label>
+                                    <select required name="selectedClass" id="selectedClass" ng-model="selectedClass"
+                                        class="form-select form-select-solid select-arrow rounded-2"
+                                        ng-change="ClassSectionChange(dateRange[SelectedDay -1])">
+                                        <option ng-repeat="cls in Classes" value="{{cls.Key}}">
+                                            {{cls.Value}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label class="mb-2">Section</label>
+                                    <select required name="selectedSection" id="selectedSection"
+                                        ng-model="selectedSection"
+                                        class="form-select form-select-solid select-arrow rounded-2"
+                                        ng-change="ClassSectionChange(dateRange[SelectedDay -1])">
+                                        <option ng-repeat="sec in Sections" value="{{sec.Key}}">
+                                            {{sec.Value}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xxl-4">
+                    <button class="btn btn-primary w-100" ng-click="SendAttendanceNotificationsToParents()"
+                        value="{{NotificationButton}}" ng-disabled="disablebutton">{{NotificationButton}}</button>
+
+                </div>
+                <div class="col-md-6 col-xxl-4">
+
+                    <div class="prod-tab-wrap">
+
+
+                        <div class="container-fluid mx-0 px-0">
+                            <div class="row my-3">
+                                <div class="col" ng-repeat="student in Students  track by student.StudentIID"
+                                    ng-init="current = $parent.start; $parent.start=$parent.start+1;">
+                                    <div id="profile-header" class="card header-wrapper fileOnlyHeader-23hdD  mb-3 ">
+                                        <div class="header-wrapper-inner pb-2">
+                                            <div class="resume-header-wrapper">
+                                                <div class="resume-header grid-container mx-3">
+                                                    <div class="grid-row centered">
+                                                        <div
+                                                            class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                            <div class="header-text shadow-border">
+                                                                <div class="avatar-outer fs-mask">
+                                                                    <div
+                                                                        class="avatar-container avatar-css horizontal position-relative overflow-hidden">
+                                                                        <img ng-src="{{student.StudentProfileImageUrl}}"
+                                                                            on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                                            style=" background-size:cover;
+                                                                    background-repeat:no-repeat; top: 0;"
+                                                                            class="position-absolute w-100" />
+
+                                                                        <!-- <div class="first-letter">A</div>
+                                                                    <div>N</div> -->
+                                                                    </div>
+                                                                </div>
+                                                                <div class="header-text-inner">
+                                                                    <div
+                                                                        class="fullname heading3 fs-mask text-gray-800">
+                                                                        {{::student.StudentFullName}}</div>
+                                                                    <div class="location fs-mask">
+
+                                                                        <!-- <img class="icon-3-7xg css-1xqhio eac13zx0" src = "./clients/{{$root.ClientSettings.Client}}/images/location.svg" alt="My Happy SVG"/> -->
+
+                                                                        <span class="text-capitalize text-gray-800">
+                                                                            {{::student.AdmissionNumber}}</span>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="attendanceStatus border-end position-relative border-bottom "
+                                            ng-repeat="attendence in student.attendances track by $index"
+                                            title="{{attendence.reason}}"
+                                            ng-class="{Today: attendence.day == CurrentDate.getDate() && attendence.year == CurrentDate.getFullYear() && attendence.month == CurrentDate.getMonth()}">
+                                            <span style="
+                                position: absolute;
+                                right: 24px;
+                                margin-bottom: 10px;
+                                top: -49px;
+                                padding-left: 8px;
+                                font-size:20px;
+                            " ng-if="(attendence.actualDate <= CurrentDate && attendence.actualDate >= attendence.feeStartDate)"
+                                                title="{{attendence.reason}}">
+                                                <!-- <div class="attendanceMore"
+                                        ng-click="SetAttendenceStatus('.gridItemPopupAttendence',$event, attendence, student);">
+                                        ...</div> -->
+                                                <!-- <a class="attendanceStatus" ng-click="MarkAsPresent(attendence, student);"> -->
+                                                <i class="attendanceStatus badge  fs-base"
+                                                    ng-class="{'Pressent_A': attendence.statusTitle==='A' , 'Pressent_AE': attendence.statusTitle==='AE',  'Pressent_L': attendence.statusTitle==='L', 'Pressent_NA': attendence.statusTitle==='NA', 'Pressent_P': attendence.statusTitle==='P', 'Pressent_T': attendence.statusTitle==='T', 'Pressent_TE': attendence.statusTitle==='TE', 'Pressent_UM': attendence.statusTitle==='UM', 'Pressent_W': attendence.statusTitle==='W', 'Pressent_H': attendence.statusTitle==='H'}"
+                                                    aria-hidden="true"
+                                                    ng-class="{'Pressent_A': attendence.statusTitle==='A' , 'Pressent_AE': attendence.statusTitle==='AE',  'Pressent_L': attendence.statusTitle==='L', 'Pressent_NA': attendence.statusTitle==='NA', 'Pressent_P': attendence.statusTitle==='P', 'Pressent_T': attendence.statusTitle==='T', 'Pressent_TE': attendence.statusTitle==='TE', 'Pressent_UM': attendence.statusTitle==='UM', 'Pressent_W': attendence.statusTitle==='W', 'Pressent_H': attendence.statusTitle==='H'}">
+                                                    <span ng-bind="attendence.StatusDescription"></span>
+                                                </i>
+
+                                                </a>
+                                            </span>
+
+
+                                            <section class="w-100 p-2  d-flex  justify-content-end text-center">
+                                                <div class="btn-group p-2" ng-repeat="sts in PresentAbsentStatuses"
+                                                    ng-if="(attendence.actualDate <= CurrentDate && attendence.actualDate >= attendence.feeStartDate)"
+                                                    ng-init="current3 = $parent.start; $parent.start=$parent.start+1;">
+                                                    <input type="radio" class="btn-check"
+                                                        name="flexRadioDefault-{{current.toString()}}"
+                                                        ng-click="MarkStudentAttendance(attendence, student,sts.PresentStatusID);"
+                                                        value="sts.PresentStatusID"
+                                                        id="option-{{sts.StatusDescription}}{{current.toString() + current3.toString()}}"
+                                                        autocomplete="off" />
+                                                    <label class="btn btn-secondary btn-light ripple-surface-dark"
+                                                        ng-class="{'Pressent_A': attendence.statusTitle==='A'&& sts.StatusTitle === 'A' , 'Pressent_P': attendence.statusTitle==='P' && sts.StatusTitle === 'P' , 'present-button  btn-success' : sts.StatusDescription === 'Present' , 'absent-button  btn-danger' : sts.StatusDescription === 'Absent'}"
+                                                        data-mdb-ripple-color="danger"
+                                                        for="option-{{sts.StatusDescription}}{{current.toString() + current3.toString()}}">{{sts.StatusDescription}}</label>
+                                                    <!-- <input type="radio" ng-click="MarkAsPresentClick(attendence, student,6);" class="btn-check" value="6"  name="flexRadioDefault-{{current.toString()}}" id="option-Presnet{{current}}" autocomplete="off" />
+                                            <label class="btn btn-secondary btn-light ripple-surface-dark btn-success present-button"  ng-class="{ 'Pressent_P': attendence.statusTitle==='P'}" data-mdb-ripple-color="success" for="option-Presnet{{current}}">Present</label> -->
+                                                </div>
+                                            </section>
+                                            <div class="accordion"
+                                                ng-if="(attendence.actualDate <= CurrentDate && attendence.actualDate >= attendence.feeStartDate)"
+                                                id="accordionFlushExample">
+                                                <div class="accordion-item bg-transparent border-0">
+                                                    <h2 class="accordion-header"
+                                                        id="flush-heading{{current.toString()}}">
+                                                        <button
+                                                            class="accordion-button accordion-button-attendece collapsed"
+                                                            type="button" data-bs-toggle="collapse"
+                                                            data-bs-target="#flush-collapse{{current.toString()}}"
+                                                            aria-expanded="false" aria-controls="flush-collapseOne">
+
+                                                        </button>
+                                                    </h2>
+                                                    <div id="flush-collapse{{current.toString()}}"
+                                                        class="accordion-collapse collapse"
+                                                        aria-labelledby="flush-heading{{current.toString()}}"
+                                                        data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body p-4 mx-10">
+
+                                                            <div class="form-check p-3"
+                                                                ng-repeat="status in AttendanceStatuses"
+                                                                value="{{status.PresentStatusID}}"
+                                                                ng-init="current2 = $parent.start; $parent.start=$parent.start+1;">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="flexRadioDefault-{{current.toString()}}"
+                                                                    ng-click="MarkStudentAttendance(attendence,student,status.PresentStatusID);"
+                                                                    id="flexRadioDefault-{{current.toString()+ current2.toString()}}" />
+                                                                <label class="form-check-label"
+                                                                    for="flexRadioDefault-{{current.toString()+ current2.toString()}}">
+                                                                    {{status.StatusDescription}}
+                                                                    ({{status.StatusTitle}}) </label>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-xxl-4">
+                    <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"
+                        ng-if="!ShowLoader && CircularList.length == 0">
+                        <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                                <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)"
+                                    fill="currentColor" />
+                                <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)"
+                                    fill="currentColor" />
+                            </svg>
+                        </span>
+                        <div class="d-flex flex-column">
+                            <h3 class="mb-1 text-danger">Not found!</h3>
+                            <span>Circular not found, please try again later.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="attendents_Status gridItemPopup">
+        <span class="tooltipArrow"></span>
+        <div class="gridItemPopupInner">
+            <div class="rejectContent gridItemContent" data-attr="rejectStatus">
+                <p class="noMarginBtm">Present Status</p>
+                <div class="controls brand">
+                    <select class="validate" required="" aria-required="true" name="PresentStatus" id="PresentStatus"
+                        ng-options="item as item.Value for item in PresentStatuses track by item.Key"
+                        ng-model="PresentStatus"></select>
+                    <!-- <i class="dropdownarrow fa fa-caret-down"></i> -->
+                </div>
+                <p class="noMarginBtm">Reason</p>
+                <div class="controls brand">
+                    <select class="validate" required="" aria-required="true" name="AttendenceReason"
+                        id="AttendenceReason"
+                        ng-options="item as item.Value for item in AttendenceReasons track by item.Key"
+                        ng-model="AttendenceReason"></select>
+                    <!-- <i class="dropdownarrow fa fa-caret-down"></i> -->
+                </div>
+                <p class="noMarginBtm">Notes</p>
+                <div class="controls">
+                    <input type="text" ng-model="Reason" />
+                </div><br />
+                <input type="button" value="Mark as absent" class="button-orange"
+                    ng-click="MarkAsAbsent('.gridItemPopup');" />
+            </div>
+
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>
+
+
+
+<style>
+    .monthPicker .ui-datepicker-calendar {
+        display: none;
+    }
+
+    .Pressent_A {
+        font-weight: bold;
+        color: var(--danger);
+        background-color: var(--danger-light);
+    }
+
+    .Pressent_AE {
+        color: var(--warning);
+        background-color: var(--warning-light);
+        font-weight: bold;
+    }
+
+    .Pressent_H {
+        color: var(--primary);
+        background-color: var(--primary-light);
+        font-weight: bold;
+    }
+
+    .Pressent_L {
+        color: var(--primary);
+        background-color: var(--primary-light);
+        font-weight: bold;
+    }
+
+    .Pressent_NA {
+        color: var(--light-inverse);
+        background-color: var(--light);
+        font-weight: bold;
+    }
+
+    .Pressent_P {
+        color: var(--success);
+        background-color: var(--success-light);
+        font-weight: bold;
+    }
+
+    .Pressent_T {
+        color: #12616b !important;
+        background-color: var(--warning-light);
+        font-weight: bold;
+    }
+
+    .Pressent_TE {
+        color: #12616b !important;
+        background-color: var(--warning-light);
+        font-weight: bold;
+    }
+
+    .Pressent_UM {
+        color: var(--light-inverse);
+        background-color: var(--light);
+        font-weight: bold;
+    }
+
+    .Pressent_W {
+        color: #be2323 !important;
+        background-color: var(--warning-light);
+        font-weight: bold;
+    }
+
+    .mainGrid {
+        max-height: 100vw;
+        overflow-y: auto;
+        width: 100%;
+        clear: both;
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        padding: 10px;
+    }
+
+    .list-table th {
+        background-color: #fff;
+    }
+
+    .list-table tr {
+        background-color: #fff;
+    }
+
+
+    .app-toolbar {
+        background-color: #5F3787;
+        background-image: url(../clients/{{$root.ClientSettings.Client}}/images/b-g.svg);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center top;
+    }
+
+    .nav.nav-pills.nav-pills-custom.nav-pills-active-custom .nav-item .nav-link.active span:nth-child(1) {
+        font-size: 13px !important;
+    }
+
+    .nav.nav-pills.nav-pills-custom.nav-pills-active-custom .nav-item .nav-link.active span:nth-child(2) {
+        font-size: 32px !important;
+        line-height: 32px;
+
+    }
+</style>

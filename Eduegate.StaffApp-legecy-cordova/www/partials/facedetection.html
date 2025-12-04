@@ -1,0 +1,59 @@
+﻿<!-- partials/facedetection.html -->
+
+<div  class="face-detection-container">
+
+    <!-- This part of your UI is for setup and can remain as is -->
+    <h2>Offline Student Data Sync</h2>
+    <button class="btn btn-primary" ng-click="syncStudentData()" ng-disabled="isLoading">
+        {{ isLoading ? 'Syncing...' : 'Sync Student Data for Offline Use' }}
+    </button>
+    <p>{{ syncMessage }}</p>
+    <hr>
+
+    <!-- This search is separate from the live detection -->
+    <!-- <h3>Test Local Storage Search</h3>
+    <div ng-if="foundStudent">
+        <h4>Found Student:</h4>
+        <p><strong>Name:</strong> {{ foundStudent.StudentName }}</p>
+        <p><strong>ID:</strong> {{ foundStudent.StudentIID }}</p>
+        <img ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{foundStudent.StudentProfile}}"
+            alt="Student Photo" style="max-width: 100px;" />
+    </div> -->
+
+    <!-- Loading Overlay (Unchanged) -->
+    <div class="loading-overlay" ng-if="ui.loading">
+        <div class="spinner"></div>
+        <p>{{ ui.message }}</p>
+    </div>
+
+    <!-- Video Feed and Canvas Overlay -->
+    <!-- MODIFIED: Wrapper needs the 'video-container' class for CSS positioning -->
+    <div class="video-container" ng-hide="ui.loading || ui.matchFound">
+        <video id="video" autoplay muted playsinline></video>
+
+        <!-- ADDED: The canvas for drawing the face mesh and box -->
+        <canvas id="overlayCanvas"></canvas>
+    </div>
+
+    <!-- Status Bar for Feedback (Unchanged) -->
+    <div class="status-bar" ng-class="ui.statusClass" ng-hide="ui.loading">
+        <div ng-if="!ui.matchFound">{{ ui.message }}</div>
+        <div ng-if="ui.matchFound" class="welcome-message">{{ ui.message }}</div>
+        <div ng-if="!ui.matchFound" class="liveness-status" ng-class="ui.livenessClass">{{ ui.livenessMessage }}</div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls mt-3">
+        <!-- We will hide the manual capture button for now to focus on the automatic loop -->
+        <!-- <button class="btn btn-primary" ng-click="captureAndCompare()" ng-disabled="ui.loading || ui.matchFound"> ... </button> -->
+
+        <!-- This button will now work with the new function -->
+        <button class="btn btn-secondary" ng-click="resetDetection()" ng-if="ui.matchFound">
+            <i class="fa fa-redo"></i> Scan Again
+        </button>
+    </div>
+
+    <!-- This hidden image is no longer needed by the controller, you can safely remove it -->
+    <!-- <img id="knownFace" src="assets/known_faces/student2.jpg" style="display:none;" /> -->
+
+</div>

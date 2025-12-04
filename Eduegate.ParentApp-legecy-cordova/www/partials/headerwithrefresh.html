@@ -1,0 +1,23 @@
+<div class="nav-sidebar align-right">
+    <ul>
+         <li class="licartClick">
+            <a href="" class="cartIcon"  ui-sref="cart" ui-sref-opts="{reload: true}">
+                <span class="count" ng-bind="ShoppingCartCount" ng-if="ShoppingCartCount > 0"></span>
+            </a>
+        </li>
+         <li class="notificationCount" ng-if="$root.NoificationCount > 0">
+            <a ui-sref="notification">
+                <span class="notifyIcon" ng-class="{'hasNotification': $root.NoificationCount > 0}"></span>
+                <span class="count">{{$root.NoificationCount}}</span>
+            </a>
+        </li>
+        <li ng-click="init()">
+            <span class="refreshIcon"><img src="clients/{{$root.ClientSettings.Client}}/img/refreshIcon.png"/></span>
+        </li>
+        <li class="homeIconLink">
+            <a ui-sref="home({loadBlocks:false})">
+                <span class="homeIcon"></span>
+            </a>
+        </li>
+    </ul>
+</div>

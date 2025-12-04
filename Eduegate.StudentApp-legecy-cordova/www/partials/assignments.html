@@ -1,0 +1,145 @@
+﻿<div ng-controller="AssignmentController">
+
+    <div class="app-header d-flex shodow-sm">
+        <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+            id="kt_app_header_container">
+            <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                    <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                </a>
+            </div>
+            <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">Assignments
+                </h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+            </div>
+        </div>
+    </div>
+    <div class="app-container container-xxl" ng-init="init()">
+<div class="row g-5">
+        <div class="dataWrap   col-12 col-md-6" ng-repeat="assignment in AssignmentList">
+
+            <div class="card toggleContainer displayFlex flexColumn ">
+                <div class="toggleHeader displayFlex flexColumn pad10">
+                    <div class="d-flex align-items-center  ">
+                        <div class="d-flex flex-column flex-grow-1 my-lg-0 pe-3 overflow-hidden">
+                            <a  class="text-gray-800 fw-bold text-hover-primary fs-5 capitalize text-lowercase  text-truncate">
+                               <span class="fs-2">{{assignment.Title}}</span> <br>
+                               <span class="text-gray-600 fw-normal fs-5">{{assignment.Subject.Value}}</span>   
+                            </a>
+                            <span class="text-gray-700 fw-normal fs-6 my-1 mw-300px  text-truncate">
+                                {{assignment.Description}}<!-- Employee Email -->
+                            </span>
+                        </div>
+                        <div class="text-gray-700 fw-bold fs-6 text-end d-flex flex-column flex-end">
+                            <!-- You can add other details if needed here -->
+                            <span class="mb-2 text-nowrap">
+                                {{assignment.StartDate | date | date : 'dd-MM-yyyy'}}
+                                 
+                            </span>
+                            <div class="">
+                                <span class="text-primary flexAuto" ng-click="toggleGrid($event);">
+                                    <!-- <i class="fa fa-eye" aria-hidden="true"></i>  -->
+                                    View All
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                
+                    
+
+                </div>
+                <div class="toggleContent pad10 noPaddingTop">
+                    <div class="gridDataWrap">
+                        <span class="fs-5"> {{assignment.Description}}</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Date of submission :</label>
+                        <span>{{assignment.DateOfSubmission | date | date : 'dd-MM-yyyy'}}</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Assignment type :</label>
+                        <span>{{assignment.AssignmentType.Value}}</span>
+                    </div>
+
+                    <div class="gridDataWrap" ng-if="assignment.AssignmentAttachmentMaps.length > 0">
+                        <div class="subTitle"><b>Attachments</b></div>
+                    </div>
+
+                    <div class="gridDataWrap">
+                        <div ng-repeat="attachment in assignment.AssignmentAttachmentMaps track by $index">
+                            <div ng-if="attachment.AttachmentReferenceID != null">
+                                
+                                <div class="d-flex align-items-center border border-1  border-gray-300 rounded w-100  bg-light d-flex flex-wrap overflow-hidden">
+                                    <div class="d-flex flex-aligns-center pe-10 pe-lg-20 p-3">                                 
+                                        <img alt="" class="w-30px me-3" src="./images/pdf.svg">
+                                        <div class="ms-1 fw-semibold">
+                                            <a class="fs-5 text-hover-primary fw-bold" ng-bind="attachment.AttachmentName"></a>
+                                            <div class="text-gray-500 size"></div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-aligns-center  bg-white flex-end w-100 p-2">                                 
+                                        <a ng-click="DownloadURL(attachment.AttachmentReferenceID)" >
+                                            <img src="./images/Downloadsvg.svg" />
+                                            <span class="fs-5">Download</span>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span class="fs-5 mx-4 mb-2" ng-class="{
+                    'text-danger': assignment.DaysLeftNum < 3 && assignment.DaysLeftNum >= 0, 
+                    'text-warning': assignment.DaysLeftNum >= 3,
+                    'text-muted': assignment.DaysLeftNum < 0
+                }">
+                    {{assignment.DaysLeft}}
+                </span>
+                
+            </div>
+
+        </div>
+</div>
+        <div class="col-md-6 col-xxl-4">
+            <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"
+                 ng-if="!ShowPreLoader && AssignmentList.length == 0">
+                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                    <svg width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                        <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)"
+                              fill="currentColor" />
+                        <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)"
+                              fill="currentColor" />
+                    </svg>
+                </span>
+                <div class="d-flex flex-column">
+                    <h3 class="mb-1 text-danger">Not found!</h3>
+                    <span>Assignments not found, please try again later.</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .toggleHeader.active {
+        padding-bottom: 0;
+        font-weight: bold;
+    }
+
+
+</style>

@@ -1,0 +1,88 @@
+{
+  "expo": {
+    "jsEngine": "hermes",
+    "name": "CustomerAppV2.1",
+    "slug": "CustomerAppV2-1",
+    "scheme": "myapp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "packagerOpts": {
+      "url": "https://api.almadinahypermarket.ae"
+    },
+    "ios": {
+      "jsEngine": "jsc",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.foodworld.mobileapp",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        },
+        "UIBackgroundModes": [
+          "remote-notification"
+        ]
+      }
+    },
+    "android": {
+      "googleServicesFile": "./android/app/google-services.json",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.foodworld.mobileapp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-notifications",
+      "expo-video",
+      "expo-localization",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ],
+      "expo-font",
+      [
+        "@react-native-firebase/app",
+        {
+          "android": {
+            "googleServicesFile": "./android/app/google-services.json"
+          },
+          "ios": {
+            "googleServicesFile": "./GoogleService-Info.plist"
+          }
+        }
+      ],
+      [
+        "@react-native-firebase/messaging",
+        {
+          "android": {
+            "requestPermissionsOnAndroid": true
+          },
+          "ios": {
+            "requestPermissionsOnIOS": true
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2d3463b2-e051-4e8a-8d8c-6b1c9cfef4d0"
+      }
+    }
+  }
+}

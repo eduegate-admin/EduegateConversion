@@ -1,0 +1,20 @@
+﻿<div id="mySwipe" class="swiper-container slider PositionRelative" ng-controller="HomeSingleBannerController">
+    <div ng-show="ShowLoaders" id="HomeBannerLoader" class="LoaderSmall">
+        <div>
+            <i class="fa fa-spinner fa-pulse"></i>
+        </div>
+    </div>
+    <div owlslider>
+        <div id="owl-demo" class="owl-carousel owl-theme">
+            <div class="item maxwidth banner-padding" ng-if="homeSingleBanner != null && homeSingleBanner != undefined && homeSingleBanner != ''">
+                <a ng-if="homeSingleBanner.isInternalLink == true && homeSingleBanner.Link != '' && homeSingleBanner.Link != undefined && homeSingleBanner.Link != null" ui-sref="{{homeSingleBanner.Link}}"><img ng-src="{{homeSingleBanner.BannerFile}}" loading="lazy" /></a>
+                <a ng-if="homeSingleBanner.isInternalLink == false && homeSingleBanner.Link != '' && homeSingleBanner.Link != undefined && homeSingleBanner.Link != null" ng-click="$root.WebView(homeSingleBanner.Link)"><img ng-src="{{homeSingleBanner.BannerFile}}" loading="lazy" /></a>
+                <a ng-if="homeSingleBanner.isInternalLink == false && (homeSingleBanner.Link == '' || homeSingleBanner.Link == undefined || homeSingleBanner.Link == null)"><img ng-src="{{homeSingleBanner.BannerFile}}" loading="lazy" /></a>
+                <!--<a href="" ng-click="$root.WebView('http://www.itradeerp.com')"><img ng-src="{{banner.BannerFile}}" /></a>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="swiper-pagination"></div>
+<div class="swiper-button-prev prevslider "></div>
+<div class="swiper-button-next nextslider"></div>-->

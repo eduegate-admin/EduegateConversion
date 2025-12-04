@@ -1,0 +1,20 @@
+﻿<div class="addtocartoptions mainwrap notifywrap noSwipe" ng-if="$root.ShowAddToCartOptions">
+    <div class="product-option-overlay"></div>
+    <div class="notifyme">
+        <div class="align-left fullwidth notifyinner">
+            <!-- <div class="notifyclose" ng-click="">x</div> -->
+            <label class="AddToCartOptionslabel" translate>chooseCut</label>
+            <ul class="fishcut">
+                <li  ng-repeat="option in $root.ProductOptions.ProductOptions" ng-click="$root.SelectedProductOptionID = option.Value.toString();">
+                  <input id="radio" type="radio" value="{{option.Value}}" name="radio" ng-model="$root.SelectedProductOptionID">
+                  <label for="f-option" >{{option.Key}}</label>                  
+                  <div class="check"></div>
+                </li>                
+              </ul>
+              <span class="red inputerror" ng-if="NotifyMeError != '' && NotifyMeError != undefined && NotifyMeError != null" data-ng-bind-html="SkipValidation(NotifyMeError)"></span>
+                <button type="submit" class="btnStyleAddToCartOptions btnGrey" translate ng-click="$root.ShowAddToCartOptions=false">Cancel</button>
+                <button type="submit" class="btnStyleAddToCartOptions btnGrey" translate ng-click="AddtoCart($root.ProductOptions, $root.selectedProductQuantity, $event);">Addtocart</button>              
+          </div>
+        </div>
+    </div>
+</div>

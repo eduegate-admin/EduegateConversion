@@ -1,0 +1,242 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="ClassStudentController">
+
+
+    <div class="app-content flex-column-fluid">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-container container-xxl pt-5">
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+                    <div class="row g-6 g-xl-9" ng-init="Init()">
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="card">
+                                <div class="card-header ">
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-flex flex-center cursor-pointer symbol symbol-circle symbol-60px">
+                                            <img style="    object-fit: cover;     object-position: right top;"
+                                                class="z-index-3 w-60px" on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" alt="image"
+                                                loading="lazy"
+                                                ng-src="{{student.StudentProfileImageUrl}}"
+                                                src="./clients/pearl/images/profile_img.png">
+                                        </div>
+                                        <div class="d-flex flex-column align-items-start justify-content-center ms-3">
+                                            <span class="text-gray-500  fs-8 fw-semibold"></span>
+                                            <span class="fw-normal fs-3x mb-4"> {{student.FirstName}} {{student.MiddleName}}  {{student.LastName}}</span>
+                                            <a class="text-gray-800 fs-4 fw-bold text-hover-primary ng-binding">{{student.AdmissionNumber}}</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-body p-lg-20">
+                                    <div class="d-flex flex-column flex-xl-row">
+                                        <div class="flex-lg-row-fluid me-xl-18">
+                                            <div class="mt-n1">
+
+                                                <div class="m-0">
+                                                    <div class="d-grid g-5 overflow-hidden" style=" grid-template-columns: 120px 24px 1fr;">
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex  align-items-start">
+                                                            <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/Gender.svg" />
+                                                            <span> Gender </span>
+                                                        </div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.GenderName}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/calender.svg" />
+                                                            <span>Date of birth</span>
+                                                        </div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.DateOfBirth | date | date : 'dd-MM-yyyy'}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/calender.svg" />
+                                                            <span>Age
+                                                        </span>
+                                                    </div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.StudentAge}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/bloodgroup.svg" />
+                                                            <span> Blood group
+                                                        </span></div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.BloodGroupName}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/mail.svg" />
+                                                            <span> Email
+                                                        </span></div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.EmailID}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/phone.svg" />
+                                                            <span> Mobile number
+                                                        </span></div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.MobileNumber}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/class.svg" />
+                                                            <span> Class
+                                                        </span></div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.ClassName}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/section.svg" />
+                                                            <span> Section
+                                                        </span></div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.SectionName}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/tickcalender.svg" />
+                                                            <span>   Admission date
+                                                        </span></div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.AdmissionDate | date | date : 'dd-MM-yyyy'}}</div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xxl-4">
+
+                            <div class="card">
+                                <div class="card-body p-lg-20">
+                                    <div class="d-flex flex-column flex-xl-row">
+                                        <div class="flex-lg-row-fluid me-xl-18">
+                                            <div class="mt-n1">
+
+                                                <div class="m-0">
+                                                    <div class="d-grid g-5 overflow-hidden" style=" grid-template-columns: 120px 24px 1fr;">
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/person.svg" />
+                                                            <span>Father name </div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">
+                                                            <span ng-bind="student.Guardian.FatherFirstName"></span>
+                                                            <span
+                                                                ng-bind="student.Guardian.FatherMiddleName"></span>
+                                                            <span ng-bind="student.Guardian.FatherLastName">
+                                                        </div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/phone.svg" />
+                                                            <span> Father mobile no
+                                                        </span></div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.Guardian.GuardianPhone}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/mail.svg" />
+                                                           <span> Father email
+                                                        </span></div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.Guardian.GaurdianEmail}}</div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="card">
+                                <div class="card-body p-lg-20">
+                                    <div class="d-flex flex-column flex-xl-row">
+                                        <div class="flex-lg-row-fluid me-xl-18">
+                                            <div class="mt-n1">
+
+                                                <div class="m-0">
+                                                    <div class="d-grid g-5 overflow-hidden" style=" grid-template-columns: 120px 24px 1fr;">
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/person.svg" />
+                                                            <span> Mother name </span></div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">
+                                                            <span ng-bind="student.Guardian.MotherFirstName"></span>
+                                                                <span
+                                                                    ng-bind="student.Guardian.MotherMiddleName"></span>
+                                                                <span ng-bind="student.Guardian.MotherLastName">
+                                                        </div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/phone.svg" />
+                                                            <span>   Mother mobile no</span></div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.Guardian.MotherPhone}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                            <img class="me-2" src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/mail.svg" />
+                                                            <span> Mother email</span></div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{student.Guardian.MotherEmailID}}</div>
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xxl-4" ng-if="student.StudentSiblings">
+                            <div class="card">
+                                <div class="card-header bg-pearl min-h-auto">
+                                    <div class="fw-bold fs-4 text-white">Siblings</div>
+
+                                </div>
+                                <div class="card-body p-lg-20">
+                                    <div class="d-flex flex-column flex-xl-row">
+                                        <div class="flex-lg-row-fluid me-xl-18">
+                                            <div class="mt-n1">
+
+                                                <div class="m-0">
+                                                    <div class="d-grid g-5  overflow-hidden" style=" grid-template-columns: 125px 36px 1fr;"  ng-repeat="sibling in student.StudentSiblings">
+
+                                                            <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">Sibling Name</div>
+                                                            <div class="">:</div>
+                                                            <div class="fw-semibold fs-4 text-gray-800">{{sibling.Value}}</div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <!-- <div class="m-0">
+                                                    <div class="d-grid g-5 overflow-hidden" ng-repeat="sibling in student.StudentSiblings">
+                                                        <div class="fw-semibold fs-4 text-gray-800 mb-2">
+                                                            {{$index + 1}}. {{sibling.Value}}
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

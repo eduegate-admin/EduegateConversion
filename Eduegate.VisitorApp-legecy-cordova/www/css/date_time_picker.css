@@ -1,0 +1,73 @@
+.schedularInner span.icon { position:absolute; right:15px; top: 14px; width:29px; height:29px; background:url("../img/schedule_icon.png") no-repeat; }
+.scheduledTime  { width: 100%; padding: 7px; min-height: 32px; background: #fff;
+    border: 1px solid #ccc; border-radius: 2px; margin:8px 0;
+}
+.scheduledTime span { padding-right:10px; }
+.dateTimePicker .bootstrap-datetimepicker-widget {
+    /* height: 401px;  */
+    /* height: 294px; */
+}
+.dateTimePicker .btnStyle { width: 82px; margin: 0 4px; }
+
+.dateTimePickerOverlay { position:fixed; background:#000; width:100%; height:100%; left:0; top:0;  opacity:0.5;  z-index: 10000; display:none; }
+
+.dateTimePicker {
+    position: fixed;  max-width: 400px; background: #fff;  transform: translate(-50%, -50%);
+    top: 50%; z-index: 20000; box-shadow: 0 0 7px 0px #313131; width: 320px; display:none;
+    left: 50%; }
+
+.dateTimePicker .bootstrap-datetimepicker-widget table th {
+    height: 34px; line-height: 20px; width: 20px; background: #f2f2f2; border-radius: 0;
+}
+.dateTimePicker .bootstrap-datetimepicker-widget table td.day {
+    /* height: 35px; */
+     line-height: 35px;  width: 46px; border-radius: 0;}
+
+.dateTimePicker .bootstrap-datetimepicker-widget table td.seperator { background:#fff; }
+.bootstrap-datetimepicker-widget table td span { height:20px; line-height:20px; }
+.dateTimePicker .bootstrap-datetimepicker-widget table td:not(.day) { background:#fff !important; }
+.dateTimePicker .bootstrap-datetimepicker-widget table td.day:hover { background: #e6e6e6; }
+
+.dateTimePicker .bootstrap-datetimepicker-widget table thead tr:first-child th {
+    height: 45px; border-radius: 0; 
+    font-size: 15px;  font-weight: normal;
+}
+.dateTimePicker .bootstrap-datetimepicker-widget table td.active {  color: #fff; }
+.dateTimePicker .timepicker {
+    padding: 5px 0;
+    border-top: 1px solid #e7e7e7;
+    margin: 10px 0 0;
+    border-bottom: 1px solid #e7e7e7;
+}
+.dateTimePicker .timepicker, .dateTimePicker .timepicker-picker { display:block !important; }
+.dateTimePicker .bootstrap-datetimepicker-widget table td { height:auto; line-height:normal;}
+
+.dateTimePicker .glyphicon.glyphicon-chevron-up:after { content:"\f0d8"; font-family: fontAwesome;  font-size: 26px; }
+.dateTimePicker .glyphicon.glyphicon-chevron-down:after { content:"\f0d7"; font-family: fontAwesome; font-size: 26px;}
+.dateTimePicker .glyphicon.glyphicon-chevron-right:after { content:"\f0da"; font-family: fontAwesome; font-size: 26px; }
+.dateTimePicker .glyphicon.glyphicon-chevron-left:after { content:"\f0d9"; font-family: fontAwesome; font-size: 26px; }
+
+.dateTimePicker .timepicker-hours,
+.dateTimePicker .timepicker-minutes { width: 180px; position: absolute;  bottom: 0;  background: #fff;
+    box-shadow: 0 2px 22px #b7b7b7;  height: 150px;  background: #fafafa;
+    z-index: 1000; font-size: 22px; }
+.dateTimePicker .timepicker-minutes { left:auto; right:0; }
+.dateTimePicker .timepicker-hours table tr td,
+.dateTimePicker .timepicker-minutes table tr td { padding:10px; }
+.dateTimePicker .bootstrap-datetimepicker-widget table td span.month { height:34px; line-height: 34px; }
+.dateTimePicker .bootstrap-datetimepicker-widget table td span.active { background-color: #f37021; }
+.dateTimePicker .bootstrap-datetimepicker-widget table thead tr:first-child th.picker-switch { pointer-events:none !important; }
+.bootstrap-datetimepicker-widget button[data-action="togglePeriod"] { background:#666; color:#fff; border:none; padding:10px; }
+
+.schedule label { color: #b3b3b3;  font-size: 13px;  padding: 0 5px 0 0;  font-weight: normal; }
+.schedule .fa { margin:0 4px 0 0; font-size:14px; }
+.Layout_ar .schedule .fa { margin:0 0 0 4px; }
+.schedule .fa-clock-o { font-size:16px; }
+.dateTimePicker hr { border-top: 1px solid #e7e7e7; }
+
+.Layout_ar .dateTimePicker .glyphicon.glyphicon-chevron-right:after {
+    content: "\f0d9";
+}
+.Layout_ar .dateTimePicker .glyphicon.glyphicon-chevron-left:after {
+    content: "\f0da";
+}

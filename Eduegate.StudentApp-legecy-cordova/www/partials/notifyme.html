@@ -1,0 +1,19 @@
+﻿<div class="mainwrap notifywrap noSwipe" ng-controller="NotifyMeController">
+    <div class="notifymeoverlay"></div>
+    <div class="notifyme">
+        <div class="align-left fullwidth notifyinner">
+            <div class="notifyclose" ng-click="">x</div>
+            <label translate>EnterEmailID</label>
+            <div class="fieldwrap fullwidth">
+                <form name="NotifyForm" id="NotifyForm" ng-submit="NotifyMe()" novalidate>
+                    <input type="email" ng-required="true" name="Email" ng-model="Notify.EmailID" />      
+                    <span class="red inputerror" ng-show="submitted && NotifyForm.Email.$error.required" translate>EmailIsRequired</span>
+                    <span class="red inputerror" ng-show="submitted && NotifyForm.Email.$error.email" translate>EntervalidEmail</span>
+                    <span class="red inputerror" ng-if="NotifyMeError != '' && NotifyMeError != undefined && NotifyMeError != null" data-ng-bind-html="SkipValidation(NotifyMeError)"></span>
+                    <button type="submit" class="btnStyle btnGrey" translate>NOTIFYME</button>
+                     <span class="greencolor msgsuccess fullwidth" ng-if="NotifyMeSuccess != '' && NotifyMeSuccess != undefined && NotifyMeSuccess != null" data-ng-bind-html="SkipValidation(NotifyMeSuccess)"></span>  
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

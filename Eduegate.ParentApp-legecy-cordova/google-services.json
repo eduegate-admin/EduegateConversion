@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "968922187402",
+    "project_id": "podar-pearl-parent-app",
+    "storage_bucket": "podar-pearl-parent-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968922187402:android:1d262cbbdc2959f357cf73",
+        "android_client_info": {
+          "package_name": "com.podarpearl.parentapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968922187402-qacdvoilk72cprnrbndg7uaohvh427mc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwCe2jGIc8aJAiwgHA43_sRdxodMfe43c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968922187402-qacdvoilk72cprnrbndg7uaohvh427mc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "968922187402-ubgs69bn9leoa6h5l21q5c9h62fpmemc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.podarpearl.parentapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

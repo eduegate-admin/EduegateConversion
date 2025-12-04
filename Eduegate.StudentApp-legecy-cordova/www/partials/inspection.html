@@ -1,0 +1,102 @@
+﻿<div ng-controller="InspectionController">
+    <div class="app-header d-flex">
+        <!--begin::Header container-->
+        <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+            id="kt_app_header_container">
+            <!--begin::Logo-->
+            <div class="d-flex align-items-center  me-lg-15">
+                <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                    <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                </a>
+            </div>
+            <!--end::Logo-->
+            <!--begin::Header mobile toggle-->
+            <div class="d-flex align-items-center d-lg-none ms-2 fs-3" title="Show sidebar menu">
+                Inspection
+            </div>
+            <div class="w-40px">
+            </div>
+            <!--end::Header mobile toggle-->
+        </div>
+        <!--end::Header container-->
+    </div>
+
+
+    <div class="app-container container-xxl pt-5" ng-init="init()">
+        <div class="row g-5 g-xl-10 mb-xl-10">
+            <div class="d-flex flex-column">
+                <!--begin::Title-->
+                <h3 class="text-gray-900 fw-bolder mb-1 letter-spacing">
+                  Inspection Page
+                </h3>
+            </div>
+            <div ng-if="ShowResultMsg">
+                <h5 class="text-center">No results found..</h5>
+            </div>
+            <div>
+                <span class="text-gray-600 fw-bold fs-4">
+                    Students Count :
+                </span><span class="text-success ont-weight-bold fs-3 right">{{ActiveLogCount}}</span>
+             </div>
+            <div class="col-lg-12 col-xl-12 col-xxl-6 mb-xl-0"  ng-repeat="stud in ActiveStudentPickLogs" >
+                <div class="card h-md-100" ng-if="stud.LogStatus == true">
+                    <div class="col-xl-4 mb-xl-10">
+                        <div  class="card card-flush carousel carousel-custom carousel-light-dots carousel-stretch slide h-xl-100" >
+
+                            <div class="card-body p-4 position-relative">
+                                <div class="">
+                                        <div class="">
+                                            <div class="d-flex align-items-center">
+                                                <div class="w-80px flex-shrink-0 me-2">
+                                                    <div class="symbol  symbol-70px symbol-circle ">
+                                                            <img data-fancybox
+                                                            style="  object-fit: cover; object-position: left top;"
+                                                            ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{stud.StudentProfile}}" class="rounded-3" alt="user">
+                                                            <div class="symbol-badge bg-success start-100 top-100 border-4 h-25px w-25px ms-n2 mt-n2 d-flex flex-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-check" viewBox="0 0 16 16">
+                                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                                                  </svg>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div class="me-2">
+                                                    <h5 class="fw-bold text-gray-800 mb-3 fs-3">{{stud.Student.Value}}</h5>
+                                                    <div class="d-flex d-grid gap-5">
+                                                        <div class="d-flex flex-column ">
+                                                            <span class="d-flex align-items-center text-gray-600 fw-bold fs-4">
+                                                                {{stud.ClassSection}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <img id="blinking-image" src="https://static.thenounproject.com/png/2002633-200.png" alt="Blinking image" class="w-25 animation-blink" ng-style="{'background-color': InspectionColor}">
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="position-fixed top-50 start-50" ng-if="spinner">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+    </div>
+    <script>
+        //automatic close the window after 5 minutes
+        setTimeout(function(){
+            window.location.href = '#/studentdailypickuprequestlist';
+        }, 300000); //5 minutes in milliseconds
+    </script>
+</div>
+<style>
+            .avatar {
+            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+        }
+</style>

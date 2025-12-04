@@ -1,0 +1,22 @@
+﻿<div id="divRecommended" class="product-inner recommended PositionRelative" ng-controller="HomeCategoryWidgetController">
+    <div ng-show="ShowLoaders" id="HomeBannerLoader" class="LoaderSmall">
+        <div>
+            <i class="fa fa-spinner fa-pulse"></i>
+        </div>
+    </div>
+    <div class="product-title main-spacing"><span ng-bind="CategoryName"></span><a class="topbutton" href="" ui-sref="productlists({searchText:'',filterBy:'category',filterValue:'cat:' + CategoryCode + '||skutags:' + CategoryTag,filterText:'',sortText:'relevance',pageType:'Recommended',searchTitle:CategoryName})">ViewAll</a></div>
+    <div class="fullwidth align-left innerwrap main-spacing">
+        <div class="swiper-container products">
+            <div class="item-wrapper">
+
+                <div class="item-container" ng-repeat="rec in CategoryProducts">
+                    <a ui-sref="productdetails({skuID:rec.SKUID})">
+                        <span class="recommend-img"><img  ng-src="{{rec.ProductListingImage}}" loading="lazy" on-error-src="{{ErrorImage()}}" /></span>
+                        <span class="caption" ng-bind-html="SkipValidation(rec.ProductName)"></span>
+                        <span class="amount text-grey-700" ng-if="rec.ProductDiscountPrice > 0" ng-bind="rec.ProductDiscountPrice | currency : $root.DefaultDisplayCurrency"></span>
+                    </a>
+                </div>
+            </div>
+        </div><!--swipe-->
+    </div>
+</div>

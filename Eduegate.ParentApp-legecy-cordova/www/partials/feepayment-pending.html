@@ -1,0 +1,56 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="PaymentGatewayStatusController">
+    <div class="app-content flex-column-fluid">
+        <div class="app-header d-flex d-lg-none shodow-sm">
+            <!--begin::Header container-->
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+                id="kt_app_header_container">
+                <!--begin::Logo-->
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                    <a ng-click="$root.goPaymentHistory()" class=" p-5 ms-n5">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                    </a>
+                </div>
+                <!--end::Logo-->
+                <!--begin::Header mobile toggle-->
+                <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+                    
+                </div>
+                <!--end::Header mobile toggle-->
+            </div>
+            <!--end::Header container-->
+        </div>
+
+        <div class="app-container container-xxl pt-5">
+            <div class="card"  ng-init="init('Success')">
+                <!--begin::Card body-->
+                <div class="card-body">
+                    <div class="mb-7 d-flex justify-content-center">
+                        <a class="">
+                            <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/pearl_logo.png" class="h-40px">
+                        </a>
+                    </div>
+                    <!--begin::Heading-->
+                    <div class="card-px text-center pt-15 pb-15">
+                        <!--begin::Title-->
+                        <h2 class="fs-2x fw-bold mb-0">Payment in Progress !!</h2>
+                        <!--end::Title-->
+            
+                        <!--begin::Description-->
+                        <p class="text-gray-400 fs-4 fw-semibold py-7">
+                            Your payment is currently being processed with care.<br />
+                            Please hold tight while we finalize the transaction.<br />
+                            Your security is our priority.
+                        </p>
+                        <!--end::Description-->
+            
+                        <!--begin::Action-->
+                        <a  ui-sref="feepaymenthistory" class="btn btn-primary er fs-6 px-8 py-4" >
+                            Go to Payment history           </a>
+                        <!--end::Action-->
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,221 @@
+﻿<div ng-controller="DriverSchedulerController">
+    <div class="headerBar displayFlex alignItemCenter innerHeader">
+        <div class="nav-sidebar align-left">
+            <div class="backtopage" ng-click="$root.goBack()">
+                <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.png" />
+            </div>
+        </div>
+        <!--nav-sidebar-->
+        <div class="header-text"><span translate>Schedule Details</span></div>
+        <div class="headerRight alignright">
+            <div class="notifyIcon"><i class="fa fa-bell-o"></i></div>
+        </div>
+    </div>
+    <div class="excludeHeader" ng-init="LoadVehicleInfo()">
+
+        <div class="alert alert-warning text-center" role="alert" ng-if="!ShowPreLoader && VehiclesDetails.length == 0">
+            <b>Sorry, something went wrong. Please try again later!</b>
+        </div>
+
+        <div class="dataWrap setBorder boxShadow marginBtm10" ng-repeat="gridModel in VehiclesDetails track by $index">
+            <div class="toggleContainer displayFlex flexColumn whiteBg">
+                <div class="toggleHeader displayFlex flexColumn pad10">
+                    <div class="mainTitle fullwidth relativePos displayFlex">
+                        <span class="flexOne" translate >Vehicle Code: <strong>{{gridModel.VehicleCode}}</strong></span>
+                        <span class="headerBtn flexAuto" ng-click="toggleGrid($event);"><i class="fa fa-eye" aria-hidden="true"></i> View All</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Registration Number:</label>
+                        <span>{{gridModel.VehicleRegistrationNumber}}</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Vehicle Colour:</label>
+                        <span>{{gridModel.Color}}</span>
+                    </div>
+                </div><!--toggleHeader-->
+
+                <div class="toggleContent pad10 noPaddingTop">
+
+                    <div class="gridNestedContainer">
+                <div class="gridNestedData" ng-repeat="gridrouteModel in gridModel.RoutesDetails track by $index">
+                    <div class="gridDataWrap" style="border-bottom: 1px solid #ece2e2; padding-bottom: .5rem;">
+                        <label>Route Code:</label>
+                        <span class="">{{gridrouteModel.RouteCode}}</span>
+                    </div>
+                    <div class="gridDataWrap"  style="border-bottom: 1px solid #ece2e2; padding-bottom: .5rem;">
+                        <label>Route Description:</label>
+                        <span class="currSign">{{gridrouteModel.RouteDescription}}</span>
+                    </div>
+
+                </div><!--toggleContent-->
+                    </div>
+                <!-- </div>
+                </div>
+            </div> -->
+
+
+        <div class="fullcolumn-layout" ng-if="VehiclesDetails != null && VehiclesDetails.length > 0">
+            <table id="GridTable" class="table table-striped table-bordered table-hover table-checkable order-column valign-middle">
+                <thead>
+                    <tr>
+                        <!-- <th class="medium-col-width">Vehicle Code</th>
+                        <th>Registration Number</th>
+                        <th>Vehicle Colour</th> -->
+                        <th class="text">Route Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat-start="vehicle in VehiclesDetails track by $index" class="ng-scope">
+                        <!-- <td class="medium-col-width">
+                            <span ng-bind="vehicle.VehicleCode" class="ng-binding"></span>
+                        </td>
+                        <td class="medium-col-width">
+                            <span ng-bind="vehicle.VehicleRegistrationNumber" class="ng-binding"></span>
+                        </td>
+                        <td>
+                            <span ng-bind="vehicle.Color" class="ng-binding"></span>
+                        </td> -->
+                        <td class="text-right">
+                            <div class="controls text" ng-click="ExpandCollapase($event, vehicle,'IsExpand', 'Vehicle')">
+                                <span class="gridBtn pointer" ng-if="!vehicle.IsExpand"><i class="fa fa-eye" aria-hidden="true" title="View Details"></i></span>
+                                <span class="gridBtn active pointer" ng-if="vehicle.IsExpand"><i class="fa fa-eye-slash" aria-hidden="true" title="Hide Details"></i></span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Vehicle Route Expand Start -->
+                    <tr class="toggleGrid" ng-show="vehicle.IsExpand">
+                        <td class="feeStructure noPadding" colspan="4" ng-if="RoutesDetails.length > 0">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column valign-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Route Code</th>
+                                        <th>Route Description</th>
+                                        <th class="text-right">Stop Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat-start="route in RoutesDetails track by $index" class="ng-scope">
+                                        <td>
+                                            <span ng-bind="route.RouteCode" class="ng-binding"></span>
+                                        </td>
+                                        <td>
+                                            <span ng-bind="route.RouteDescription" class="ng-binding"></span>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="controls text-right" ng-click="ExpandCollapase($event, route,'IsExpand', 'Route')">
+                                                <span class="gridBtn pointer" ng-if="!route.IsExpand"><i class="fa fa-eye" aria-hidden="true" title="View Details"></i></span>
+                                                <span class="gridBtn active pointer" ng-if="route.IsExpand"><i class="fa fa-eye-slash" aria-hidden="true" title="Hide Details"></i></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat-end="" class="ng-scope"></tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td colspan="4" ng-if="!RoutesDetails.length" class="noPaddingLeft noPaddingRight">
+                            <span class="alert alert-warning text-center" role="alert">
+                                <b>No Route details found!</b>
+                            </span>
+                        </td>
+                    </tr>
+                    <!-- Vehicle Route Expand End -->
+
+                    <!-- Route Stop Expand Start -->
+
+                    <!-- <tr class="toggleGrid" ng-show="route.IsExpand"> -->
+                    <tr class="toggleGrid">
+                        <td class="feeStructure noPadding" colspan="3" ng-if="RouteStopsDetails.length > 0">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column valign-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Stop Code</th>
+                                        <th>Stop Name</th>
+                                        <th>Student Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat-start="stop in RouteStopsDetails track by $index" class="ng-scope">
+                                        <td>
+                                            <span ng-bind="stop.StopName" class="ng-binding"></span>
+                                        </td>
+                                        <td>
+                                            <table class="table table-striped table-bordered table-hover table-checkable order-column valign-middle">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Admission Number</th>
+                                                        <th>Student Name</th>
+                                                        <th>Stop Type</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr><td colspan="5">Pickup<button>Toggle</button</td></tr>
+                                                    <tr ng-repeat="student in stop.StopStudentsDetails | filter:IsPickupStop track by $index" class="ng-scope">
+                                                        <td>
+                                                            <span ng-bind="student.AdmissionNumber" class="ng-binding"></span>
+                                                        </td>
+                                                        <td>
+                                                            <span ng-bind="student.StudentName" class="ng-binding"></span>
+                                                        </td>
+                                                        <td>
+                                                            <label class="screen-reader-only" for="choice">Yes or No?</label>
+                                                            <div>
+                                                                <span aria-hidden="true" style="text-align: left;">No</span>
+                                                                <span aria-hidden="true" style="text-align: right";>Yes</span>
+                                                            </div>
+                                                            <!-- <input type="range" max="1" id="choice" name="choice"> -->
+                                                            <label class="switch">
+                                                                <input type="checkbox" id="togBtn">
+                                                                <div class="slider round"></div>
+                                                                </label>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr><td colspan="5">Drops <button>Toggle</button></td></tr>
+                                                    <tr ng-repeat="student in StopStudentsDetails | filter:IsDropStop track by $index" class="ng-scope">
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat-end="" class="ng-scope"></tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td colspan="3" ng-if="!RouteStopsDetails.length" class="noPaddingLeft noPaddingRight">
+                            <span class="alert alert-warning text-center" role="alert">
+                                <b>No stop details found!</b>
+                            </span>
+                        </td>
+                    </tr>
+                    <!-- Route Stop Expand End -->
+
+                    <!-- Student Details Expand Start -->
+
+                    <!-- <tr class="toggleGrid" ng-show="stop.IsExpand"> -->
+                    <tr class="toggleGrid">
+                        <td class="feeStructure noPadding" colspan="3" ng-if="StopStudentsDetails.length > 0">
+
+                        </td>
+                        <td colspan="3" ng-if="!StopStudentsDetails.length" class="noPaddingLeft noPaddingRight">
+                            <span class="alert alert-warning text-center" role="alert">
+                                <b>No student details found!</b>
+                            </span>
+                        </td>
+                    </tr>
+                    <!-- Student Details Expand End -->
+
+                    <tr ng-repeat-end="" class="ng-scope"></tr>
+                </tbody>
+            </table>
+        </div>
+
+        </div>
+        </div>
+        </div>
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<div class=" card-header">
+    <h2 class="card-title fw-bold" translate>ChoosePaymentMethod
+        
+    </h2>
+  <div class="payment-method relativePos">
+    <div class="reduction" ng-if="PaymentOptionsVirtual.length > 0">
+      <ng-include src="'partials/Templates/virtual-payment.html'"></ng-include>
+      <ul>
+        <li class="noPaddingLeft">
+          <div class="displayFlex amount">
+            <label translate class="flexAuto">Remainingamounttobepaid</label>
+            <span ng-bind="shoppingCart.RemainingTotal | currency :$root.DefaultDisplayCurrency"
+              class="align-right digitStyle"></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="card-body">
+<div class="payment-method" ng-if="PaymentOptionsNonVirtual.length > 0">
+  <div class="d-flex flex-equal gap-5 gap-xxl-9 px-0 mb-12"
+  >
+  <label ng-repeat="payment in PaymentOptionsNonVirtual"
+  ng-click="SelectedPaymentOption.Value = payment.PaymentMethodID.toString()"
+  ng-class="{'active': SelectedPaymentOption.Value == payment.PaymentMethodID.toString()}"
+      class="btn bg-light btn-color-gray-600 btn-active-text-gray-800 border border-3 border-gray-100 border-active-primary btn-active-light-primary w-100 px-4"
+      >
+      <input class="btn-check" type="radio" name="group1" id="pay_{{payment.PaymentMethodID.toString()}}"
+      value="{{payment.PaymentMethodID.toString()}}" ng-model="SelectedPaymentOption.Value">
+      <div class="fs-2hx mb-2 pe-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet-fill" viewBox="0 0 16 16">
+          <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v2h6a.5.5 0 0 1 .5.5c0 .253.08.644.306.958.207.288.557.542 1.194.542.637 0 .987-.254 1.194-.542.226-.314.306-.705.306-.958a.5.5 0 0 1 .5-.5h6v-2A1.5 1.5 0 0 0 14.5 2h-13z"/>
+          <path d="M16 6.5h-5.551a2.678 2.678 0 0 1-.443 1.042C9.613 8.088 8.963 8.5 8 8.5c-.963 0-1.613-.412-2.006-.958A2.679 2.679 0 0 1 5.551 6.5H0v6A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-6z"/>
+        </svg>
+          </div>
+      
+      <span class="fs-7 fw-bold d-block"translate>{{ payment.Description }}</span>
+  </label>
+</div>
+  <!-- <div class="select-payment">
+
+        <form action="#">
+          <p  ng-repeat="payment in PaymentOptionsNonVirtual">
+              <label>
+                  <input  type="radio" id="pay_{{payment.PaymentMethodID.toString()}}"
+                  value="{{payment.PaymentMethodID.toString()}}" ng-model="SelectedPaymentOption.Value" />
+                  <span ng-click="SelectedPaymentOption.Value = payment.PaymentMethodID.toString()"
+                  translate>{{ payment.PaymentMethodName }}
+                  <img ng-src="{{payment.ImageName}}"
+            ng-click="SelectedPaymentOption.Value = payment.PaymentMethodID.toString()" /></span>
+              </label>
+          </p>
+
+      </form>
+  </div> -->
+</div>
+
+<div class="changeforCash displayFlex fullwidth flexColumn selected-products"
+  style="margin-top: 10px;padding-left: 10px;padding-right: 10px;" feature-flag="bringchangeinpayment"
+  ng-show="SelectedPaymentOption.Value == 5">
+  <div class="product-title displayFlex font-bold padtop10 padbtm5 fontSize14" translate>
+    Bring Change For
+  </div>
+  <div class="fieldWrap noPadding">
+    <select ng-model="$root.CheckOutPaymentDTO.CashChange" name="CashChanges"
+      ng-options="change.CashChangeID as change.Description for change in CashChanges">
+      <option value="" translate>SelectCashChange</option>
+    </select>
+  </div>
+</div>
+<div ng-if="SelectedPaymentOption.Value == 16">
+  <div class="alert alert-warning center" role="alert">
+    Once payment is initiated your order will be moved to order history.
+  </div>
+</div>
+
+<div ng-if="SelectedPaymentOption.Value == 25">
+  <div class="alert alert-warning center" role="alert">
+    Once payment is initiated your order will be moved to order history.
+  </div>
+</div>
+
+
+<div ng-if="SelectedPaymentOption.Value == 17">
+  <div class="alert alert-warning center" role="alert">
+    You have a weighing products on your cart, you can make the payment once the order is processed.
+  </div>
+</div>
+
+<div ng-if="SelectedPaymentOption.Value == 20">
+  <div class="alert alert-warning center" role="alert">
+    We will send a unique payment link via whatsapp after your order is packed. </div>
+</div>
+
+<div class="payment-btn textcenter">
+  <button ng-disabled="$root.ShowLoader" class="btn btn-primary w-100 px-6 align-self-center text-nowrap" id="btnidPayment"
+    type="submit" ng-click="$('#btnidPayment').attr('disabled', true);ProceedPayment(SelectedPaymentOption.Value)"
+    translate>
+    ProceedtoPayment
+  </button>
+</div>
+</div>

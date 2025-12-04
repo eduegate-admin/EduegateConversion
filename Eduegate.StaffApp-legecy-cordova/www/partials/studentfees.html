@@ -1,0 +1,28 @@
+﻿<div ng-controller="StudentFeesController">
+    <div class="pageContainer">
+        <div class="pageContainerInner">
+            <div class="scrollInner">
+                <h3>Fees Data Collected</h3>
+            </div>
+
+            <span class="listmiddleWrap flexColumn" ng-repeat="fees in FeesCollected">          
+                <span class="profileName">
+                    <label>Student:</label>
+                    {{fees.StudentName}}
+                </span>
+                <span class="profileName">
+                    <label>Invoice Number:</label>
+                    {{fees.InvoiceNo}}
+                </span>
+                <span class="profileName">
+                    <label>Fee Period:</label>
+                    {{fees.FeePeriod}}
+                </span>
+                <span class="profileName" ng-repeat="type in fees.FeeDueFeeTypeMap">
+                    <label>Amount:</label>
+                    {{type.Amount}}
+                </span>
+            </span>
+        </div>
+    </div>
+</div><!--about us-->

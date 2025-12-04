@@ -1,0 +1,140 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="ThankYouController">
+    <div class="app-content flex-column-fluid">
+        <div class="app-container  container-xxl " ng-init="Init()">
+            <div class="row g-10 vh-100">
+                <div class="col-xl-4" id="delivery">
+                    <div class="d-flex h-100 align-items-center">
+                        <div class="w-100 d-flex flex-column flex-center rounded-3 bg-white py-15 px-10">
+                            <div class="mb-7 text-center">
+                                <h1 class="text-dark mb-5 fw-bolder" translate>THANKYOUFORYOURPURCHASE</h1>
+                                <div class="text-gray-400 fw-semibold mb-5">
+                                    your purchase confirmed<br> and in process
+                                </div>
+                                <!--end::Description-->
+                                <div class="py-10 text-center">
+                                    <img src="./clients/{{$root.ClientSettings.Client}}/images/payment.png"
+                                        class="theme-light-show w-200px" alt="">
+                                    <img src="./clients/{{$root.ClientSettings.Client}}/images/payment.png"
+                                        class="theme-dark-show w-200px" alt="">
+                                </div>
+                                <!--begin::Price-->
+                                <div class="text-center">
+                                    <span class="mb-2 text-primary">#</span>
+
+                                    <span class="fs-3x fw-bold text-primary">
+                                        {{transactionNoOriginal}} </span>
+                                    <!--
+                                    <span class="fs-7 fw-semibold opacity-50">
+                                        <span data-kt-element="period">Mon</span>
+                                    </span> -->
+                                </div>
+                            </div>
+                            <div class="w-100 mb-10">
+                                <div class="d-flex align-items-center mb-5">
+                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3"
+                                        translate>OrderNo</span>
+                                    <span>{{transactionNoOriginal}}</span>
+                                </div>
+                                <!-- <div class="d-flex align-items-center mb-5" ng-if="!$root.ClientSettings.EmployeeLogin">
+                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3"
+                                        translate>Delivery</span>
+                                    <span>{{DeliveryText}}</span>
+
+                                </div> -->
+                                <div class="d-flex align-items-center mb-5">
+                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3"
+                                        translate>Reference ID </span>
+                                    <span>{{UniqueID}}</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-5">
+                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3"
+                                        translate>ScheduledDate </span>
+                                    <span>{{TransactionDate}}</span>
+                                </div>
+                                <!-- <div class="d-flex align-items-center mb-5" ng-if="Deliveryslot">
+                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1" translate>Deliveryslot
+                                    </span>
+                                    <span>{{Deliveryslot}}</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-5" feature-flag="show-cartid-thankyou">
+                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1"
+                                        translate>ShoppingCartNo:</span>
+                                    <span>{{CartID}}</span>
+
+                                </div> -->
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex align-items-center mb-5">
+                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1" translate>AmountPaid
+                                    </span>
+                                    <span>{{Amount | currency : $root.DefaultDisplayCurrency}}</span>
+
+                                </div>
+                                <!-- <div class="d-flex align-items-center " ng-if="DeliveryCharge">
+                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1"
+                                        translate>{{$root.ClientSettings.CartChargeText}} </span>
+                                    <span>{{DeliveryCharge | currency : $root.DefaultDisplayCurrency}}</span>
+                                </div>
+                                <div class="d-flex align-items-center ">
+                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1" translate>PaymentMethod
+                                    </span>
+                                    <span translate>{{PaymentMethodName}}</span>
+
+                                </div> -->
+                                <div class="d-flex align-items-center " feature-flag="loyaltypoints">
+                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1" translate>Youearned</span>
+                                    </span>
+                                    <span> {{EarnedPoints}} </span>
+                                </div>
+
+
+                                <div feature-flag="sendordernotes"
+                                    class="gridWrap displayFlex flexColumn ordernotes padtop10">
+                                    <form>
+                                        <div class="displayFlex flexColumn fieldWrap pad5">
+                                            <span style="margin-bottom: 5px;color: #9c9c9c" translate>ORDERNOTES</span>
+                                            <span><textarea ng-model="OrderNote"></textarea></span>
+                                        </div>
+                                        <span
+                                            style="float: right;width: 100%;text-align: right;color: #cb022d;margin-right: 7px;"
+                                            ng-bind="StatusMessage"></span>
+                                        <div class="displayFlex justify-end pad5">
+                                            <button
+                                                ng-disabled="ShowLoader || OrderNote.length == 0 || PreviousOrderNote == OrderNote"
+                                                type="submit" class="btnStyle" ng-click="SendNote(HeadID, OrderNote)"
+                                                translate>SENDANOTE</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="changeforCash displayFlex fullwidth flexColumn" feature-flag="bringchange"
+                                    ng-show="PaymentMethod == 'COD'">
+                                    <div class="product-title displayFlex font-bold padtop10 padbtm5 fontSize14"
+                                        translate>BringChangeFor</div>
+                                    <div class="fieldWrap noPadding">
+                                        <select ng-model="CashChange" name="CashChanges"
+                                            ng-change="UpdateCashChanges(CashChange)"
+                                            ng-options="change.CashChangeID as change.Description for change in CashChanges">
+                                            <option value="" translate>SelectCashChange</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <a class="btn btn-sm btn-secodary mb-3" ng-click="GoMyOrder()" translate>OrderHistory</a>
+                            <a class="btn btn-sm btn-primary" ng-click="GoHome()" translate>KEEPSHOPPING</a>
+                            <!--end::Select-->
+                        </div>
+                        <!--end::Option-->
+                    </div>
+                </div>
+            </div>
+            <div ng-controller="CategoryParameterController"
+                ng-repeat="boilerplate in ListBoilerPlates.BoilerPlates track by $index">
+                <ng-include src="'partials/' + boilerplate.Template"
+                    onload="finishLoading(boilerplate, categoryID, categoryCode)"></ng-include>
+            </div>
+
+        </div><!--maincontentarea-->
+    </div>
+</div>

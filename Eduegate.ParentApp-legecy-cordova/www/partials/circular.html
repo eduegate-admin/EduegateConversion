@@ -1,0 +1,121 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="CircularController">
+
+
+    <div class="app-content flex-column-fluid">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        Circular
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5">
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+                    <div class="row g-6 g-xl-9" ng-init="init()">
+                        <div class="col-md-6 col-xxl-4" ng-repeat="circular in CircularList">
+                            <div class="card">
+                                <div class="card-header bg-pearl min-h-auto">
+                                    <div class="fw-bold fs-4 text-gray-100">{{circular.School}}</div>
+
+                                </div>
+                                <div class="card-body p-lg-20">
+                                    <div class="d-flex flex-column flex-xl-row">
+                                        <div class="flex-lg-row-fluid me-xl-18">
+                                            <div class="mt-n1">
+
+                                                <div class="m-0">
+                                                    <div class="d-grid g-5 mb-11" style=" grid-template-columns: 100px 36px 1fr;">
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Circular No </div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{circular.CircularCode}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Title</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{circular.Title}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">School</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{circular.School}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Class</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{circular.Class}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Section</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{circular.Section}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Circular Date</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{circular.CircularDate}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Expiry date:</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{circular.ExpiryDate}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-0">
+                                        <div class="d-print-none card-rounded h-lg-100 min-w-md-350px bg-lighten">
+                                            <div class="mb-8">
+                                                <div class="mb-6 bg-light p-5 rounded-2">
+                                                    <div class="fw-bold text-gray-800 fs-4" ng-bind-html="circular.Message">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-stack flex-wrap mt-lg-20">
+                                            <div class="fw-normal fs-4 text-gray-600 mb-1">Attachments</div>
+
+                                            <div class="my-1 me-5" ng-repeat="gridModel in circular.CircularAttachmentMaps track by $index">
+                                                <button type="button" class="btn btn-primary  my-1 me-12" style="white-space: unset;" ng-click="DownloadURL(gridModel.AttachmentReferenceID)">
+                                                    <span class="svg-icon svg-icon-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                            <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z" />
+                                                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                        </svg>
+                                                    </span>
+                                                    <span ng-bind="gridModel.AttachmentDescription"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert" ng-if="!ShowLoader && CircularList.length == 0">
+                                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                                        <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                        <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <div class="d-flex flex-column">
+                                    <h3 class="mb-1 text-danger">Not found!</h3>
+                                    <span>Circular not found, please try again later.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

@@ -1,0 +1,83 @@
+﻿<div class="d-flex flex-column flex-root bg-custom" data-page="landing">
+    <div class="d-flex flex-column flex-column-fluid flex-lg-row ios-pt-12 flex-center">
+        <div class="d-flex flex-center w-lg-50 pt-15 pt-lg-0 px-10">
+            <div class="d-flex flex-center flex-lg-start flex-column">
+                <a class="mb-7">
+                    <img alt="Logo" class="h-40px me-3" ng-src="./clients/{{$root.ClientSettings.Client}}/images/staff_logo.png">
+                    <img alt="Logo" class="h-40px" ng-src="./clients/{{$root.ClientSettings.Client}}/images/staff_textlogo.png">
+                </a>
+                <h1 class="text-white fw-semibolder mb-3 mt-5">
+                    Staff Login
+                </h1>
+            </div>
+
+        </div>
+        <div class="d-flex flex-lg-row-auto justify-content-center justify-content-lg-end p-12 p-lg-20">
+            <div class="bg-body1 d-flex flex-column align-items-stretch flex-center rounded-3 min-w-300px py-20 p-6">
+                <div class="d-flex flex-center flex-column flex-column-fluid">
+                            <form class=" w-100" name="loginForm" id="loginForm"
+                                ng-submit="SignIn()" novalidate>
+                                <div class="d-flex flex-center flex-column">
+                                <div class="fieldWrapper" ng-if="LoginType == 'email'">
+                                    <input  type="email" name="email" placeholder="Enter email" ng-model="user.LoginEmailID" ng-required="true" ng-change="ChangeClick()"/>
+                                    <span class="red inputerror" ng-show="submitted && loginForm.Email.$error.required" translate>Email is required</span>
+                                    <span class="red inputerror" ng-show="submitted && loginForm.Email.$error.email" translate>Enter a valid email</span>
+                                </div>
+
+                                <div class="fieldWrapper" ng-if="LoginType == 'userid'">
+                                    <input class="form-control border-1" type="text" name="userid" placeholder="Enter user Id" ng-model="user.LoginUserID" ng-required="true" ng-change="ChangeClick()"/>
+                                    <span class="red inputerror" ng-show="submitted && loginForm.userid.$error.required" translate>User id is required</span>
+                                    <span class="red inputerror" ng-show="submitted && loginForm.userid.$error.email" translate>Enter a valid user id</span>
+                                </div>
+                                <div class="fieldWrapper">
+                                    <input class="form-control border-1" type="password" name="Password" placeholder="Enter password" ng-required="true" ng-minlength="6" ng-model="user.Password" ng-change="ChangeClick()"/>
+                                    <span class="red inputerror" ng-show="submitted && loginForm.Password.$error.required" translate>Password is required.</span>
+                                    <span class="red inputerror" ng-show="submitted && loginForm.Password.$error.minlength" translate>Password should have minimum six charcters long.</span>
+                                </div>
+                                <input class="btn btn-primary  mb-0  w-50  mt-4" type="submit" value="Login" />
+
+                                <span class="red inputerror" style="text-align: center;" ng-="Message" ng-if="Message!=''" translate>{{Message}}</span>
+                            </div>
+                            </form>
+                        <!-- </div> -->
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<style>
+
+body .bg-custom{
+    background-image: url('./clients/{{$root.ClientSettings.Client}}/images/PODARLOGO.svg');
+    background-repeat: no-repeat    ;
+    background-size: 100%;
+    background-position: bottom right;
+}
+.pearl .bg-body1{
+    border-radius: 13px;
+border: 1px solid rgba(142, 63, 204, 0.81);
+
+background: rgba(217, 217, 217, 0.10);
+
+
+}
+.eduegate .bg-body1{
+    border-radius: 13px;
+border: 1px solid #2C3483;
+
+background: rgba(217, 217, 217, 0.10);
+
+
+}
+body.pearl{
+    background: linear-gradient(191deg, #5F3787 6.69%, #5F2568 99.52%);
+
+}
+body.eduegate{
+    background: linear-gradient(191deg, #86D3FF 6.69%, #2C3483 99.52%);
+
+}
+
+</style>

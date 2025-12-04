@@ -1,0 +1,206 @@
+﻿<div ng-controller="StudentFeesController">
+
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    Student
+                    wise fee
+                </h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">Student wise fee
+                    </h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                <a class="btn btn-sm">
+                    {{SelectedWard.FirstName}}
+                    {{SelectedWard.MiddleName}} {{SelectedWard.LastName}}
+                </a>
+            </div>
+        </div>
+    </div> -->
+    <div class="app-container container-xxl pt-5" ng-init="init()">
+        <div class="row g-5 g-xl-10">
+            <div class="col-xl-8">
+                <div class="card rounded-2">
+                    <span class="card-body d-flex text-gray-900   fs-4  fw-bold justify-content-between">
+                        <span class=""> Total Amount :</span>
+                        <span data-highlightword="{{$root.DefaultDisplayCurrency}}">
+                            {{FeeDueDetails.NowPaying | currency : $root.DefaultDisplayCurrency }}
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="accordion" id="kt_accordion_1">
+                    <div class="accordion-item" ng-repeat="gridModel in FeeTypes track by $index">
+                        <h2 class="accordion-header" id="kt_accordion_1_header_2">
+                            <button class="accordion-button fs-4 fw-bold collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#kt_accordion_1_body_{{$index}}"
+                                    aria-expanded="false" aria-controls="kt_accordion_1_body_{{$index}}">
+                                <div class="d-flex fs-6 fw-bold align-items-center w-100 justify-content-between">
+                                    <!--begin::Label-->
+                                    <div class="d-flex flex-column">
+                                        <div class="text-gray-700 flex-grow-1 me-4 mb-3">{{gridModel.InvoiceNo}}</div>
+                                        <div class="fw-bold fs-3 text-gray-800 ">{{gridModel.FeeMaster.Value}}</div>
+                                    </div>
+                                    <!--end::Label-->
+                                    <!--begin::Stats-->
+                                    <div class="d-flex flex-column">
+
+                                        <div class="fw-bolder text-gray-700 text-xxl-end me-3 mb-3">
+                                            {{$root.DefaultDisplayCurrency}}
+                                            &nbsp;{{gridModel.Amount|number:2}}
+                                        </div>
+                                        <div class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap">
+                                            <span class="pe-2">{{gridModel.InvoiceDateString}}</span>
+                                        </div>
+                                        <!--end::Stats-->
+                                    </div>
+                                </div>
+
+                            </button>
+                        </h2>
+                        <div id="kt_accordion_1_body_{{$index}}" class="accordion-collapse collapse"
+                             ng-class='{show:$first}' aria-labelledby="kt_accordion_1_header_{{$index}}"
+                             data-bs-parent="#kt_accordion_{{$index}}">
+                            <div class="accordion-body">
+
+
+                                <div class="m-0">
+                                    <div class="fw-bold fs-3 text-gray-800 mb-3">{{gridModel.FeeMaster.Value}}</div>
+                                    <div class="row g-5 mb-4">
+                                        <div class="col-sm-6" ng-if="gridModel.FeePeriod.Value  != null">
+                                            <div class="fw-bold fs-7 text-gray-600 mb-1">Fee period</div>
+                                            <div class="fw-bold fs-6 text-gray-800">{{gridModel.FeePeriod.Value}}</div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="fw-bold fs-7 text-gray-600 mb-1">Date</div>
+                                            <div class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap">
+                                                <span class="pe-2">{{gridModel.InvoiceStringDate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <!--begin::Table-->
+                                    <table class="table align-middle gs-0 gy-4"
+                                           ng-repeat="gridMonthModel in gridModel.FeeDueMonthlySplit track by $index">
+                                        <!--begin::Table head-->
+                                        <thead>
+                                            <tr>
+                                                <th class="min-w-100px border-0"></th>
+                                                <th class="text-end min-w-50px border-0"></th>
+                                            </tr>
+                                        </thead>
+                                        <!--end::Table head-->
+                                        <!--begin::Table body-->
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a class="text-gray-600 fw-bold fs-6">Month</a>
+                                                </td>
+                                                <td class="pe-0 text-end">
+                                                    <span class="text-gray-800 fw-bold fs-6 me-1">{{gridMonthModel.MonthName}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a class="text-gray-600 fw-bold fs-6">Year</a>
+                                                </td>
+                                                <td class="pe-0 text-end">
+                                                    <span class="text-gray-800 fw-bold fs-6 me-1">{{gridMonthModel.Year}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a class="text-gray-600 fw-bold fs-6">Amount</a>
+                                                </td>
+                                                <td class="pe-0 text-end">
+                                                    <span class="fw-bold fs-6 text-gray-800">{{gridMonthModel.TotalAmount|number:2}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a class="text-gray-600 fw-bold fs-6">Credit note</a>
+                                                </td>
+                                                <td class="pe-0 text-end">
+                                                    <span class="fw-bold fs-6 text-gray-800">{{gridMonthModel.CreditNote|number:2}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a class="text-gray-600 fw-bold fs-6">Balance</a>
+                                                </td>
+                                                <td class="pe-0 text-end">
+                                                    <span class="fw-bold fs-6 text-gray-800">{{gridMonthModel.NowPaying|number:2}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                        </tbody>
+                                        <!--end::Table body-->
+                                    </table>
+                                    <!--end::Table-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Accordion-->
+
+            </div>
+            <!-- <div class="col-md-6 col-xxl-4">
+                <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"
+                    ng-if="!ShowPreLoader &amp;&amp; (FeeTypes == null || FeeTypes.length == 0)">
+                    <span class="svg-icon svg-icon-2hx svg-icon-danger me-4"><svg width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                            <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)"
+                                fill="currentColor" />
+                            <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)"
+                                fill="currentColor" />
+                        </svg>
+                    </span>
+                    <div class="d-flex flex-column">
+                        <h3 class="mb-1 text-danger">Not found!</h4>
+                            <span>There is no fee dues found, please try again later.</span>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="col-md-6 col-xxl-4">
+                <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"
+                     ng-if="!ShowPreLoader &amp;&amp; (IsError)">
+                    <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                        <svg width="24" height="24"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                            <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)"
+                                  fill="currentColor" />
+                            <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)"
+                                  fill="currentColor" />
+                        </svg>
+                    </span>
+                    <div class="d-flex flex-column">
+                        <span>{{ErrorMessage}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

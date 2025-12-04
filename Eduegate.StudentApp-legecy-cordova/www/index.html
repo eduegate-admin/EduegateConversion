@@ -1,0 +1,445 @@
+﻿<!DOCTYPE html >
+<html ng-app="EduegateApp" class="no-js swipeBody" lang="" ng-controller="LayoutController" ng-init="Init();" dir="{{$root.UserLanguage == 'ar' && $root.ShowSettingDialog == false ? 'rtl' : 'ltr'}}" ng-class="{'Layout_ar':$root.UserLanguage == 'ar' , 'Layout_en' : $root.UserLanguage == 'en'}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width , viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; media-src *; img-src * filesystem: data:">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-favicon.png" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="css/main-blue.css">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.css" />
+    <link rel="stylesheet" href="css/jquery.maximage.css" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/index.css">-->
+    <link rel="stylesheet" href="css/font-awesome-animation.min.css">
+    <link rel="stylesheet" href="css/materialize.css">
+    <link rel="stylesheet" href="css/c3.min.css">
+    <link rel="stylesheet" href="css/flickity.min.css">
+    <link rel="stylesheet" href="css/fancybox.css">
+    <!-- <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css"> -->
+
+
+
+    <link rel="stylesheet" href="css/plugins.bundle.css">
+    <link rel="stylesheet" href="css/fullcalendar.bundle.css">
+
+    <link rel="stylesheet" href="css/modal-window.css">
+    <link href="css/placeholder-loading.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script>
+        if (CSS && 'paintWorklet' in CSS) CSS.paintWorklet.addModule('scripts/paint.js')
+    </script>
+    <!-- <link rel="stylesheet" ng-href="clients/naba/main.css"/> -->
+    <!--<link rel="stylesheet" href="css/itrade.css"/>-->
+    <link rel="stylesheet" ng-href="clients/{{$root.ClientSettings.Client}}/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">  <!-- <link rel="stylesheet" href="css/overright.css"> -->
+    <link href="scripts/owl-carousel/owl.theme.css" rel="stylesheet" />
+    <!-- <link href="css/select2.min.css" rel="stylesheet" /> -->
+    <link href="css/date_time_picker.css" rel="stylesheet" />
+    <link href="css/jquery.datetimepicker.css" rel="stylesheet" />
+
+    <!-- <link rel="stylesheet" ng-href="clients/{{$root.ClientSettings.Client}}/css/main.css" /> -->
+
+    <script type="text/javascript">
+        var userip;
+    </script>
+    <script type="text/javascript" src="https://l2.io/ip.js?var=userip"></script>
+    <script src="scripts/jquery-3.2.1.min.js"></script>
+    <script src="scripts/materialize.min.js"></script>
+    <script src="scripts/bootstrap.bundle.min.js"></script>
+    <script src="scripts/swiper.jquery.min.js"></script>
+    <script src="scripts/jquery-ui.js"></script>
+
+    <script src="scripts/jgestures.min.js"></script>
+    <script src="scripts/jquery.touchSwipe.min.js"></script>
+    <script type="text/javascript" src="scripts/overhang.js"></script>
+    <script src="scripts/fastclick.js"></script>
+    <script src="scripts/d3.min.js"></script>
+    <script src="scripts/c3.min.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/angular-ui-router.js"></script>
+    <script src="scripts/angular-sanitize.js"></script>
+    <!--<script src="scripts/angular-touch.js"></script>-->
+    <script src="scripts/angular-touch.min.js"></script>
+    <!--<script src="scripts/angular-animate.js"></script>-->
+    <script src="scripts/angular-animate.min.js"></script>
+    <!--<script src="scripts/angular-ui/ui-bootstrap.js"></script>-->
+    <script src="scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <!--<script src="scripts/angular-ui/ui-bootstrap-tpls.js"></script>-->
+    <script src="scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="scripts/angular-filter.js"></script>
+    <script src="scripts/angular-translate.min.js"></script>
+    <script src="scripts/angular-translate-loader-static-files.min.js"></script>
+
+
+
+    <script src="scripts/massautocomplete.js"></script>
+    <script src="scripts/slick.js"></script>
+    <script src="scripts/JSLINQ.js"></script>
+
+    <script src="scripts/bootstrap-datepicker.min.js"></script>
+    <script src="scripts/moment.min.js"></script>
+    <script src="scripts/moment-with-locales.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/hammer.min.js"></script>
+
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <!-- <script src="scripts/platformOverrides.js"></script> -->
+    <script src="scripts/jquery.waypoints.min.js"></script>
+    <script src="scripts/owl-carousel/owl.carousel.js"></script>
+    <!-- <script src="scripts/jquery.fancybox.js"></script> -->
+    <script src="scripts/jquery-scrollto.js"></script>
+    <script src="scripts/signature_pad.js"></script>
+
+    <script src="scripts/scripts.bundle.js"></script>
+    <!-- <script src="scripts/plugins.bundle.js"></script> -->
+    <script src="scripts/fullcalendar.bundle.js"></script>
+    <script src="scripts/fancybox.umd.js"></script>
+    <script src="scripts/smooth-scroll.js"></script>
+    <script src="scripts/flickity.pkgd.min.js"></script>
+    <script src="scripts/angular-flickity.js"></script>
+    <script src="scripts/select2.min.js"></script>
+
+    <script src="scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="scripts/jquery.datetimepicker.js"></script>
+
+
+    <!--<script src="scripts/chart.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>-->
+
+
+    <script src="scripts/featureFlags.min.js"></script>
+    <script src="apps/clientsettings.js"></script>
+    <script src="apps/appsettings.js"></script>
+
+
+    <script src="apps/app.js"></script>
+    <script src="apps/Services/serviceAddToCart.js"></script>
+    <script src="apps/Services/authService.js"></script>
+    <script src="apps/Services/authInterceptor.js"></script>
+    
+    <script src="apps/Factories/GetContext.js"></script>
+    <script src="apps/Factories/loggedIn.js"></script>
+    <script src="apps/Factories/serviceCartCount.js"></script>
+    <script src="apps/Factories/timePicker.js"></script>
+
+
+    <script src="apps/Controllers/LayoutController.js"></script>
+    <script src="apps/Controllers/HomeController.js"></script>
+    <script src="apps/Controllers/UserSettingController.js"></script>
+    <script src="apps/Controllers/LoginController.js"></script>
+     <script src="apps/Controllers/LoginMultiTenantController.js"></script>
+    <script src="apps/Controllers/IdentityLoginController.js"></script>
+   
+    <script src="apps/Controllers/SuperAdminDashboardController.js"></script>
+    <script src="apps/Controllers/UserRegistrationController.js"></script>
+    <script src="apps/Controllers/MyWardsController.js"></script>
+    <!-- <script src="apps/Controllers/OnlineStoreController.js"></script> -->
+    <script src="apps/Controllers/StudentApplicationController.js"></script>
+    <script src="apps/Controllers/ProfileController.js"></script>
+    <script src="apps/Controllers/StudentProfileController.js"></script>
+    <script src="apps/Controllers/AttendanceController.js"></script>
+    <script src="apps/Controllers/StudentFeesController.js"></script>
+    <script src="apps/Controllers/AssignmentController.js"></script>
+    <script src="apps/Controllers/MarkListController.js"></script>
+    <script src="apps/Controllers/StudentLeaveController.js"></script>
+    <script src="apps/Controllers/ClassTeacherController.js"></script>
+    <script src="apps/Controllers/ExamController.js"></script>
+    <script src="apps/Controllers/TimeTableController.js"></script>
+    <script src="apps/Controllers/DriverLocateMapController.js"></script>
+    <script src="apps/Controllers/CircularController.js"></script>
+    <script src="apps/Controllers/ApplicationStatusController.js"></script>
+    <script src="apps/Controllers/TopicController.js"></script>
+    <script src="apps/Controllers/TransportApplicationStatusController.js"></script>
+    <script src="apps/Controllers/LessonPlanController.js"></script>
+    <script src="apps/Controllers/StudentLeaveStatusController.js"></script>
+    <script src="apps/Controllers/ResetPasswordController.js"></script>
+    <script src="apps/Controllers/CategoryParameterController.js"></script>
+    <script src="apps/Controllers/HomeBannerController.js"></script>
+    <script src="apps/Controllers/SearchController.js"></script>
+    <script src="apps/Controllers/CartController.js"></script>
+    <script src="apps/Controllers/HomeCategoryWidgetController.js"></script>
+    <script src="apps/Controllers/ProductListController.js"></script>
+    <script src="apps/Controllers/ProductDetailController.js"></script>
+    <script src="apps/Controllers/OnlineStoreHomeController.js"></script>
+    <script src="apps/Controllers/ProductListWidgetByTagController.js"></script>
+    <script src="apps/Controllers/RegisterController.js"></script>
+    <script src="apps/Controllers/OnlineStoreRegisterController.js"></script>
+    <script src="apps/Controllers/CategoryTreeController.js"></script>
+    <script src="apps/Controllers/NotifyMeController.js"></script>
+    <script src="apps/Controllers/GoogleMapController.js"></script>
+    <script src="apps/Controllers/OrderHistoryController.js"></script>
+    <script src="apps/Controllers/LocateYourStoreController.js"></script>
+    <script src="apps/Controllers/PromotionController.js"></script>
+    <script src="apps/Controllers/MainCategoryWidgetController.js"></script>
+    <script src="apps/Controllers/ProductCategoryController.js"></script>
+    <script src="apps/Controllers/CheckoutController.js"></script>
+    <script src="apps/Controllers/AddAddressController.js"></script>
+    <script src="apps/Controllers/CartSingleCheckoutController.js"></script>
+    <script src="apps/Controllers/OrderGenerationController.js"></script>
+    <script src="apps/Controllers/DatePickerController.js"></script>
+    <script src="apps/Controllers/CustomerSearchController.js"></script>
+    <script src="apps/Controllers/ThankYouController.js"></script>
+    <script src="apps/Controllers/OrderDetailOnlineController.js"></script>
+    <script src="apps/Controllers/FeepaymentHistoryDetailsController.js"></script>
+    <script src="apps/Controllers/PaymentGatewayStatusController.js"></script>
+    <script src="apps/Controllers/SettingsController.js"></script>
+    <script src="apps/Controllers/CommentController.js"></script>
+    <script src="apps/Controllers/WishListController.js"></script>
+    <script src="apps/Controllers/AllSavedAddressController.js"></script>
+    <script src="apps/Controllers/FeePaymentHistoryController.js"></script>
+    <script src="apps/Controllers/FeePaymentController.js"></script>
+    <script src="apps/Controllers/StudentFinesController.js"></script>
+    <script src="apps/Controllers/OnlinePaymentController.js"></script>
+    <script src="apps/Controllers/PaymentFailureController.js"></script>
+    <script src="apps/Controllers/GalleryController.js"></script>
+    <script src="apps/Controllers/EventsController.js"></script>
+    <script src="apps/Controllers/StudentPickupRequestListController.js"></script>
+    <script src="apps/Controllers/StudentPickupRequestController.js"></script>
+    <script src="apps/Controllers/StudentDailyPickupRequestController.js"></script>
+    <script src="apps/Controllers/StudentDailyPickupRequestListController.js"></script>
+    <script src="apps/Controllers/DefaultstudentController.js"></script>
+    <script src="apps/Controllers/AllergiesController.js"></script>
+    <script src="apps/Controllers/TermsController.js"></script>
+    <script src="apps/Controllers/InspectionController.js"></script>
+    <script src="apps/Controllers/NotificationController.js"></script>
+    <script src="apps/Controllers/AboutUsController.js"></script>
+    <script src="apps/Controllers/AppUpdateController.js"></script>
+    <script src="apps/Controllers/ReportcardController.js"></script>
+    <script src="apps/Controllers/TransportDashboardController.js"></script>
+    <script src="apps/Controllers/DriverDetailsController.js"></script>
+    <script src="apps/Controllers/BiometricAuthenticationController.js"></script>
+    <script src="apps/Controllers/ExamLoginController.js"></script>
+    <script src="apps/Controllers/StudentExamsDashboardController.js"></script>
+    <script src="apps/Controllers/ExamListController.js"></script>
+    <script src="apps/Controllers/ExamQuestionController.js"></script>
+    <script src="apps/Controllers/UpcomingExamListController.js"></script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDJdtz9MrZdbaGkT4g3at7W0KBBffHRfk&loading=async&libraries=geometry,marker"></script>
+
+    <script async defer src="scripts/geolocation-marker.js"></script>
+
+</head>
+    <body id="rootBody">
+        <!--begin::Theme mode setup on page load-->
+<script>
+    var defaultThemeMode = "light";
+    var themeMode;
+
+    if ( document.documentElement ) {
+        if ( document.documentElement.hasAttribute("data-theme-mode")) {
+            themeMode = document.documentElement.getAttribute("data-theme-mode");
+        } else {
+            if ( localStorage.getItem("data-theme") !== null ) {
+                themeMode = localStorage.getItem("data-theme");
+            } else {
+                themeMode = defaultThemeMode;
+            }
+        }
+
+        if (themeMode === "system") {
+            themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+
+        document.documentElement.setAttribute("data-theme", themeMode);
+    }
+    </script>
+    <!--end::Theme mode setup on page load-->
+        <div class="loader-blk" ng-show="$root.ShowLoader == true">
+            <div class="load-inner">
+                <div class="main-loader">
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="error-msg quickHide">
+            <div class="error-msg-blk">
+                <span ng-bind="$root.ErrorMessage"></span>
+            </div>
+        </div>
+        <div class="success-msg quickHide">
+            <div class="success-msg-blk">
+                <span ng-bind="$root.SuccessMessage"></span>
+            </div>
+        </div>
+        <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x pb-20 mb-10">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body badge badge-dark badge-lg">
+                    <span ng-bind="$root.SuccessMessage"></span>
+                </div>
+            </div>
+        </div>
+        <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x pb-20 mb-10">
+            <div id="liveToastError" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body">
+                    <span ng-bind="$root.ErrorMessage" class="fs-4"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="progress position-fixed top-0 top-30px m-0" style="z-index: 1030;" ng-show="$root.ShowProgress == true">
+            <div class="indeterminate"></div>
+        </div>
+        <div ui-view id="childViews" class="d-flex flex-column flex-root app-root "></div>
+
+
+        <div id="slide-out" class="sidenav">
+            <div class="d-flex flex-column h-100">
+                <div class="user-view d-flex  ">
+                <div class="d-flex align-items-center w-100">
+                    <div class="d-flex flex-center cursor-pointer symbol symbol-circle symbol-60px">
+                        <img style="    object-fit: cover;     object-position: right top;" class="z-index-3 w-60px" on-error-src="./images/profile_img.png" alt="image" loading="lazy" src="./images/navicons/profile_img.png" ng-src="http://localhost:5143/api/content/ReadImageContentsByID?contentID=">
+                    </div>
+                    <div class="d-flex flex-column align-items-start justify-content-center ms-3">
+                        <span class="text-gray-500  fs-8 fw-semibold"></span>
+                        <span class="fw-normal text-white fs-3x mb-1">Welcome</span>
+                        <!--<a class="text-gray-100 fs-4 fw-bold text-hover-primary line-break">{{$root.UserName}}</a>-->
+                    </div>
+                </div>
+                <div class="background"><img src="./clients/{{$root.ClientSettings.Client}}/images/PODARLOGO- llll@3x@3x 1.svg" /></div>
+                <span class="white-text email"></span>
+                </div>
+                <div class=" d-flex flex-wrap justify-content-center" style="flex:1">
+                <div class="w-100 mx-3">
+                <ul class="nav nav-tabs nav-pills flex-column border-0 gap-3 h-100 justify-content-between">
+                    <div class="d-flex flex-column gap-3">
+                    <li class="nav-item me-0">
+                    <a class="nav-link sidenav-close" ng-click="StudentProfileViewClick()" >
+                        <span class="nav-link-logo m-0">
+                        <img class="nav-link-logo-img-default" src="./images/navicons/Profile.svg" alt="">
+                        </span>
+                        <span class="nav-link-title ms-5 text-white">
+                        Profile
+                        </span>
+                    </a>
+                    </li>
+                    <li class="nav-item me-0" >
+                    <a class="nav-link sidenav-close"  ng-click="SideMenuViewClick('assignment')">
+                        <span class="nav-link-logo m-0">
+                        <img class="nav-link-logo-img-default" src="./images/navicons/Assingments.svg" alt="">
+                        </span>
+                        <span class="nav-link-title ms-5 text-white">
+                        Assignments
+                        </span>
+                    </a>
+                    </li>
+                    <li class="nav-item me-0" >
+                    <a class="nav-link sidenav-close" ng-click="SideMenuViewClick('lesson')">
+                        <span class="nav-link-logo m-0"   >
+                        <img class="nav-link-logo-img-default" src="./images/navicons/Lesson Plan.svg" alt="">
+                        </span>
+                        <span class="nav-link-title ms-5 text-white">
+                        Lesson Plan
+                        </span>
+                    </a>
+                    </li>
+                    <!-- <li class="nav-item me-0">
+                    <a class="nav-link sidenav-close" ui-sref="mycirculars" >
+                        <span class="nav-link-logo m-0">
+                        <img class="nav-link-logo-img-default" src="./images/navicons/Circulars.svg" alt="">
+                        </span>
+                        <span class="nav-link-title ms-5 text-white">
+                        Circulars
+                        </span>
+                    </a>
+                    </li> -->
+
+                    </div>
+
+                <div class="d-flex flex-column gap-3">
+                    <li class="nav-item me-0">
+                        <div class="nav-link px-12">
+                                <span class="nav-link-title ">
+                            <div class="form-check form-switch form-check-custom form-check-solid  d-flex justify-content-between w-100">
+                                <label class="form-check-label menu-title ms-0 fs-4" for="biometricSwitch">Enable Biometric</label>
+
+                                <input class="form-check-input" type="checkbox" id="biometricSwitch" />
+                            </div>
+                        </span>
+                        </div>
+                    </li>
+                    <li class="nav-item me-0">
+                        <a class="nav-link sidenav-close" ng-click="$root.DarkMode()">
+                            <span class="nav-link-logo m-0" style="color: #D7B4FB;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-moon" viewBox="0 0 16 16">
+                                <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z" />
+                            </svg>
+                            </span>
+                            <span class="nav-link-title ms-5 text-white">
+                            Dark mode
+                            </span>
+                        </a>
+                        </li>
+                        <li class="nav-item me-0">
+                        <a class="nav-link sidenav-close" ng-click="$root.Lightmode()">
+                            <span class="nav-link-logo m-0" style="color: #D7B4FB;">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-brightness-high-fill" viewBox="0 0 16 16">
+                                <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+                            </svg>
+                            </span>
+                            <span class="nav-link-title ms-5 text-white">
+                            Light mode
+                            </span>
+                        </a>
+                        </li>
+                    <li class="nav-item me-0">
+                    <a class="nav-link sidenav-close" ng-click="$root.SignOut()">
+                        <span class="nav-link-logo m-0">
+                        <img class="nav-link-logo-img-default" src="./images/navicons/Sign_Out.svg" alt="">
+                        </span>
+                        <span class="nav-link-title ms-5 text-white">
+                        Sign Out
+                        </span>
+                    </a>
+                    </li>
+                </div>
+
+
+                </ul>
+
+                </div>
+
+                </div>
+                <a class="my-10 d-flex flex-center w-100">
+                <img alt="Logo" class="h-40px me-3" src="./clients/{{$root.ClientSettings.Client}}/images/staff_logo.png">
+                <img alt="Logo" class="h-40px" src="./clients/{{$root.ClientSettings.Client}}/images/staff_textlogo.png">
+                </a>
+            </div>
+          </div>
+
+
+        <script>
+             $(document).ready(function(){
+                $('.sidenav').sidenav({
+                    edge:'left'
+                }
+                );
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,320 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="MyWardsController"  ui-view="MyWards" ng-init="init()">
+
+<ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+    <div ng-if="MyWards.length > 0">
+        <div class="app-toolbar app-toolbar py-3 py-lg-0 shadow-none">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">My Wards</h1>
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5">
+            <div class="row g-5 g-xl-10 mb-xl-10">
+                <div class="col-xl-6 mb-5 mb-xl-10">
+                    <div class="card card-flush carousel carousel-custom carousel-stretch slide h-xl-100 pointer-event  rounded-4 profile-cardbg"
+                        >
+                        <div class="card-body p-5">
+                            <div class="">
+                                <div class="carousel-item carousel-item-next carousel-item-start  overflow-hidden">
+                                    <div class="d-flex align-items-start mb-9">
+                                        <a class="symbol symbol-90px symbol-circle me-5 border border-gray-300 border-5 overflow-hidden" style="border: 3px solid rgba(255, 255, 255, 0.20) !important; "
+                                       >
+                                            <span class="symbol-label align-items-start bg-light-danger">
+                                                <img class="object-fit-cover w-100 top-0 " style="object-position:top center;"
+                                                    ng-src="{{SelectedWard.StudentProfileImageUrl}}"
+                                                    on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                    alt="image" loading="lazy" />
+                                            </span>
+                                        </a>
+                                        <div class="mt-5">
+                                            <h4 class="fw-semibold text-gray-100 mb-3"> {{SelectedWard.FirstName}}
+                                                {{SelectedWard.MiddleName}} {{SelectedWard.LastName}}</h4>
+                                            <div class="d-flex d-grid gap-5">
+                                                <div class="d-flex flex-column me-4">
+                                                    <span
+                                                        class="d-flex align-items-center fs-6 fw-light text-gray-100 ">{{SelectedWard.AdmissionNumber}}
+                                                    </span>
+                                                    <span class="d-flex align-items-center text-gray-100 fw-light  fs-6 ">
+                                                        {{SelectedWard.ClassName}} {{SelectedWard.SectionName}}
+                                                    </span>
+                                                    <span class="d-flex align-items-center text-gray-100 fw-light  fs-6 textEllipsis text-nowrap">
+                                                        {{SelectedWard.SchoolName}}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="d-flex m-0 flex-end">
+                                        <!-- <div class="d-flex align-items-center flex-column mt-3 w-100 mx-5">
+                                            <div class="d-flex justify-content-between fw-normal fs-5 text-white opacity-50 w-100 mt-auto mb-2">
+                                                <span>Attendance</span>
+                                                <span>{{AttendencePercentage}}</span>
+                                            </div>
+
+                                            <div class="h-8px mx-3 w-100 bg-light-danger rounded">
+                                                <div class="bg-danger rounded h-8px" role="progressbar" id="progressbar" style="" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div> -->
+                                        <a class="btn btn-primary btn-sm fs-6 flex-shrink-0" ng-click="StudentProfileViewClick()">
+                                            <img src="./images/profile_icon.svg" class="me-3 h-15px" />
+                                            View Profile </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-navbar  flex-center  mt-0 gap-5 flex-wrap">
+                    <!-- <div class="card card-flush h-xl-100 pointer-event w-100 ">
+                    <div class="card-body p-4 d-flex flex-center gap-4"> -->
+                    <a  ng-click="SelectWard(ward)"  ng-repeat="ward in MyWards">
+                        <div class="symbol symbol-circle symbol-60px  rounded-6 overflow-hidden border border-3 border-light"
+                        ng-class="{'border-primary  bg-opacity-25 ':SelectedWard.StudentIID == ward.StudentIID}">
+                            <img class="object-fit-cover top-0" style="object-position:top center;"
+                                ng-src="{{ward.StudentProfileImageUrl}}"
+                                on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" alt="">
+
+                        </div>
+                    </a>
+                    <!-- </div>
+                    </div> -->
+                </div>
+                <div class="col-sm-6 col-xl-2 mb-xl-10">
+                    <div class="card" >
+                        <div class="card-body">
+                            <div class="d-flex flex-wrap gap-6 justify-content-evenly fs-5">
+                                <a class="d-flex flex-column align-items-center"  ui-sref="mycirculars" >
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px " style="background: linear-gradient(130deg, #FFD770 0%, #F5B100 100%);">
+                                            <img src="./images/icons/circular.svg" class="object-fit-none">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4  text-center">Circular</span>
+                                </a>
+                                <a class="d-flex flex-column align-items-center"  ng-click="ReportCardViewClick()">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px"  style="background: linear-gradient(130deg, #97DA77 0%, #50743F 100%);">
+                                            <img src="./images/icons/reportcard.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4  text-center">Report Card</span>
+                                </a>
+                                <a class="d-flex flex-column align-items-center" ng-click="AssignmentViewClick()" >
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px ng-scope"  style="background: linear-gradient(130deg, #56CCDC 0%, #4062D9 100%);">
+                                            <img src="./images/icons/assignment.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4 text-center">Assignments</span>
+                                </a>
+                                <!-- <a class="d-flex flex-column align-items-center" ng-click="LessonPlanViewClick()">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px "  style="background: linear-gradient(130deg, #FF8170 0%, #CF402C 100%);">
+                                            <img src="./images/icons/lesson.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4  text-center">Lesson</span>
+                                </a> -->
+                                <a class="d-flex flex-column align-items-center" ng-click="ClassTeacherViewClick()" >
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px "  style="background: linear-gradient(130deg, #AF70FF 0%, #694399 100%);">
+                                            <img src="./images/icons/teacher.svg" class="object-fit-none">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4  text-center">Class Teachers</span>
+                                </a>
+                                <a class="d-flex flex-column align-items-center"  ng-click="TopicViewClick()">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px "  style="background: linear-gradient(130deg, #708FFF 0%, #4062D9 100%);">
+                                            <img src="./images/icons/topic.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4 text-center">Notes</span>
+                                </a>
+                                <!-- <a class="d-flex flex-column align-items-center"  ng-click="TimeTableViewClick()">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px "  style="background: linear-gradient(130deg, #70CBFF 0%, #1AB095 100%);">
+                                            <img src="./images/icons/timetable.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4 text-center">Time Table</span>
+                                </a> -->
+                                <!-- <a class="d-flex flex-column align-items-center" ng-click="OnlineStoreClick()">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25));">
+                                        <div class="symbol symbol-circle symbol-90px "  style="background: linear-gradient(130deg, #FFA370 0%, #E3BF00 100%);">
+                                            <img src="./images/icons/icons/transport.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4 text-center">Transport</span>
+                                </a> -->
+                                <!-- <a class="d-flex flex-column align-items-center" ng-click="OnlineStoreClick()">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25));">
+                                        <div class="symbol symbol-circle symbol-90px "  style="background: linear-gradient(130deg, #4B9DE9 0%, #3CCFFD 100%);">
+                                            <img src="./images/icons/icons/OnlineStore.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4 text-center">Online Store</span>
+                                </a> -->
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-4">
+                    <div class="card border-0 rounded-3 h-md-100 " style="background: linear-gradient(90deg, #4FAEA9 0%, #FFF 100%);">
+                        <div class="card-body py-2">
+                            <div class="d-flex  h-100 mb-0">
+
+                                <div class="col-5 flex-lg-row-fluid">
+                                    <div class="text-white">
+                                        <span class="fs-2qx fw-bold sectionTitle">Attendance</span>
+                                    </div>
+                                    <div class="bgi-no-repeat bgi-size-contain bgi-position-x-start bgi-position-y-bottom h-125px" style="background-image:url('./images/calneder_illustration.svg')">
+
+                                    </div>
+                                    <div></div>
+                                </div>
+                                <div class="col-7 card rounded-3 shadow-none justify-content-between px-5 py-5">
+                                    <div class="text-gray-900 mb-3 d-flex flex-column">
+                                        <span class="fs-4 fw-bold">Attendance for month  </span>
+                                        <span class="fs-6 fw-bold">{{SelectedDateMonth}} {{SelectedDateYear}}  </span>
+
+                                    </div>
+                                    <div class="">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="bullet bullet-dot w-15px h-15px bg-success me-2"></div>
+                                            <div class="fs-6 fw-bold text-gray-700">
+                                                Present ({{AttendenceSummaryData.StudentPresentCount}})</div>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="bullet bullet-dot w-15px h-15px bg-danger me-2"></div>
+                                            <div class="fs-6 fw-bold text-gray-700">
+                                                Absent ({{AttendenceSummaryData.StudentAbsentCount}})</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex  gap-2 justify-content-end">
+                                        <a ng-click="StudentAttendanceClick()" class="btn btn-sm btn-primary flex-shrink-0 me-lg-2">View details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-4">
+                    <div class="card border-0 rounded-3 h-md-100 " style="background: linear-gradient(90deg, #40B8D2 0%, #ffffff 100%);">
+                        <div class="card-body py-2">
+                            <div class="d-flex  h-100 mb-0">
+
+                                <div class="col-5 flex-lg-row-fluid">
+                                    <div class="text-white">
+                                        <span class="fs-2qx fw-bold sectionTitle">Fee Due</span>
+                                    </div>
+                                    <div class="bgi-no-repeat bgi-size-contain bgi-position-x-start bgi-position-y-bottom h-125px" style="background-image:url('./images/fee_dues.svg')">
+
+                                    </div>
+                                    <div></div>
+                                </div>
+                                <div class="col-7 card rounded-3 shadow-none justify-content-between px-5 py-5">
+                                    <div class="text-gray-900  fs-4  fw-bold me-6"  data-highlightword="{{$root.DefaultDisplayCurrency}}">{{FeeDueAmount | currency : $root.DefaultDisplayCurrency }}</div>
+                                    <div class="d-flex  gap-2 justify-content-end">
+                                        <a ng-click="StudentFeeDueViewClick()" class="btn btn-sm btn-primary flex-shrink-0 me-lg-2">View details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-4">
+                    <div class="card border-0 rounded-3 h-md-100 " style="background: linear-gradient(90deg, #7879EC 0%, #ffffff 100%);">
+                        <div class="card-body py-2">
+                            <div class="d-flex  h-100 mb-0">
+
+                                <div class="col-5 flex-lg-row-fluid">
+                                    <div class="text-white">
+                                        <span class="fs-2qx fw-bold sectionTitle">Leaves</span>
+                                    </div>
+                                    <div class="bgi-no-repeat bgi-size-contain bgi-position-x-start bgi-position-y-bottom h-125px" style="background-image:url('./images/leave_requst.svg')">
+
+                                    </div>
+                                    <div></div>
+                                </div>
+                                <div class="col-7 card rounded-3 shadow-none justify-content-between px-5 py-5">
+                                    <div class="text-gray-900 mb-3 d-flex flex-column">
+                                        <span class="fs-4 fw-bold">Leave request status  </span>
+
+                                    </div>
+                                    <div class="">
+                                        <div class="d-flex fs-6 fw-bold align-items-center">
+                                            <div class="bullet w-15px h-15px rounded-2 bg-primary me-3"></div>
+                                            <div class="text-gray-700 flex-grow-1 me-4">Pending</div>
+                                            <div class="fw-bolder text-gray-700 text-xxl-end">
+                                                {{LeaveSummaryData.ApplicationSubmittedCount}}</div>
+                                        </div>
+                                        <div class="d-flex fs-6 fw-bold align-items-center my-3">
+                                            <div class="bullet w-15px h-15px rounded-2 bg-success me-3"></div>
+                                            <div class="text-gray-700 flex-grow-1 me-4">Approved</div>
+                                            <div class="fw-bolder text-gray-700 text-xxl-end">
+                                                {{LeaveSummaryData.ApplicationApprovedCount}}</div>
+                                        </div>
+                                        <div class="d-flex fs-6 fw-bold align-items-center">
+                                            <div class="bullet w-15px h-15px  bg-danger rounded-2 me-3" style="background-color: #E4E6EF">
+                                            </div>
+                                            <div class="text-gray-700 flex-grow-1 me-4">Rejected</div>
+                                            <div class="fw-bolder text-gray-700 text-xxl-end">
+                                                {{LeaveSummaryData.ApplicationRejectedCount}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex  gap-2 justify-content-end">
+                                        <a ng-click="LeaveClick()" class="btn btn-sm btn-primary flex-shrink-0 me-lg-2">View details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--tabScrollItemList-->
+    </div>
+
+    <div class="myWardsDetails">
+        <div class="app-header d-flex d-lg-none shadow-sm">
+            <!--begin::Header container-->
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12">
+                <!--begin::Logo-->
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15 ">
+                    <a ng-click="hideWardDetails()">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg"
+                            class="h-25px">
+                    </a>
+                </div>
+                <!--end::Logo-->
+                <!--begin::Header mobile toggle-->
+                <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+
+                </div>
+                <!--end::Header mobile toggle-->
+            </div>
+            <!--end::Header container-->
+        </div>
+    </div>
+    <!--myWardsDetails-->
+
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

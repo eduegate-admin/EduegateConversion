@@ -1,0 +1,98 @@
+﻿<div ng-controller="StudentLeaveController">
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+            Edit Parent Profile
+            </h1>
+
+        </div>
+    </div>
+    <div class="app-main flex-column flex-row-fluid">
+        <div class="d-flex flex-column flex-column-fluid">
+            <div class="app-content flex-column-fluid">
+                <div class="app-container container-xxl pt-5">
+                    <div class="d-flex flex-column flex-lg-row">
+                        <div class="flex-lg-auto min-w-lg-300px">
+                            <div class="card" ng-init="init()">
+                                <div class="card-body p-10" id="studentLeaveApplication">
+                                    <div class="w-100 justify-content-center d-flex mb-12">
+                                    <a class="symbol symbol-100px symbol-circle  border border-gray-300 border-3 overflow-hidden"
+                                   style="border: 3px solid rgba(255, 255, 255, 0.20) !important; ">
+                                    <span class="symbol-label align-items-start bg-light-danger">
+                                        <img class="object-fit-contain w-100 top-0 " style="object-position:0 0;"
+                                             ng-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                             on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                             alt="image" loading="lazy" />
+                                    </span>
+                                </a>
+                            </div>
+                                    <input type="hidden" id="StudentID" name="StudentID"
+                                           data_ng_model="StudentLeaveApplication.StudentID">
+                                    <input type="hidden" id="StudentLeaveApplicationIID"
+                                           name="StudentLeaveApplicationIID"
+                                           data_ng_model="StudentLeaveApplication.StudentLeaveApplicationIID">
+                                    <div class="mb-10">
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Name</label>
+                                                <label style="color: red;">*</label>
+                                            </span>
+                                            <input id="FirstName" name="FirstName" required=""
+                                                   class="form-control form-control-solid" placeholder="Name"
+                                                   data_ng_model="StudentPickupRequest.FirstName" />
+                                        </div>
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Passport</label>
+                                                <label style="color: red;">*</label>
+                                            </span>
+                                            <input id="FirstName" name="FirstName" required=""
+                                                   class="form-control form-control-solid" placeholder="Name"
+                                                   data_ng_model="StudentPickupRequest.FirstName" />
+                                        </div>
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Email</label>
+                                                <label style="color: red;">*</label>
+                                            </span>
+                                            <input id="FirstName" name="FirstName" required=""
+                                                   class="form-control form-control-solid" placeholder="Email"
+                                                   data_ng_model="StudentPickupRequest.FirstName" />
+                                        </div>
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Contact</label>
+                                                <label style="color: red;">*</label>
+                                            </span>
+                                            <input id="FirstName" name="FirstName" required=""
+                                                   class="form-control form-control-solid" placeholder="Contact"
+                                                   data_ng_model="StudentPickupRequest.FirstName" />
+                                        </div>
+
+                                    </div>
+                                    <div class="mb-0">
+                                        <button class="btn btn-primary w-100" type="submit"
+                                                ng-click="SubmitStudentLeaveApplication()" value="Submit"
+                                                style="width: 45%;float: left;">
+                                            <span class="svg-icon svg-icon-3">
+
+                                            </span>Edit
+                                        </button>
+                                    </div>
+                                    <span class="red inputerror" style="text-align: center;" ng-="ErrorMessage"
+                                          ng-if="ErrorMessage!=''">{{ErrorMessage}}</span>
+                                    <span class="green inputerror" style="text-align: center;" ng-="SuccessMessage"
+                                          ng-if="SuccessMessage!=''">{{SuccessMessage}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

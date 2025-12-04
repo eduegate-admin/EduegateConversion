@@ -1,0 +1,50 @@
+
+<!-- <form ng-controller="SearchController" class="ng-pristine ng-valid ng-scope">
+<div class="home-menu searchbar alignCenter" mass-autocomplete="" >
+    <div class="displayFlex">
+        <div class="searchwrap flexAuto">
+            <input type="text" id="autocomplete" mass-autocomplete-item="autocomplete_options" 
+            class="searchbarinput ng-pristine ng-valid ng-not-empty ng-touched" 
+            ng-model="$root.searchText" placeholder="What are you looking for?">
+        <span class="search">
+            <button type="submit" value="" ng-click="$root.searchText != '' &amp;&amp; $root.SearchProducts()"></button></span></div>
+        <div class="flexZero pad5">
+            <button class="cancelBtn" ng-click="$root.hideSearchBar()">Cancel</button>
+        </div>
+    </div>
+</div>
+</form>  -->
+
+<form ng-controller="SearchController"
+    class="app-container container-xxl d-flex flex-stack d-lg-block w-100 position-relative mb-2 mb-lg-0">
+    <input type="hidden">
+    <span type="submit" value="" ng-click="$root.searchText != '' &amp;&amp; $root.SearchProducts()"
+        class="svg-icon svg-icon-2 svg-icon-gray-700 position-absolute top-50 translate-middle-y ms-4">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M21.7 18.9L18.6 15.8C17.9 16.9 16.9 17.9 15.8 18.6L18.9 21.7C19.3 22.1 19.9 22.1 20.3 21.7L21.7 20.3C22.1 19.9 22.1 19.3 21.7 18.9Z"
+                fill="currentColor"></path>
+            <path opacity="0.3"
+                d="M11 20C6 20 2 16 2 11C2 6 6 2 11 2C16 2 20 6 20 11C20 16 16 20 11 20ZM11 4C7.1 4 4 7.1 4 11C4 14.9 7.1 18 11 18C14.9 18 18 14.9 18 11C18 7.1 14.9 4 11 4ZM8 11C8 9.3 9.3 8 11 8C11.6 8 12 7.6 12 7C12 6.4 11.6 6 11 6C8.2 6 6 8.2 6 11C6 11.6 6.4 12 7 12C7.6 12 8 11.6 8 11Z"
+                fill="currentColor"></path>
+        </svg>
+    </span>
+    <input type="text" class="form-control bg-transparent ps-13 fs-7 h-40px" name="search" value=""
+        ng-model="$root.searchText" placeholder="What are you looking for?" type="text" id="autocomplete"
+        mass-autocomplete-item="autocomplete_options">
+    <span class="position-absolute top-50 end-0 translate-middle-y lh-0 me-5" data-bs-toggle="collapse" href="#SearchToggle" role="button" aria-expanded="false" aria-controls="SearchToggle">
+        <span class="svg-icon svg-icon-3x"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="9.39844" y="20.7144" width="16" height="2.66667" rx="1.33333" transform="rotate(-45 9.39844 20.7144)" fill="currentColor"></rect>
+            <rect x="11.2852" y="9.40039" width="16" height="2.66667" rx="1.33333" transform="rotate(45 11.2852 9.40039)" fill="currentColor"></rect>
+            </svg>
+            </span>
+    </span>
+    <!-- <span class="btn btn-flush btn-active-color-primary position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-4" data-kt-search-element="clear">
+<span class="svg-icon svg-icon-2 svg-icon-lg-1 me-0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+</svg>
+
+</span>    </span> -->
+</form>
+

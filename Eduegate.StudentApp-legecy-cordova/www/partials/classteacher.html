@@ -1,0 +1,84 @@
+﻿<div ng-controller="ClassTeacherController">
+    <div class="app-content flex-column-fluid">
+
+        <div class="app-header d-flex shodow-sm">
+            <!--begin::Header container-->
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+                id="kt_app_header_container">
+                <!--begin::Logo-->
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                    <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                    </a>
+                </div>
+                <!--end::Logo-->
+                <!--begin::Header mobile toggle-->
+                <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+
+                </div>
+                <!--end::Header mobile toggle-->
+            </div>
+            <!--end::Header container-->
+        </div>
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">Teacher details
+                        </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="app-container container-xxl pt-5" ng-init="Init()">
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active" role="tabpanel">
+                    <div class="row g-6 g-xl-9">
+                        <div class="col-md-6 col-xxl-4" ng-repeat="teacher in TeacherDetails">
+                            <div class="card">
+                                <div class="card-body d-flex flex-center flex-column pt-12 p-9">
+                                    <a class="symbol symbol-65px symbol-circle mb-5 "  data-fancybox href="{{ContentService}}/ReadImageContentsByID?contentID={{teacher.EmployeePhoto}}">
+                                        <img style="  object-fit: cover; object-position: left top;" ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{teacher.EmployeePhoto}}" on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" alt="image">
+                                        <i ng-if="!teacher.EmployeePhoto" class="fa fa-3x fa-user" aria-hidden="true"></i>
+                                    </a>
+                                    <a  class="fs-4 text-gray-800 text-hover-primary fw-bold mb-0">{{teacher.HeadTeacherName}}</a>
+                                    <div class="fw-bold text-gray-400 mb-6"></div>
+                                    <div class="d-flex flex-center flex-wrap">
+                                        <div class="border border-gray-300 border-gray-300 rounded min-w-80px py-3 px-4 mx-2 mb-3">
+                                            <div class="fw-bold text-gray-400">Subject</div>
+                                            <div class="fs-6 fw-bold text-gray-700">{{teacher.SubjectName}}</div>
+                                        </div>
+                                        <div class="border border-gray-300 border-gray-300 rounded min-w-80px py-3 px-4 mx-2 mb-3">
+                                            <div class="fw-bold text-gray-400">Gender</div>
+                                            <div class="fs-6 fw-bold text-gray-700">{{teacher.GenderDescription}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert" ng-if="!ShowPreLoader && TeacherDetails.length == 0">
+                                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                 <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor"/>
+                                 <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor"/>
+                                 <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor"/>
+                                 </svg>
+                                </span>
+                                <div class="d-flex flex-column">
+                                    <h3 class="mb-1 text-danger">Not found!</h3>
+                                    <span>Sorry teacher details not found, please try again later.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

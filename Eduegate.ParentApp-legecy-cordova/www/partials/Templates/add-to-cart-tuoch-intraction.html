@@ -1,0 +1,105 @@
+<div class="addtocart-button item-contentInner whiteBg flexColumn pad5" >
+    <a data-toggle="modal" data-target="#detailPopup"  ng-click="$root.GetProductDetails(product.SelectedCatalog.SKUID); $root.setHeader('hide');"
+        ng-class="{'notInStock' : product.SelectedCatalog.ProductDiscountPrice == 0 || product.SelectedCatalog.ProductAvailableQuantity <= 0 }">
+        <div ng-if="product.BadgeClass" ng-class="product.BadgeClass"><span></span></div>
+        <span class="wishIcon" data-ng-class="{'active' : product.SelectedCatalog.IsWishList}"
+            ng-click="$root.AddOrRemoveToWishList(product.SelectedCatalog, $event);RemoveWishList(product.SelectedCatalog, $event)">&nbsp;</span>
+        <span class="prod-img"><img ng-src="{{product.SelectedCatalog.ProductListingImage}}" loading="lazy"
+                on-error-src="{{ErrorImage()}}" /></span>
+        <span class="outofStockMsg" ng-if="product.SelectedCatalog.ProductAvailableQuantity <= 0"
+            translate>OutofStock</span>
+        <span class="outofStockMsg" ng-if="product.SelectedCatalog.ProductDiscountPrice == 0"
+            translate>NotAvailableForSale</span>
+        <span class="titlecolumn displayFlex flexColumn">
+            <span class="caption padLeft10 padRight10"
+                ng-bind-html="SkipValidation(product.SelectedCatalog.ProductName)"></span>
+            <span class="oldprice"
+                ng-if="product.SelectedCatalog.ProductPrice != product.SelectedCatalog.ProductDiscountPrice">
+                <del ng-bind="product.SelectedCatalog.ProductPrice | currency : $root.DefaultDisplayCurrency"></del>
+            </span>
+            <span class="amount text-grey-700"
+                ng-if="product.SelectedCatalog.ProductDiscountPrice > 0">{{product.SelectedCatalog.ProductDiscountPrice
+                | currency : $root.DefaultDisplayCurrency}}</span>
+            <!-- <div ng-class="{'badgeStyle':($root.CartItemQuantity.length > 0 && $root.GetCartItemQuantity(product.SelectedCatalog.SKUID) > 0 ) || product.SelectedCatalog.AdditionalInfo1}" class="small unitCount">
+                <div style="display: flex;" ng-if="$root.CartItemQuantity.length > 0 && $root.GetCartItemQuantity(product.SelectedCatalog.SKUID) > 0">{{$root.GetCartItemQuantity(product.SelectedCatalog.SKUID)}}
+                    <div ng-if="product.SelectedCatalog.AdditionalInfo1">
+                        &nbsp;x&nbsp;</div>
+                </div> -->
+            <div class="widget-qty" ng-if="product.SelectedCatalog.AdditionalInfo1">{{product.SelectedCatalog.AdditionalInfo1}}</div>
+            <!-- </div> -->
+        </span>
+
+    </a>
+    <div class="qty-cart-container" feature-flag="qntcontainer">
+        <div class="no-count" ng-show="$root.GetCartItemQuantity(product.SelectedCatalog.SKUID) != 0">
+            <span class="current">{{$root.GetCartItemQuantity(product.SelectedCatalog.SKUID)}}</span>
+        </div>
+        <span class="add-to-cart" ng-show="$root.GetCartItemQuantity(product.SelectedCatalog.SKUID) == 0"
+            ng-if="product.SelectedCatalog.ProductDiscountPrice > 0 && product.SelectedCatalog.ProductAvailableQuantity > 0">
+            <button type="button" title="ADD TO CART" class="to-Cart add-to-cart-btn" ng-click="AddtoCart(product.SelectedCatalog,1);">
+                <span class="txt-btn" translate>AddCart</span>
+                <span class="add-plus"></span>
+            </button>
+            <!-- <button class="btn btn-primary btn-lg addtocartbutton" ng-click="AddtoCart(product.SelectedCatalog,1);">
+                <i class="fa fa-shopping-bag" style="    padding-right: 10px;"></i>
+                <label translate>AddtoCart</label>
+            </button>   -->
+        </span>
+        <span class="addtocart outofstock" style="text-align:center;"
+            ng-if="product.SelectedCatalog.ProductDiscountPrice == 0 || product.SelectedCatalog.ProductAvailableQuantity <= 0">
+            <button class="primary-button"
+                ng-click="$root.NotifyMeProductSKUID = product.SelectedCatalog.SKUID;"><i
+                    class="fa fa-thumbs-o-up bbb-icons" style="    padding-right: 10px;"></i>
+                    <label style="margin-bottom: 0;" translate>NotifyMe</label>
+            </button>
+        </span>
+        <div class="cart-counter" ng-show="$root.GetCartItemQuantity(product.SelectedCatalog.SKUID) != 0"
+            ng-if="!(product.SelectedCatalog.ProductDiscountPrice == 0 || product.SelectedCatalog.ProductAvailableQuantity <= 0)">
+            <button class="btn-cart left" ng-click="AddtoCart(product.SelectedCatalog,-1);">
+                <div class="touch-cart-btn leftBtn">-</div>
+            </button>
+            <button class="btn-cart right" ng-click="AddtoCart(product.SelectedCatalog,1);">
+                <div class="touch-cart-btn rightBtn">+</div>
+            </button>
+        </div>
+    </div>
+
+    <div class="product-color" data-ng-if="product.Catalogs.length>1">
+        <div class="arrowleft controllers"><i class="fa fa-chevron-left"></i></div>
+        <div class="arrowright controllers"><i class="fa fa-chevron-right"></i></div>
+        <div class="color-innerwrap">
+            <span class="variance-wrap">
+                <a class="color-variance" data-ng-class="{'selected':catalog.SkuID == product.SelectedCatalog.SkuID}"
+                    data-ng-repeat="catalog in product.Catalogs | unique:'ProductColor'"
+                    data-ng-attr-title="{{catalog.ProductName}}"
+                    ng-if="catalog.ProductColor != undefined && catalog.ProductColor != null && catalog.ProductColor != ''"
+                    href="">
+                    <!--data-ng-click="SelectCatalog(product,catalog,$event);"-->
+                    <span ng-repeat="color in catalog.ProductColor.split(',')"
+                        ng-if="color != undefined && color != null && color != ''">
+                        <span ng-style="{'background':color}"><span style="visibility:hidden;">&nbsp;</span></span>
+                    </span>
+                    
+                </a>
+                <!--ui-sref="productdetails({skuID:product.SelectedCatalog.SKUID})"-->
+                <a class="more-colors" data-ng-if="product.CatalogCount>product.Catalogs.length">+</a>
+            </span>
+        </div>
+    </div>
+    <!-- <div   class="displayFlex justify-end padtop6 fontSize12 relativePos zIndex1000">
+
+    </div> -->
+
+
+
+    <div class="displayFlex justify-end padtop8 fontSize12 relativePos z-ndex1000" ng-if="product.SelectedCatalog.Unit">
+        {{product.SelectedCatalog.Unit}}
+    </div>
+    <!-- <span class="sale-label"
+        ng-if="product.SelectedCatalog.ProductPrice != product.SelectedCatalog.ProductDiscountPrice && ((((product.SelectedCatalog.ProductPrice - product.SelectedCatalog.ProductDiscountPrice)/product.SelectedCatalog.ProductPrice) * 100)|rounded:0) > 1"> -->
+        <!-- <span translate>OFFER</span>&nbsp; -->
+        <!-- <span
+            ng-bind="'- ' +((((product.SelectedCatalog.ProductPrice - product.SelectedCatalog.ProductDiscountPrice)/product.SelectedCatalog.ProductPrice) * 100)|rounded:0) + '%' "></span>
+    </span> -->
+
+</div>

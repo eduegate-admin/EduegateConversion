@@ -1,0 +1,24 @@
+﻿<div ng-controller="StudentLeaveController">
+    <div class="containerWrap">
+        <div class="displayFlex setBorder flexColumn pad10 boxShadow marginBtm10 whiteBg">
+            <!-- ng-repeat="leave in Leaves" -->
+            <div class="mainTitle fullwidth changeColor relativePos displayFlex">
+                <span class="flexOne" translate>Application No: 01</span>
+                <span class="headerBtn flexAuto"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</span>
+                <span class="headerBtn flexAuto"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
+            </div>
+            <div class="gridDataWrap">
+                <label>Reason:</label>
+                <span>{{ leave.Reason }}</span>
+            </div>
+            <div class="gridDataWrap">
+                <label>From Date:</label>
+                <span>{{leave.FromDate | date | date : 'dd-MM-yyyy hh:mm a'}}</span>
+            </div>
+            <div class="gridDataWrap">
+                <label>To Date:</label>
+                <span>{{leave.ToDate | date | date : 'dd-MM-yyyy hh:mm a'}}</span>
+            </div>
+        </div>
+    </div>
+</div>

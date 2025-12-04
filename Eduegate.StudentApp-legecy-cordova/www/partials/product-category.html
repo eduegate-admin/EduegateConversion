@@ -1,0 +1,344 @@
+<div class="app-page flex-column flex-column-fluid" ui-view="bookDetails">
+    <div class="app-content flex-column-fluid">
+        <div class="app-header productlist-header position-sticky">
+            <ng-include src="'partials/appheader.html'"
+                        class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"></ng-include>
+            <!-- <ng-include src="'partials/header.html'"></ng-include> -->
+            <!-- <div class="header-inner">
+                      <div class="nav-sidebar align-left">
+                          <div class="backtopage"><a href="" ng-click="$root.goBack()" class=" p-5 ms-n5">&nbsp;</a></div>
+                      </div>
+
+                      <div class="header-text">
+                          <span>{{ FilterCaption}}</span>
+                      </div>
+
+                      <div class="nav-sidebar align-right">
+                          <ul>
+                              <li class="licartClick">
+                                  <a href="" id="cart" ui-sref="cart" ui-sref-opts="{reload: true}" class="cartIcon colorblack">
+                                      <span class="count" ng-bind="ShoppingCartCount" ng-if="ShoppingCartCount > 0"></span>
+                                  </a>
+                              </li>
+                              <li class="licartClick">
+                                  <a href="" id="cart" ui-sref="singlecheckout" ui-sref-opts="{reload: true}"
+                                      class="cartIcon colorblack">
+                                      <span class="count" ng-bind="ShoppingCartCount" ng-if="ShoppingCartCount > 0"></span>
+                                  </a>
+                              </li>
+                              <li class="headerSearch" ng-click="$root.showSearchBar()">
+                                  <span class="searchIcon colorblack">&nbsp;</span>
+                              </li>
+                              <li class="headerSearch" feature-flag="filterbutton" ng-click="FilterClick()">
+                                      <span class="searchIcon filterHeaderIcon colorblack">&nbsp;</span>
+                              </li>
+
+                              <li class="homeIconLink">
+                                  <a ui-sref="home({loadBlocks:false})">
+                                      <span class="homeIcon colorblack"></span>
+                                  </a>
+                              </li>
+
+                          </ul>
+                      </div>
+
+                  </div> -->
+            <div class="searchBarInner">
+                <!-- ngInclude: --><ng-include src="'partials/searchheader-category.html'"
+                                               class="ng-scope">
+                    <form ng-controller="SearchController"
+                          class="ng-pristine ng-valid ng-scope">
+                        <div class="home-menu searchbar alignCenter" mass-autocomplete="">
+                            <div class="displayFlex">
+                                <div class="searchwrap flexAuto">
+                                    <input type="text"
+                                           id="autocomplete"
+                                           mass-autocomplete-item="autocomplete_options"
+                                           class="searchbarinput ng-pristine ng-valid ng-not-empty ng-touched"
+                                           ng-model="$root.searchText"
+                                           placeholder="What are you looking for?" />
+                                    <span class="search">
+                                        <button type="submit"
+                                                value=""
+                                                ng-click="$root.searchText != '' &amp;&amp; $root.SearchProducts()"></button>
+                                    </span>
+                                </div>
+                                <div class="flexZero pad5">
+                                    <button class="cancelBtn" ng-click="$root.hideSearchBar()">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </ng-include>
+            </div>
+            <!-- <ng-include src="'partials/searchheader.html'"></ng-include> -->
+        </div>
+        <ng-include class="app-toolbar py-3 py-lg-0  shadow-sm min-h-100px bg-white"
+                    src="'partials/subcategory-image-scroll-list.html'"></ng-include>
+        <!-- <div class="app-toolbar py-3 py-lg-0">
+                    <div class="app-container container-xxl d-flex flex-stack">
+                        <div class="btn-group w-100">
+                            <button type="button" class="btn btn-primary w-100" ng-click="ShowSortOption()">
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
+                                        <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                                      </svg>
+                                </span>
+                                    Sort By
+
+                            </button>
+                            <button type="button" class="btn btn-primary" ng-click="ListViewChange($event)">
+                                <span class="svg-icon svg-icon-1">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid" viewBox="0 0 16 16">
+                                    <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+                                  </svg>
+                                </span>
+                            </button>
+                            <button type="button" class="btn btn-primary w-100" ng-click="FilterClick()">
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                                        <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+                                      </svg>
+                                </span>
+                                    Filter By</button>
+                          </div>
+                    </div>
+                </div> -->
+        <div class="app-container container-xxl pt-5 bg-white theme-dark-bg-body">
+            <!-- <ng-include  src="'partials/subcategory-noimage-scroll-list.html'"></ng-include>  -->
+            <!-- if category tab is using with image then use hasCategoryScroll width content div below else use hasCategoryTabScroll -->
+            <div class=""
+                 data-ng-class="[{'hasCategoryScroll': $root.ClientSettings.SubCategoryScrollWithImage && ProductListViewModel && ProductListViewModel.FacetsDetails[1] && ProductListViewModel.FacetsDetails[1].FaceItems.length > 0 }, {'hasCategoryTabScroll': !$root.ClientSettings.SubCategoryScrollWithImage && ProductListViewModel && ProductListViewModel.FacetsDetails[1] && ProductListViewModel.FacetsDetails[1].FaceItems.length > 0  }]">
+                <div class="prod-added">
+                    <div class="prod-added-blk">
+                        <div><span class="tick"> </span></div>
+                        <div>
+                            <span class="prod-addedtxt" translate>ProductAddedtoyourCart</span>
+                        </div>
+                        <div>
+                            <img class="prodimg"
+                                 src="[IMAGEPATH]"
+                                 on-error-src="{{ErrorImage()}}" />
+                        </div>
+                        <div>
+                            <span><label translate>[PRODUCTNAME]</label></span>
+                        </div>
+                        <div>
+                            <span><b><label translate>Quantity:[QUANTITY]</label></b></span>
+                        </div>
+                        <div>
+                            <span><b class=""><label translate>Price:[PRICE]</label></b></span>
+                        </div>
+                        <div>
+                            <button type="submit" ui-sref="checkout" translate>
+                                CONTINUECHECKOUT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- on change of scroll in list-container will break the waypoint-->
+                <div class="row g-5" ng-if="NoProducts == false">
+                    <div class="col-6 col-sm-4 col-md-3 col-xl-2"
+                         ng-repeat="product in ProductListList"
+                         ng-class="{'hasdiscount': product.SelectedCatalog.ProductPrice != product.SelectedCatalog.ProductDiscountPrice}">
+                        <ng-include src="'partials/Templates/add-to-cart-button.html'"></ng-include>
+                        <!-- <ng-include  src="'partials/Templates/add-to-cart-touch.html'">
+                                        </ng-include> -->
+                        <!-- <ng-include  src="'partials/Templates/add-to-cart-tuoch-intraction.html'">
+                                        </ng-include> -->
+                    </div>
+                </div>
+
+                <div class="cartempty" ng-if="NoProducts == true">
+                    <img src="clients/{{$root.ClientSettings.Client}}/img/noresult.png" />
+                    <span class="errorsearchmsgheader"><label translate>Sorrynoresultsfound</label></span>
+                    <!-- <span class="errorsearchmsg"><label translate>Wecouldn'tfindanythingthatmatchesyoursearch.</label></span> -->
+                </div>
+                <ul class="AttachWayPointsDiv lazyload">
+                    <div class="d-flex justify-content-center">
+                        <div id="LoadLi" class="spinner-border text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </ul>
+                <div ng-if="ShoppingCartCount > 0"
+                     feature-flag="stickyfooter"
+                     class="stickyspacer displayFlex fullwidth"
+                     style="height: 50px"></div>
+                <div feature-flag="footer"
+                     class="stickyspacer displayFlex fullwidth"
+                     style="height: 50px"></div>
+                <div ng-if="ShoppingCartCount > 0"
+                     feature-flag="iconfooter"
+                     class="stickyspacer displayFlex fullwidth"
+                     style="height: 50px"></div>
+
+                <!--offers-->
+            </div>
+            <!--content-->
+        </div>
+        <!--maincontentarea-->
+
+        <ng-include src="'partials/notifyme.html'"></ng-include>
+        <ng-include src="'partials/add-to-cart-options.html'"></ng-include>
+    </div>
+    <ng-include feature-flag="footer"
+                src="'partials/Templates/footer.html'"></ng-include>
+
+    <ng-include src="'partials/Templates/sticky-footer.html'"></ng-include>
+    <ng-include feature-flag="iconfooter"
+                src="'partials/Templates/iconfooter.html'"></ng-include>
+    <ng-include feature-flag="addtocarttouchintraction"
+                src="'partials/product-detail-popup.html'"></ng-include>
+</div>
+
+<div class="app-content flex-column-fluid filtersection" style="z-index: 20000">
+    <div class="app-header d-flex shadow-none">
+        <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12">
+            <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15"></div>
+            <div class="d-flex align-items-center d-lg-none ms-2"
+                 title="Show sidebar menu">
+                <div class="btn btn-icon btn-custom"
+                     style="
+            background-color: var(--bs-topbar-btn-bg-color);
+            --bs-topbar-btn-bg-color: #eaeef1;
+          "
+                     ng-click="FilterClose($event, false)">
+                    <span class="svg-icon svg-icon-2">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="32"
+                             height="32"
+                             fill="currentColor"
+                             class=""
+                             viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--header-->
+    <div class="app-container container-xxl bg-white theme-dark-bg-body pt-5">
+        <div class="hover-scroll-overlay-y vh-100">
+            <div class="filtercrumbs">
+                <span data-ng-if="selectedFilters.length > 0"
+                      class="spacer noborder"></span>
+                <ul>
+                    <li data-ng-repeat="selectedFilter in selectedFilters"
+                        data-ng-click="GeneralFilterClick(selectedFilter,$event)">
+                        <span data-ng-bind="selectedFilter.key"></span>
+                    </li>
+                </ul>
+                <span data-ng-if="selectedFilters.length > 0"
+                      data-ng-click="ClearSelectedFilters();"
+                      class="clearall"
+                      translate>CLEARALL</span>
+                <span data-ng-if="selectedFilters.length > 0" class="spacer"></span>
+            </div>
+            <div class="fl-left fullwidth align-left toggletab">
+                <ul>
+                    <li data-ng-class="{'displaynone':facets.Name == 'skutags'}"
+                        data-ng-repeat="facets in ProductListViewModel.FacetsDetails track by $index">
+                        <a href=""
+                           data-attr="option_{{$index+1}}"
+                           data-ng-click="FilterOptionClick($event)">
+                            <label translate>{{facets.Name}}</label>
+                        </a>
+                        <ul class="select_filters togglecontent option_{{$index + 1}}"
+                            data-attr="option_{{$index + 1}}">
+                            <li>
+                                <span class="option_wrap"
+                                      ng-repeat="facetItem in facets.FaceItems">
+                                    <label ng-click="GeneralFilterClick(facetItem, $event)">
+                                        <span ng-class="{'checked check':facetItem.Selected==true,'check':facetItem.Selected !=true}">
+                                            <input type="checkbox"
+                                                   ng-model="facetItem.Selected"
+                                                   ng-change="SetSelectFilter(facetItem)" />
+                                        </span>
+                                        {{SkipValidation(facetItem.key)}}
+                                    </label>
+
+                                    <ul ng-if="facetItem.FaceItems.length > 0">
+                                        <li>
+                                            <span class="option_wrap"
+                                                  ng-repeat="facetItem1 in facetItem.FaceItems">
+                                                <label ng-click="GeneralFilterClick(facetItem1, $event)">
+                                                    <span ng-class="{'checked check':facetItem1.Selected==true,'check':facetItem1.Selected !=true}">
+                                                        <input type="checkbox"
+                                                               ng-model="facetItem1.Selected"
+                                                               ng-change="SetSelectFilter(facetItem)" />
+                                                    </span>
+                                                    {{SkipValidation(facetItem1.key)}}
+                                                </label>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </span>
+                            </li>
+
+                            <li></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--pagesections-->
+    </div>
+    <!--maincontentarea-->
+    <!--maincontentarea-->
+</div>
+<!--mainwrap-filterpage-->
+<!--begin::Scrolltop button-->
+<div id="#scrolltop_control"
+     class="scrolltop btn-info rounded-5"
+     data-kt-scrolltop="true">
+    <span class="svg-icon svg-icon-gray-100">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 384 512"
+             fill="currentColor">
+            <!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z" />
+        </svg>
+    </span>
+</div>
+<div class="scrolltop btn-group left-50 h-20px rounded-5"
+     style="left: 50%; transform: translate(-50%, -50%)">
+    <button type="button" class="btn btn-primary" ng-click="FilterClick()">
+        <!-- <span class="svg-icon svg-icon-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                        <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"></path>
+                      </svg>
+                </span> -->
+        Filter
+    </button>
+    <button type="button"
+            class="btn btn-primary position-relative"
+            ui-sref="singlecheckout">
+        <!-- <span class="svg-icon svg-icon-1">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid" viewBox="0 0 16 16">
+                    <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"></path>
+                  </svg>
+                </span> -->
+        Cart
+        <span class="rounded-circle position-absolute bg-dark badge translate-end bottom-100 start-100 h-20px w-20px fs-9 text-grey-800 mb-n3 ms-n3 d-flex flex-center"
+              ng-bind="ShoppingCartCount"
+              ng-if="ShoppingCartCount > 0">5</span>
+    </button>
+</div>
+<!--
+<div class="scrolltop bg-light-primary end-0 top-0  rounded-5 mt-4 me-4"
+     style="z-index: 10000"
+     ng-click="$root.goBack()" class=" p-5 ms-n5">
+    <span class="svg-icon">
+        <svg>
+            <use xlink:href="images/angle-left.svg#img"
+                 href="images/angle-left.svg#img"></use>
+        </svg>
+    </span>
+</div> -->
+<!--end::Scrolltop button-->

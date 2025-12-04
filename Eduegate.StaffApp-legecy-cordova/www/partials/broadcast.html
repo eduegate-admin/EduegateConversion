@@ -1,0 +1,330 @@
+﻿<div class="app-page flex-column flex-column-fluid">
+    <div class="app-content d-flex flex-column-fluid">
+
+        <div class="d-flex" style="
+        flex-grow: 1;
+    ">
+            <div class="vh-100 card shadow-none w-100 border-0 rounded-0" id="kt_drawer_chat_messenger"
+                style="background-image: url( clients/{{$root.ClientSettings.Client}}/images/bg-chat.png);">
+                <div class="card-header bg-chat-header pe-5 sticky-top rounded-0 border-0"
+                    id="kt_drawer_chat_messenger_header">
+                    <div class="card-title w-100 d-flex justify-content-between">
+                        <div class="d-flex">
+                            <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19"
+                                    fill="none">
+                                    <path
+                                        d="M20 8.43018H3.95204L10.6306 1.51201L9.17094 0L0 9.5L9.17094 19L10.6306 17.488L3.95204 10.5698H20V8.43018Z"
+                                        fill="white" />
+                                </svg>
+                            </a>
+                            <div class="symbol symbol-circle symbol-50px  me-4">
+                                <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" alt=""
+                                    class="mw-100">
+                            </div>
+                            <div class="d-flex justify-content-center flex-column me-3">
+
+                                <a class="fs-4 fw-bold text-white text-hover-primary me-1 mb-2 lh-1">
+                                    {{BroadcastName}}&nbsp;
+                                </a>
+
+                                <div class="mb-0 lh-1">
+                                    <!-- <span class="badge badge-success badge-circle w-10px h-10px me-1"></span> -->
+                                    <span class="fs-6 fw-normal text-muted">Announcements</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="me-0">
+                            <button class="btn btn-sm btn-icon btn-active-color-primary show menu-dropdown"
+                                data-bs-toggle="modal" data-bs-target="#infoModal" ng-click="GetStudentDetailsFromBrodcasts()">
+                                <i class="fs-2x">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-info-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                        <path
+                                            d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                                    </svg>
+                                </i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- <div class="position-absolute w-100 h-100"  style="background-image: url('./images/pxfuel.jpg'); background-size: cover; opacity: 0.3;">
+
+                </div> -->
+                <div class="card-body scroll-y pe-5" id="kt_drawer_chat_messenger_body">
+
+                    <div ng-repeat="message in ChatMessages track by message.CommentIID  || $index">
+                        <!-- Right side messages -->
+                        <div ng-if="message.CreatedBy != LoginUserID" class="d-flex justify-content-end mb-4 mx-4">
+                            <div class="d-flex flex-column align-items-end position-relative gap-2">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="symbol symbol-35px symbol-circle">
+                                        <!-- Placeholder for avatar -->
+                                    </div>
+                                    <div class="ms-3">
+                                        <!-- Placeholder for user name if needed -->
+                                    </div>
+                                </div>
+
+                                <div class="p-2 rounded-1  text-white  fw-semibold mw-lg-400px mw-300px text-start px-4 chat-box-right position-relative pb-6 min-w-70px "
+                                    style="background-color: #8B71A4;">
+                                    <div class="p-2 rounded-1 fw-semibold mw-lg-400px mw-300px text-start"
+                                        ng-if="message.ParentCommentID" style="background-color: #d7d0ea2e;">
+                                        <small>You : "{{ message.ParentComment }}"</small> <!-- Parent comment text -->
+                                    </div>
+                                                                                                                                          <span ng-bind-html='message.CommentText | newlineToBr ' ></span>
+
+                                    <span
+                                        class="text-end text-gray-300 fs-9 position-absolute end-0 bottom-0 mb-1 me-2">
+                                              <span   title="Broadcast message">
+                                    <svg viewBox="0 0 212 212" height="20" width="20" preserveAspectRatio="xMidYMid meet" class="x1o6zcso" fill="currentColor"><title>announcement-speaker</title><path fill-rule="evenodd" clip-rule="evenodd" d="M89.5827 83.703C89.5827 82.9635 89.9699 82.278 90.6032 81.8962L119.16 64.6781C122.059 62.8863 125.902 64.8549 125.902 68.1319V137.101C125.902 140.308 122.206 142.288 119.301 140.639L90.6507 124.368C89.9905 123.993 89.5827 123.293 89.5827 122.534V83.703ZM46 96.2616C46 88.6676 52.5042 82.5114 60.5276 82.5114H80.209C81.3743 82.5114 82.3189 83.4561 82.3189 84.6213V121.652C82.3189 122.817 81.3743 123.762 80.209 123.762H75.6957L82.4837 147.779C83.0001 149.606 81.9267 151.465 80.0861 151.931L72.2787 153.908C70.4381 154.374 68.5274 153.271 68.0111 151.443L60.2202 123.878C60.2089 123.838 60.1983 123.798 60.1886 123.758C52.3218 123.588 46 117.498 46 110.012V96.2616ZM161.187 71.6946C160.374 70.6624 158.814 70.5245 157.751 71.3468L154.102 74.1721C153.034 74.9983 152.876 76.4799 153.682 77.5251C159.328 84.8487 162.362 93.7105 162.303 102.817C162.244 111.919 159.096 120.741 153.361 127.996C152.536 129.039 152.66 130.516 153.704 131.345L157.352 134.241C158.396 135.07 159.964 134.936 160.799 133.901C167.981 125.002 171.926 114.114 171.999 102.874C172.072 91.624 168.263 80.6813 161.187 71.6946ZM145.914 81.0162C145.113 79.9754 143.55 79.8499 142.494 80.6798L138.867 83.5311C137.806 84.3649 137.664 85.8456 138.444 86.9079C141.82 91.5035 143.641 96.9856 143.626 102.62C143.612 108.251 141.767 113.72 138.373 118.298C137.582 119.364 137.702 120.84 138.746 121.669L142.394 124.564C143.438 125.393 145.009 125.261 145.823 124.211C150.664 117.973 153.303 110.423 153.323 102.642C153.342 94.8522 150.735 87.2808 145.914 81.0162Z"></path></svg>
+                                         </span>
+                                        {{ message.CreatedDate| date:'hh:mm a' }}
+                                    </span>
+                                </div>
+                                <div class="d-flex align-items-center border border-dashed border-gray-300 rounded p-2"
+                                    ng-if="message.PhotoContentID">
+                                    <img class="rounded w-250px" ng-if="message.PhotoContentID"
+                                        ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{message.PhotoContentID}}"
+                                        alt="image" />
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Right active side messages -->
+                        <div ng-if="message.CreatedBy == LoginUserID" class="d-flex justify-content-end mb-4 mx-4">
+                            <div class="d-flex flex-column align-items-end position-relative">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="me-3">
+                                        <!-- Placeholder for avatar -->
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle">
+                                        <!-- Placeholder for user name if needed -->
+                                    </div>
+                                </div>
+
+                                <div class="p-3 rounded  text-gray-100 fw-semibold mw-lg-400px mw-300px text-end chat-box-right"
+                                    style="background-color: #785fbd;">
+                                    <div class="p-2 rounded-1 fw-semibold mw-lg-400px mw-300px text-start"
+                                        ng-if="message.ParentCommentID" style="background-color: #d7d0ea2e;">
+                                        <small> "{{ message.ParentComment }}"</small> <!-- Parent comment text -->
+                                    </div>
+                                                                                                                                         <span ng-bind-html='message.CommentText | newlineToBr ' ></span>
+
+                                    <span
+                                        class="text-end text-gray-300 fs-9 position-absolute end-0 bottom-0 mb-1 me-2">
+                                        {{ message.CreatedDate| date:'hh:mm a' }}
+                                    </span>
+                                </div>
+                                <!-- Show read status -->
+                                <div class="text-muted mt-1" ng-if="message.IsRead">
+                                    <div class="Tick"></div>
+                                    <div class="Tick ms-n4"></div>
+
+                                    <small>Read</small> <!-- Display "Read" status -->
+                                </div>
+                                <div class="d-flex align-items-center border border-dashed border-gray-300 rounded p-2"
+                                    ng-if="message.PhotoContentID">
+                                    <img class="rounded w-250px" ng-if="message.PhotoContentID"
+                                        ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{message.PhotoContentID}}"
+                                        alt="image" />
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card-footer  pt-4 z-index-3 border-0" id="kt_drawer_chat_messenger_footer">
+                    <!--begin::Input-->
+                    <div class=" d-flex flex-column mx-3" ng-if="selectedCommentParentId">
+
+                        <div
+                            class="d-flex justify-content-between fw-bold fs-6 text-gray-600 opacity-75 w-100 mt-auto mb-2">
+                            <span>Reply to {{parentName}}</span>
+                            <span ng-click="clearSelectParentComment()">X</span>
+                        </div>
+                        <div class="fs-5 fw-semibold text-truncate">
+                            {{ParentcommentText}}
+
+                        </div>
+                    </div>
+                    <div class=" d-flex flex-column overlay overlay-block">
+                        <!-- <img alt="img" src="" style="visibility:hidden;" onload="this.style.visibility='visible'"
+                            onError="this.style.visibility='hidden'" class="rounded w-150px overlay-wrapper"
+                            id="myImage"> -->
+                                 <img ng-if="imagePreviewSrc"
+                            alt="Image Preview"
+                            ng-src="{{imagePreviewSrc}}"
+                            class="rounded w-150px overlay-wrapper">
+                        <div class="overlay-layer card-rounded bg-dark w-150px bg-opacity-5" ng-if="isUploading">
+                            <div class="spinner-border text-primary" role="status">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-stack mx-3 align-items-end ">
+
+                        <div class="d-flex align-items-end  me-2 w-100 position-relative">
+                            <div class="fs-2 text-gray-500  ms-2">
+
+                                <div class="dropdown">
+                                    <button class="btn btn-icon btn-lg rounded-4 rounded-4 me-3 btn-white"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M9 7C9 4.23858 11.2386 2 14 2C16.7614 2 19 4.23858 19 7V15C19 18.866 15.866 22 12 22C8.13401 22 5 18.866 5 15V9C5 8.44772 5.44772 8 6 8C6.55228 8 7 8.44772 7 9V15C7 17.7614 9.23858 20 12 20C14.7614 20 17 17.7614 17 15V7C17 5.34315 15.6569 4 14 4C12.3431 4 11 5.34315 11 7V15C11 15.5523 11.4477 16 12 16C12.5523 16 13 15.5523 13 15V9C13 8.44772 13.4477 8 14 8C14.5523 8 15 8.44772 15 9V15C15 16.6569 13.6569 18 12 18C10.3431 18 9 16.6569 9 15V7Z"
+                                                fill="currentColor"></path>
+                                        </svg>
+                                    </button>
+
+                                    <ul
+                                        class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px">
+                                        <div class="my-4">
+                                            <!-- <div class="menu-item px-4">
+                                                <div class="d-flex flex-stack py-4">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="symbol symbol-25px symbol-md-30px me-4">
+                                                            <img class="rounded-0" src="./images/file-earmark-text-fill.svg" />
+                                                        </div>
+                                                        <div class="mb-0 me-2">
+                                                            <a  class="fs-4 text-gray-800 text-hover-primary fw-semibold">Document</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="menu-item px-4">
+                                                <div class="d-flex flex-stack py-4">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="symbol  symbol-25px symbol-md-30px me-4">
+                                                            <img class="rounded-0" src="./images/images.svg" />
+                                                        </div>
+                                                        <div class="mb-0 me-2">
+                                                            <a id="UploadPicture"
+                                                                class="fs-4 text-gray-800 text-hover-primary fw-semibold">Photos
+                                                                & videos</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="menu-item px-4">
+                                                <div class="d-flex flex-stack py-4">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="symbol symbol-25px symbol-md-30px me-4">
+                                                            <img class="rounded-0" src="./images/camera-fill.svg" />
+                                                        </div>
+                                                        <div class="mb-0 me-2">
+                                                            <a id="cameraTakePicture"
+                                                                class="fs-4 text-gray-800 text-hover-primary fw-semibold">Camera</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                              <textarea
+                            class="form-control form-control-solid form-control-lg mh-150px min-h-50px rounded-4 ps-4 pe-5 py-3 bg-white"
+                            rows="1"
+                            placeholder="Type a message"
+                            ng-model="Message"
+                            style="resize: none; overflow-y: scroll;  line-height:2.0; transition: height 0.2s ease-in-out;"></textarea>
+                 
+                        </div>
+                        <button class="btn btn-icon btn-primary rounded-4 symbol symbol-50px symbol-circle" type="button"
+                            ng-click="SaveBroadcast(Message)" ng-disabled="isSaving || isUploading" data-kt-element="send">
+                            <span class="h-50 align-self-center send-button"></span>
+                        </button>
+
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- </div> -->
+        </div>
+    </div>
+    <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-end">
+            <div class="modal-content">
+                <div class="modal-header bg-white position-sticky top-0 z-3">
+                    <div>
+                        <h5 class="modal-title" id="infoModalLabel">List of Members</h5>
+                        <span class="fs-6 fw-normal text-muted">{{BroadcatsMembers}} Members</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body overflow-auto" style="max-height: 100vh;">
+                    <div class="col-lg-3 mb-6 mb-lg-0 py-1" ng-repeat="Students in StudentsInBroadcasts">
+                        <div class="card card-flush card-p-0 card-reset bg-light-primary">
+                            <div class="card-body">
+                                <div class="d-flex flex-nowrap">
+                                    <div class="symbol symbol-circle symbol-25px me-4">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                            alt="" class="mw-100">
+                                    </div>
+                                    <div
+                                        class="card card-reset card-xl-stretch mb-xl-10 theme-dark-bg-body w-100 rounded-2">
+                                        <div class="card-body d-flex flex-column">
+                                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                                <div class="d-flex flex-column flex-grow-1 my-lg-0  pe-3">
+                                                    <a ng-if="Students.GuardianFirstName"
+                                                        class="text-gray-800 fw-semibold text-hover-primary fs-8">
+                                                        {{Students.GuardianFirstName}}&nbsp;
+                                                        <!-- Employee Email -->
+                                                        {{Students.GuardianLastName}}
+                                                    </a>
+                                                    <a ng-if="!Students.GuardianFirstName"
+                                                        class="text-gray-800 fw-semibold text-hover-primary fs-8">
+                                                        {{Students.FatherFirstName}}&nbsp;
+                                                        {{Students.FatherMiddleName}}&nbsp;
+
+                                                        <!-- Employee Email -->
+                                                        {{Students.FatherLastName}}
+                                                    </a>
+                                                    <!-- <span class="text-gray-800 fw-normal fs-7 my-1" ng-repeat="Students in Students.Students"> -->
+
+                                                    <!-- {{Students.StudentFullName}} -->
+                                                    <!-- {{Students.FirstName}} -->
+                                                    <!-- {{Students.MiddleName}} -->
+
+                                                    <!-- Employee Email -->
+                                                    <!-- {{Students.LastName}} -->
+
+                                                    <!-- </span> -->
+                                                    <span class="text-gray-800 fw-normal fs-7 my-1">
+                                                        {{Students.StudentFullName}}
+                                                    </span>
+                                                </div>
+                                                <div class="text-gray-500 fw-bold fs-7 text-end">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-primary" ng-click="EditBroadcastListClick()">Add Participants</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<style>
+    .app-wrapper {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+</style>

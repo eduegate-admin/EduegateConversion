@@ -1,0 +1,52 @@
+﻿<div class="app-page flex-column flex-column-fluid"  ng-controller="AboutUsController">
+
+
+    <div class="app-content flex-column-fluid">
+        <div class="app-header d-flex shodow-sm">
+            <!--begin::Header container-->
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+                id="kt_app_header_container">
+                <!--begin::Logo-->
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                    <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                    </a>
+                </div>
+                <!--end::Logo-->
+                <!--begin::Header mobile toggle-->
+                <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+
+                </div>
+                <!--end::Header mobile toggle-->
+            </div>
+            <!--end::Header container-->
+        </div>
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">About Us
+                        </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5 pb-20">
+            <div class="row g-4 g-md-5">
+                <div class="pagesections pad10">
+                    <div class="aboutus-desc">
+                        <div ng-if="$root.UserLanguage !== 'ar'  || !$root.UserLanguage">
+                            <div id="aboutUsEn" ng-init="LoadPage($root.ClientSettings.AboutUsIDEn, '#aboutUsEn')">
+                            </div>
+                        </div>
+                        <div ng-if="$root.UserLanguage == 'ar'">
+                            <div id="aboutUsAr" ng-init="LoadPage($root.ClientSettings.AboutUsIDAr, '#aboutUsAr')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

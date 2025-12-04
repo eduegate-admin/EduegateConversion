@@ -1,0 +1,252 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="FeePaymentHistoryController">
+    <div class="app-content flex-column-fluid">
+        <div class="app-header d-flex shodow-sm">
+            <!--begin::Header container-->
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+                id="kt_app_header_container">
+                <!--begin::Logo-->
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                    <a ng-click="$root.goHome()" class=" p-5 ms-n5">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                    </a>
+                </div>
+                <!--end::Logo-->
+                <!--begin::Header mobile toggle-->
+                <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+
+                </div>
+                <!--end::Header mobile toggle-->
+            </div>
+            <!--end::Header container-->
+        </div>
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">Fee payment history
+                        </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                    <a class="btn btn-sm fw-bold btn-primary text-white" ui-sref="feepayment">Pay your fee due</a>
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5">
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+
+                    <div class="row g-6 g-xl-9" ng-init="init()">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="">
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <label>School</label><label style="color: red;">*</label>
+                                            <select class="form-select" data-control="select2" name="SelectedSchool" id="SelectedSchool"
+                                                ng-options="item as item.Value for item in Schools track by item.Key" ng-model="SelectedSchool"
+                                                ng-change="SchoolChanges()">
+                                            </select>
+                                        </div>
+
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <label>Academic year</label><label style="color: red;">*</label>
+                                            <select class="form-select" data-control="select2" name="SelectedAcademicYear" id="SelectedAcademicYear"
+                                                ng-options="item as item.Value for item in AcademicYears track by item.Key" ng-model="SelectedAcademicYear">
+                                            </select>
+                                            </select>
+                                        </div>
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                                                <a class="btn btn-sm fw-bold btn-secondary text-black" ng-click="ClearFilterClick()">Clear filter</a>
+                                                <span class="d-flex align-items-center gap-2 gap-lg-3">
+                                                    <a class="btn btn-sm fw-bold btn-primary text-white" ng-click="FilterButtonClick()">Filter</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xxl-4" ng-repeat="collectionHistory in FeeCollectionHistories"
+                        ng-init="current = $parent.start; $parent.start=$parent.start+1;">
+                            <!--begin::Accordion-->
+                            <div class="accordion" id="kt_accordion_{{current}}">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="kt_accordion_1_header_{{current}}">
+                                        <button class="accordion-button fs-4 fw-semibold" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#kt_accordion_1_body_{{current}}" aria-expanded="true" aria-controls="kt_accordion_1_body_{{current}}">
+                                            <div
+                                            class="d-flex fs-6 fw-bold  w-100">
+                                            <div class="symbol symbol-20px symbol-circle me-4">
+                                                <img     ng-class="{'bi bi-droplet-half text-primary':collectionHistory.FeeCollectionStatusName == 'Paid'}"
+                                                ng-src="{{collectionHistory.FeeCollectionStatus == 'Paid' && './clients/' + $root.ClientSettings.Client + '/images/check-circle-fill.svg' || './clients/' + $root.ClientSettings.Client + '/images/exclamation-circle-fill.svg'}}"
+                                                >
+                                            </div>
+                                            <div class="d-flex flex-column">
+
+                                                <div class="card-label fw-bold text-dark flex-grow-1 me-4 mb-3">
+                                                   <span> {{collectionHistory.FeeCollectionStatus}}</span>&nbsp;
+                                                   <span data-highlightword="{{$root.DefaultDisplayCurrency}}"> &nbsp;&nbsp;{{collectionHistory.Amount |  currency :  $root.DefaultDisplayCurrency  }}&nbsp;</span>
+                                                </div>
+                                                <div
+                                                    class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap ">
+
+                                                    <span class=" ">{{collectionHistory.CollectionDateString}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        </button>
+                                    </h2>
+                                    <div id="kt_accordion_1_body_{{current}}" class="accordion-collapse collapse show"
+                                        aria-labelledby="kt_accordion_1_header_{{current}}" data-bs-parent="#kt_accordion_{{current}}">
+                                        <div class="accordion-body">
+                                            <div class="mb-6">
+                                                <div class="fw-semibold text-gray-600 fs-6">Transaction number</div>
+
+                                                <div class="fw-bold fs-5 text-gray-800">
+                                                    {{collectionHistory.TransactionNumber}}
+                                                </div>
+                                            </div>
+                                            <div class="mb-6">
+                                                <div class="fw-semibold text-gray-600 fs-6">Collection date</div>
+
+                                                <div class="fw-bold fs-5 text-gray-800">
+                                                    {{collectionHistory.CollectionDateString}}
+                                                </div>
+                                            </div>
+                                            <div class="mb-6">
+                                                <div class="fw-semibold text-gray-600 fs-6">Status</div>
+
+                                                <div class="fw-bold fs-5 text-gray-800">
+                                                    {{collectionHistory.FeeCollectionStatus}}
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-stack mt-auto bd-highlight">
+                                                <!--begin::Actions-->
+
+                                                <span ng-if="collectionHistory.FeeCollectionStatusID == collectionHistory.FeeCollectionDraftStatusID && !collectionHistory.IsEnableRetry">
+                                                    <span class="">
+                                                
+                                                    </span>
+                                                </span>
+
+                                                <span ng-if="collectionHistory.FeeCollectionStatusID == collectionHistory.FeeCollectionDraftStatusID && collectionHistory.IsEnableRetry">
+                                                    <button type="submit" ng-click="RetryPaymentTransaction(collectionHistory)" class="btn btn-sm btn-secondary btn-active-light-primary">
+                                                        <span class="">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="" viewBox="0 0 16 16">
+                                                                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                                                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                                                            </svg>
+                                                        </span>Retry
+                                                    </button>
+
+                                                </span>
+
+                                                <span ng-if="collectionHistory.FeeCollectionStatusID == collectionHistory.FeeCollectionCollectedStatusID">
+                                                    <button type="submit" ng-click="ResendMail(collectionHistory)" class="btn btn-sm btn-secondary btn-active-light-primary">
+                                                        <span class="svg-icon svg-icon-1 ">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg>
+
+                                                        </span>
+
+                                                            Email
+
+                                                    </button>
+                                                </span>
+
+                                                <button type="submit" ng-click="TransactionDetailClick(collectionHistory.TransactionNumber, FeePaymentModeID)" class="btn btn-secondary btn-sm btn-active-light-primary">
+                                                    View Item
+                                                </button>
+                                                <!--end::Actions-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"   ng-if="!ShowLoader && FeeCollectionHistories.length == 0">
+                                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor"/>
+                                <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor"/>
+                                <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor"/>
+                                </svg>
+                                </span>
+                                <div class="d-flex flex-column">
+                                    <h3 class="mb-1 text-danger">Not found!</h3>
+                                    <span>There is no collection details found!</span>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bg-dark bg-opacity-25" id="MailConformationModal" tabindex="-1" aria-modal="true" role="dialog">
+            <!--begin::Modal dialog-->
+            <script>
+                $('#MailConformationModal').on('show.bs.modal', function (e) {
+                    $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered p-10');
+                })
+                $('#MailConformationModal').on('hide.bs.modal', function (e) {
+                    $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered p-10' );
+                })
+            </script>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-4">
+
+                    <div class="modal-header flex-stack border-0 px-10 pt-5 pb-0">
+                        <div></div>
+                        <div class="btn btn-sm btn-icon btn-active-color-primary me-n2 position-relative z-index-1" data-bs-dismiss="modal">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen034.svg-->
+                            <span class="svg-icon svg-icon-1">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor"></rect>
+                                    <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor"></rect>
+                                    <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor"></rect>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="modal-body pt-0 pb-5 px-10">
+                        <div class="card-body pt-15 pt-lg-20">
+
+                            <div class="mb-14">
+                                <a class="">
+                                    <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/pearl_logo.png" class="h-40px">
+                                </a>
+                            </div>
+
+                            <h1 class="fw-bolder text-gray-900 mb-5">Verify your email</h1>
+
+                            <div class="fs-6 fw-semibold text-gray-500 mb-10">
+                                Receipt will be sent to the email provided.
+                            </div>
+                                <div class="form-group  ">
+                                    <input id="EmailID" name="EmailID" type="text" class="form-control  fs-7 ps-12" ng-model="SelectedTransactionDetails.EmailID" />
+                                </div>
+
+
+                            <form form method="post" ng-submit="SendMailReceipt()" id="mailsendform" novalidate class="d-flex justify-content-end pt-10">
+                                <button class="btn btn-sm btn-primary" type="submit" id="mailsendbutton">Send mail</button>
+                            </form>
+                            <!--end::Link-->
+                            <!--begin::Illustration-->
+                            <div class="mb-0">
+                                <img src="" class="mw-100 mh-300px theme-light-show" alt="">
+                            </div>
+                            <!--end::Illustration-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .accordion-button::after{
+        display: none;
+    }
+</style>

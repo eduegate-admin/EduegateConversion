@@ -1,0 +1,261 @@
+<div class="mainwrap prod-detail noSwipe">
+
+    <div class="header cart-header">
+        <div class="header-inner">
+            <div class="nav-sidebar align-left">
+                <div class="backtopage"><a href="" data-dismiss="modal">&nbsp;</a></div>
+            </div>
+            <!--nav-sidebar-->
+            <div class="header-text">
+                <span translate>ProductDetails</span>
+            </div>
+            <span feature-flag="multipagecheckout" class="cart-icon"><a href="" id="cart" ui-sref="cart"
+                    ui-sref-opts="{reload: true}"><i class="fa fa-shopping-cart"></i></a></span>
+            <span feature-flag="singlepagecheckout" class="cart-icon"><a href="" id="cart" ui-sref="singlecheckout"
+                    ui-sref-opts="{reload: true}"><i class="fa fa-shopping-cart"></i></a></span>
+        </div>
+        <ng-include ng-show="ShowLoader" src="'partials/main-loader.html'"></ng-include>
+    </div>
+    <!--header -->
+
+    <div class="maincontentarea">
+        <div class="content greybg">
+            <div class="pagesections">
+                <div class="prod-added">
+                    <div class="prod-added-blk">
+                        <div><span class="tick"> </span></div>
+                        <div><span class="prod-addedtxt"><label translate>ProductAddedtoyourCart</label></span></div>
+                        <div><img class="prodimg" src="[IMAGEPATH]" on-error-src="{{ErrorImage()}}" /></div>
+                        <div><span><label translate>[PRODUCTNAME]</label></span></div>
+                        <div><span><b><label translate>Quantity:[QUANTITY]</label></b></span></div>
+                        <div><span><b class=""><label translate>Price:[PRICE] </label></b></span></div>
+                        <div><button type="submit" ui-sref="checkout"><label translate>CONTINUECHECKOUT</label></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="galleryWrap displaylineBlock fullwidth relativePos">
+                    <div owlsliderdisableautoplay>
+                        <div id="owl-demo" class="owl-carousel owl-theme">
+                            <div class="item maxwidth productimage"
+                                ng-repeat="image in $root.Product.ProductImages track by $index">
+                                <a class="fancybox" data-fancybox-group="gallery" data-slide-index="{{$index}}"
+                                    href="{{image.ZoomImage}}">
+                                    <img loading="lazy" ng-src="{{image.ZoomImage}}" on-error-src="{{GetErrorImage()}}"
+                                        class="prod-detail-image" /></a>
+                            </div>
+                        </div>
+                        <!--swipe-->
+                        <span style="top:50px" class="discount"
+                            ng-if="$root.Product.ProductDetail.ProductPrice != $root.Product.ProductDetail.ProductDiscountPrice && (((($root.Product.ProductDetail.ProductPrice - $root.Product.ProductDetail.ProductDiscountPrice)/$root.Product.ProductDetail.ProductPrice) * 100)|rounded:0) > 1">
+                            <span class="discountpercentage-text " translate>OFFER</span>&nbsp;
+                            <span
+                                ng-bind="(((($root.Product.ProductDetail.ProductPrice - $root.Product.ProductDetail.ProductDiscountPrice)/$root.Product.ProductDetail.ProductPrice) * 100)|rounded:0) + '%' "></span>
+                        </span>
+                        <div class="wishlist-proddetail">
+                            <span class="wishIcon" data-ng-class="{'active' : $root.Product.ProductDetail.IsWishList}"
+                                ng-click="$root.AddOrRemoveToWishList($root.Product.ProductDetail)">&nbsp;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-data">
+                    <div class="tabContainer">
+                        <div class="tab current" id="detailinfo">
+                            <div class="prodname"><span
+                                    ng-bind-html="SkipValidation($root.Product.ProductDetail.ProductName)"></span></div>
+                            <span class="productunit"
+                                ng-if="$root.Product.ProductDetail.AdditionalInfo1">{{$root.Product.ProductDetail.AdditionalInfo1}}</span>
+                            <span class="discountoff"
+                                ng-if="$root.Product.ProductDetail.ProductPrice != $root.Product.ProductDetail.ProductDiscountPrice && (((($root.Product.ProductDetail.ProductPrice - $root.Product.ProductDetail.ProductDiscountPrice)/$root.Product.ProductDetail.ProductPrice) * 100)|rounded:0) > 1">
+                                &nbsp;
+
+                                <span
+                                    ng-bind="(((($root.Product.ProductDetail.ProductPrice - $root.Product.ProductDetail.ProductDiscountPrice)/$root.Product.ProductDetail.ProductPrice) * 100)|rounded:0) + '%' "></span>
+                                <span translate>OFF</span>
+                            </span>
+                            <div class="oldnew-price"
+                                ng-if="$root.Product.ProductDetail.ProductPartNo != null && $root.Product.ProductDetail.ProductPartNo != ''">
+                                <div class="leftlabel"><label translate>Part#</label></div><span> : </span> <span
+                                    class="newprice productSKUID"
+                                    ng-bind="$root.Product.ProductDetail.ProductPartNo"></span>
+                            </div>
+                            <div class="oldnew-price" ng-if="$root.Product.ProductDetail.ProductDiscountPrice > 0">
+                                <div class="leftlabel"><label translate>Price</label></div><span> </span>
+                                <span class="newprice">{{$root.Product.ProductDetail.ProductDiscountPrice | currency :
+                                    $root.DefaultDisplayCurrency}}
+                                </span>
+                                <strike class="product_discount">
+                                    <span style="color:black"><span class="old-price"
+                                            ng-if="$root.Product.ProductDetail.ProductPrice != $root.Product.ProductDetail.ProductDiscountPrice"
+                                            ng-bind-html="SkipValidation($root.Product.ProductDetail.ProductPrice + ' ' + $root.Product.ProductDetail.Currency)">
+                                        </span></span>
+                                </strike>
+                            </div>
+                            <div ng-if="$root.Product.ProductDetail.ProductAvailableQuantity > 0">
+                                <div class="alignleft prop-varient add-cart-counter">
+                                    <div class="leftlabel"><label translate>Quantity</label></div><span> </span>
+                                    <div class="dropdown relativePos displaylineBlock">
+                                        <div class="quantityField">
+                                            <button class="qtyCntrl reduceQty"
+                                                ng-click="$root.decreaseQty($root.selectedProductQuantity)"
+                                                ng-disabled="$root.selectedProductQuantity == 1"> - </button>
+                                            <span class="fieldQty"><input id="qtydropdown" type="text"
+                                                    ng-model="$root.selectedProductQuantity"
+                                                    ng-change="$root.updateQty($root.selectedProductQuantity)"
+                                                    ng-blur="$root.resetNoQty($root.selectedProductQuantity)"
+                                                    ng-value="$root.selectedProductQuantity" /></span>
+                                            <button class="qtyCntrl increaseQty"
+                                                ng-click="$root.increaseQty($root.selectedProductQuantity)"> + </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="$root.Product.ProductDetail.ProductAvailableQuantity <= 0">
+                                <span class="outofstock"><label translate>OutofStock</label></span>
+                            </div>
+                            <div class="productvariant" ng-if="Product.ProductVariants.length > 0">
+                                <div class="alignleft prop-varient"
+                                    ng-repeat="Variant in Product.ProductVariants | unique:'PropertyTypeName' | orderBy:'PropertyTypeName' ">
+                                    <div
+                                        ng-show="(Product.ProductVariants| filter:{ PropertyTypeName : Variant.PropertyTypeName }  | unique:'PropertyName').length>1">
+                                        <div class="leftlabel" ng-bind-html="SkipValidation(Variant.PropertyTypeName)">
+                                        </div><span></span>
+                                        <div class="fullwidth align-left"
+                                            ng-if="Variant.PropertyTypeName != '' && Variant.PropertyTypeName != undefined && Variant.PropertyTypeName != null">
+                                            <div class="variance-options color_options">
+                                                <a data-ng-if="Properties.PropertyTypeName != 'السعة'  && Properties.PropertyTypeName != 'Color'"
+                                                    data-ng-class="{'instock selected':Properties.ProductSKUMapIID == $root.Product.ProductDetail.SKUID && Properties.IsInventory==true , 'instock notselected' : Properties.ProductSKUMapIID !=$root.Product.ProductDetail.SKUID && Properties.IsInventory==true,'outofstock selected':Properties.ProductSKUMapIID == $root.Product.ProductDetail.SKUID && Properties.IsInventory==false,'outofstock notselected':Properties.ProductSKUMapIID != $root.Product.ProductDetail.SKUID && Properties.IsInventory==false }"
+                                                    data-ng-repeat="Properties in Product.ProductVariants| filter:{ PropertyTypeName : Variant.PropertyTypeName }  | unique:'PropertyName' | orderBy:'PropertyName'"
+                                                    data-ng-bind-html="SkipValidation(Properties.PropertyName)"
+                                                    data-ng-click="hasChanged(Properties.ProductSKUMapIID)" href="">
+                                                </a>
+                                            </div>
+                                            <div class="variance-options color_options color-wrap">
+                                                <a data-ng-if="Properties.PropertyTypeName == 'السعة'  || Properties.PropertyTypeName == 'Color'"
+                                                    data-ng-class="{'instock selected':Properties.ProductSKUMapIID == $root.Product.ProductDetail.SKUID && Properties.IsInventory==true , 'instock notselected' : Properties.ProductSKUMapIID !=$root.Product.ProductDetail.SKUID && Properties.IsInventory==true,'outofstock selected':Properties.ProductSKUMapIID == $root.Product.ProductDetail.SKUID && Properties.IsInventory==false ,'outofstock notselected':Properties.ProductSKUMapIID != $root.Product.ProductDetail.SKUID && Properties.IsInventory==false }"
+                                                    data-ng-repeat="Properties in Product.ProductVariants| filter:{ PropertyTypeName : Variant.PropertyTypeName }  | unique:'PropertyName' | orderBy:'PropertyName'"
+                                                    data-ng-click="hasChanged(Properties.ProductSKUMapIID)" href="">
+                                                    <span ng-repeat="color in Properties.ProductColor.split(',')"
+                                                        ng-if="color != undefined && color != null && color != ''">
+                                                        <span ng-style="{'background':color}"><span
+                                                                style="visibility:hidden;">&nbsp;</span></span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="keyfeatures" ng-if="Product.ProductFeatures.length > 0">
+                                <div class="font-bold"><label translate>KeyFeatures</label></div>
+                                <div ng-repeat="Feature in Product.ProductFeatures">
+                                    <div class="leftlabel" ng-bind-html="SkipValidation(Feature.FeatureName)"></div>
+                                    <span> : </span><span ng-bind-html="SkipValidation(Feature.FeatureValue)"></span>
+                                    <!--<span ng-bind-html="SkipValidation(Feature.FeatureName + ' : ' + Feature.FeatureValue)"></span>-->
+                                </div>
+                            </div>
+                            <div class="keyfeatures" ng-if="$root.Product.ProductDetail.ProductDescription">
+                                <!-- <div class="keyfeatures" ng-if="Product.ProductDescription.Description != undefined && Product.ProductDescription.Description != null && Product.ProductDescription.Description != ''"> -->
+                                <!-- <div class="Description"><label translate>Description</label></div> -->
+                                <div class="container-title"><span translate>Description</span></div>
+                                <div class="productdescriptioniframe">
+
+                                </div>
+                                <!-- <div class="productdescriptioniframe" ng-bind-html="SkipValidation(Product.ProductDescription.Description)"> -->
+                                <span
+                                    ng-bind-html="SkipValidation($root.Product.ProductDetail.ProductDescription)"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab" id="moreinfo">
+                        <div ng-if="Product.DeliveryOptions.length > 0">
+                            <ul>
+                                <li ng-repeat="deliveryIntl in Product.DeliveryOptions"
+                                    ng-bind-html="SkipValidation('- ' + deliveryIntl.DeliveryOptionDisplayText)">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="specialPrice" ng-if="Product.MultiPriceList.length > 0">
+                            <span class="title"><label translate>Specialpriceaspermember</label></span>
+                            <ul>
+                                <li ng-repeat="multiprice in Product.MultiPriceList"
+                                    ng-class="{'selected':multiprice.isSelected==true}">
+                                    <span
+                                        ng-class="{'sp-user selected':multiprice.isSelected==true,'sp-user':multiprice.isSelected==false}"
+                                        ng-bind-html="SkipValidation(multiprice.GroupName)"></span><span
+                                        class="sp-price"
+                                        ng-bind-html="SkipValidation((multiprice.MultipriceValue | rounded:3) + ' ' + multiprice.Currency)"></span>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="quantityDiscountBlock" ng-if="Product.QtyDiscountList.length > 0">
+                            <span class="title"><label translate>Buymoresavemore</label></span>
+                            <span ng-repeat="qtydiscount in Product.QtyDiscountList">
+                                <label translate>Buy</label>
+                                <span><b ng-bind="(qtydiscount.Quantity| rounded : 0)"></b></span>
+                                <span id="smallText"><b><label translate>ormorefor</label></b></span>
+                                <span><b
+                                        ng-bind-html="SkipValidation(qtydiscount.Currency + ' ' + (qtydiscount.QtyPrice | rounded:3) + ' ')"></b></span>
+                                <span id="smallText"><b><label translate>each</label></b></span>, <label
+                                    translate>OFFER</label> <span><b
+                                        ng-bind-html="SkipValidation((qtydiscount.DiscountPercentage | rounded : 0 )+ ' &#37;')"></b></span>
+                                <br>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--maincontentarea-->
+<div class="add-to-cart"
+ng-if="$root.Product.ProductDetail.ProductAvailableQuantity > 0">
+<div class="primary-button"
+    ng-click="AddToCart($root.Product.ProductDetail,$root.selectedProductQuantity)">
+    <i class="fa fa-shopping-bag"
+        style="    padding-right: 10px;"></i>
+    <span translate>Addtocart</span>
+</div>
+<!-- <div class="buy-now" ng-click="AddtoCart($root.Product.ProductDetail,true)"><span class="whiteColor"  translate>Buynow</span></div> -->
+</div>
+
+<div class="add-to-cart notifymebtn" ng-if="$root.Product.ProductDetail.ProductAvailableQuantity <= 0">
+    <div class="btn btn-primary btn-lg" ng-click="$root.NotifyMeProductSKUID = product.SKUID;"><span
+            translate>NOTIFYME</span></div>
+</div>
+
+<ng-include src="'partials/notifyme.html'"></ng-include>
+
+<div class="addtocartoptions mainwrap notifywrap noSwipe" ng-if="$root.ShowAddToCartOptions">
+    <div class="product-option-overlay"></div>
+    <div class="notifyme">
+        <div class="align-left fullwidth notifyinner">
+            <!-- <div class="notifyclose" ng-click="">x</div> -->
+            <label class="AddToCartOptionslabel"
+                ng-if="$root.ProductOptions.ProductOptionTitle">{{ProductOptionTitle}}</label>
+            <label class="AddToCartOptionslabel" translate
+                ng-if="!$root.ProductOptions.ProductOptionTitle">chooseCut</label>
+            <ul class="fishcut">
+                <li ng-repeat="option in $root.ProductOptions.ProductOptions"
+                    ng-click="$root.SelectedProductOptionID = option.Value.toString();">
+                    <input id="radio" type="radio" value="{{option.Value}}" name="radio"
+                        ng-model="$root.SelectedProductOptionID">
+                    <label for="f-option">{{option.Key}}</label>
+                    <div class="check"></div>
+                </li>
+            </ul>
+            <span class="red inputerror"
+                ng-if="NotifyMeError != '' && NotifyMeError != undefined && NotifyMeError != null"
+                data-ng-bind-html="SkipValidation(NotifyMeError)"></span>
+            <button type="submit" class="btnStyleAddToCartOptions btnGrey" translate
+                ng-click="$root.ShowAddToCartOptions=false">Cancel</button>
+            <button type="submit" class="btnStyleAddToCartOptions btnGrey" translate
+                ng-click="$root.AddtoCartWithOptions($root.ProductOptions, 1, $event);">Addtocart</button>
+        </div>
+    </div>
+</div>
+</div>

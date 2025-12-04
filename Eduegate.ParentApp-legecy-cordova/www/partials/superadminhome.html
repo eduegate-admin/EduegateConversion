@@ -1,0 +1,502 @@
+﻿<div class="app-wrapper flex-column flex-row-fluid header-bg" ng-controller="SuperAdminDashboardController">
+    <div class="app-header  shadow-none bg-pearl-transparent ios-pt-12">
+        <div class="app-container  container-fluid d-flex align-items-stretch justify-content-between ">
+            <div class="d-flex align-items-center ms-n3 me-1 me-md-2" title="Show sidebar menu">
+                <a class=" w-35px h-35px sidenav-trigger shadow-none"  data-target="slide-out">
+                    <img alt="Logo" ng-src="./clients/{{$root.ClientSettings.Client}}/images/magicoon-Bold.svg" class="h-30px  filter-green" src="./clients/{{$root.ClientSettings.Client}}/images/magicoon-Bold.svg">
+                </a>
+            </div>
+            <div class="d-flex align-items-center flex-center flex-grow-1 ">
+                <a >
+                    <img alt="Logo" ng-src="./clients/{{$root.ClientSettings.Client}}/images/client_logo.svg" class="h-40px" src="./clients/{{$root.ClientSettings.Client}}/images/client_logo.svg">
+                </a>
+            </div>
+            <div class="d-flex align-items-stretch justify-content-between " id="kt_app_header_wrapper">
+                <div class="app-navbar flex-shrink-0">
+                    <div class="menu" ui-sref="notifications" style="align-items: center;">
+                        <div class="menu-icon position-relative w-30px">
+                            <img alt="Logo" src="./images/Notifications_icon.svg" class="theme-light-show h-25px" />
+                            <div
+                                class="badge badge-circle badge-danger position-absolute translate-middle start-0 bottom-0 me-10 h-20px w-20px fs-7" ng-if="NotificationCount > 0">
+                                {{NotificationCount}}</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app-main flex-column flex-row-fluid">
+
+        <div class="card card-flush h-xl-100  border-0  rounded-0 position-sticky z-index-3 bg-green shadow-none header-bg"
+        >
+            <div
+                class="card-header rounded rounded-0 bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start">
+
+                <h3 class="card-title align-items-start flex-column  text-white pt-4">
+
+                    <span class="fw-normal fs-3x mb-1">Welcome</span>
+                    <div class="fs-4 ">
+                        <span class="badge badge-light text-dark fs-5">{{UserDetails.LoginUserID}}</span>
+
+                    </div>
+                    <div class="fs-4 mt-1 fw-normal">
+                        <span>{{UserName}}!</span>
+
+                    </div>
+                </h3>
+                <div class="z-index-n1 position-absolute w-300px h-300px header-bg-glow"
+                    style=" border-radius: 50%; ">
+                </div>
+            </div>
+            <div class="card-body  pb-0 app-container">
+                <div class=" position-relative">
+                    <div class="col-xxl-8">
+                        <div class="row g-5 g-xl-10">
+                                    <div class="main-carousel" data-flickity='{ "freeScroll": true , "percentPosition": false }' id="demo-slider1">
+                                        <div class="carousel-cell"  ng-repeat="banner in HomeBanners">
+                                            <img ng-src="{{banner.imageUrl}}" on-error-src="./clients/{{$root.ClientSettings.Client}}/images/banner_slider_{{$index + 1}}.png" alt="image"/>
+                                        </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl bg-light theme-dark-bg-body rounded-4 rounded-bottom-0 z-index-3">
+            <div class="row g-5 g-xl-10   mt-3">
+                <div class="col-sm-6 col-xl-2 mb-xl-10">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-wrap  fs-5">
+                                <a class="d-flex flex-column align-items-center col-4" ui-sref="mywards">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px "
+                                            style="background: linear-gradient(130deg, #AF70FF 0%, #694399 100%);">
+                                            <img src="./images/mywards.svg" class="object-fit-none">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4  text-center">My Wards</span>
+                                </a>
+                                <a class="d-flex flex-column align-items-center col-4" ui-sref="studentapplication">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px"
+                                            style="background: linear-gradient(130deg, #97DA77 0%, #50743F 100%);">
+                                            <img src="./images/studentapplication.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4  text-center">Applications</span>
+                                </a>
+                                <a class="d-flex flex-column align-items-center  col-4" ui-sref="communicationsdashboard">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px ng-scope"
+                                            style="background: linear-gradient(130deg, #708FFF 0%, #4062D9 100%);">
+                                            <img src="./images/homenotifications.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4 text-center">Communications</span>
+                                </a>
+
+                                <a class="d-flex flex-column align-items-center col-4" ui-sref="mycirculars">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px "
+                                            style="background: linear-gradient(130deg, #FF8170 0%, #CF402C 100%);">
+                                            <img src="./images/mycirculars.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4  text-center">Circulars</span>
+                                </a>
+                                <a class="d-flex flex-column align-items-center col-4" ui-sref="transportdashboard">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px "
+                                            style="background: linear-gradient(130deg, #FFA370 0%, #E3BF00 100%);">
+                                            <img src="./images/transport.svg" class="object-fit-none">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4  text-center">Transport</span>
+                                </a>
+                                <a class="d-flex flex-column align-items-center col-4" ng-click="OnlineStoreClick()">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px "
+                                            style="background: linear-gradient(130deg, #4B9DE9 0%, #3CCFFD 100%);">
+                                            <img src="./images/homeOnlineStore.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4 text-center">Online Store</span>
+                                </a>
+
+                                <!-- <a class="d-flex flex-column align-items-center  col-4"  ui-sref="signupdashboard">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px "
+                                            style="background: linear-gradient(130deg, #4B9DE9 0%, #3CCFFD 100%);">
+                                            <img src="./images/signup.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4 text-center">Meetings</span>
+                                </a> -->
+
+                                <!-- <a class="d-flex flex-column align-items-center  col-4"  ui-sref="studenttransportrequestlist">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px "
+                                            style="background: linear-gradient(130deg, #4B9DE9 0%, #3CCFFD 100%);">
+                                            <img src="./images/transportrequest.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4 text-center">Transport Application</span>
+                                </a> -->
+
+                                <a class="d-flex flex-column align-items-center  col-4"  ui-sref="library">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px "
+                                        style="background: linear-gradient(130deg, #FF8170 0%, #CF402C 100%);">
+                                            <img src="./images/library.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4 text-center">Library</span>
+                                </a>
+                                <a class="d-flex flex-column align-items-center  col-4"  ui-sref="counselorhub">
+                                    <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                        style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                        <div class="symbol symbol-circle symbol-90px "
+                                        style="background: linear-gradient(130deg, #708FFF 0%, #4062D9 100%);">
+                                            <img src="./images/councellor.svg" class="object-fit-none ">
+                                        </div>
+                                    </span>
+                                    <span class="fw-bold text-gray-800 my-4 text-center">Counsellor Corner</span>
+                                </a>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-2 mb-xl-10">
+
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-start row">
+                            <div class="d-flex flex-column">
+                                <div class="text-gray-900 fw-bolder fs-1 mb-1  py-3">
+                                    Daily Pickup 
+                                </div>
+                            </div>
+                            <div class="d-flex gap-3">
+                                <div ui-sref="studentpickuprequestlist"
+                                    class="card rounded-3 w-100 bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100 purplegrad_bg listWrap theme-dark-bg-body theme-dark-bg-image-body  position-relative">
+
+
+                                    <div class="d-flex align-items-center justify-content-between h-100 px-6 py-4">
+                                        <div class="fw-normal fs-5 text-white  me-3">
+                                            <span class="d-block">Early Pickup Request</span>
+                                            <span class=""></span>
+                                        </div>
+                                        <div class="symbol symbol-45px symbol-circle " data-bs-toggle="tooltip"
+                                            data-bs-original-title="Perry Matthew" data-kt-initialized="1">
+                                            <span class="symbol-label bg-white text-success fw-bold fs-4hx     fw-bold "
+                                                style="color: #1A7F80 !important;">{{PickupRequestCount}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ui-sref="studentdailypickuprequestlist"
+                                    class="card rounded-3 w-100 bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100 greengrad_bg listWrap theme-dark-bg-body theme-dark-bg-image-body  position-relative">
+
+                                    <div class="d-flex align-items-center justify-content-between h-100 px-6 py-4">
+                                        <div class="fw-normal fs-5 text-white me-3">
+                                            <span class="d-block">Pickup Request</span>
+                                            <span class=""></span>
+                                        </div>
+                                        <div class="symbol symbol-45px symbol-circle " data-bs-toggle="tooltip"
+                                            data-bs-original-title="Perry Matthew" data-kt-initialized="1">
+                                            <span class="symbol-label bg-white text-primary fw-bold fs-4hx     fw-bold "
+                                                style="color: #7D45B2 !important;">{{PickupRegisteredCount}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-2 mb-xl-10">
+
+                    <div class="card h-lg-100 flex-grow-1">
+                        <div class="card-body d-flex justify-content-between align-items-start row g-5">
+                            <div class="d-flex flex-column">
+                                <div class="text-gray-900 fw-bolder fs-1 mb-1  py-3">
+                                    Fee Payment
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div
+                                    class="card  h-lg-100 theme-dark-bg-body theme-dark-bg-image-body  bg-light-primary rounded-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center mb-0">
+                                            <div class="col-sm-7 pe-0 mb-sm-0">
+                                                <div
+                                                    class="d-flex justify-content-between h-100  flex-stack    pt-xl-5 pb-xl-2 ps-xl-7">
+                                                    <div class="d-flex align-items-center me-5 me-xl-13">
+                                                        <!--begin::Symbol-->
+                                                        <div class="symbol symbol-35px me-3">
+                                                            <img src="./images/Vector.svg" class="h-30px" alt="">
+                                                        </div>
+                                                        <!--end::Symbol-->
+
+                                                        <!--begin::Info-->
+                                                        <div class="m-0">
+                                                            <span class="fw-semibold  d-block fs-2">Fee Dues</span>
+                                                            <div class="fw-bold fs-6 dark-text opacity-75">Total amount
+                                                                of fee for all wards</div>
+                                                        </div>
+                                                        <!--end::Info-->
+                                                    </div>
+                                                    <div class="d-flex align-items-center flex-wrap d-grid gap-2">
+                                                        <div class="d-flex align-items-center me-5 me-xl-13">
+                                                            <div class="m-0">
+                                                                <a data-highlightword="{{$root.DefaultDisplayCurrency}} "
+                                                                    class=" text-gray-900  fs-4  fw-bold">{{FeeDueAmount
+                                                                    | currency : $root.DefaultDisplayCurrency }}</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="m-0 flex-center d-flex flex-end">
+                                                        <button class="btn btn-sm btn-secondary me-3 custom-32  custom-background-color-transparent" ui-sref="feepaymenthistory">Payment history</button>
+                                                        <button class="btn btn-sm btn-primary me-3 custom-32  custom-background-color-transparent" ui-sref="feepayment">Fee Payment</button>
+                                                    </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-3">
+                                <div ui-sref="feepayment"
+                                    class="card rounded-3 w-100 bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100 yellowgrad_bg listWrap theme-dark-bg-body theme-dark-bg-image-body  position-relative">
+                                    <div class="d-flex align-items-center justify-content-between px-6 py-4 h-100">
+                                        <img src="./images/fee_payment.svg" alt="" class="me-3">
+                                        <div class="fw-normal fs-5 text-white   ">
+                                            <span class="d-block">Fee Payment</span>
+                                            <span class=""></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ui-sref="feepaymenthistory"
+                                    class="card w-100 rounded-3  bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100 orangegrad_bg listWrap theme-dark-bg-body theme-dark-bg-image-body  position-relative">
+                                    <div class="d-flex align-items-center justify-content-between  px-6 py-4 h-100">
+                                        <img src="./images/payment-history.svg" alt="" class="me-3">
+                                        <div class="fw-normal fs-5 text-white   ">
+                                            <span class="d-block">Payment History</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <ng-include src="'partials/Templates/footer.html'"></ng-include>
+
+    <div class="modal fade" id="modal_new_target" tabindex="-1" aria-modal="true" role="dialog"
+        ng-controller="ProfileController">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-x" viewBox="0 0 16 16">
+                            <path
+                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    <!--begin:Form-->
+                    <form id="kt_modal_new_target_form" class="form fv-plugins-bootstrap5 fv-plugins-framework"
+                        action="#">
+                        <!--begin::Heading-->
+                        <div class="mb-13 text-center">
+                            <!--begin::Title-->
+                            <h1 class="mb-3">Allergy Selection Form</h1>
+                            <!--end::Title-->
+
+                            <!--begin::Description-->
+                            <div class="text-muted fw-semibold fs-5">
+                                This form is used to collect information about your allergies <a
+                                    class="fw-bold link-primary">This information will be used to help keep you safe
+                                    and
+                                    healthy in the school environment.</a>.
+                            </div>
+                            <!--end::Description-->
+                        </div>
+                        <!--end::Heading-->
+                        <div class="row gy-5 g-xl-10">
+
+                            <div class="col-xl-4">
+                                <div class="accordion" id="kt_accordion_1">
+                                    <div class="accordion-item" ng-repeat="ward in MyWards">
+                                        <h2 class="accordion-header border" id="kt_accordion_1_header_2">
+                                            <button class="accordion-button fs-4 fw-bold collapsed" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#kt_accordion_1_body_{{$index}}" aria-expanded="false"
+                                                aria-controls="kt_accordion_1_body_{{$index}}">
+                                                <div
+                                                    class="d-flex fs-6 fw-bold align-items-center w-100 justify-content-between">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="text-gray-700 flex-grow-1 ">{{ward.FirstName}}
+                                                            {{ward.MiddleName}} {{ward.LastName}}</div>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        </h2>
+                                        <div id="kt_accordion_1_body_{{$index}}"
+                                            class="accordion-collapse collapse show" ng-class='{show:$first}'
+                                            aria-labelledby="kt_accordion_1_header_{{$index}}"
+                                            data-bs-parent="#kt_accordion_{{$index}}">
+                                            <div class="accordion-body">
+                                                <div class="row g-5">
+                                                    <div class="my-5">
+                                                        Selected Student Allergies
+                                                        <div ng-repeat="sustudentAllergies in StudentAllergies">
+                                                            <div class=""
+                                                                ng-if="ward.StudentIID == sustudentAllergies.StudentID">
+                                                                <span
+                                                                    class="badge bg-primary text-inverse-primary py-2 px-3 me-3 mb-3"
+                                                                    ng-repeat="Allergiesa in sustudentAllergies.Allergies">{{Allergiesa.AllergyName}}
+                                                                    -
+                                                                    {{Allergiesa.AllergySeverityName}} </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card" ng-repeat="allergy in Allergies">
+                                                            <div class="card-body">
+                                                                <div class="form-group d-flex align-items-center mb-3">
+                                                                    <div class="d-flex flex-column me-4">
+                                                                        <h4 class="fw-bold text-dark mb-0">
+                                                                            {{allergy.Value}}
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <div
+                                                                            class="form-check form-check-custom form-check-solid form-check-success form-switch">
+                                                                            <input type="hidden" value="false"
+                                                                                name="layout-allergy-{{ward.FirstName}}-{{allergy.Value}}">
+                                                                            <input ng-model="checked"
+                                                                                class="form-check-input w-45px h-30px"
+                                                                                type="checkbox" value="true"
+                                                                                name="layout-allergy-{{ward.FirstName}}-{{allergy.Value}}">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group "
+                                                                    ng-repeat="severity in Severity">
+                                                                    <div class="d-flex gap-7 mb-3">
+                                                                        <div
+                                                                            class="form-check form-check-custom form-check-success form-check-solid form-check-sm">
+                                                                            <input ng-model="value"
+                                                                                ng-disabled="!checked"
+                                                                                value="{{severity.Key}}"
+                                                                                ng-change="SaveAllergies($event, ward.StudentIID, {{allergy.Key}}, severity)"
+                                                                                class="form-check-input" type="radio"
+                                                                                checked=""
+                                                                                id="layout-severity-{{ward.FirstName}}-{{allergy.Value}}-{{severity.Value}}"
+                                                                                name="layout-severity-{{ward.FirstName}}-{{allergy.Value}}">
+                                                                            <label
+                                                                                class="form-check-label text-gray-700 fw-bold text-nowrap"
+                                                                                for="layout-severity-{{ward.FirstName}}-{{allergy.Value}}-{{severity.Value}}">{{severity.Value}}
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <!--begin::Input group-->
+                        <div class="mb-15 fv-row">
+                            <!--begin::Wrapper-->
+                            <div class="d-flex flex-stack">
+                                <!--begin::Label-->
+                                <div class="fw-semibold me-5">
+                                    <label class="fs-6">Hide Form</label>
+
+                                    <div class="fs-7 text-muted">Don't show this message again</div>
+                                </div>
+                                <!--end::Label-->
+
+                                <!--begin::Checkboxes-->
+                                <div class="d-flex align-items-center">
+                                    <!--begin::Checkbox-->
+                                    <label class="form-check form-check-custom form-check-solid me-10">
+                                        <input class="form-check-input h-20px w-20px" type="checkbox"
+                                            name="communication[]" value="email" checked="checked"
+                                            ng-model="allergiesSelected">
+
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--begin::Actions-->
+                        <div class="text-center">
+                            <button type="reset" id="kt_modal_new_target_cancel" class="btn btn-light me-3"
+                                data-bs-dismiss="modal">
+                                Cancel
+                            </button>
+
+                            <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary"
+                                ng-click="allergiesClose($event, allergiesSelected)" data-bs-dismiss="modal">
+                                <span class="indicator-label">
+                                    Submit
+                                </span>
+                                <span class="indicator-progress">
+                                    Please wait... <span
+                                        class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end:Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+
+    <style>
+        .loader-blk {
+            background: var(--bs-white);
+            z-index: 2;
+        }
+    </style>

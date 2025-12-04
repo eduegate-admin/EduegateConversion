@@ -1,0 +1,52 @@
+﻿<div ng-controller="StudentProfileController">
+    <div class="pageContainer" ng-init="LoadStudentInfo(SelectedWard)">
+        <div class="fullwidth flexColumn displayFlex justifyCenter alignItemCenter studentProfile">
+            <div class="profileImg">
+                <span><img ng-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"/></span>
+            </div>
+            <span class="studentName">{{StudentDetail.FirstName}} {{StudentDetail.MiddleName}} {{StudentDetail.LastName}}</span>
+        </div>
+        <div class="containerWrap">
+            <div class="gridStyle displayFlex setBorder flexColumn pad10 boxShadow marginBtm10 whiteBg">
+                <div class="gridDataWrap">
+                    <label>Email:</label>
+                    <span>{{StudentDetail.EmailID}}</span>
+                </div>
+                <div class="gridDataWrap">
+                    <label>Mobile Number:</label>
+                    <span>{{StudentDetail.MobileNumber}}</span>
+                </div>
+                <div class="gridDataWrap">
+                    <label>Gender:</label>
+                    <span>{{StudentDetail.GenderName}}</span>
+                </div>
+                <div class="gridDataWrap">
+                    <label>Blood Group:</label>
+                    <span>{{StudentDetail.BloodGroupName}}</span>
+                </div>
+                <div class="gridDataWrap">
+                    <label>Class:</label>
+                    <span>{{StudentDetail.ClassName}}</span>
+                </div>
+                <div class="gridDataWrap">
+                    <label>Section:</label>
+                    <span>{{StudentDetail.SectionName}}</span>
+                </div>
+                <div class="gridDataWrap">
+                    <label>Admission Number:</label>
+                    <span>{{StudentDetail.AdmissionNumber}}</span>
+                </div>
+                <div class="gridDataWrap">
+                    <label>Admission Date:</label>
+                    <span>{{StudentDetail.AdmissionDate | date | date : 'dd-MM-yyyy hh:mm a'}}</span>
+                </div>
+                <div class="gridDataWrap" ng-if="StudentDetail.StudentSiblings.length > 0">
+                    <label>Siblings:</label>
+                    <span ng-repeat="sibling in StudentDetail.StudentSiblings">{{sibling.FirstName}}</span>
+                </div>
+            </div>
+        </div><!--containerWrap-->
+
+
+    </div>
+</div><!--about us-->

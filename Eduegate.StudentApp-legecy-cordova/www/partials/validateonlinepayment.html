@@ -1,0 +1,43 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="OnlinePaymentController">
+    <div class="app-content flex-column-fluid">
+        <div class="app-header d-flex shodow-sm">
+            <!--begin::Header container-->
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+                id="kt_app_header_container">
+                <!--begin::Logo-->
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                    <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                    </a>
+                </div>
+                <!--end::Logo-->
+                <!--begin::Header mobile toggle-->
+                <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+                    
+                </div>
+                <!--end::Header mobile toggle-->
+            </div>
+            <!--end::Header container-->
+        </div>
+
+        <div class="app-container container-xxl pt-5">
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+
+                    <div class="row g-6 g-xl-9" ng-init="init('Validate')">
+
+                        <div class="col-md-6">
+                            <div class="accordion" id="kt_accordion_1">
+                                <p style="margin-bottom:9px; color:#181C32; font-size: 22px; font-weight:700">Processing Your Request</p>
+                                <p style="margin-bottom:2px; color:#7E8299">
+                                    Please Wait,  Don't Refresh
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

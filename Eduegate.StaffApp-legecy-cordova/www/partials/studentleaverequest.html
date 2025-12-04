@@ -1,0 +1,141 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="StudentLeaveRequestController">
+    <div class="app-content flex-column-fluid">
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-container container-xxl pt-5">
+
+            <div class="tab-content">
+                <div class="p-3"> Today's Leave Applications</div>
+                <div class="tab-pane fade show active">
+
+                    <div class="row g-6 g-xl-9" ng-init="LoadTeacherClassInfo()">
+
+                        <div class="col-md-6 col-xxl-4" ng-repeat="data in TeacherClasses"
+                            ng-init="current = $parent.start; $parent.start=$parent.start+1;">
+                            <!--begin::Accordion-->
+                            <div class="accordion" id="kt_accordion_{{current}}">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header " id="kt_accordion_1_header_{{current}}">
+                                        <button class="accordion-button collapsed fs-4 fw-semibold" type="button"
+                                            data-bs-toggle="collapse" ng-click="isCollapsed($event, data)"
+                                            data-bs-target="#kt_accordion_1_body_{{current}}" aria-expanded="true"
+                                            aria-controls="kt_accordion_1_body_{{current}}">
+                                            <div class="d-flex fs-6 fw-bold  w-100">
+                                                <div class="symbol symbol-40px symbol-circle me-4"
+                                                    data-bs-toggle="tooltip" data-bs-original-title="Alan Warden"
+                                                    data-kt-initialized="1">
+                                                    <span class="symbol-label text-white fw-bold"
+                                                        ng-class="GetRandomBgClass(data.ClassID)">
+                                                        {{ExtractClassNumber(data.ClassName)}}{{data.SectionName}}
+                                                    </span>
+                                                </div>
+
+                                                <div class="d-flex flex-column">
+
+                                                    <div class="card-label fw-bold text-dark flex-grow-1 me-4 mb-3">
+                                                        <span>{{data.ClassName}}</span>&nbsp;
+                                                    </div>
+                                                    <div
+                                                        class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap ">
+                                                        <span class=" ">Section :</span>
+
+                                                        <span class=" ">{{data.SectionName}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </button>
+                                    </h2>
+                                    <div id="kt_accordion_1_body_{{current}}" class="accordion-collapse collapse"
+                                        aria-labelledby="kt_accordion_1_header_{{current}}"
+                                        data-bs-parent="#kt_accordion_{{current}}">
+                                        <div class="accordion-body">
+                                            <div ng-if="data.LeaveRequests.length <= 0" class="d-flex flex-column">
+                                                <h3 class="mb-1 text-danger">No Applications!</h3>
+                                                <span>There is no Leave Applications!</span>
+                                            </div>
+                                            <div ng-repeat="student in data.LeaveRequests"
+                                                ng-init="current = $parent.start; $parent.start=$parent.start+1;">
+                                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                                    <div class="accordion-item bg-transparent">
+                                                        <h2 class="accordion-header" id="flush-heading{{current}}">
+                                                            <div>
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="d-flex align-items-center mb-3 w-100">
+                                                                        <!-- Avatar -->
+                                                                        <div
+                                                                            class="symbol symbol-50px symbol-circle me-3">
+                                                                            <img ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{student.StudentProfile}}"
+                                                                                on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                                                alt="{{student.StudentFullName}}"
+                                                                                style="object-fit: cover; object-position: right top;">
+                                                                        </div>
+
+                                                                        <!-- Name and Admission Number -->
+                                                                        <div class="flex-grow-1">
+                                                                            <div class="fw-bold text-dark fs-6">
+                                                                                {{student.StudentName}}</div>
+                                                                            <div class="text-muted fs-7">Adm No:
+                                                                                {{student.AdmissionNumber}}</div>
+                                                                        </div>
+
+                                                                        <!-- Attendance Status Badge -->
+                                                                        <span class="badge fs-7 ms-2"
+                                                                            style="color: #ccc;"
+                                                                            title="{{student.LeaveStatusDescription}}"
+                                                                            ng-class="{
+                                'bg-light-success text-success': student.LeaveStatusDescription === 'Submitted',
+                                'bg-light-danger text-danger': student.LeaveStatusDescription === 'Approved',
+                                'bg-light-warning text-warning': student.LeaveStatusDescription === 'Rejected',
+                                'bg-light-info text-info': student.LeaveStatusDescription === 'Availed',
+                              }">
+                                                                            {{student.LeaveStatusDescription}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                </button>
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                                <div class="separator my-4"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"
+                                ng-if="!ShowLoader && TeacherClasses.length == 0">
+                                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5"
+                                            fill="currentColor" />
+                                        <rect x="7" y="15.3137" width="12" height="2" rx="1"
+                                            transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                        <rect x="8.41422" y="7" width="12" height="2" rx="1"
+                                            transform="rotate(45 8.41422 7)" fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <div class="d-flex flex-column">
+                                    <h3 class="mb-1 text-danger">Not found!</h3>
+                                    <span>There is no Class found!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <ng-include src="'partials/templates/footer.html'"></ng-include>
+
+    <style>
+        /* .accordion-button::after {
+            display: none;
+        } */
+    </style>

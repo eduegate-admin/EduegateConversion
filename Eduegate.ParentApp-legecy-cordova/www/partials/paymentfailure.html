@@ -1,0 +1,115 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="OnlinePaymentController">
+    <div class="app-content flex-column-fluid">
+        <div class="app-header d-flex d-lg-none shodow-sm">
+            <!--begin::Header container-->
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+                id="kt_app_header_container">
+                <!--begin::Logo-->
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                    <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg"
+                            class="h-25px">
+                    </a>
+                </div>
+                <!--end::Logo-->
+                <!--begin::Header mobile toggle-->
+                <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+
+                </div>
+                <!--end::Header mobile toggle-->
+            </div>
+            <!--end::Header container-->
+        </div>
+        <div class="app-container container-xxl pt-5">
+
+
+            <div class="row row-eq-height">
+                <div class="col-xl-4">
+                    <div class="p-md-sm-0  fontawesome-demo">
+                        <div class="card card-flush">
+                            <div
+                                class="card-body py-15 py-lg-20 d-flex flex-column align-items-center justify-content-center">
+                                <!--begin::Logo-->
+                                <div class="mb-7">
+                                    <a class="">
+                                        <img alt="Logo"
+                                            src="./clients/{{$root.ClientSettings.Client}}/images/pearl_logo.png"
+                                            class="h-40px">
+                                    </a>
+                                </div>
+                                <!--end::Logo-->
+                                <!--begin::Title-->
+                                <h2 class="fontbold"><label translate>ORDERCOULDNOTBECOMPLETED</label></h2>
+                                <!--end::Title-->
+                                <!--begin::Illustration-->
+                                <div class="mb-0">
+                                    <!-- <img src="./clients/{{$root.ClientSettings.Client}}/images/payment-failure.svg" class="mw-100 h-300px theme-light-show"
+                                        alt=""> -->
+                                    <img src="./clients/{{$root.ClientSettings.Client}}/images/card-payment-failure.svg"
+                                        class="mw-100 h-300px theme-light-show" alt="">
+                                </div>
+                                <!--end::Illustration-->
+                                <!--begin::Text-->
+                                <div class="fw-semibold fs-6 text-gray-700 mb-7 text-center">
+                                    Sorry, we couldn't process your order.
+                                    <br>If money was debited from your account,<br />
+                                    contact school finance and IT team for further updates.</br>
+                                    Feel free to contact<br />
+                                    <span style="color:#50cd89; font-weight: 600">accounts.office@pearlschool.org</span>
+                                    <span style="color:#50cd89; font-weight: 600">itsupport@pearlschool.org</span>
+                                </div>
+                                <!--end::Text-->
+                                <!--begin::Link-->
+                                <div class="mb-0">
+                                    <a ui-sref="orderhistory" class="btn btn-sm btn-primary">Ok</a>
+                                </div>
+                                <!--end::Link-->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="mainwrap checkout" ng-controller="OnlinePaymentController">
+    <div class="header">
+        <div class="header-inner">
+            <div class="header-text"><span translate>PaymentFailure</span></div>
+            <ng-include src="'partials/header.html'"></ng-include>
+        </div>
+        <ng-include src="'partials/searchheader.html'"></ng-include>
+    </div>
+
+
+
+    <div class="maincontentarea">
+
+        <div class="content greybg">
+            <div class="categories">
+                <div class="tabContainer">
+                    <div class="tab current" id="delivery">
+                        <div class="thankyou fullwidth alignleft whitebg textcenter boxshadow">
+                            <h2 class="fontbold"><label translate>ORDERCOULDNOTBECOMPLETED</label></h2>
+                            <h3 ng-if="PaymentID != undefined && PaymentID != '' && PaymentID != null" ng-bind-html="SkipValidation('Payment ID #' + PaymentID)"></h3>
+                            <h3 ng-if="TrackID != undefined && TrackID != '' && TrackID != null" ng-bind-html="SkipValidation('Track ID #' + TrackID)"></h3>
+                            <h3 ng-if="TrackKey != undefined && TrackKey != '' && TrackKey != null" ng-bind-html="SkipValidation('TrackKey #' + TrackKey)"></h3>
+                            <h3 ng-if="ErrorMessage != undefined && ErrorMessage != '' && ErrorMessage != null" ng-bind-html="SkipValidation('Message :' + ErrorMessage)"></h3>
+                            <div ng-repeat="transactionNo in transactionNoSplit" ng-if="transactionNoSplit.length > 0">
+                                <h3 class="thankyouorderheading" ng-if="transactionNo != '' && transactionNo != null && transactionNo != undefined" class="fontnormal" ng-bind-html="SkipValidation('Order No #' + transactionNo)"></h3>
+                                <br />
+                            </div>
+
+                        </div>
+                        <div class="payment-btn">
+                            <span class="continue"><button ng-click="ProceedPayment()" class="btnStyle btnGrey" type="button" translate>RETRY</button></span>
+                            <span class="continue" ><button ui-sref="orderhistory" class="btnStyle btnGrey" type="button" translate>MYORDERS</button></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

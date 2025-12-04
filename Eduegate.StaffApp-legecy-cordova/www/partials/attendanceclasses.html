@@ -1,0 +1,74 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="AttendanceClassesController">
+    <div class="app-content flex-column-fluid">
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-container container-xxl pt-5">
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+
+                    <div class="row g-6 g-xl-9" ng-init="LoadTeacherClassInfo()">
+
+                        <div class="col-md-6 col-xxl-4" ng-repeat="data in TeacherClasses"
+                            ng-init="current = $parent.start; $parent.start=$parent.start+1;">
+                            <!--begin::Accordion-->
+                            <!-- A simple card to display the class information -->
+                            <div class="card "
+                                ng-click="ClassStudentsAttendanceViewClick(data.ClassID, data.SectionID)">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center w-100">
+                                        <!-- Symbol/Icon -->
+                                        <div class="symbol symbol-40px symbol-circle me-4" data-bs-toggle="tooltip"
+                                            data-bs-original-title="Alan Warden" data-kt-initialized="1">
+                                            <span class="symbol-label text-white fw-bold"  ng-class="GetRandomBgClass(data.ClassID)">
+                                                {{ExtractClassNumber(data.ClassName)}}{{data.SectionName}}
+                                            </span>
+                                        </div>
+                                        <!-- Class and Section Info -->
+                                        <div class="d-flex flex-column">
+                                            <div class="card-label fw-bold text-dark flex-grow-1 me-4 mb-1">
+                                                <span>{{data.ClassName}}</span>
+                                            </div>
+                                            <div
+                                                class="fw-semibold fs-6 text-gray-800 d-flex align-items-center flex-wrap">
+                                                <span>Section :</span>
+                                                <span class="ms-1">{{data.SectionName}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"
+                                ng-if="!ShowLoader && TeacherClasses.length == 0">
+                                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5"
+                                            fill="currentColor" />
+                                        <rect x="7" y="15.3137" width="12" height="2" rx="1"
+                                            transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                        <rect x="8.41422" y="7" width="12" height="2" rx="1"
+                                            transform="rotate(45 8.41422 7)" fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <div class="d-flex flex-column">
+                                    <h3 class="mb-1 text-danger">Not found!</h3>
+                                    <span>There is no Class found!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <ng-include src="'partials/templates/footer.html'"></ng-include>
+
+    <style>
+        /* .accordion-button::after {
+            display: none;
+        } */
+    </style>

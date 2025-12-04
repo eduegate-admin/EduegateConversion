@@ -1,0 +1,95 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="VehicleTrackingController">
+    <div class="app-content flex-column-fluid">
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-container container-xxl pt-5">
+
+            <div class="row g-6 g-xl-9">
+                <div class="col-md-6 col-xxl-4">
+                    <div class="card">
+                        <div class="card-body p-lg-20">
+                            <form class="" id="driverVehicleTrackingForm">
+
+                            <input type="hidden" id="StaffID" name="StaffID"
+                                data_ng_model="vehicleTracking.StaffID">
+
+                                <input type="hidden" id="VehicleTrackingIID" name="VehicleTrackingIID" ng-model="DriverVehicleTracking.VehicleTrackingIID">
+                                <div class="mb-3">
+                                    <label for="VehicleID" class="form-label fs-5 text-gray-700">Vehicle</label>
+                                    <label style="color: red;">*</label>
+                                    <select class="form-select" aria-label="Select example" id="VehicleID" name="VehicleID"
+                                        ng-model="DriverVehicleTracking.VehicleID"
+                                        ng-options="vehicle.VehicleIID as (vehicle.VehicleRegistrationNumber + ' - ' + vehicle.VehicleType + ' - ' + vehicle.Color) for vehicle in VehiclesDetails"
+                                        ng-change="getRoutesByVehicleID(DriverVehicleTracking.VehicleID)" required>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="RouteID" class="form-label fs-5 text-gray-700">Route</label>
+                                    <label style="color: red;">*</label>
+                                    <select class="form-select" aria-label="Select example" id="RouteID" name="RouteID"
+                                        ng-model="DriverVehicleTracking.RouteID"
+                                        ng-options="route.RouteID as (route.RouteCode + ' - ' + route.RouteDescription) for route in RoutesDetails" required>
+                                    </select>
+                                </div>
+
+
+
+                                <div class="mb-3">
+                                    <label class="fs-5 text-gray-700 mb-3">Select Journey Point:</label>
+                                    <div class="form-check mb-4">
+                                        <input class="form-check-input" type="radio" id="startJourney" name="journeyPoint" value="start"
+                                            ng-model="journeyPoint" required>
+                                        <label class="form-check-label" for="startJourney">Start of Journey</label>
+                                    </div>
+                                    <div class="form-check mb-4">
+                                        <input class="form-check-input" type="radio" id="endJourney" name="journeyPoint" value="end"
+                                            ng-model="journeyPoint">
+                                        <label class="form-check-label" for="endJourney">End of Journey</label>
+                                    </div>
+                                </div>
+                                <div class="fieldWrapper" style="text-align: right;">
+                                    <span>
+                                        <label class="fs-5 text-gray-700">KM</label>
+                                        <label style="color: red;">*</label>
+                                    </span>
+                                    <input placeholder="Enter KM" id="RouteKM" name="RouteKM" class="form-control border-1 text-end"
+                                        data-ng_model="DriverVehicleTracking.RouteKM" required />
+                                </div>
+
+
+                                <div class="body mb-10">
+                                    <div class="img-post m-b-15">
+                                        <span>
+                                            <label>Photo of vehicle dashboard</label>
+                                        </span>
+                                        <div>
+                                            <img id="myImage"
+                                                 on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                 class="bd-placeholder-img rounded mx-auto d-block"
+                                                 height="200"
+                                                 width="200"
+                                                 name="avatar"
+                                                 accept=".png, .jpg, .jpeg">
+                                            </img>
+                                        </div>
+                                        <div class="text-center pt-5">
+                                            <span class="text-center">
+                                                <button type="button" id="cameraTakePicture" class="btn btn-secondary btn-sm">Take Picture</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-end">
+                                    <button type="button" class="btn btn-primary mt-3 align-items-end" type="submit" ng-click="SubmitVehicleTracking()" value="Submit">Submit</button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

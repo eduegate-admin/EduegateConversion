@@ -1,0 +1,46 @@
+<div ng-controller="CustomerSearchController" ng-init="init()">
+  <div class="header">
+    <div class="header-inner">
+      <div class="nav-sidebar align-left">
+        <div class="backtopage disableanchor filter-close">
+          <a href="" ng-click="CloseCustomerSearch()">&nbsp;</a>
+        </div>
+      </div>
+      <div class="header-text"><span translate>Select Customer</span></div>
+    </div>
+  </div>
+  <!--header-->
+
+  <div class="maincontentarea noSearch">
+    <div class="content greybg">
+      <div class="pagesections">
+        <div class="orderSearch w100 pad10 align-left" style="display:flex;">
+          <div class="orderSearchInner noPaddingLeft">
+            <input
+              type="text"
+              placeholder="Search Customer"
+              ng-model="SearchText"
+              ng-change='SearchCustomer()'
+            />
+            <span
+              class="searchIcon"
+              ng-click="SearchCustomer()"
+            ></span>            
+          </div>
+          <button ui-sref="newcustomer" style="margin-left:1px ;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        </div>
+        <div class="orderSearch w100 pad10 align-left">
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat='customer in Customers' ng-click='SelectCustomer(customer)'>
+                {{customer.CustomerCR}} - {{customer.FirstName}} - {{customer.TelephoneNumber}}</li>
+          </ul>
+        </div>
+        <hr class="noMargin align-left fullwidth" />
+        <div class="fl-left fullwidth align-left toggletab"></div>
+      </div>
+      <!--pagesections-->
+    </div>
+    <!--content-->
+  </div>
+  <!--maincontentarea-->
+</div>

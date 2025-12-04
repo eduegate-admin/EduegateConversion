@@ -1,0 +1,295 @@
+﻿<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="app-page flex-column flex-column-fluid" >
+    <div class="app-content flex-column-fluid">
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-container container-xxl pt-5">
+
+            <div class="">
+                <div class="text-center" ng-hide="QRDetails.StudentsList.length > 0"><i
+                        class="bi bi-file-earmark-excel"></i>&nbsp;&nbsp;No results found..</div>
+                <div class="" ng-if="QRDetails.StudentsList.length > 0">
+                    <div class="displayFlex flexColumn">
+                        <div class="row gy-5 g-xl-10">
+                            <div class="col" ng-repeat="stud in QRDetails.StudentsList">
+                                <div class="card" >
+                                    <div class="card-header  min-h-auto  border-top-0">
+                                        Student Details
+                                        <div class="bi bi-trash pull-right h1" ng-click="DeleteStudent(stud)"
+                                            ng-show="StudDeleteBtn">
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="profile-header" class="header-wrapper fileOnlyHeader-23hdD">
+                                            <div class="pb-2">
+                                                <div class="resume-header-wrapper">
+                                                    <div class="resume-header grid-container">
+                                                        <div class="grid-row centered">
+                                                            <div
+                                                                class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                                <div class="header-text shadow-border">
+                                                                    <div class="avatar-outer fs-mask">
+                                                                        <div>
+                                                                            <img id="myImage"
+                                                                                ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{stud.StudentProfile}}"
+                                                                                on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                                                class="img" height="100" width="100"
+                                                                                name="avatar"
+                                                                    style="    object-fit: cover;     object-position: right top;"
+
+                                                                                accept=".png, .jpg, .jpeg">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="header-text-inner">
+                                                                        <div>{{stud.AdmissionNumber}}</div>
+                                                                        <div class="fullname fw-semibold fs-4 text-gray-800 fs-mask">
+                                                                            {{stud.Student.Value}}
+                                                                        </div>
+                                                                        <div>
+                                                                            <span class="fw-semibold fs-4 text-gray-800">{{stud.ClassSection}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gy-5 g-xl-10">
+                            <div class="col"  ng-repeat="picker in QRDetails.StudentPickersList">
+                                <div class="card">
+                                    <div class="card-header border-top-0  min-h-auto">
+                                        <div class="form-check  w-100">
+                                            <input class="form-check-input" type="radio" name="picker" id="{{picker.StudentPickerIID}}"
+                                                ng-model="$parent.selectedObj" ng-value="picker">
+                                            <label class="form-check-label w-100" for="{{picker.StudentPickerIID}}">
+                                                Pickup by
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="profile-header" class="header-wrapper fileOnlyHeader-23hdD">
+                                            <div class="pb-2">
+                                                <div class="resume-header-wrapper">
+                                                    <div class="resume-header grid-container">
+                                                        <div class="grid-row centered">
+                                                            <div
+                                                                class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                                <div class="header-text shadow-border">
+                                                                    <div class="avatar-outer fs-mask">
+                                                                        <img id="myImage"
+                                                                            ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{picker.PickerProfile}}"
+                                                                            on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                                            class="img" height="100" width="100"
+                                                                            name="avatar" accept=".png, .jpg, .jpeg">
+                                                                    </div>
+                                                                    <div class="header-text-inner">
+                                                                        <div>{{picker.PickUpBy}}</div>
+                                                                        <div class="fullname fw-semibold fs-4 text-gray-800 fs-mask">
+                                                                            {{picker.PickByFullName}}
+                                                                        </div>
+                                                                        <div>
+                                                                            <span class="fw-semibold fs-4 text-gray-800">{{picker.AdditionalInfo}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gy-5 g-xl-10">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header bg-pearl min-h-auto">
+                                        <div class="fw-bold fs-4 text-white ng-binding">Guardian Details</div>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="d-grid g-5 overflow-hidden" style=" grid-template-columns: 120px 24px 1fr;">
+                                            <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/person.svg" />
+                                                <span>Name </div>
+                                            <div class="">:</div>
+                                            <div class="fw-semibold fs-4 text-gray-800">
+                                                <span > {{QRDetails.GuardianName}}</span>
+                                            </div>
+
+                                            <div class="fw-normal ng-src-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/phone.svg" />
+                                                <span> Contact No.
+                                            </span></div>
+                                            <div class="">:</div>
+                                            <div class="fw-semibold fs-4 text-gray-800">{{QRDetails.GuardianContact}}</div>
+
+                                            <div class="fw-normal fs-4 text-gray-600 mb-4 d-flex align-items-start">
+                                                <img class="me-2" ng-src="./clients/{{$root.ClientSettings.Client}}/images/profileicon/mail.svg" />
+                                               <span>Email Id
+                                            </span></div>
+                                            <div class="">:</div>
+                                            <div class="fw-semibold fs-4 text-gray-800">{{QRDetails.GuardianEmailID}}</div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <div class="col px-md-5 pt-1 p-3">
+                            <div id="profile-header" class="header-wrapper fileOnlyHeader-23hdD">
+                                <div class="pb-2">
+                                    <div class="resume-header-wrapper">
+                                        <div class="resume-header grid-container">
+                                            <div class="grid-row centered">
+                                                <div
+                                                    class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                    <div class="header-text shadow-border">
+                                                        <div class="avatar-outer fs-mask">
+                                                            <div>
+                                                                <img id="uploadImage"
+                                                                    on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                                    class="bd-placeholder-img  mx-auto d-block"
+                                                                    height="100" width="100" name="avatar"
+                                                                    accept=".png, .jpg, .jpeg"></img>
+                                                            </div>
+                                                        </div>
+                                                        <div class="p-2">
+                                                            <button type="button" id="cameraTakePicture"
+                                                                class="btn btn-secondary btn-sm"
+                                                                ng-click="cameraTakePicture()">Take
+                                                                Picture</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col px-md-5 pt-1 p-3">
+                            <textarea id="Remarks" name="Remarks" class="form-control form-control-solid"
+                                placeholder="Remarks" data_ng_model="QRDetails.Remarks"></textarea>
+                        </div>
+
+                        <div class="col px-md-5 pt-1 p-3">
+                            <button type="button" class="btn btn-success"
+                                style="background-color: #4CAF50; border-radius: 10px;"
+                                ng-click="submitLog(true ,selectedObj.StudentPickerIID)">Proceed</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-danger"
+                                style="background-color: #f44336; border-radius: 10px;"
+                                ng-click="submitLog(false)">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .card .card-body {
+        padding: 1rem 1rem
+    }
+
+    .setBorder {
+        border: 1px solid #d8d8d8;
+        border-radius: 28px;
+    }
+
+    .text-center {
+        text-align: center !important;
+        font-weight: 500;
+    }
+
+    #StudentPickLogs {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #StudentPickLogs td,
+    #StudentPickLogs th {
+        border: 1px solid #ddd;
+        padding: 4px;
+        font-size: 12px;
+    }
+
+    #StudentPickLogs tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #StudentPickLogs tr:hover {
+        background-color: #ddd;
+    }
+
+    #StudentPickLogs th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+    }
+
+    .img {
+        border-radius: 50%;
+    }
+
+    .avatar {
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+    }
+</style>
+
+
+
+
+    <style>
+        .card .card-body {
+            padding: 1rem 1rem
+        }
+
+        .setBorder {
+            border: 1px solid #d8d8d8;
+            border-radius: 28px;
+        }
+
+        .text-center {
+            text-align: center !important;
+            font-weight: 500;
+        }
+
+        .img {
+            border-radius: 50%;
+        }
+
+        .avatar {
+            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+        }
+
+  
+    </style>

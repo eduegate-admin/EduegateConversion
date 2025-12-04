@@ -1,0 +1,83 @@
+<div class="app-page flex-column flex-column-fluid">
+  <div class="app-content flex-column-fluid">
+      <div class="app-container container-xxl p-0" >
+        <div class="card vh-100  p-0 shadow-none transparent" dir="ltr">
+          <div class="d-flex flex-column flex-lg-row flex-column-fluid">
+          <div class="card-body d-flex flex-column flex-center">
+              <div class="mb-10">
+                  <div class="py-10 text-center">
+                      <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/appupdate.png" class="w-200px" alt="">
+                  </div>
+                  <h1 class="fw-semibold fs-2hx text-gray-700 text-center lh-md">
+                    Update Available <br>
+                    <span class="fw-normal fs-5"> To use this app, Download the latest version  from the {{ IsAndroidDevice ? 'Play Store' : 'App Store' }}</span>
+                </h1>
+              </div>
+              <div class="text-center mb-1 w-50">
+
+                    <div class="d-flex flex-column flex-sm-row d-grid gap-3">
+                      <a class="btn btn-lg btn-primary  rounded-2 fs-2"  ng-click="ClickAppDownloadLink()" ng-show="IsAndroidDevice">
+                        Update
+                      </a>
+                      <a  ui-sref="home" ng-show="!IsForceAppUpdate"
+                      class="btn  btn-outline btn-outline-dashed btn-outline-primary btn-active-light-secondary text-gray-700  fs-2 rounded-2">Cancel</a>
+                  </div>
+              </div>
+          </div>
+          <div class="g-5 mb-20 text-center mb-1 d-flex flex-center">
+            <!-- Android Link -->
+            <div>
+              <a ng-class="{'opacity-50': !IsAndroidDevice}" ng-click="IsAndroidDevice && ClickAppDownloadLink()">
+                <img alt="Play Store Logo" ng-src="{{ClientPlaystoreLogo}}" class="h-40px" ng-show="IsAndroidDevice">
+              </a>
+            </div>
+            <!-- iOS Link -->
+            <!-- <div>
+              <a ng-class="{'opacity-50': IsAndroidDevice}" ng-click="!IsAndroidDevice && ClickAppDownloadLink()">
+                <img alt="App Store Logo" ng-src="{{ClientAppstoreLogo}}" class="h-40px me-3 theme-light-show" ng-show="!IsAndroidDevice">
+              </a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+        <!-- <div class="header update_header" style="overflow:scroll;height:100%;width:100%;display:flex;flex-direction: column;">
+          <div class="order-summary">
+            <div class="order-status updatename";
+            display: flex;
+            margin-bottom: 15px;
+            align-content: center;
+            align-items: center; ">{{$root.ClientSettings.ClientName}}</div>
+            <div>
+              <hr style="height:0px;border-width:0;color:white;background-color:white">
+              <h1 class="viewsize"><span translate>UPDATENEWVERSION</span></h1>
+              <hr style="height:0px;border-width:0;color:white;background-color:white">
+            </div>
+            <div>
+                  <P></P><h4 class="viewsize"> <span translate>APPNEWVERSION</span>
+                  </h4></p>
+            </div>
+          </div>
+
+          <div class="hero-img-container updateimage" >
+            <img src="./clients/{{$root.ClientSettings.Client}}/img/relax.svg" class="hero-img">
+          </div>
+          <div class="hero-img-container updateimage">
+            <img src="./clients/{{$root.ClientSettings.Client}}/img/UpdateBG.png" class="hero-img">
+          </div>
+
+          <div>
+            <div class="update-container app-update-latest">
+                <button translate class=" primary-button" ng-click="$root.WebView($root.RedirectUrlForAppUpdate)">
+                    UPDATELATESTAPP
+                </button>
+            </div>
+            <br>
+            <div class="update-container app-update-thanks">
+            <button translate class="primary-button newclass"  ui-sref="home" ng-disabled="IsForceAppUpdate">
+                    NOTHANKS
+            </div>
+          </div>
+      </div> -->
+      </div>
+  </div>
+</div>

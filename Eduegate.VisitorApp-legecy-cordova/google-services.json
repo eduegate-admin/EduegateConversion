@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "180542446891",
+    "project_id": "podar-pearl-visitor-app",
+    "storage_bucket": "podar-pearl-visitor-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180542446891:android:d977205d93ef75a5aa796e",
+        "android_client_info": {
+          "package_name": "com.podarpearl.visitorapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrsUfyzoTr2TmatTfYtQzBfllSPx0rMwo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

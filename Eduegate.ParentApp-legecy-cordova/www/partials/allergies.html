@@ -1,0 +1,104 @@
+<div class="app-page flex-column flex-column-fluid" controller="AllergiesController">
+
+
+    <div class="app-content flex-column-fluid">
+
+<ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        Allergy Details
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5" ng-init="init()">
+            <div class="row gy-5 g-xl-10">
+                <div class="col-xl-4">
+                    <div class="d-flex align-items-center flex-column mb-5 mx-5">
+                        <div class="text-center">
+                            <a class="text-gray-800 text-hover-primary fs-4 fw-bolder">{{UserDetail.UserName}}</a><br>
+                            <a class="text-gray-800 text-hover-primary fs-4 fw-bolder">{{UserDetail.LoginUserID}}</a>
+                            <span class="text-gray-600 fw-semibold d-block fs-7 mb-1">Parent</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="accordion" id="kt_accordion_1">
+                        <div class="accordion-item" ng-repeat="ward in MyWards">
+                            <h2 class="accordion-header border" id="kt_accordion_1_header_2">
+                                <button class="accordion-button fs-4 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#kt_accordion_1_body_{{$index}}"
+                                        aria-expanded="false" aria-controls="kt_accordion_1_body_{{$index}}">
+                                    <div class="d-flex fs-6 fw-bold align-items-start w-100 justify-content-between flex-column">
+                                        <div class="d-flex flex-center">
+                                            <div class="text-gray-700 flex-grow-1 ">{{ward.FirstName}} {{ward.MiddleName}} {{ward.LastName}}</div>
+
+                                            <span class="badge bg-primary text-inverse-primary py-2 px-3 ms-5">
+                                                {{ward.AdmissionNumber}}
+
+
+                                            </span>
+                                        </div>
+                                        <span class="badge bg-primary text-inverse-primary py-2 px-3">
+                                            {{ward.ClassName}}
+                                        </span>
+                                    </div>
+                                </button>
+                            </h2>
+                            <div id="kt_accordion_1_body_{{$index}}" class="accordion-collapse collapse show" ng-class='{show:$first}' aria-labelledby="kt_accordion_1_header_{{$index}}" data-bs-parent="#kt_accordion_{{$index}}">
+                                <div class="accordion-body">
+                                    <div class="row g-5">
+                                        <div class="my-5">
+                                            Selected Student Allergies
+                                            <div ng-repeat="sustudentAllergies in StudentAllergies">
+                                                <div class="" ng-if="ward.StudentIID == sustudentAllergies.StudentID">
+                                                    <span class="badge bg-primary text-inverse-primary py-2 px-3 me-3 mb-3"
+                                                          ng-repeat="Allergiesa in sustudentAllergies.Allergies">
+                                                        {{Allergiesa.AllergyName}} -
+                                                        {{Allergiesa.AllergySeverityName}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="" ng-repeat="allergy in Allergies">
+                                                <div class="card-body">
+                                                    <div class="form-group d-flex align-items-center mb-3">
+                                                        <div class="d-flex flex-column me-4">
+                                                            <h4 class="fw-bold text-dark mb-0">{{allergy.Value}}</h4>
+                                                        </div>
+                                                        <div class="d-flex justify-content-end">
+                                                            <div class="form-check form-check-custom form-check-solid form-check-success form-switch">
+                                                                <input type="hidden" value="false" name="layout-allergy-{{ward.FirstName}}-{{allergy.Value}}">
+                                                                <input ng-model="checked" class="form-check-input w-45px h-30px" type="checkbox" value="true" name="layout-allergy-{{ward.FirstName}}-{{allergy.Value}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group " ng-repeat="severity in Severity">
+                                                        <div class="d-flex gap-7 mb-3">
+                                                            <div class="form-check form-check-custom form-check-success form-check-solid form-check-sm">
+                                                                <input ng-model="value" ng-disabled="!checked" value="{{severity.Key}}" ng-change="SaveAllergies($event, ward.StudentIID, {{allergy.Key}}, severity)" class="form-check-input" type="radio" checked="" id="layout-severity-{{ward.FirstName}}-{{allergy.Value}}-{{severity.Value}}" name="layout-severity-{{ward.FirstName}}-{{allergy.Value}}">
+                                                                <label class="form-check-label text-gray-700 fw-bold text-nowrap" for="layout-severity-{{ward.FirstName}}-{{allergy.Value}}-{{severity.Value}}">{{severity.Value}} </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

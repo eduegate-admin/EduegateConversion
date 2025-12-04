@@ -1,0 +1,16 @@
+<ul>
+    <li data-ng-class="[{'selected':facetItem.Selected},{'hasImage':!facetItem.InitialsText}]" class="categoryWidget"
+        data-ng-repeat="facetItem in ProductListViewModel.FacetsDetails[1].FaceItems track by $index"
+        ui-sref="productcategory({searchText:'',filterValue:'Category:' + facetItem.value, caption : facetItem.key, category : facetItem.code  })">
+        <span class="catListWrap">
+            <span class="iconClass categoryIcon" ng-if="!facetItem.InitialsText"
+                style='background:url("{{facetItem.ItemImage}}") no-repeat;'></span>
+
+            <span class="iconClass categoryIcon avatar" ng-if="facetItem.InitialsText"
+                ng-style="{'background-color': facetItem.backgroundColor}">{{facetItem.InitialsText}}</span>
+            <span class="categoryLabel categoryCaption">
+                <span class="relativePos" data-ng-bind-html="SkipValidation(facetItem.key)"></span>
+            </span>
+        </span>
+    </li>
+</ul>

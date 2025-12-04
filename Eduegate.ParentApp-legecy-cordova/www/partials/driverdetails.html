@@ -1,0 +1,155 @@
+﻿<div>
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    Driver
+                    Details
+                </h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <div class="app-content flex-column-fluid">
+            <div class="card mb-5 mb-xl-10 ">
+                <div class="card-body p-6 fs-5">
+
+                    <div class=" flex-column text-center mb-9 px-9 profileImg studentProfile">
+                        <div class="symbol  symbol-150px mt-10 symbol-circle mb-4 border border-3 border-gray-300">
+                            <img style="    object-fit: cover;     object-position: right top;"
+                            ng-src="{{DriverDetails.EmployeeProfileImageUrl}}"
+                                        on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" />
+
+                        </div>
+                    </div>
+                        <div class="text-center d-flex flex-column">
+                            <a class="text-gray-800 fw-bold text-hover-primary fs-3">
+                                {{DriverDetails.EmployeeName}}
+
+                            </a>
+                            <a class="text-gray-600 fw-bold text-hover-primary fs-5">
+                                {{DriverDetails.EmployeeCode}}
+
+                            </a>
+                        </div>
+                        <div class="fs-5"  ng-if="!DriverDetails">
+                            We couldn't find any driver details.
+                        </div>
+                        <div class="d-flex" ng-if="DriverDetails &&  DriverDetails.GenderName">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/gender.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-semibold">Gender</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800 me-2">{{DriverDetails.GenderName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex" ng-if="DriverDetails &&  DriverDetails.WorkMobileNo">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/route_code_icon.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-semibold ">Route Code</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800">{{DriverDetails.RouteCode}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex" ng-if="DriverDetails &&  DriverDetails.WorkMobileNo">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/phone_icon.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-semibold ">Route contact number</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800">{{DriverDetails.WorkMobileNo}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex" ng-if="DriverDetails &&  DriverDetails.Vehicle">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/Bus_icon.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-semibold">Vehicle No</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800 me-2">{{DriverDetails.Vehicle}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="d-flex" ng-if="DriverDetails &&  DriverDetails.DateOfJoining">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/add-date.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4  fw-semibold">Joining Date</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800">{{DriverDetails.DateOfJoining | date | date : 'dd-MM-yyyy'}}</span>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="text-center d-flex flex-column">
+                            <div class="storeList trackingDetails">
+
+                                <ul>
+                                    <li ng-if="driverPlaces">
+                                        <label translate>CurrentLocation</label>
+                                        <span>{{driverPlaces}} </span>
+                                    </li>
+                                    <!-- <li ng-if="DriverDetails &&  DriverDetails.EstimatedTime">
+                                        <label translate>EstimatedTimeofArrival</label>
+                                        <span>{{DriverDetails.EstimatedTime| date : 'dd-MM-yyyy hh:mm a'}} </span>
+                                        (<small translate>Mayvarybasedontrafficconditions</small>)
+                                        </span>
+                                    </li>
+                                    <li ng-if="DriverDetails &&  DriverDetails.EmployeeName">
+                                        <label translate>DriverName</label>
+                                        <span>{{DriverDetails.EmployeeName}}</span>
+                                    </li>
+                                    <li ng-if="DriverDetails && DriverDetails.EmployeeName">
+                                        <label translate>ContactNumber</label>
+                                        <span>{{DriverDetails.EmployeeName}}</span>
+                                    </li> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

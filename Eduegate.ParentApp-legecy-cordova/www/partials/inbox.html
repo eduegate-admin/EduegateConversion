@@ -1,0 +1,223 @@
+﻿<div class="app-page flex-column flex-column-fluid bg-body">
+    <div class="app-content flex-column-fluid">
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        Communications Parent App
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex  fw-semibold fs-2hx flex-column justify-content-center my-0"
+                        style="color: #6F3C9F;">
+                        Chats
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5 ">
+            <a ng-click="DisplaySearchPopover()" class="d-lg-block w-100 position-relative mb-5 mb-lg-0 d-flex">
+                <div class=" fs-2 text-gray-500 position-absolute top-50 translate-middle-y ms-5">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path
+                            d="M6.86832 0C10.6549 0 13.7363 3.08587 13.7363 6.8725C13.7363 8.56057 13.1216 10.1058 12.1073 11.303L15.8241 15.0199C15.8787 15.0726 15.9221 15.1356 15.952 15.2053C15.9818 15.275 15.9975 15.35 15.998 15.4258C15.9986 15.5016 15.984 15.5768 15.9551 15.6469C15.9263 15.717 15.8837 15.7806 15.8299 15.8341C15.7762 15.8876 15.7123 15.9298 15.642 15.9583C15.5717 15.9867 15.4965 16.0009 15.4207 16C15.3449 15.999 15.27 15.9829 15.2005 15.9527C15.1309 15.9224 15.0681 15.8787 15.0157 15.8239L11.3011 12.1092C10.1036 13.1244 8.55721 13.7405 6.86832 13.7405C3.08169 13.7405 0.000306129 10.6591 0.000306129 6.8725C0.000306129 3.08587 3.08169 0 6.86832 0ZM6.86832 1.19928C3.72799 1.19928 1.19508 3.73216 1.19508 6.8725C1.19508 10.0128 3.72799 12.5446 6.86832 12.5446C10.0087 12.5446 12.5416 10.0128 12.5416 6.8725C12.5416 3.73216 10.0087 1.19928 6.86832 1.19928Z"
+                            fill="black" fill-opacity="0.7" />
+                    </svg>
+                </div>
+                <input class="search-input form-control form-control-solid ps-13" placeholder="Search by name..." inert>
+
+            </a>
+            <ng-include src="'partials/Templates/fullscreensearch.html'"></ng-include>
+            <div class="row g-6 g-xl-9">
+                <div class="col-md-6 col-xxl-4">
+                    <div class="container-fluid mx-0 px-0">
+
+                        <div class="row gx-9">
+                            <div
+                                ng-repeat="studentGroup in TeachersWhoMessagedByParentLoginID track by studentGroup.StudentID">
+                                <!-- Optional: Display student ID or name if available -->
+                                            <div>{{studentGroup.StudentName}}</div>
+
+                                <div class="row mb-0">
+                                    <div class="col-lg-3 mb-0 py-4"
+                                        ng-class="{'unread-comments': teacher.UnreadCommentsCount != 0}"
+                                        ng-repeat="teacher in studentGroup.TeacherMessages track by teacher.CommentIID">
+                                        <div class="card card-flush card-p-0 card-reset bg-light-primary"
+                                            ng-click="ChatListClick(teacher.ReportingEmployeeID, teacher.WorkEmail, teacher.EmployeeName, studentGroup.StudentID, studentGroup.StudentName, studentGroup.AdmissionNumber)">
+
+                                            <div class="card-body">
+                                                <div class="d-flex flex-nowrap">
+                                                    <div class="symbol symbol-circle symbol-55px me-4">
+                                                        <img ng-src="{{teacher.EmployeeProfileImageUrl}}"
+                                                            on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                            alt="" class="mw-100"
+                                                            style="object-fit: cover; object-position: right top;">
+                                                    </div>
+
+                                                    
+                                                    <div class="card card-reset card-xl-stretch mb-xl-10 theme-dark-bg-body w-100 rounded-2">
+                                                    <div class="card-body d-flex flex-column">
+                                                        <div class="d-flex align-items-center flex-row-fluid flex-nowrap">
+                                                            <div class="d-flex flex-column flex-grow-1 my-lg-0 pe-3 overflow-auto">
+                                                                
+                                                                <!-- Teacher Name -->
+                                                                <a class="text-gray-800 fw-semibold text-hover-primary fs-5 text-truncate text-capitalize">
+                                                                    {{teacher.EmployeeName}}
+                                                                </a>
+                                                                
+                                                                <!-- Student ID and Name -->
+                                                                <span class="text-gray-800 fw-normal fs-7 my-1">
+                                                                    {{studentGroup.AdmissionNumber}} - {{studentGroup.StudentName}}
+                                                                </span>
+
+                                                                <!-- Last Message Text -->
+                                                                <span class="text-gray-800 fw-normal fs-7 my-1 text-truncate">
+                                                                    {{teacher.LastMessageText}}
+                                                                </span>
+                                                            </div>
+
+                                                            <div class="d-flex flex-end flex-column fw-bold fs-7 text-end">
+                                                                <!-- Day label: Today / Yesterday / Date -->
+                                                                <span class="text-muted">
+                                                                    <span ng-if="isToday(teacher.LastMessageDate)">Today</span>
+                                                                    <span ng-if="isYesterday(teacher.LastMessageDate)">Yesterday</span>
+                                                                    <span ng-if="!isToday(teacher.LastMessageDate) && !isYesterday(teacher.LastMessageDate)">
+                                                                        {{ teacher.LastMessageDate | date:'dd/MM/yyyy' }}
+                                                                    </span>
+                                                                </span>
+
+                                                                <!-- Time -->
+                                                                <span class="badge text-gray-700 fw-normal my-2 fs-7">
+                                                                    {{ teacher.LastMessageDate | date:'hh:mm a' }}
+                                                                </span>
+
+                                                                <!-- Unread Count -->
+                                                                <div ng-if="teacher.UnreadCommentsCount"
+                                                                    class="badge badge-circle badge-primary h-20px w-20px fs-7"
+                                                                    style="background-color: #9271B1;">
+                                                                    {{teacher.UnreadCommentsCount}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                    <div class="separator separator-dashed my-1"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div> <!-- end ng-repeat for teachers -->
+                                </div> <!-- end row -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 py-4 py-lg-0">
+                <div class="px-0 d-flex flex-stack flex-row-fluid">
+                    <div class="page-title d-flex flex-column justify-content-center me-3">
+                        <h1
+                            class="page-heading d-flex text-dark fw-normal   fs-2 flex-column justify-content-center my-0">
+                            Contacts
+                        </h1>
+                    </div>
+                    <a class="text-link" type="button" ng-click="refreshTeacherDetails()">
+                        Refresh
+                        <span class="spinner-border spinner-border-sm" id="spinner" ng-show="isRefreshing"
+                            aria-hidden="true"></span>
+                        <span class="visually-hidden" role="status">Loading...</span>
+                    </a>
+                </div>
+            </div>
+            <div ng-repeat="studentGroup in teacherEmailList">
+                <h4 class="mb-4 text-primary">
+                    {{studentGroup.StudentName}}
+                </h4>
+
+                <div class="row">
+                    <div class="col-lg-3 mb-6 mb-lg-0" ng-repeat="teacher in studentGroup.TeacherMessages">
+                        <div class="card card-flush card-p-0 card-reset bg-light-primary"
+                            ng-click="ChatListClick(teacher.LoginID, teacher.WorkEmail, teacher.EmployeeName, studentGroup.StudentID, studentGroup.StudentName , studentGroup.AdmissionNumber)">
+                            <div class="card-body">
+                                <div class="d-flex flex-nowrap">
+                                    <div class="symbol symbol-circle symbol-55px me-4">
+                                        <img ng-src="{{teacher.EmployeeProfileImageUrl}}"
+                                            on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" alt=""
+                                         class="mw-100" style="object-fit: cover; object-position: right top;">
+                                    </div>
+                                    <div
+                                        class="card card-reset card-xl-stretch mb-xl-10 theme-dark-bg-body w-100 rounded-2">
+                                        <div class="card-body d-flex flex-column">
+                                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                                <div
+                                                    class="d-flex flex-column flex-grow-1 my-lg-0 pe-3 overflow-hidden">
+                                                    <a class="text-gray-800 fw-semibold text-hover-primary fs-5">
+                                                        {{teacher.EmployeeName}}
+                                                    </a>
+                                                    <span class="text-gray-800 fw-normal fs-7 my-1">
+                                                        {{teacher.EmployeeCode}} 
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="separator my-1"></div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end of teacher repeat -->
+                </div> <!-- end of row -->
+            </div> <!-- end of studentGroup repeat -->
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<style>
+    .mainGrid {
+        max-height: 100vw;
+        overflow-y: auto;
+        width: 100%;
+        clear: both;
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        padding: 10px;
+    }
+
+    .list-table th {
+        background-color: #fff;
+    }
+
+    .list-table tr {
+        background-color: #fff;
+    }
+
+
+
+    .nav.nav-pills.nav-pills-custom.nav-pills-active-custom .nav-item .nav-link.active span:nth-child(1) {
+        font-size: 13px !important;
+    }
+
+    .nav.nav-pills.nav-pills-custom.nav-pills-active-custom .nav-item .nav-link.active span:nth-child(2) {
+        font-size: 32px !important;
+        line-height: 32px;
+
+    }
+</style>

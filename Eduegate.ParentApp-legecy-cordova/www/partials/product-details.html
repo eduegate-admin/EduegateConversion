@@ -1,0 +1,349 @@
+﻿<div class="app-main flex-column flex-row-fluid">
+    <div class="d-flex flex-column flex-column-fluid">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        Product Details - {{Product.ProductDetail.ProductName}}
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="app-content flex-column-fluid">
+            <div class="app-container container-xxl pt-5">
+                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                    <div class="col-xxl-6">
+                        <div class="card card-flush h-xl-100">
+                            <div class="card-body p-6">
+                                <div class="row gx-9 h-100">
+                                    <div class="col-sm-6 mb-10 mb-sm-0">
+                                        <div class="prod-added">
+                                            <div class="prod-added-blk">
+                                                <div><span class="tick"> </span></div>
+                                                <div>
+                                                    <span class="prod-addedtxt">
+                                                        <label translate>ProductAddedtoyourCart</label>
+                                                    </span>
+                                                </div>
+
+                                                <!-- <div><img class="prodimg" src="[IMAGEPATH]" on-error-src="{{ErrorImage()}}" /></div> -->
+                                                <div><span><label translate>[PRODUCTNAME]</label></span></div>
+                                                <div>
+                                                    <span><b><label translate>Quantity:[QUANTITY]</label></b></span>
+                                                </div>
+                                                <div>
+                                                    <span>
+                                                        <b class="">
+                                                            <label translate>
+                                                                Price:[PRICE]
+                                                            </label>
+                                                        </b>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <button type="submit" ui-sref="checkout">
+                                                        <label translate>CONTINUECHECKOUT</label>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galleryWrap displaylineBlock fullwidth relativePos">
+
+                                            <span class="wishIcon position-absolute  start-100 bottom-100 h-40px w-40px ms-n10 mb-n10  p-3 bg-light rounded border z-index-3 border-1" style="color: #d5dbdb;"
+                                                  data-ng-class="{'text-danger' : Product.ProductDetail.IsWishList}"
+                                                  ng-click="$root.AddOrRemoveToWishList(Product.ProductDetail)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" /></svg>
+                                                &nbsp;
+                                            </span>
+
+
+                                            <div>
+                                                <div class="main-carousel " id="demo-slider">
+                                                    <div class="carousel-cell "
+                                                         ng-repeat="image in Product.ProductImages track by $index">
+                                                        <a class="fancybox" data-fancybox="gallery-a"
+                                                           data-slide-index="{{$index}}" href="{{image.ZoomImage}}" onerror="this.onerror=null;this.href='./clients/{{$root.ClientSettings.Client}}/images/no-image.jpg'">
+
+                                                            <picture>
+                                                                <img loading="lazy" ng-src="{{image.ZoomImage}}"
+                                                                     id="img"
+                                                                     onerror="this.onerror=null;this.src='./images/no-image.jpg'"
+                                                                     class="prod-detail-image" />
+                                                            </picture>
+                                                        </a>
+                                                    </div>
+
+                                                    <!-- <span style="top:50px" class="discount"
+                                                        ng-if="Product.ProductDetail.ProductPrice != Product.ProductDetail.ProductDiscountPrice && ((((Product.ProductDetail.ProductPrice - Product.ProductDetail.ProductDiscountPrice)/Product.ProductDetail.ProductPrice) * 100)|rounded:0) > 1">
+                                                        <span translate>OFFER</span>&nbsp;
+                                                        <span
+                                                            ng-bind="((((Product.ProductDetail.ProductPrice - Product.ProductDetail.ProductDiscountPrice)/Product.ProductDetail.ProductPrice) * 100)|rounded:0) + '%' "></span>
+                                                    </span> -->
+                                                </div><!--swipe-->
+                                                <!-- <script>
+                                                                                                    $('.main-carousel').flickity({
+                                                  // options
+                                                  cellAlign: 'left',
+                                                  contain: true
+                                                });
+                                                                                                  </script> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--begin::Col-->
+                                    <div class="col-sm-6" id="detailinfo">
+                                        <!--begin::Wrapper-->
+                                        <div class="d-flex flex-column h-100">
+                                            <!--begin::Header-->
+                                            <div class="mb-7">
+                                                <!--begin::Title-->
+                                                <div class="m-0">
+                                                    <!-- <span
+                                                        class="fw-bold text-gray-400 d-block fs-8">Product Name :</span> -->
+                                                    <a class="fw-bold text-gray-900 fs-4 pb-5"
+                                                       ng-bind-html="Product.ProductDetail.ProductName"></span></a>
+                                                </div>
+                                                <div class="keyfeatures" ng-if="Product.ProductDescription.Description != undefined && Product.ProductDescription.Description != null && Product.ProductDescription.Description != ''">
+                                                    <div class="font-bold"><label translate>Description</label></div>
+                                                    <div class="productdescriptioniframe" ng-bind-html="SkipValidation(Product.ProductDescription.Description)"></div>
+                                                </div>
+
+                                                <div class="d-flex align-items-center flex-wrap d-grid gap-2">
+                                                    <div class="d-flex align-items-center me-5 me-xl-13"
+                                                         ng-if="Product.ProductDetail.SKUID">
+                                                        <!-- <div class="symbol symbol-30px symbol-circle me-3">
+                                                            <img src=""
+                                                                class="" alt="">
+                                                        </div> -->
+                                                        <!-- <div class="m-0">
+                                                            <span
+                                                                class="fw-bold text-gray-400 d-block fs-8">Item No:</span>
+                                                            <a class="fw-bold text-gray-800 text-hover-primary fs-7"
+                                                                ng-bind="Product.ProductDetail.ExternalCode?Product.ProductDetail.ExternalCode:Product.ProductDetail.SKUID"></a>
+                                                        </div> -->
+                                                    </div>
+                                                    <div class="d-flex align-items-center"
+                                                         ng-if="Product.ProductDetail.ProductPartNo != null && Product.ProductDetail.ProductPartNo != ''">
+                                                        <div class="symbol symbol-30px symbol-circle me-3">
+                                                            <span class="symbol-label bg-success">
+                                                                <span class="svg-icon svg-icon-5 svg-icon-white">
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path d="M18 21.6C16.6 20.4 9.1 20.3 6.3 21.2C5.7 21.4 5.1 21.2 4.7 20.8L2 18C4.2 15.8 10.8 15.1 15.8 15.8C16.2 18.3 17 20.5 18 21.6ZM18.8 2.8C18.4 2.4 17.8 2.20001 17.2 2.40001C14.4 3.30001 6.9 3.2 5.5 2C6.8 3.3 7.4 5.5 7.7 7.7C9 7.9 10.3 8 11.7 8C15.8 8 19.8 7.2 21.5 5.5L18.8 2.8Z"
+                                                                              fill="currentColor"></path>
+                                                                        <path opacity="0.3"
+                                                                              d="M21.2 17.3C21.4 17.9 21.2 18.5 20.8 18.9L18 21.6C15.8 19.4 15.1 12.8 15.8 7.8C18.3 7.4 20.4 6.70001 21.5 5.60001C20.4 7.00001 20.2 14.5 21.2 17.3ZM8 11.7C8 9 7.7 4.2 5.5 2L2.8 4.8C2.4 5.2 2.2 5.80001 2.4 6.40001C2.7 7.40001 3.00001 9.2 3.10001 11.7C3.10001 15.5 2.40001 17.6 2.10001 18C3.20001 16.9 5.3 16.2 7.8 15.8C8 14.2 8 12.7 8 11.7Z"
+                                                                              fill="currentColor"></path>
+                                                                    </svg>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                        <!-- <div class="m-0">
+                                                            <span
+                                                                class="fw-bold text-gray-400 d-block fs-8">Part No:</span>
+                                                            <a class="fw-bold text-gray-800 text-hover-primary fs-7"
+                                                                ng-bind="Product.ProductDetail.ProductPartNo"></a>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column  card-rounded"
+                                                 ng-if="Product.ProductDetail.ProductDiscountPrice > 0">
+                                                <span class="fw-bold text-gray-700 fs-7 pb-1">Price</span>
+                                                <span class="fw-bold text-gray-900 fs-2hx lh-1 pb-1"
+                                                      ng-if="Product.ProductDetail.ProductPrice != Product.ProductDetail.ProductDiscountPrice"
+                                                      ng-bind-html="SkipValidation(Product.ProductDetail.ProductPrice + ' ' + $root.Currency)"></span>
+                                                <span data-highlightword="{{$root.DefaultDisplayCurrency}} "
+                                                      class="fw-bold text-gray-900 fs-5 pb-5">
+                                                    {{
+Product.ProductDetail.ProductDiscountPrice
+                                                        | currency : $root.DefaultDisplayCurrency
+                                                    }}
+                                                </span>
+
+                                            </div>
+                                            <div class="row g-5 mb-11">
+                                                <div class="col-sm-6" ng-if="Product.ProductDetail.Brand">
+                                                    <div class="m-0">
+                                                        <span class="fw-bold text-gray-800 d-block fs-5">Brand  </span>
+                                                        <a class="fw-bold text-gray-800 text-hover-primary fs-5"
+                                                           ng-bind="Product.ProductDetail.BrandName"></span>></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6" ng-if="Product.ProductDetail.Weight">
+                                                    <div class="m-0">
+                                                        <span class="fw-bold text-gray-800 d-block fs-5">Weight  </span>
+                                                        <a class="fw-bold text-gray-800 text-hover-primary fs-5"
+                                                           ng-bind="Product.ProductDetail.Weight"></span></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6" ng-if="Product.ProductDetail.Calorie">
+                                                    <div class="m-0">
+                                                        <span class="fw-bold text-gray-800 d-block fs-5">Calorie  </span>
+                                                        <a class="fw-bold text-gray-800 text-hover-primary fs-5"
+                                                           ng-bind="Product.ProductDetail.Calorie"></span></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6" ng-if="Product.ProductDetail.Allergies.length > 0">
+                                                    <div class="fw-semibold fs-5 text-gray-900 mb-1">allergy</div>
+
+                                                    <div ng-repeat="step in Allergies" class="badge badge-light-success fs-base me-3">
+                                                        <div class="fw-bold fs-5 text-gray-800">
+                                                            {{step}} &nbsp;
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+
+                                            </div>
+                                            <div ng-if="Product.ProductDetail.ProductAvailableQuantity <= 0">
+                                                <span class="outofstock"><label translate>OutofStock</label></span>
+                                            </div>
+                                            <div class="productvariant" ng-if="Product.ProductVariants.length > 0">
+                                                <div class="alignleft prop-varient"
+                                                     ng-repeat="Variant in Product.ProductVariants | unique:'PropertyTypeName' | orderBy:'PropertyTypeName' ">
+                                                    <div ng-show="(Product.ProductVariants| filter:{ PropertyTypeName : Variant.PropertyTypeName }  | unique:'PropertyName').length>1">
+                                                        <div class="leftlabel"
+                                                             ng-bind-html="SkipValidation(Variant.PropertyTypeName)">
+                                                        </div><span></span>
+                                                        <!--<label class="alignleft prop-varient-label " ng-bind-html="SkipValidation(Variant.PropertyTypeName)"></label>-->
+                                                        <div class="fullwidth align-left"
+                                                             ng-if="Variant.PropertyTypeName != '' && Variant.PropertyTypeName != undefined && Variant.PropertyTypeName != null">
+                                                            <!--<span class="dropdownwrap greygradient " ng-bind-html="SkipValidation(GetPropertyName(Product.ProductVariants,Variant.PropertyTypeName))"></span>-->
+                                                            <!--<select ng-options="Properties.ProductSKUMapIID as Properties.PropertyName for Properties in Product.ProductVariants| filter: { PropertyTypeName : Variant.PropertyTypeName } | unique:'PropertyName'" ng-model="selectedItem" ng-change="hasChanged(selectedItem)">
+                                                                <option style="display:none !important;visibility:hidden !important;" value="" translate>--Select--</option>
+                                                            </select>-->
+                                                            <div class="variance-options color_options">
+                                                                <a data-ng-if="Properties.PropertyTypeName != 'السعة'  && Properties.PropertyTypeName != 'Color'"
+                                                                   data-ng-class="{'instock selected':Properties.ProductSKUMapIID == Product.ProductDetail.SKUID && Properties.IsInventory==true , 'instock notselected' : Properties.ProductSKUMapIID !=Product.ProductDetail.SKUID && Properties.IsInventory==true,'outofstock selected':Properties.ProductSKUMapIID == Product.ProductDetail.SKUID && Properties.IsInventory==false,'outofstock notselected':Properties.ProductSKUMapIID != Product.ProductDetail.SKUID && Properties.IsInventory==false }"
+                                                                   data-ng-repeat="Properties in Product.ProductVariants| filter:{ PropertyTypeName : Variant.PropertyTypeName }  | unique:'PropertyName' | orderBy:'PropertyName'"
+                                                                   data-ng-bind-html="SkipValidation(Properties.PropertyName)"
+                                                                   data-ng-click="hasChanged(Properties.ProductSKUMapIID)"
+                                                                   href=""> </a>
+                                                            </div>
+                                                            <div class="variance-options color_options color-wrap">
+                                                                <a data-ng-if="Properties.PropertyTypeName == 'السعة'  || Properties.PropertyTypeName == 'Color'"
+                                                                   data-ng-class="{'instock selected':Properties.ProductSKUMapIID == Product.ProductDetail.SKUID && Properties.IsInventory==true , 'instock notselected' : Properties.ProductSKUMapIID !=Product.ProductDetail.SKUID && Properties.IsInventory==true,'outofstock selected':Properties.ProductSKUMapIID == Product.ProductDetail.SKUID && Properties.IsInventory==false ,'outofstock notselected':Properties.ProductSKUMapIID != Product.ProductDetail.SKUID && Properties.IsInventory==false }"
+                                                                   data-ng-repeat="Properties in Product.ProductVariants| filter:{ PropertyTypeName : Variant.PropertyTypeName }  | unique:'PropertyName' | orderBy:'PropertyName'"
+                                                                   data-ng-click="hasChanged(Properties.ProductSKUMapIID)"
+                                                                   href="">
+                                                                    <span ng-repeat="color in Properties.ProductColor.split(',')"
+                                                                          ng-if="color != undefined && color != null && color != ''">
+                                                                        <span ng-style="{'background':color}">
+                                                                            <span style="visibility:hidden;">&nbsp;</span>
+                                                                        </span>
+                                                                    </span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="keyfeatures" ng-if="Product.ProductFeatures.length > 0">
+                                                <div class="font-bold"><label translate>KeyFeatures</label></div>
+                                                <div ng-repeat="Feature in Product.ProductFeatures">
+                                                    <div class="leftlabel"
+                                                         ng-bind-html="SkipValidation(Feature.FeatureName)"></div><span>
+                                                        :
+                                                    </span>
+                                                    <span ng-bind-html="SkipValidation(Feature.FeatureValue)"></span>
+                                                    <!--<span ng-bind-html="SkipValidation(Feature.FeatureName + ' : ' + Feature.FeatureValue)"></span>-->
+                                                </div>
+                                            </div>
+
+                                            <div class="keyfeatures"
+                                                 ng-if="Product.ProductDescription.Description != undefined && Product.ProductDescription.Description != null && Product.ProductDescription.Description != ''">
+                                                <div class="font-bold"><label translate>Description</label></div>
+                                                <div class="productdescriptioniframe"
+                                                     ng-bind-html="SkipValidation(Product.ProductDescription.Description)">
+                                                </div>
+                                            </div>
+
+                                            <div class="tab" id="moreinfo">
+                                                <div ng-if="Product.DeliveryOptions.length > 0">
+                                                    <ul>
+                                                        <li ng-repeat="deliveryIntl in Product.DeliveryOptions"
+                                                            ng-bind-html="SkipValidation('- ' + deliveryIntl.DeliveryOptionDisplayText)">
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="specialPrice" ng-if="Product.MultiPriceList.length > 0">
+                                                    <span class="title">
+                                                        <label translate>Specialpriceaspermember</label>
+                                                    </span>
+                                                    <ul>
+                                                        <li ng-repeat="multiprice in Product.MultiPriceList"
+                                                            ng-class="{'selected':multiprice.isSelected==true}">
+                                                            <span ng-class="{'sp-user selected':multiprice.isSelected==true,'sp-user':multiprice.isSelected==false}"
+                                                                  ng-bind-html="SkipValidation(multiprice.GroupName)"></span>
+                                                            <span class="sp-price"
+                                                                  ng-bind-html="SkipValidation((multiprice.MultipriceValue | rounded:3) + ' ' + multiprice.Currency)">
+
+                                                            </span>
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="quantityDiscountBlock"
+                                                     ng-if="Product.QtyDiscountList.length > 0">
+                                                    <span class="title"><label translate>Buymoresavemore</label></span>
+                                                    <span ng-repeat="qtydiscount in Product.QtyDiscountList">
+                                                        <label translate>Buy</label>
+                                                        <span>
+                                                            <b ng-bind="(qtydiscount.Quantity| rounded : 0)"></b>
+                                                        </span>
+                                                        <span id="smallText">
+                                                            <b>
+                                                                <label translate>ormorefor</label>
+                                                            </b>
+                                                        </span>
+                                                        <span>
+                                                            <b ng-bind-html="SkipValidation(qtydiscount.Currency + ' ' + (qtydiscount.QtyPrice | rounded:3) + ' ')"></b>
+                                                        </span>
+                                                        <span id="smallText">
+                                                            <b>
+                                                                <label translate>each</label>
+                                                            </b>
+                                                        </span>, <label translate>OFFER</label> <span>
+                                                            <b ng-bind-html="SkipValidation((qtydiscount.DiscountPercentage | rounded : 0 )+ ' &#37;')"></b>
+                                                        </span>
+                                                        <br>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="add-to-cart" ng-if="Product.ProductDetail.ProductAvailableQuantity > 0">
+    <div class="add-cart ios-pb-10" ng-click="AddtoCart(Product.ProductDetail,false)">
+        <span class="" translate>Addtocart</span>
+    </div>
+    <div class="buy-now ios-pb-10" ng-click="AddtoCart(Product.ProductDetail,true)">
+        <span class="whiteColor"
+              translate>Buynow</span>
+    </div>
+</div>
+
+<div class="add-to-cart notifymebtn" ng-if="Product.ProductDetail.ProductAvailableQuantity <= 0">
+    <div class="buy-now ios-pb-10" ng-click="$root.NotifyMeProductSKUID = product.SKUID;">
+        <span class="whiteColor"
+              translate>NOTIFYME</span>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

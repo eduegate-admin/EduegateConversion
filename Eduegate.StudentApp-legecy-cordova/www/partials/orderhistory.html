@@ -1,0 +1,318 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-class="$root.IsShareHolder?'hasOrderTabs':'OrderPage'">
+    <div class="app-content flex-column-fluid">
+        <div class="app-header d-flex shodow-sm">
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+                id="kt_app_header_container">
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                    <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                    </a>
+                </div>
+                <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+                </div>
+            </div>
+        </div>
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        Order History
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                </div>
+            </div>
+        </div>
+        <div class="orderTabsContent swipeData app-container container-xxl pt-5" data-attr="ordertabs">
+            <ul class="nav nav-tabs mb-3" id="ex1-content" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="ex1-tab-1" data-bs-toggle="tab" href="#ex1-tabs-1" role="tab" aria-controls="ex1-tabs-1" aria-selected="true">Uniform Orders</a>
+                </li>
+                <li class="nav-item" role="presentation" ng-click="GetCanteenNormalOrderHistoryDetails()">
+                    <a class="nav-link" id="ex1-tab-2" data-bs-toggle="tab" href="#ex1-tabs-2" role="tab"aria-controls="ex1-tabs-2" aria-selected="false">Canteen Orders</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="ex1-content">
+                <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                    <div class="col-md-6 col-xxl-4" ng-repeat="order in OrderHistory">
+                        <div class="accordion" id="kt_accordion_{{current}}">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="kt_accordion_1_header_{{current}}">
+                                    <button class="accordion-button fs-4 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#kt_accordion_1_body_{{current}}" aria-expanded="true" aria-controls="kt_accordion_1_body_{{current}}">
+                                        <div class="d-flex fs-6 fw-bold  w-100">
+                                            <div class="symbol symbol-20px symbol-circle me-4">
+                                                <img ng-class="{'bi bi-droplet-half text-primary':collectionHistory.FeeCollectionStatusName == 'Paid'}" ng-src="{{(order.CartPaymentMethod === 'MIGS' || order.CartPaymentMethod === 'QPAY') && './clients/' + $root.ClientSettings.Client + '/images/check-circle-fill.svg' || './clients/' + $root.ClientSettings.Client + '/images/exclamation-circle-fill.svg'}}">
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <div class="card-label fw-bold text-dark flex-grow-1 me-4 mb-3">
+                                                    {{order.TransactionNo}}
+                                                </div>
+                                                <div class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap ">
+                                                    <span class=" ">{{order.TransactionDateString}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </h2>
+                                <div id="kt_accordion_1_body_{{current}}" class="accordion-collapse collapse show" aria-labelledby="kt_accordion_1_header_{{current}}" data-bs-parent="#kt_accordion_{{current}}">
+                                    <div class="accordion-body">
+                                        <div class="mb-6">
+                                            <div class="mb-6">
+                                                <div class="fw-semibold text-gray-600 fs-7">DELIVERY ADDRESS</div>
+                                                <div class="card-label fw-bold text-dark flex-grow-1 me-4 mb-3">Student :</div>
+                                                <div class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap "> {{order.StudentName}} </div>
+                                                <div class="card-label fw-bold text-dark flex-grow-1 me-4 mb-3">Class :</div>
+                                                <div class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap "> {{order.ClassName}}  {{order.SectionName}} </div>
+                                            </div>
+                                            <div class="fw-semibold text-gray-600 fs-7" translate>TOTAL PRICE :</div>
+                                            <div class="d-flex ">
+                                                <span class="text-gray-900  fs-4  fw-bold me-2 "  data-highlightword="{{$root.DefaultDisplayCurrency}}">QAR</span>
+                                                <div class="fw-bold fs-6 text-gray-800">{{order.Currency}} {{order.Total}} </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-6">
+                                            <div class="fw-semibold text-gray-600 fs-7">DELIVERY TYPE </div>
+                                            <div class="fw-bold fs-6 text-gray-800"> {{order.DeliveryTypeName}} </div>
+                                        </div>
+                                        <div class="d-flex flex-column mt-auto bd-highlight" ng-if="order.TransactionOrderIID">
+                                            <button ng-click="Reorder(order)" class="btn btn-light btn-active-light-primary w-100 mb-4">   ReOrder  </button>
+                                        </div>
+                                        <div class="d-flex flex-stack  mt-4">
+                                            <a class="btn  btn-primary btn-active-light-primary w-100"  ui-sref="orderdetails({orderID:order.TransactionOrderIID})">Order details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4" ng-if="OrderHistory.length == 0 && ShowLoader == false">
+                        <div class="card h-xl-100" dir="ltr">
+                            <div class="card-body d-flex flex-column flex-center">
+                                <div class="mb-2">
+                                    <h1 class="fw-semibold text-gray-800 text-center lh-lg">
+                                        You haven't ordered yet<br> from
+                                        <span class="fw-bolder"> Mobile Application ?</span>
+                                    </h1>
+                                    <div class="py-10 text-center">
+                                        <img src="./clients/{{$root.ClientSettings.Client}}/images/order_empty.svg"
+                                            class="theme-light-show w-200px" alt="">
+                                        <img src="./clients/{{$root.ClientSettings.Client}}/images/order_empty.svg"
+                                            class="theme-dark-show w-200px" alt="">
+                                    </div>
+                                </div>
+                                <div class="text-center mb-1">
+                                    <a class="btn btn-sm btn-primary me-2" ui-sref="onlinestore"
+                                        ui-sref-opts="{reload: true}"> Order now </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="ex2-content">
+                <div class="tab-pane fade " id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                    <div class="row gx-5 g-xl-10 g-xl-10">
+                        <ul class="nav nav-tabs mb-3" id="ex2-content" role="tablist">
+                            <li class="nav-item" role="presentation" ng-click="GetCanteenNormalOrderHistoryDetails()">
+                                <a class="nav-link active" id="ex1-tab-3" data-bs-toggle="tab" href="#ex1-tabs-3" role="tab" aria-controls="ex1-tabs-3" aria-selected="true">Normal Orders</a>
+                            </li>
+                            <li class="nav-item" role="presentation" ng-click="GetSubscriptionOrderHistoryDetails()">
+                                <a class="nav-link" id="ex1-tab-4" data-bs-toggle="tab" href="#ex1-tabs-4" role="tab"  aria-controls="ex1-tabs-4" aria-selected="false">Subscription Orders</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="ex2-content">
+                            <div class="tab-pane active show" id="ex1-tabs-3" role="tabpanel"  aria-labelledby="ex1-tab-3">
+                                <div class="col-md-6 col-xxl-4" ng-repeat="order in NormalOrderHistoryDetails">
+                                    <div class="accordion" id="kt_accordion_{{current}}">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="kt_accordion_1_header_{{current}}">
+                                                <button class="accordion-button fs-4 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#kt_accordion_1_body_{{current}}" aria-expanded="true" aria-controls="kt_accordion_1_body_{{current}}">
+                                                    <div class="d-flex fs-6 fw-bold  w-100">
+                                                        <div class="symbol symbol-20px symbol-circle me-4">
+                                                            <img ng-class="{'bi bi-droplet-half text-primary':collectionHistory.FeeCollectionStatusName == 'Paid'}" ng-src="{{(order.CartPaymentMethod === 'MIGS' || order.CartPaymentMethod === 'QPAY') && './clients/' + $root.ClientSettings.Client + '/images/check-circle-fill.svg' || './clients/' + $root.ClientSettings.Client + '/images/exclamation-circle-fill.svg'}}">
+                                                        </div>
+                                                        <div class="d-flex flex-column">
+                                                            <div class="card-label fw-bold text-dark flex-grow-1 me-4 mb-3">   {{order.TransactionNo}} </div>
+                                                            <div class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap ">
+                                                                 <span class=" ">{{order.TransactionDateString}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </h2>
+                                            <div id="kt_accordion_1_body_{{current}}"  class="accordion-collapse collapse show" aria-labelledby="kt_accordion_1_header_{{current}}"   data-bs-parent="#kt_accordion_{{current}}">
+                                                <div class="accordion-body">
+                                                    <div class="mb-6">
+                                                        <div class="mb-6">
+                                                            <div class="fw-semibold text-gray-600 fs-7">DELIVERY ADDRESS </div>
+                                                            <div  class="card-label fw-bold text-dark flex-grow-1 me-4 mb-3">   Student : </div>
+                                                            <div  class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap "> {{order.StudentName}} </div>
+                                                            <div class="card-label fw-bold text-dark flex-grow-1 me-4 mb-3">  Class : </div>
+                                                            <div class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap ">  {{order.ClassName}} {{order.SectionName}} </div>
+                                                        </div>
+                                                        <div class="fw-semibold text-gray-600 fs-7" translate>TOTAL  PRICE :  </div>
+                                                        <div class="fw-bold fs-6 text-gray-800">   {{order.Currency}} {{order.Total}} </div>
+                                                    </div>
+                                                    <div class="mb-6">
+                                                        <div class="fw-semibold text-gray-600 fs-7">DELIVERY TYPE </div>
+                                                        <div class="fw-bold fs-6 text-gray-800">  {{order.DeliveryTypeName}} </div>
+                                                    </div>
+                                                    <div class="d-flex flex-column mt-auto bd-highlight" ng-if="order.TransactionOrderIID">
+                                                        <button ng-click="Reorder(order)" class="btn btn-light btn-active-light-primary w-100 mb-4">
+                                                            ReOrder
+                                                        </button>
+                                                    </div>
+                                                    <div class="d-flex flex-stack  mt-4">
+                                                        <a class="btn  btn-primary btn-active-light-primary w-100"   ui-sref="orderdetails({orderID:order.TransactionOrderIID})">Order   details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4"   ng-if="NormalOrderHistoryDetails.length == 0 && ShowLoader == false">
+                                    <div class="card h-xl-100" dir="ltr">
+                                        <div class="card-body d-flex flex-column flex-center">
+                                            <div class="mb-2">
+                                                <h1 class="fw-semibold text-gray-800 text-center lh-lg"> You haven't ordered yet<br> from
+                                                    <span class="fw-bolder"> Mobile Application ?</span>
+                                                </h1>
+                                                <div class="py-10 text-center">
+                                                    <img src="./clients/{{$root.ClientSettings.Client}}/images/order_empty.svg"
+                                                        class="theme-light-show w-200px" alt="">
+                                                    <img src="./clients/{{$root.ClientSettings.Client}}/images/order_empty.svg"
+                                                        class="theme-dark-show w-200px" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="text-center mb-1">
+                                                <a class="btn btn-sm btn-primary me-2" ui-sref="onlinestore"
+                                                    ui-sref-opts="{reload: true}"> Order now </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-content" id="ex1-content">
+                            <div class="tab-pane fade  " id="ex1-tabs-4" role="tabpanel" aria-labelledby="ex1-tab-4">
+                                <div class="col-xl-4 mb-5 mb-xl-10" ng-repeat="ScheduledOrderHistoryDetail in ScheduledOrderHistoryDetails">
+                                    <div class="card card-flush py-4">
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                <h2>Subscription Details</h2>
+                                            </div>
+                                            <div class="card-toolbar">
+                                            </div>
+                                        </div>
+                                        <div class="card-body pt-0">
+                                            <div class="d-flex flex-column gap-10">
+                                                <div class="fv-row">
+                                                    <label class="form-label">Order ID</label>
+                                                    <div class="fw-bold fs-3">  #{{ScheduledOrderHistoryDetail.TransactionNo}}</div>
+                                                </div>
+                                                <div class="fv-row fv-plugins-icon-container">
+                                                    <label class="required form-label">Subscription Period</label>
+                                                    <div class="flex-grow-1 me-5">
+                                                        <div class="text-gray-800 fw-semibold fs-2">
+                                                            {{ ScheduledOrderHistoryDetail.StartDate |date | date :
+                                                            'dd-MM-yyyy'}} - {{ ScheduledOrderHistoryDetail.EndDate
+                                                            |date | date : 'dd-MM-yyyy'}}
+                                                            <span class="text-gray-400 fw-semibold fs-7"> </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-muted fs-7">Start and end date of the subscription order.</div>
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                    </div>
+                                                </div>
+                                                <div class="fv-row fv-plugins-icon-container">
+                                                    <label class="required form-label"> Subscription Schedule</label>
+                                                    <div class="flex-grow-1 me-5">
+                                                        <div class="text-gray-800 fw-semibold fs-2">
+                                                            {{ScheduledOrderHistoryDetail.SubscriptionType}}
+                                                            <span class="text-gray-400 fw-semibold fs-7">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-muted fs-7">Start and end of subscription period.</div>
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                    </div>
+                                                </div>
+                                                <div class="fv-row fv-plugins-icon-container">
+                                                    <label class="required form-label"> Subscription Schedule Time</label>
+                                                    <div class="flex-grow-1 me-5">
+                                                        <div class="text-gray-800 fw-semibold fs-2">{{ScheduledOrderHistoryDetail.DeliveryTimeSlots}}
+                                                            <span class="text-gray-400 fw-semibold fs-7"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-muted fs-7">Time slots of delivery</div>
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                    </div>
+                                                </div>
+                                                <div class="fv-row fv-plugins-icon-container">
+                                                    <label class="required form-label"> Scheduled days</label>
+                                                    <div class="d-grid w-100" style=" grid-column-start: 1; grid-column-end: 3;  justify-items: stretch; align-content: space-evenly; row-gap: 16px;  grid-template-columns: auto auto auto;">
+                                                        <div class="form-check" ng-repeat="SubciptionDeliveryDay in ScheduledOrderHistoryDetail.SubciptionDeliveryDays">
+                                                            <input class="form-check-input" type="checkbox" value=""  id="flexCheckDefault" disabled checked />
+                                                            <label class="form-check-label" for="flexCheckDefault">
+                                                                {{SubciptionDeliveryDay.Value}}
+                                                            </label>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="fv-row fv-plugins-icon-container">
+                                                    <label class="required form-label">Student</label>
+                                                    <div class="flex-grow-1 me-5">
+                                                        <div class="text-gray-800 fw-semibold fs-2">{{ScheduledOrderHistoryDetail.StudentName}} -  {{ScheduledOrderHistoryDetail.ClassName}}
+                                                            <span class="text-gray-400 fw-semibold fs-7">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-muted fs-7">Name and class of student</div>
+                                                    <div  class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                    </div>
+                                                </div>
+                                                <a class="btn  btn-primary btn-active-light-primary w-100" ui-sref="orderdetails({orderID:ScheduledOrderHistoryDetail.TransactionOrderIID})">Order details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4" ng-if="ScheduledOrderHistoryDetails.length == 0 && ShowLoader == false">
+                                    <div class="card h-xl-100" dir="ltr">
+                                        <div class="card-body d-flex flex-column flex-center">
+                                            <div class="mb-2">
+                                                <h1 class="fw-semibold text-gray-800 text-center lh-lg">
+                                                    You haven't ordered yet<br> from
+                                                    <span class="fw-bolder"> Mobile Application ?</span>
+                                                </h1>
+                                                <div class="py-10 text-center">
+                                                    <img src="./clients/{{$root.ClientSettings.Client}}/images/order_empty.svg"
+                                                        class="theme-light-show w-200px" alt="">
+                                                    <img src="./clients/{{$root.ClientSettings.Client}}/images/order_empty.svg"
+                                                        class="theme-dark-show w-200px" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="text-center mb-1">
+                                                <a class="btn btn-sm btn-primary me-2" ui-sref="onlinestore"
+                                                    ui-sref-opts="{reload: true}"> Order now </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="AttachWayPointsDiv lazyload">
+                <div class="d-flex justify-content-center">
+                    <div id="LoadLi" class="spinner-border text-dark " role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>

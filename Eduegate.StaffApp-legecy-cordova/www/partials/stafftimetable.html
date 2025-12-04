@@ -1,0 +1,234 @@
+﻿<div class="app-page flex-column flex-column-fluid">
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+    <div class="app-toolbar  w-100 position-sticky z-index-0 h-150px" style="top: 60px;">
+        <div class="app-container  container-xxl d-flex flex-column">
+            <div class=" card-xl-stretch mb-20">
+                <div class="card-body p-0">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app-container container-xxl pt-5  mt-n5 rounded-3 bg-light z-index-3" ng-init="init()">
+
+
+        <!-- Loading/Error states (no changes here) -->
+        <div ng-if="isLoading" class="text-center p-5">...</div>
+        <div ng-if="!isLoading && errorMessage" class="alert alert-danger">...</div>
+        <div ng-if="!isLoading && timetableData.length === 0 && !errorMessage" class="alert alert-info">...</div>
+
+        <!-- The main timetable view -->
+        <!-- The main timetable view, only shown when not loading and data exists -->
+        <div class="row" ng-if="!isLoading && timetableData.length > 0">
+            <div class="col-12">
+                <!-- 
+            1. THE FIX: Add a single parent wrapper for the accordion.
+            This element has the ID that all children will reference.
+        -->
+                <div class="accordion" id="timetableAccordion">
+
+                    <!-- The ng-repeat now creates accordion items *inside* this parent -->
+                    <div class="card card-flush mt-3" ng-repeat="dayData in timetableData track by dayData.dayKey">
+
+                        <!-- The accordion header (the part that's always visible) -->
+                        <div class="card-header border-0" id="heading-{{$index}}">
+                            <div class="card-title">
+                                <div class="text-uppercase fw-bold text-gray-700">{{dayData.dayName}}</div>
+                            </div>
+                            <div class="card-toolbar">
+                                <!-- This button controls the collapse -->
+                                <button class="btn btn-sm btn-light-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse-{{$index}}" aria-expanded="false"
+                                    aria-controls="collapse-{{$index}}">
+                                    View Day
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 
+                    2. THE FIX: The collapsible element now correctly points to the parent.
+                    I've also added the `accordion-item` class to the card for better semantics.
+                -->
+                        <div id="collapse-{{$index}}" class="accordion-collapse collapse"
+                            aria-labelledby="heading-{{$index}}" data-bs-parent="#timetableAccordion">
+
+                            <!-- The new timeline layout is inside the card-body -->
+                            <div class="card-body pt-0">
+                                <div class="timeline-body">
+                                    <!-- Loop over each time slot to build a timeline entry -->
+                                    <div class="timeline-entry" ng-repeat="slot in dayData.slots track by $index">
+
+                                        <!-- 1. Time Column -->
+                                        <div class="timeline-time">
+                                            <div class="fw-bolder">{{slot.startTime}}</div>
+                                            <div class="text-muted">{{slot.endTime}}</div>
+                                        </div>
+
+                                        <!-- 2. Timeline Gutter (Line and Dot) -->
+                                        <div class="timeline-gutter">
+                                            <div class="timeline-dot"></div>
+                                            <div class="timeline-line"></div>
+                                        </div>
+
+                                        <!-- 3. Lesson Content Column -->
+                                        <div class="timeline-content">
+                                            <!-- Lesson Card -->
+                                            <div class="timeline-card" ng-class="slot.gradientClass"
+                                                ng-if="!slot.isFree">
+                                                <div class="timeline-card-badge">{{slot.className}}</div>
+                                                <div class="timeline-card-title">{{slot.subjectName}}</div>
+                                                <div class="timeline-card-details">{{slot.details}}</div>
+                                            </div>
+
+                                            <!-- Free Period Box -->
+                                            <div class="timeline-card-free" ng-if="slot.isFree">
+                                                {{slot.subjectName}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- End of ng-repeat card -->
+                </div> <!-- End of the accordion parent wrapper -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    /* Gradient classes for lesson cards */
+    .timeline-card.gradient-green {
+        background: linear-gradient(105deg, #44e37f 0%, #30c9a3 100%);
+    }
+
+    .timeline-card.gradient-purple {
+        background: linear-gradient(105deg, #8961de 0%, #6843c9 100%);
+    }
+
+    /* Main container for the timeline inside the accordion body */
+    .timeline-body {
+        position: relative;
+        padding-left: 1rem;
+    }
+
+    /* A single entry (row) in the timeline */
+    .timeline-entry {
+        display: flex;
+        position: relative;
+        margin-bottom: 25px;
+        /* Space between lessons */
+    }
+
+    /* Left column for the time */
+    .timeline-time {
+        flex-basis: 70px;
+        text-align: right;
+        padding-right: 25px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #5e6278;
+    }
+
+    .timeline-time .text-muted {
+        font-size: 13px;
+        color: #a1a5b7 !important;
+    }
+
+    /* Middle column for the line and dot */
+    .timeline-gutter {
+        flex-basis: 20px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* The vertical line running through the gutter */
+    .timeline-gutter .timeline-line {
+        position: absolute;
+        top: 5px;
+        bottom: -25px;
+        /* Extends down to the next entry */
+        width: 2px;
+        background-color: #e4e6ef;
+        z-index: 1;
+    }
+
+    .timeline-entry:last-child .timeline-gutter .timeline-line {
+        display: none;
+        /* Hide line on the last item */
+    }
+
+    /* The dot on the timeline */
+    .timeline-gutter .timeline-dot {
+        position: absolute;
+        top: 5px;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        background-color: #6c55c9;
+        z-index: 2;
+    }
+
+    /* Right column for the lesson content */
+    .timeline-content {
+        flex-grow: 1;
+        padding-left: 20px;
+    }
+
+    /* The main lesson card */
+    .timeline-card {
+        padding: 15px 20px;
+        border-radius: 12px;
+        color: white;
+        min-height: 90px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .timeline-card-free {
+        padding: 15px 20px;
+        border-radius: 12px;
+        color: #b5b5c3;
+        background-color: #f5f8fa;
+        border: 1px dashed #e4e6ef;
+        min-height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-style: italic;
+    }
+
+    /* Small pill/badge for the class name */
+    .timeline-card-badge {
+        display: inline-block;
+        background-color: rgba(255, 255, 255, 0.25);
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    /* Lesson title (Subject) */
+    .timeline-card-title {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    /* Lesson details (Chapter, etc.) */
+    .timeline-card-details {
+        font-size: 13px;
+        font-weight: 400;
+        opacity: 0.8;
+    }
+
+    .app-toolbar {
+        background-color: #5F3787;
+        background-image: url(../clients/{{$root.ClientSettings.Client}}/images/b-g.svg);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center top;
+    }
+</style>

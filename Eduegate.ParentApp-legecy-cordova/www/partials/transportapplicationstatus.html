@@ -1,0 +1,129 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="TransportApplicationStatusController">
+
+
+    <div class="app-content flex-column-fluid">
+
+<ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        Transport application status
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5">
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+                    <div class="row g-6 g-xl-9" ng-init="LoadTransportApplicationInfo()">
+                        <div class="col-md-6 col-xxl-4" ng-repeat="application in TransportApplications">
+                            <div class="card">
+                                <div class="card-body p-lg-20">
+                                    <div class="d-flex flex-column flex-xl-row">
+                                        <div class="flex-lg-row-fluid me-xl-18">
+                                            <div class="mt-n1">
+                                                <div class="m-0">
+                                                    <div class="mb-8">
+                                                        <span class="badge badge-light-success me-2"
+                                                            ng-bind-html="application.ApplicationNumber"></span>
+                                                    </div>
+                                                    <h6 class="mb-8 fw-bolder text-gray-600 text-hover-primary"></h6>
+
+                                                </div>
+                                                <div class="m-0">
+
+                                                    <div class="row g-5">
+                                                        <div class="col-sm-6">
+                                                            <div class="fw-bold fs-7 text-gray-600 mb-1">Apply date
+                                                            </div>
+                                                            <div
+                                                                class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap">
+                                                                <span class="pe-2"> {{application.CreatedDate | date |
+                                                                    date:'dd/MM/yyyy'}}</span>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="fw-bold fs-7 text-gray-600 mb-1">Emergency
+                                                                contact number
+                                                            </div>
+                                                            <div
+                                                                class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap">
+                                                                <span class="pe-2"
+                                                                    ng-bind="application.EmergencyContactNumber"></span>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="fw-bold fs-7 text-gray-600 mb-1">Emergency
+                                                                email
+                                                            </div>
+                                                            <div
+                                                                class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap">
+                                                                <span class="pe-2"
+                                                                    ng-bind="application.EmergencyEmailID"></span>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="alert alert-info d-flex align-items-center p-5 mb-10" role="alert"
+                                ng-if="!ShowLoader">
+                                <span class="svg-icon svg-icon-2hx svg-icon-primary me-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                    </svg>
+
+                                </span>
+                                <div class="d-flex flex-column">
+                                    <h3 class="mb-1 text-gray-600">Please login to parent portal to initiate transport
+                                        application. <a href="{{parentPortal}}" class="alert-link">Please
+                                            click here</a> to login to parent portal.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"
+                                ng-if="!ShowLoader && TransportApplications.length == 0">
+                                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5"
+                                            fill="currentColor" />
+                                        <rect x="7" y="15.3137" width="12" height="2" rx="1"
+                                            transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                        <rect x="8.41422" y="7" width="12" height="2" rx="1"
+                                            transform="rotate(45 8.41422 7)" fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <div class="d-flex flex-column">
+                                    <h3 class="mb-1 text-danger">No transport application found.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

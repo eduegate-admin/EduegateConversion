@@ -1,0 +1,74 @@
+<div ng-controller="TransportDashboardController">
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    Communications
+                </h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container container-xxl pt-5" ng-init="init()">
+        <div class="row g-5 g-xl-10">
+            <div class="col-lg-6 mb-lg-10">
+                <div class="main-carousel" data-flickity='{ "freeScroll": true }'>
+                    <div class="carousel-cell w-100">
+                        <img src="./images/communicationbanner.png" />
+                    </div>
+            </div>
+            </div>
+            <div class="col-sm-6 col-xl-2 mb-xl-10">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap justify-content-evenly fs-5">
+                            <a class="d-flex flex-column align-items-center  col-4" ui-sref="tickets">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2 "
+                                    style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                    <div class="symbol symbol-circle symbol-90px ng-scope"
+                                        style="background: linear-gradient(130deg, #708FFF 0%, #4062D9 100%);">
+                                        <img src="./images/tickets.svg" class="object-fit-none ">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center">Tickets</span>
+                            </a>
+                            <!-- <a class="d-flex flex-column align-items-center  col-4" ui-sref="feedback">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                    style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                    <div class="symbol symbol-circle symbol-90px ng-scope"
+                                        style="background: linear-gradient(130deg, #708FFF 0%, #4062D9 100%);">
+                                        <img src="./images/feedback.svg" class="object-fit-none ">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center">Feedback</span>
+                            </a> -->
+                            <a class="d-flex flex-column align-items-center col-4" ui-sref="inbox">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2"
+                                    style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));">
+                                    <div class="symbol symbol-circle symbol-90px ng-scope"
+                                        style="background: linear-gradient(130deg, #708FFF 0%, #4062D9 100%);">
+                                        <img src="./images/homenotifications.svg" class="object-fit-none ">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center">Chats</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--containerWrap-->
+
+
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

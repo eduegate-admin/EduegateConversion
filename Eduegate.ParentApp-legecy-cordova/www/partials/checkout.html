@@ -1,0 +1,405 @@
+﻿<div class="mainwrap checkout noSwipe">
+
+    <div class="header">
+        <div class="header-inner">
+            <div class="nav-sidebar align-left">
+                <!--<div class="backtopage"><a  ui-sref="cart" ui-sref-opts="{reload: true}"><img src="clients/{{$root.ClientSettings.Client}}/img/back-arrow.png" /></a></div>-->
+                <div class="backtopage"><a href="" ng-click="$root.goBack()" class=" p-5 ms-n5">&nbsp;</a></div>
+            </div>
+            <!--nav-sidebar-->
+            <div class="header-text"><span translate>OrderConfirmation</span></div>
+            <ng-include src="'partials/header.html'"></ng-include>
+        </div>
+        <ng-include src="'partials/searchheader.html'"></ng-include>
+        <ng-include ng-show="ShowLoader" src="'partials/main-loader.html'"></ng-include>
+    </div>
+
+    <div class="maincontentarea noSearch">
+        <div class="content greybg main-spacing">
+            <div class="pagesections">
+                <br />
+                <div class="fullwidth align-left">
+                    <ul class="tabNav">
+                        <li class="current"><a ng-click="DisplayAddressView()" href="" id="liShipping">
+                                <div class="state-circle"><i class="fa fa-map-marker"></i></div><span
+                                    translate>ADDRESS</span>
+                            </a></li>
+                        <li>
+                            <a ng-click="DisplayDeliveryView()" href="" id="liDelivery">
+                                <div class="state-circle"><i class="fa fa-truck"></i></div>
+                                <span translate>Delivery</span>
+                            </a>
+                        </li>
+                        <li><a ng-click="DisplayPaymentView()" href="" id="liPayment">
+                                <div class="state-circle"><i class="fa fa-money"></i></div><span
+                                    translate>Payment</span>
+                            </a></li>
+                    </ul>
+                    <div class="tabContainer">
+                        <div class="tab current" id="shipping">
+                            <div class="cost">
+                                <div class="d-cost">
+                                    <!--<span><label translate>DELIVERYCOST</label><span ng-bind="shoppingCart.DeliveryCharge + ' ' + shoppingCart.Currency"></span></span>-->
+                                    <span class="t-cost"><label translate>CARTTOTAL</label><span
+                                            ng-bind="shoppingCart.SubTotal| currency :$root.DefaultDisplayCurrency"></span></span>
+                                    <span ng-if="VoucherAmount != 0 && VoucherNumber != ''">
+                                        <label translate>VOUCHERAMOUNT</label><span
+                                            ng-bind="VoucherAmount | currency :$root.DefaultDisplayCurrency"></span>
+                                    </span>
+                                </div>
+                                <!--<div class="t-cost" class="t-cost"><label translate>TOTAL:</label> 
+                                    <span ng-bind="shoppingCart.Total + ' ' + shoppingCart.Currency"></span>
+                                </div> -->
+                            </div>
+                            <div class="shipping-add" id="divShippingAddress"
+                                ng-if="DeliveryAddress != null && DeliveryAddress != ''">
+                                <!-- <span class="store" translate>STORE</span> -->
+                                <div class="fieldWrap cartPage locateStore"> 
+                                    <label>{{'CHOOSESTORE'|translate}}
+                                         <span class="labelControls">
+                                            <span class="textright cursorPointer" ng-click="GetNearestBranch()">
+                                                <i class="fa fa-map-marker" aria-hidden="true">
+                                                </i>&nbsp;{{'AUTOLOCATE' | translate}}
+                                            </span><span>|</span>
+                                            <span ng-click="PickStoreFromMap()"
+                                                class="textright cursorPointer"><i class="fa fa-map" aria-hidden="true">
+                                                </i>&nbsp;{{'PICK' | translate}}
+                                            </span>
+                                        </span>
+                                    </label>
+                                    <span class="countries">
+                                        <select required name="DefaultStore" id="DefaultStore"
+                                            ng-model="DefaultStore" ng-change="BranchChange(DefaultStore)">
+                                            <option ng-repeat="brn in Branches" value="{{brn.BranchIID}}">
+                                                {{brn.BranchName}}
+                                            </option>
+                                        </select>
+                                    </span>
+                                    <!-- <span class="red inputerror" ng-show="submitted && registerForm.Country.$error.required" translate>SELECTYOURSTORE</span> -->
+                                </div>
+                                <!-- <ul class="productlist">
+                                    <li>
+                                        <span class="titlecolumn">
+                                            <span class="caption">
+                                            <span>{{$root.StoreName}}</span>
+                                            </span>
+                                        </span>
+                                    </li>
+                                </ul> -->
+                                <br />
+                                <br />
+                                 <a id="deliveryaddress" href="#deliveryaddress"></a>
+                                <span class="orderid padbtm5 displayFlex" translate>DeliveryAddress</span>
+                                <ul class="productlist displayFlex flexColumn boxShadow borderRadius4 pad10">
+                                    <li class="noMarginBtm fullwidth">
+                                        <span class="titlecolumn fontsize14">
+                                            <span class="caption fontsize15">
+                                                <span class="add-name"
+                                                    ng-bind-html="SkipValidation(DeliveryAddress.FirstName + ' ' + (DeliveryAddress.LastName != undefined && DeliveryAddress.LastName != null ?  DeliveryAddress.LastName : ''))"></span><br>
+                                            </span>
+                                            <span ng-bind-html="SetAddress(DeliveryAddress)"></span>
+                                        </span>
+                                        <!-- <span class="edit-delete">
+                                            <button type="button" ng-click="ListShippingAddress()"><i
+                                                    class="fa fa-edit"></i></button>
+                                        </span> -->
+                                    </li>
+                                </ul>
+                                <span class="fullwidth displaylineBlock textright tagAddress padtop10" >
+                                    <span class="tagAddress align-right" ng-click="GetTaggedAddressMap(DeliveryAddress.Latitude,DeliveryAddress.Longitude)"> 
+                                        <span class="tagAddress fontsize14" translate>yourTaggedlocation</span><i class="fa fa-map-o" aria-hidden="true"></i>
+                                    </span>
+                                </span>
+                                <br/>
+                                <span class="orderid padbtm5 displayFlex" translate>SavedAddress</span>
+                                <ul class="productlist displayFlex flexColumn noPadding addressLists">
+                                    <li class="noBorder displayFlex flexColumn fullwidth" ng-repeat="address in AddressList">
+                                        <span class="titlecolumn  boxShadow borderRadius4 displayFlex flexColumn pad10 fontsize15">
+                                            <span class="caption fontsize15">
+                                                <span class="add-name" ng-bind-html="SkipValidation(address.FirstName + ' ' + (address.LastName != undefined && address.LastName != null ?  address.LastName : ''))"></span><br />
+                                            </span>
+                                            <span ng-bind-html="SetAddress(address)"></span>
+                                            <span class="edit-delete cursorPointer" ng-click="DeleteAddress(address.ContactID)"> 
+                                                <!--<a href="" ng-click="EditAddress(address.ContactID)"><i class="fa fa-edit"></i></a>-->
+                                                <i class="fa fa-trash"></i>
+                                                <!--<a href="" ng-click="DeleteAddress(address.ContactID)"><i class="fa fa-trash"></i></a>-->
+                                            </span>
+                                            <span class="fullwidth align-left saveaddressbtncontrols padtop10 textcenter">
+                                                <button class="btnStyle" type="button" ng-click="EditAddress(address.ContactID)"><label translate>EditAddress</label></button>
+                                                <button class="btnStyle btnGrey" type="button" ng-click="SelectAddress(address)"><label translate>USETHISADDRESS</label></button>
+                                            </span>
+                                        </span>
+                                        <span class="fullwidth displaylineBlock textright tagAddress padtop10 padbtm10">
+                                            <span class="tagAddress align-right" ng-click="GetTaggedAddressMap(address.Latitude,address.Longitude)"> 
+                                                <span class="tagAddress fontsize14" translate>yourTaggedlocation</span><i class="fa fa-map-o" aria-hidden="true"></i>
+                                            </span>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="add-address">
+                                <span><button class="" type="submit" ng-click="AddNewDeliveryAddress()"
+                                        translate>+AddNewDeliveryAddress</button></span>
+                            </div>
+                            <div class="payment-btn">
+                                <span><button class="btnStyle btnGrey" disabled="disabled" id="button"  type="submit" ng-click="DisplayDeliveryView()"
+                                        translate>Continue</button></span>
+                            </div>
+                        </div>
+                        <div class="tab" id="delivery">
+                            <div class="cost">
+                                <div class="d-cost">
+                                    <span>
+                                        <label><span class="carttotal" translate>CARTTOTAL</span>&nbsp;<span class="taxAmount smallText fontnormal"><span class="fontnormal" translate>VATINC</span></label>
+                                        <span class="font-bold digitStyle" ng-bind="shoppingCart.SubTotal | currency :$root.DefaultDisplayCurrency"></span>
+                                    </span>
+                                    <span>
+                                        <label><span translate>VATAMOUNT</span>&nbsp;</label>
+                                        <span class="font-bold digitStyle"ng-bind="shoppingCart.Tax | currency :$root.DefaultDisplayCurrency"></span>
+                                    </span>
+                                    <span>
+                                        <label translate>DELIVERYCOST</label><span class="font-bold digitStyle"
+                                            ng-bind="shoppingCart.DeliveryCharge | currency :$root.DefaultDisplayCurrency"></span>
+                                    </span>                                   
+                                    <span ng-if="VoucherAmount != 0 && VoucherNumber != ''">
+                                        <label translate>VOUCHERAMOUNT</label>
+                                        <span class="font-bold digitStyle" ng-bind="VoucherAmount | currency :$root.DefaultDisplayCurrency"></span>
+                                    </span>
+                                </div>
+                                <div class="t-cost">
+                                    <label translate>TOTAL:</label>
+                                    <span class="digitStyle" ng-bind="shoppingCart.Total | currency :$root.DefaultDisplayCurrency"></span>
+                                </div>
+                            </div>
+                            <div class="cost">
+                                <label translate>STORE</label> :
+                                <span class="amount text-grey-700 fontnormal storeName">{{DefaultBranch.BranchName}}</span>
+                            </div>
+                            <div class="delivery-op commonOption deliveryType">
+                                <label translate>CHOOSEDELIVERYTIME</label>
+                                <select class="noMarginLeft noMarginRight" ng-model="DeliveryTypeID"
+                                    ng-options="delivery.DeliveryTypeID as delivery.DeliveryTypeName for delivery in DeliveryTypes"
+                                    ng-change="CartDeliverySelectionChanged('type')">
+                                </select>
+                            </div>
+
+                            <div class="delivery-op commonOption deliveryType">
+                                <label translate>CHOOSEDELIVERYSLOT</label>
+                                <select class="noMarginLeft noMarginRight" ng-model="SelectedTimeSlotMapID"
+                                ng-change="CartDeliverySelectionChanged()" >
+                                    <option ng-repeat="time in TimeSlots" value="{{time.DeliveryTypeTimeSlotMapIID}}" >{{time.TimeFrom}} - {{time.TimeTo}}</option>
+
+                                </select>
+                            </div>
+                            <div class="align-left fullwidth">
+                                <div ng-repeat="product in shoppingCart.Products" class="selected-products"  ng-class="{'notAvailable' : product.AvailableQuantity == 0}">
+                                    <div class="product pad10">
+                                        <div class="product-img">
+                                            <a href=""><img ng-src="{{GetProductImage(product.ImageFile)}}"
+                                                    on-error-src="{{ErrorImage()}}" /></a>
+                                        </div>
+                                        <div class="product-des">
+                                            <span ng-bind-html="SkipValidation(product.ProductName)"></span>
+                                            <span class="price" ng-bind="product.Total|currency : $root.DefaultDisplayCurrency"></span>
+                                            <span class="displayBlock">
+                                                <span class="autoWidth dsiplaylineBlock" translate>Quantity</span>:&nbsp;
+                                                <span class="autoWidth displaylineBlock ProdQty digitStyle" ng-bind="product.Quantity"></span>
+                                            </span>
+                                            <div class="fontnormal" ng-class="{'outofstock' : product.AvailableQuantity == 0}" ng-if="product.AvailableQuantity == 0" ><span class="displaylineBlock" translate>Notavailableinstore</span> {{DefaultBranch.BranchName}}</div>
+                                            <span ng-if="product.AvailableQuantity == 0" class="button remove cursor" ng-click="RemoveCartItem(product.SKUID,true, $index)" ><i class="fa fa-trash"></i></span> 
+                                        </div>
+                                    </div>
+                                    <div class="delivery-op">
+                                        <select data-ng-if="product.DeliveryTypes.length > 0"
+                                            ng-model="product.DeliveryTypeID"
+                                            ng-options="delivery.DeliveryMethodID as delivery.DeliveryType for delivery in product.DeliveryTypes"
+                                            ng-change="DeliverySelectionChanged(product,product.DeliveryTypeID)">
+                                        </select>
+                                        <span
+                                            data-ng-if="product.DeliveryTimingSelectedSlot.length==0 && product.DisplayText.length > 0"
+                                            class="deliveryinfo context" data-ng-bind="product.DisplayText"></span>
+                                        <span class="deliveryinfo context"
+                                            data-ng-if="product.DeliveryTypes.length ==0 && shoppingCart.IsIntlCart==0"
+                                            translate>NODELIVERYFORSELECTEDAREA</span>
+                                        <span class="deliveryinfo context"
+                                            data-ng-if="product.DeliveryTypes.length ==0 && shoppingCart.IsIntlCart==1 && product.IntlDeliveryEnabled==0"
+                                            translate>NOINTLDELIVERY</span>
+                                        <select data-ng-if="product.DeliveryTimingSelectedSlot.length >0"
+                                            ng-model="product.DeliveryTimingSlotSelectedID"
+                                            ng-options="deliveryslot.DeliveryTimeSlotsIID as deliveryslot.DeliverySlotDisplayText for deliveryslot in product.DeliveryTimingSelectedSlot"
+                                            ng-change="DeliveryTimeSlotSelectionChanged(product)"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-btn" id="divDeliveryConfirm">
+                                <span><button class="btnStyle btnGrey" type="submit" ng-click="DisplayPaymentView()"
+                                        translate>Continue</button></span>
+                            </div>
+                        </div>
+
+                        <div class="tab" id="payment">
+                        
+                            <div class="delivery-op commonOption paymentOption" ng-init="getrangeSliderValue();">
+                                <label translate>ChoosePaymentMethod</label>
+                                <div class="payment-method relativePos">
+                                   
+                                    <div class="reduction" ng-if="PaymentOptionsVirtual.length > 0">
+
+                                        <ul>
+                                            <li ng-repeat="payment in PaymentOptionsVirtual"
+                                                ng-class="{'disabled': (payment && (payment.Amount == null || payment.Amount <= 0))}">
+                                                <div class="loyaltyLoader" ng-if="IsLoyaltyLoading">
+                                                    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                                                </div>
+                                                <span class="reduction_wrap" ng-class="{'loyaltyOptions':payment.PaymentMethodName === 'LoyalityPoints'}">                                               
+                                                    <span class="reduction_col">
+                                                        <span class="checkBoxWrap">
+                                                            <input type="checkbox" ng-model="payment.Selected"
+                                                                ng-disabled="(payment && (payment.Amount == null || payment.Amount <= 1))"
+                                                                ng-change="getLoyaltyPoints(payment)" />
+                                                            <i></i>
+                                                        </span>
+                                                        <img src="{{payment.ImageName}}" ng-if="!payment.PaymentMethodName === 'LoyalityPoints'"/>
+                                                        <span ng-if="payment.PaymentMethodName === 'LoyalityPoints'"><label translate>LoyaltyPoints</label></span>
+                                                    </span>
+                                                    <span class="reduction_col"
+                                                        ng-if="payment.PaymentMethodName === 'Voucher'">
+                                                        <span class="voucherNumber fullwidth" ng-show="showvoucher">
+                                                            <input type="text"
+                                                                placeholder="{{'Havevouchercode'|translate}}" />
+                                                        </span>
+                                                    </span>
+                                                    <span class="reduction_col"
+                                                        ng-if="payment.PaymentMethodName === 'LoyalityPoints'">
+                                                        <span class="amount text-grey-700" ng-init="GetInitialLoyalityPoints(payment)" >({{payment.Points | number : 2}} {{points}}) - </span>  <span class="amount text-grey-700"> <span translate>{{$root.DefaultDisplayCurrency}}</span>  {{payment.Amount - payment.PaidAmount | number : 2}}</span> 
+                                                    </span>
+                                                    <span class="reduction_col"
+                                                        ng-if="payment.PaymentMethodName === 'Wallet'">
+                                                        <span class="amount text-grey-700"> <span translate>{{$root.DefaultDisplayCurrency}}</span>
+                                                            {{payment.Amount | number : 2 }}</span>
+                                                    </span>
+                                                </span>
+                                                <span class="reduction_wrap noMarginTop" ng-disabled="!payment.Selected">
+                                                    <span class="slidecontainer" ng-init="getLoyaltyPoints(payment)">
+                                                        <span class="sliderWrap">
+                                                            <input ng-disabled="!payment.Selected"  type="range" min="0" max="{{shoppingCart.Total < payment.Amount ? shoppingCart.Total : payment.Amount }}" 
+                                                                value="0" class="slider" 
+                                                                ng-model="payment.PaidAmount" ng-change="recalculateAmount(payment)" id="rangeSlider">
+                                                            <span class="slideScale"></span>
+                                                            <span id="valueChanged"></span>
+                                                        </span>
+                                                        <span class="padtop10 displayBlock digitStyle"><span translate>{{$root.DefaultDisplayCurrency}}</span><span>{{payment.PaidAmount}}</span></span>
+                                                    </span>  
+                                                </span>
+                                            </li>                                           
+                                        </ul>
+                                        <ul>
+                                            <li class="noPaddingLeft">
+                                                <div class="displayFlex amount">
+                                                    <label translate class="flexAuto">Remainingamounttobepaid</label>
+                                                    <span ng-bind="shoppingCart.RemainingTotal | currency :$root.DefaultDisplayCurrency" class="align-right digitStyle"></span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-method" ng-if="PaymentOptionsNonVirtual.length > 0">
+                                <div class="select-payment">
+                                    <form>
+                                        <ul>
+                                            <li ng-repeat="payment in PaymentOptionsNonVirtual">
+                                                <input type="radio" id="pay_{{payment.PaymentMethodID.toString()}}"
+                                                    value="{{payment.PaymentMethodID.toString()}}"
+                                                    ng-model="SelectedPaymentOption.Value" />
+                                                <span></span>
+                                                <span class="paymentLabel"
+                                                    translate>{{ payment.PaymentMethodName }}</span>
+                                                <img ng-src="{{payment.ImageName}}" /> 
+                                            </li>
+                                        </ul>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="fieldWrap terms">
+                                <label>
+                                    <span class="checkBox">
+                                        <input name="LastName" type="checkbox" placeholder="{{'privacypolicy'|translate}}"
+                                            ng-model="IsPrivacyPolicy">
+                                        <span class="check"></span>
+                                    </span>
+                                    <span translate>Iagreethe</span>
+                                </label>
+                                <span class="termsCondition" ng-click="LoadPrivacyPolicy()">
+                                    {{"termsandcondition"|translate}}</span>
+                            </div>
+
+                            <div ng-if = "SelectedPaymentOption.Value == 16">
+                                <div  class="alert alert-warning center" role="alert">
+                                  Once payment is initiated your order will be moved to order history.
+                                </div>
+                            </div>
+
+                            
+                            <div ng-if = "SelectedPaymentOption.Value == 17">
+                                <div  class="alert alert-warning center" role="alert">
+                                  You have a weighing products on your cart, you can make the payment once the order is processed.
+                                </div>
+                            </div>
+
+                            <div class="payment-btn">
+                                <span><button disabled="disabled" class="btnStyle btnGrey" id="btnidPayment" type="submit"
+                                        ng-click="ProceedPayment(SelectedPaymentOption.Value)"
+                                        translate>ProceedtoPayment</button></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--offers-->
+            </div>
+        </div>
+        <!--content-->
+
+    </div>
+    <!--maincontentarea-->
+</div>
+<div class="googleMapStoreContainer" ng-if="isGoogleMapStoreContainer">
+    <ng-include src="'partials/storeingooglemap.html'"></ng-include>
+</div>
+<div class="googleMapContainer">
+    <ng-include src="'partials/googlemap.html'"></ng-include>
+</div>
+
+<div class="termsWindow">
+    <div class="termsWindowOverlay" ng-if="showPrivacyPolicy" ng-click="HidePrivacyPolicy()"></div>
+    <div class="termsWindowWrap" ng-if="showPrivacyPolicy">
+        <div class="notifyclose" ng-click="HidePrivacyPolicy()">x</div>
+        <div class="termsWindowInner">
+            <ng-include ng-if="$root.UserLanguage == 'en'  || !$root.UserLanguage" 
+                src="'partials/term-en.html'">
+            </ng-include>
+            <div ng-if="$root.UserLanguage == 'en'  || !$root.UserLanguage">
+                <div id="termsEn" ng-init="LoadPage(2, '#termsEn')">
+                    <div>
+                        <center>                       
+                             <i class="fa fa-spinner fa-pulse"></i>
+                        </center>
+
+                    </div>
+                </div>
+            </div>
+            <div ng-if="$root.UserLanguage == 'ar'">
+                <div id="termsAr" ng-init="LoadPage(3, '#termsAr')">
+                    <div>
+                        <center>                       
+                            <i class="fa fa-spinner fa-pulse"></i>
+                       </center>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+    

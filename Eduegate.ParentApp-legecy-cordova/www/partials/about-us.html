@@ -1,0 +1,38 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="AboutUsController">
+
+
+    <div class="app-content flex-column-fluid">
+
+<ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        About Us
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5 pb-20">
+            <div class="row g-4 g-md-5">
+                <div class="pagesections pad10">
+                    <div class="aboutus-desc">
+                        <div ng-if="$root.UserLanguage !== 'ar'  || !$root.UserLanguage">
+                            <div id="aboutUsEn" ng-init="LoadPage($root.ClientSettings.AboutUsIDEn, '#aboutUsEn')">
+                            </div>
+                        </div>
+                        <div ng-if="$root.UserLanguage == 'ar'">
+                            <div id="aboutUsAr" ng-init="LoadPage($root.ClientSettings.AboutUsIDAr, '#aboutUsAr')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <ng-include src="'partials/Templates/footer.html'"></ng-include>

@@ -1,0 +1,43 @@
+<div ng-controller="MeetingAccountController">
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    Sign Up Dashboard
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container container-xxl pt-5" ng-init="init()">
+        <div class="row g-5 g-xl-10">
+            <div class="col-sm-6 col-xl-2 mb-xl-10">
+
+                <div class="row gy-5 g-xl-10">
+
+                    <div class="col">
+                        <!--end::Accordion-->
+                        <div class="card h-xl-100" dir="ltr" ng-if="SignUpGroupDetails.length ==0">
+                            <div class="card-body d-flex flex-column flex-center">
+                                <div class="mb-2">
+
+                                    <div class="py-10 text-center">
+                                        <img src="./clients/{{$root.ClientSettings.Client}}/images/site-under-processing.svg"
+                                            class="theme-light-show w-350px" alt="">
+                                        <img src="./clients/{{$root.ClientSettings.Client}}/images/site-under-processing.svg"
+                                            class="theme-dark-show w-350px" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

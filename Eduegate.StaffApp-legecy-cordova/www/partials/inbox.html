@@ -1,0 +1,538 @@
+﻿<div class="app-page flex-column flex-column-fluid bg-body">
+    <div class="app-content flex-column-fluid">
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+        <div class="app-toolbar  w-100 ">
+            <div class="app-container  container-xxl d-flex flex-column">
+                <div class=" card-xl-stretch mb-20">
+                    <div class="card-body p-0 h-20px">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5  mt-n5 rounded-3 ">
+            <div class="row g-6 g-xl-9">
+                <div class="col-md-6 col-xxl-4 mt-n20">
+                    <div class="container-fluid mx-0 px-0">
+                        <div class="row my-3">
+                            <div
+                                class="app-toolbar-wrapper d-flex flex-center flex-stack flex-wrap gap-4 w-100 py-2 align-items-start">
+                                <span class="fs-5 fw-semibold">Enable Communication</span>
+                                <div class="switch w-125px">
+                                    <label>
+                                        Off
+                                        <input type="checkbox" ng-model="isCommunicationEnabled"
+                                            ng-change="toggleCommunication(isCommunicationEnabled)">
+                                        <span class="lever"></span>
+                                        On
+                                    </label>
+                                </div>
+                            </div>
+
+
+                            <footer class="d-flex flex-center w-100 overflow-auto ">
+                                <ul class="nav nav-stretch  flex-center mb-2 fw-semibold fs-3 p-0 p-lg-10 flex-nowrap flex-grow-1"
+                                    role="tablist">
+
+                                    <li class="nav-item mx-lg-2 me-10" role="presentation">
+                                        <a class="nav-link  py-3 py-lg-6 text-active-primary active position-relative"
+                                            data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_pages"
+                                            aria-selected="true" role="tab">
+                                            Chats
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-item mx-lg-2" role="presentation">
+                                        <a class="nav-link py-3 py-lg-6
+                                         shadow-none text-active-primary  position-relative
+                                        " data-bs-toggle="tab" data-bs-target="#broadcasttab" aria-selected="false"
+                                            role="tab" tabindex="-1">
+                                            Broadcast </a>
+                                    </li>
+                                </ul>
+                            </footer>
+
+
+                            <div class="tab-content py-4 py-lg-8 px-lg-7">
+                                <div class="tab-pane w-lg-1000px active show" id="kt_app_header_menu_pages_pages"
+                                    role="tabpanel">
+                                    <div class="row gx-10">
+                                        <div class="col-lg-8">
+                                            <a ng-click="DisplaySearchPopover()"
+                                                class="d-lg-block w-100 position-relative mb-5 mb-lg-0">
+                                            <div class="d-flex align-items-center position-relative">
+
+                                                <div
+                                                    class=" search-icon d-flex align-items-center justify-content-center ms-3 me-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        viewBox="0 0 16 16" fill="none">
+                                                        <path
+                                                            d="M6.86832 0C10.6549 0 13.7363 3.08587 13.7363 6.8725C13.7363 8.56057 13.1216 10.1058 12.1073 11.303L15.8241 15.0199C15.8787 15.0726 15.9221 15.1356 15.952 15.2053C15.9818 15.275 15.9975 15.35 15.998 15.4258C15.9986 15.5016 15.984 15.5768 15.9551 15.6469C15.9263 15.717 15.8837 15.7806 15.8299 15.8341C15.7762 15.8876 15.7123 15.9298 15.642 15.9583C15.5717 15.9867 15.4965 16.0009 15.4207 16C15.3449 15.999 15.27 15.9829 15.2005 15.9527C15.1309 15.9224 15.0681 15.8787 15.0157 15.8239L11.3011 12.1092C10.1036 13.1244 8.55721 13.7405 6.86832 13.7405C3.08169 13.7405 0.000306129 10.6591 0.000306129 6.8725C0.000306129 3.08587 3.08169 0 6.86832 0ZM6.86832 1.19928C3.72799 1.19928 1.19508 3.73216 1.19508 6.8725C1.19508 10.0128 3.72799 12.5446 6.86832 12.5446C10.0087 12.5446 12.5416 10.0128 12.5416 6.8725C12.5416 3.73216 10.0087 1.19928 6.86832 1.19928Z"
+                                                            fill="black" fill-opacity="0.7" />
+                                                    </svg>
+                                                    </span>
+                                                </div>
+
+                                                <input class="search-input form-control form-control-solid  "
+                                                    placeholder="Search by name..." inert>
+                                                </div>
+
+                                            </a>
+                                            <ng-include src="'partials/Templates/fullscreensearch.html'"></ng-include>
+
+                                            <div class="row mb-0 ">
+                                                <div class="col-lg-3 mb-0 mb-lg-0">
+                                                    <div class="card card-flush card-p-0 card-reset">
+                                                        <!--begin::Header-->
+                                                        <div class="card-header align-items-center min-h-auto mt-3">
+                                                            <!--begin::Title-->
+                                                            <h3 class="card-title fw-normal text-gray-800 fs-3">
+                                                                Parent Message</h3>
+                                                            <!--end::Title-->
+
+                                                            <!--begin::Toolbar-->
+                                                            <div class="card-toolbar">
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+
+                                            <div class="">
+                                                <div class="parent" ng-click="ChatListClick()">
+                                                    {{ParentDetails.FatherFirstName}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 mb-0 py-4 "
+                                            ng-class="{'unread-comments': ParentDetails.UnreadCommentsCount != 0}"
+                                            ng-repeat="ParentDetails in ParentsWithLatestMessages track by (ParentDetails.LoginID + '-' + ParentDetails.ParentIID+ '-' + ParentDetails.Student.StudentIID  )">
+                                            <div class="card card-flush card-p-0 card-reset bg-light-primary"
+                                                ng-click="ChatListClick(ParentDetails.LoginID, ParentDetails.GuardianFirstName ? ParentDetails.GuardianFirstName + ' ' + ParentDetails.GuardianLastName : ParentDetails.FatherFirstName + ' ' + (ParentDetails.FatherMiddleName || '') + ' ' + ParentDetails.FatherLastName ,ParentDetails.Student.StudentIID , ParentDetails.Student.StudentFullName )">
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-nowrap">
+                                                        <div class="symbol symbol-50px me-4 symbol-circle">
+                                                            <img  ng-src="{{ ParentDetails.Student.StudentProfile ? (ParentDetails.Student.StudentProfileImageUrl) : ('./clients/' + $root.ClientSettings.Client + '/images/profile_img.png') }}"    
+                                                            on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+ 
+                                                            alt="" class="mw-100"
+                                                                style="object-fit: cover; object-position: right top;">
+
+                                                        </div>
+                                                        <div
+                                                            class="card card-reset card-xl-stretch mb-xl-10 theme-dark-bg-body w-100 rounded-2">
+                                                            <div class="card-body d-flex flex-column">
+                                                                <div
+                                                                    class="d-flex align-items-center flex-row-fluid flex-nowrap">
+                                                                    <div
+                                                                        class="d-flex flex-column flex-grow-1 my-lg-0  pe-3 overflow-auto">
+
+                                                                        <a
+                                                                            class="text-gray-800 fw-semibold text-hover-primary fs-5 text-truncate">
+                                                                            {{ParentDetails.Student.StudentFullName}}
+                                                                        </a>
+                                                                        <span class="text-gray-800 fw-normal fs-7 my-1"
+                                                                            ng-if="ParentDetails.GuardianFirstName">
+                                                                            {{ParentDetails.GuardianFirstName}}
+                                                                            <!-- Employee Email -->
+                                                                            {{ParentDetails.GuardianLastName}}
+                                                                        </span>
+                                                                        <span class="text-gray-800 fw-normal fs-7 my-1"
+                                                                            ng-if="!ParentDetails.GuardianFirstName">
+                                                                            {{ParentDetails.FatherFirstName}}
+                                                                            <!-- Employee Email -->
+                                                                            {{ParentDetails.FatherMiddleName}}
+                                                                            {{ParentDetails.FatherLastName}}
+                                                                        </span>
+                                                                        <span
+                                                                            class="text-gray-800 fw-normal fs-7 my-1 text-truncate">
+                                                                            {{ParentDetails.LastMessageText}}
+                                                                            <!-- Employee Name -->
+
+                                                                        </span>
+                                                                    </div>
+                                                                    <div
+                                                                        class="d-flex flex-end flex-column fw-bold fs-7 text-end">
+                                                                        <!-- Day label: Today / Yesterday / Date -->
+                                                                        <span class="text-muted">
+                                                                            <span
+                                                                                ng-if="isToday(ParentDetails.LastMessageDate)">Today</span>
+                                                                            <span
+                                                                                ng-if="isYesterday(ParentDetails.LastMessageDate)">Yesterday</span>
+                                                                            <span
+                                                                                ng-if="!isToday(ParentDetails.LastMessageDate) && !isYesterday(ParentDetails.LastMessageDate)">
+                                                                                {{ ParentDetails.LastMessageDate |
+                                                                                date:'dd/MM/yyyy' }}
+                                                                            </span>
+                                                                        </span>
+
+                                                                        <!-- Time -->
+                                                                        <span
+                                                                            class="badge text-gray-700 fw-normal my-2 fs-7">
+                                                                            {{ ParentDetails.LastMessageDate |
+                                                                            date:'hh:mm a' }}
+                                                                        </span>
+
+                                                                        <!-- Unread Count -->
+                                                                        <div ng-if="ParentDetails.UnreadCommentsCount"
+                                                                            class="badge badge-circle badge-primary h-20px w-20px fs-7"
+                                                                            style="background-color: #9271B1;">
+                                                                            {{ParentDetails.UnreadCommentsCount}}
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="app-toolbar  d-flex pb-5 pb-lg-5 mt-10">
+                                            <div class="d-flex flex-stack flex-row-fluid">
+
+                                                <div class="d-flex flex-column flex-row-fluid">
+                                                    <div class="page-title d-flex align-items-center me-3">
+                                                        <div
+                                                            class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-normal fs-3 gap-2">
+                                                            <span><span class="fw-light">All Parents</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a class="text-link" type="button" ng-click="refreshParentDetails()">
+                                                    Refresh
+                                                    <span class="spinner-border spinner-border-sm" id="spinner"
+                                                        ng-show="isRefreshing" aria-hidden="true"></span>
+                                                    <span class="visually-hidden" role="status">Loading...</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 mb-6 mb-lg-0 py-1"
+                                            ng-repeat="ParentDetail in ParentDetails">
+                                            <div class="card card-flush card-p-0 card-reset bg-light-primary"
+                                                ng-click="ChatListClick(ParentDetail.LoginID, ParentDetail.GuardianFirstName ? ParentDetail.GuardianFirstName + ' ' + ParentDetail.GuardianLastName : ParentDetail.FatherFirstName + ' ' + (ParentDetail.FatherMiddleName || '') + ' ' + ParentDetail.FatherLastName ,ParentDetail.Student.StudentIID , ParentDetail.Student.StudentFullName )">
+
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-nowrap">
+                                                        <div class="symbol symbol-circle symbol-50px me-4">
+                                                            <img ng-src="{{ ParentDetail.Student.StudentProfile ? (ParentDetail.Student.StudentProfileImageUrl) : ('./clients/' + $root.ClientSettings.Client + '/images/profile_img.png') }}" 
+                                                            on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                                alt="" class="mw-100"
+                                                                style="object-fit: cover; object-position: right top;">
+
+                                                        </div>
+                                                        <div
+                                                            class="card card-reset card-xl-stretch mb-xl-10 theme-dark-bg-body w-100 rounded-2">
+                                                            <div class="card-body d-flex flex-column">
+                                                                <div
+                                                                    class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                                                    <div
+                                                                        class="d-flex flex-column flex-grow-1 my-lg-0  pe-3">
+                                                                        <a
+                                                                            class="text-gray-800 fw-semibold text-hover-primary fs-5">
+                                                                            {{ParentDetail.Student.StudentFullName}}
+                                                                        </a>
+                                                                        <!-- <span class="text-gray-800 fw-normal fs-7 my-1" ng-repeat="Students in ParentDetail.Students"> -->
+
+                                                                        <!-- {{Students.StudentFullName}} -->
+                                                                        <!-- {{Students.FirstName}} -->
+                                                                        <!-- {{Students.MiddleName}} -->
+
+                                                                        <!-- Employee Email -->
+                                                                        <!-- {{Students.LastName}} -->
+
+                                                                        <!-- </span> -->
+                                                                        <span class="text-gray-800 fw-normal fs-7 my-1"
+                                                                            ng-if="ParentDetail.GuardianFirstName">
+                                                                            {{ParentDetail.GuardianFirstName}}&nbsp;
+                                                                            <!-- Employee Email -->
+                                                                            {{ParentDetail.GuardianLastName}}
+                                                                        </span>
+                                                                        <span class="text-gray-800 fw-normal fs-7 my-1"
+                                                                            ng-if="!ParentDetail.GuardianFirstName">
+                                                                            {{ParentDetail.FatherFirstName}}&nbsp;
+                                                                            {{ParentDetail.FatherMiddleName}}&nbsp;
+
+                                                                            <!-- Employee Email -->
+                                                                            {{ParentDetail.FatherLastName}}
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="text-gray-500 fw-bold fs-7 text-end">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="tab-pane w-lg-600px " id="broadcasttab" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-lg-5 mb-6 mb-lg-0">
+                                            <div class="row">
+                                                <div class="card card-flush card-p-0 card-reset mb-5">
+                                                    <div class="card-header align-items-center min-h-auto">
+                                                        <h3 class="card-title fw-bold text-gray-800 fs-3">
+                                                            <ul class="nav nav-stretch createbroadcast flex-center mb-2 fw-semibold fs-3 p-0 p-lg-10 flex-nowrap flex-grow-1"
+                                                                role="tablist">
+                                                                <li class="nav-item mx-lg-2 me-3" role="presentation">
+                                                                    <a class="nav-link active ps-0" data-bs-toggle="tab"
+                                                                        data-bs-target="#broadcastlist"
+                                                                        aria-selected="true" role="tab">
+                                                                        <img alt="Logo"
+                                                                            ng-src="./clients/pearl/images/back.svg"
+                                                                            class="h-15px   filter-green"
+                                                                            src="./clients/pearl/images/back.svg">
+                                                                    </a>
+
+                                                                </li>
+
+                                                                <li class="nav-item mx-lg-2 btn btn-lg btn-icon btn-primary  symbol symbol-circle position-fixed bottom-0 end-0 translate-middle mb-10 z-index-3"
+                                                                    role="presentation">
+                                                                    <a class="nav-link  py-3 py-lg-6 text-active-primary "
+                                                                        data-bs-toggle="tab"
+                                                                        data-bs-target="#broadcastcreate"
+                                                                        aria-selected="false" role="tab">
+                                                                        +
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                            Broadcasts
+                                                        </h3>
+                                                    </div>
+
+
+                                                    <div class="tab-content">
+                                                        <!-- Saved Broadcast Lists Display -->
+                                                        <div class="tab-pane active show" id="broadcastlist">
+
+                                                            <div ng-repeat="broadcastList in savedBroadcastLists"
+                                                                class="card card-flush card-p-0 card-reset bg-light-warning">
+                                                                <div class="card-body my-3"
+                                                                    ng-click="BroadcastListClick(broadcastList.Participants , broadcastList.BroadcastName ,broadcastList.BroadcastID )">
+                                                                    <div>
+                                                                        <div
+                                                                            class="card card-flush card-p-0 card-reset bg-light-primary">
+                                                                            <div class="card-body">
+                                                                                <div class="d-flex flex-nowrap">
+
+                                                                                    <div
+                                                                                        class=" overlay  overlay-block me-4 ">
+                                                                                        <div
+                                                                                            class="overlay-wrapper symbol symbol-squircle symbol-50px">
+                                                                                            <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/braodcast.png"
+                                                                                                alt="">
+                                                                                        </div>
+
+                                                                                        <div
+                                                                                            class="overlay-layer bg-dark bg-opacity-25 symbol-squircle">
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                                width="23" height="22"
+                                                                                                viewBox="0 0 23 22"
+                                                                                                fill="none">
+                                                                                                <path
+                                                                                                    d="M11.7937 11.2015C11.6747 11.0035 11.4606 10.8823 11.2296 10.8823C10.9986 10.8823 10.7845 11.0035 10.6656 11.2015L4.77845 21.0033C4.65642 21.2066 4.65313 21.4598 4.7699 21.6662C4.88667 21.8725 5.10543 22.0001 5.34257 22.0001H17.1168C17.3539 22.0001 17.5727 21.8725 17.6895 21.6662C17.8062 21.4598 17.8029 21.2066 17.6809 21.0033L11.7937 11.2015ZM6.50527 20.6841L11.2296 12.8182L15.954 20.6841H6.50527Z"
+                                                                                                    fill="white" />
+                                                                                                <path
+                                                                                                    d="M19.1701 3.28909C17.0491 1.16805 14.2291 0 11.2296 0C8.23006 0 5.41008 1.16805 3.28904 3.28909C1.1681 5.41008 0 8.23006 0 11.2296C0 14.1885 1.14156 16.9813 3.21447 19.0937C3.46894 19.3531 3.88553 19.3571 4.14495 19.1025C4.40433 18.848 4.40827 18.4314 4.15372 18.172C2.32378 16.3072 1.31597 13.8417 1.31597 11.2296C1.31597 8.58156 2.34716 6.09201 4.21961 4.21956C6.09205 2.34716 8.58156 1.31597 11.2296 1.31597C13.8776 1.31597 16.3671 2.34716 18.2396 4.21961C20.112 6.09205 21.1432 8.58156 21.1432 11.2296C21.1432 13.8417 20.1354 16.3072 18.3055 18.1721C18.0509 18.4314 18.0549 18.848 18.3142 19.1025C18.4423 19.2283 18.6088 19.2909 18.775 19.2909C18.9456 19.2909 19.1159 19.2251 19.2447 19.0938C21.3176 16.9813 22.4592 14.1885 22.4592 11.2296C22.4592 8.23006 21.2911 5.41008 19.1701 3.28909Z"
+                                                                                                    fill="white" />
+                                                                                                <path
+                                                                                                    d="M14.9379 14.3343C15.0474 14.4039 15.1696 14.4371 15.2904 14.4371C15.5079 14.4371 15.7209 14.3293 15.8462 14.1322C16.4032 13.2566 16.6975 12.2432 16.6975 11.2016C16.6975 8.18687 14.2449 5.73425 11.2302 5.73425C8.21551 5.73425 5.76294 8.18691 5.76294 11.2016C5.76294 12.2432 6.05732 13.2566 6.61424 14.1322C6.80918 14.4388 7.21577 14.5293 7.52256 14.3343C7.82914 14.1393 7.91964 13.7326 7.72456 13.426C7.30214 12.7618 7.07886 11.9926 7.07886 11.2016C7.07886 8.91253 8.94113 7.05026 11.2302 7.05026C13.5193 7.05026 15.3816 8.91253 15.3816 11.2016C15.3816 11.9926 15.1583 12.7618 14.7359 13.426C14.5409 13.7326 14.6313 14.1393 14.9379 14.3343Z"
+                                                                                                    fill="white" />
+                                                                                                <path
+                                                                                                    d="M16.6454 16.7492C16.7696 16.856 16.9222 16.9083 17.0741 16.9083C17.2361 16.9083 17.3972 16.8488 17.5221 16.7326C17.54 16.716 17.5571 16.6982 17.5733 16.6793C18.8757 15.1646 19.593 13.2291 19.593 11.2295C19.593 6.61791 15.8412 2.86609 11.2296 2.86609C6.61799 2.86609 2.86621 6.61791 2.86621 11.2295C2.86621 13.2291 3.5835 15.1646 4.88583 16.6793C5.12275 16.9548 5.5382 16.9862 5.81372 16.7492C6.08924 16.5123 6.12056 16.0969 5.88368 15.8214C4.78643 14.5452 4.18218 12.9145 4.18218 11.2295C4.18218 7.34358 7.34362 4.1821 11.2296 4.1821C15.1155 4.1821 18.277 7.34358 18.277 11.2295C18.277 12.9145 17.6727 14.5452 16.5755 15.8214C16.3386 16.0969 16.3699 16.5123 16.6454 16.7492Z"
+                                                                                                    fill="white" />
+                                                                                            </svg>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="card card-reset card-xl-stretch mb-xl-10 theme-dark-bg-body w-100 rounded-2">
+                                                                                        <div
+                                                                                            class="card-body d-flex flex-column">
+                                                                                            <div
+                                                                                                class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                                                                                <div
+                                                                                                    class="d-flex flex-column flex-grow-1 my-lg-0 pe-3 w-100">
+                                                                                                    <a
+                                                                                                        class="text-gray-800 fw-semibold text-hover-primary fs-5">
+                                                                                                        {{broadcastList.BroadcastName}}
+                                                                                                    </a>
+                                                                                                    <span
+                                                                                                        class="text-gray-800 fw-normal fs-7 my-1 d-flex flex-between">
+                                                                                                        <div
+                                                                                                            class="d-flex flex-nowrap w-100 overflow-hidden text-truncate">
+                                                                                                            <div ng-repeat="parent in broadcastList.Participants | limitTo:2"
+                                                                                                                class="ng-scope">
+                                                                                                                <span
+                                                                                                                    class="fw-bold me-2 text-nowrap ng-binding">
+                                                                                                                    {{parent.StudentName}},
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div ng-if="broadcastList.Participants.length > 2"
+                                                                                                            class="ng-scope text-nowrap">
+                                                                                                            <span
+                                                                                                                class="fw-bold ng-binding">&nbsp;+{{broadcastList.Participants.length
+                                                                                                                - 2}}
+                                                                                                                Others</span>
+                                                                                                        </div>
+                                                                                                    </span>
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <!-- Individual Parent List with Checkbox for Broadcast Selection -->
+                                                        <div class="tab-pane " id="broadcastcreate">
+                                                            <div class="mb-4">
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Search by parent or student name..."
+                                                                    ng-model="searchText">
+                                                            </div>
+
+                                                            <div class="card card-flush card-p-0 card-reset bg-light-primary"
+                                                                ng-repeat="ParentDetail in ParentDetails | filter:parentSearchFilter">
+                                                                <div class="card-body py-3">
+                                                                    <div class="d-flex flex-nowrap align-items-center">
+                                                                        <div class="me-2">
+                                                                            <label>
+                                                                                <input type="checkbox" class="filled-in"
+                                                                                    ng-model="ParentDetail.selectedForBroadcast"
+                                                                                    ng-change="updateBroadcastList(ParentDetail)" />
+                                                                                <span></span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="symbol symbol-circle symbol-50px me-4">
+                                                                            <img ng-src="{{ ParentDetail.Student.StudentProfile ? (ParentDetail.Student.StudentProfileImageUrl) : ('./clients/' + $root.ClientSettings.Client + '/images/profile_img.png') }}"
+                                                                                on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" alt="" class="mw-100"
+                                                                                style="object-fit: cover; object-position: right top;">
+                                                                        </div>
+                                                                        <div
+                                                                            class="card card-reset card-xl-stretch mb-xl-10 theme-dark-bg-body w-100 rounded-2">
+                                                                            <div class="card-body d-flex flex-column">
+                                                                                <div
+                                                                                    class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                                                                    <div
+                                                                                        class="d-flex flex-column flex-grow-1 my-lg-0 pe-3">
+                                                                                        <a
+                                                                                            class="text-gray-800 fw-semibold text-hover-primary fs-5">
+                                                                                            {{ParentDetail.Student.StudentFullName}}
+
+                                                                                        </a>
+                                                                                        <span
+                                                                                            class="text-gray-800 fw-normal fs-7 my-1">
+                                                                                            <!-- <i class="fa fa-graduation-cap" aria-hidden="true"></i> -->
+                                                                                            {{ParentDetail.GuardianFirstName
+                                                                                            ||
+                                                                                            ParentDetail.FatherFirstName}}
+                                                                                            {{ParentDetail.GuardianLastName
+                                                                                            ||
+                                                                                            ParentDetail.FatherLastName}}
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class=" py-3 py-lg-0 position-fixed bottom-0 end-0 me-4 mb-10 d-flex  z-index-3   flex-center   ">
+                                                                <div class="app-container container-xxl">
+                                                                    <div class=" d-flex justify-content-end">
+                                                                        <button type="button"
+                                                                            class="waves-effect waves-light btn btn-lg btn-primary btn-rounded   btn btn-lg btn-icon btn-primary  symbol symbol-circle"
+                                                                            ng-click="saveBroadcastList()"
+                                                                            ng-model="checked">
+
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                width="16" height="16"
+                                                                                fill="currentColor"
+                                                                                class="bi bi-plus-lg"
+                                                                                viewBox="0 0 16 16">
+                                                                                <path fill-rule="evenodd"
+                                                                                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                                                                            </svg>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .mainGrid {
+        max-height: 100vw;
+        overflow-y: auto;
+        width: 100%;
+        clear: both;
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        padding: 10px;
+    }
+
+    .list-table th {
+        background-color: #fff;
+    }
+
+    .list-table tr {
+        background-color: #fff;
+    }
+
+
+    .nav.nav-pills.nav-pills-custom.nav-pills-active-custom .nav-item .nav-link.active span:nth-child(1) {
+        font-size: 13px !important;
+    }
+
+    .nav.nav-pills.nav-pills-custom.nav-pills-active-custom .nav-item .nav-link.active span:nth-child(2) {
+        font-size: 32px !important;
+        line-height: 32px;
+
+    }
+
+    .createbroadcast.nav .nav-item:has(.nav-link.active) {
+        display: none;
+    }
+
+    .app-wrapper {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+</style>

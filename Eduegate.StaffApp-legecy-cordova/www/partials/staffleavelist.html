@@ -1,0 +1,91 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="StaffLeaveController">
+
+
+    <div class="app-content flex-column-fluid">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-container container-xxl pt-5">
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+                    <div class="row g-6 g-xl-9" ng-init="init()">
+                        <div class="col-md-6 col-xxl-4" ng-repeat="leave in Leaves">
+                            <div class="card">
+                                <div class="card-header bg-pearl min-h-auto">
+                                    <div class="fw-bold fs-4 text-white">Application no : {{leave.LeaveApplicationIID}}</div>
+
+                                </div>
+                                <div class="card-body p-lg-20">
+                                    <div class="d-flex flex-column flex-xl-row">
+                                        <div class="flex-lg-row-fluid me-xl-18">
+                                            <div class="mt-n1">
+
+                                                <div class="m-0">
+                                                    <div class="d-grid g-5" style=" grid-template-columns: 100px 36px 1fr;">
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Reason </div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{leave.OtherReason}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">From date</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{leave.FromDateString}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">To date </div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{leave.ToDateString}}</div>
+
+                                                        <!-- <div class="fw-normal fs-4 text-gray-600 mb-1">Class</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{circular.Class}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Section</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{circular.Section}}</div> -->
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Applied date</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{leave.AppliedDateString}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Status</div>
+                                                        <div class="">:</div>
+                                                        <span>
+                                                            <span ng-if="leave.LeaveStatusID == 1" class="badge badge-primary fs-5" style="    color: #fff; background-color: #17a2b8;">Requested</span>
+                                                            <span ng-if="leave.LeaveStatusID == 2" class="badge badge-success fs-5" style="    color: #fff;
+                                                            background-color: #28a745;">Approved</span>
+                                                            <span ng-if="leave.LeaveStatusID == 3" class="badge badge-danger fs-5" style="    color: #fff;
+                                                            background-color: #dc3545;">Rejected</span>
+                                                        </span>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"  ng-if="!ShowLoader && Leaves.length == 0">
+                                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                                        <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                        <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <div class="d-flex flex-column">
+                                    <h3 class="mb-1 text-danger">Not found!</h3>
+                                    <span>No Leave Request found, please try again later.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

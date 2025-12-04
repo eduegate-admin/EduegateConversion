@@ -1,0 +1,400 @@
+<div ng-controller="EventDetailsController">
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    Events
+                </h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+            </div>
+        </div>
+    </div>
+    <div class="app-container container-xxl pt-5" ng-init="init()">
+        <div class="row g-5 g-xl-10">
+
+
+            <!--begin::Row-->
+            <div class="row g-5 g-xl-8">
+                <!--begin::Col-->
+                <div class="col-xl-8 ps-xl-12">
+                    <!--begin::Engage widget 12-->
+                    <div class="card card-custom bg-body border-0 h-md-100">
+                        <!--begin::Body-->
+                        <div class="card-body d-flex justify-content-center flex-wrap ps-xl-15 pe-0">
+                            <!--begin::Wrapper-->
+                            <div class="flex-grow-1 mt-2 me-9 me-md-0">
+                                <!--begin::Title-->
+                                <div class="position-relative fs-1 z-index-2 fw-bold mb-5 signup-group-title">
+                                    <span ng-bind="GroupDetails.GroupTitle"></span>
+                                </div>
+                                <!--end::Title-->
+                                <!--begin::Text-->
+                                <span class="signup-group-sub-title">
+                                    <label ng-bind-html="GroupDetails.GroupDescription"></label>
+                                </span>
+                                <!--end::Text-->
+                                <!--begin::Action-->
+                                <div class="row align-items-start">
+                                    <div class="col-sm-6 col-lg-4 mb-3 mb-sm-6">
+                                        <span class="d-flex align-items-center mb-4">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="./images/calendar-green.svg" />
+                                            </span>
+                                            <span>
+                                                <span class="meeting-detail-date-label">Start On</span><br />
+                                                <span class="meeting-detail-date-value"
+                                                    ng-bind="GroupDetails.FromDateString"></span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="d-flex align-items-center mb-4">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="./images/calendar-purple.svg" />
+                                            </span>
+                                            <span>
+                                                <span class="meeting-detail-date-label">End On</span><br />
+                                                <span class="meeting-detail-date-value"
+                                                    ng-bind="GroupDetails.ToDateString"></span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="row align-items-start">
+                                    <div class="col">
+                                        <span class="d-flex align-items-center mb-4">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="./images/calendar-red.svg" />
+                                            </span>
+                                            <span>
+                                                <span class="meeting-detail-date-label">Due On</span><br />
+                                                <span class="meeting-detail-date-value"
+                                                    ng-bind="GroupDetails.DueDateString"></span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--end::Action-->
+                            </div>
+                            <!--begin::Wrapper-->
+                            <!--begin::Illustration-->
+                            <img src="./images/meeting-detail.png" class="h-175px me-15" alt="">
+                            <!--end::Illustration-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Engage widget 12-->
+                </div>
+                <!--end::Col-->
+                <!--begin::Col-->
+                <div class="col-xl-8 ps-xl-12">
+
+                    <!--begin::Tables Widget 5-->
+                    <div class="card mb-5 mb-xl-8">
+                        <!--begin::Header-->
+                        <div class="card-header border-0 pt-5">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="detail-label fw-bold fs-3 mb-1" style="font-size: 24px;">Book Slots</span>
+
+                                <span class="text-muted mt-1 fw-semibold fs-7 detail-sub-label">Select Available date
+                                    and time.</span>
+                            </h3>
+                            <span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17"
+                                        fill="none">
+                                        <circle cx="8.5" cy="8.5" r="8.5" fill="#3E9767" />
+                                    </svg>
+                                    <span class="detail-sub-label">Available</span>
+                                </span>&ensp;
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17"
+                                        fill="none">
+                                        <circle cx="8.5" cy="8.5" r="8.5" fill="#B61C1C" />
+                                    </svg>
+                                    <span class="detail-sub-label">Filled</span>
+                                </span>&ensp;
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17"
+                                        fill="none">
+                                        <circle cx="8.5" cy="8.5" r="8.5" fill="#2D94CD" />
+                                    </svg>
+                                    <span class="detail-sub-label">Booked</span>
+                                </span>&ensp;
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17"
+                                        fill="none">
+                                        <circle cx="8.5" cy="8.5" r="8.5" fill="#AAAAAA" />
+                                    </svg>
+                                    <span class="detail-sub-label">Not Available</span>
+                                </span>
+                            </span>
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="card-body py-3">
+                            <div class="tab-content">
+
+                                <div class="text-left noPaddingLeft noPaddingRight col- col-sm-12  col-md-9 col-xl-12">
+
+                                    <div class="accordion accordion-flush mb-3" id="accordionExample"
+                                        ng-repeat="signUp in SignUpDetails track by $index"
+                                        ng-init="current = $parent.start; $parent.start=$parent.start+1;">
+
+                                        <div class="accordion-item border-0">
+                                            <h2 class="accordion-header " id="heading{{current}}">
+                                                <button class="accordion-button collapsed fs-2 h-100px border-0 fw-bold"
+                                                    type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse{{current}}" aria-expanded="true"
+                                                    aria-controls="collapse{{current}}"
+                                                    style="background: #F2FAFF; border-radius: 14px;">
+                                                    <div
+                                                        class="border-0 border-gray-300 border-dashed py-3 me-7 d-none d-md-flex">
+                                                        <img src="./images/profile-icon.svg" style="width: 80%;" />
+                                                    </div>
+                                                    <span>
+                                                        <span ng-bind="signUp.OrganizerEmployeeName"
+                                                            class="ng-binding detail-label"
+                                                            style="font-size: 16px;"></span><br />
+                                                        <span class="detail-sub-label"><span
+                                                                ng-bind="signUp.SlotAvailableCount"></span> available
+                                                            slots</span>
+                                                    </span>
+                                                </button>
+                                            </h2>
+
+                                            <div id="collapse{{current}}" class="accordion-collapse border-0 collapse"
+                                                aria-labelledby="heading{{current}}" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body px-0">
+                                                    <div class="text-center collapse"
+                                                        ng-if="signUp.SignupSlotMaps.length == 0" colspan="100%">
+                                                        <div colspan="100%">
+                                                            <div
+                                                                class="alert alert-primary d-flex align-items-center p-5">
+                                                                There is no details found!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card mb-3" style="background:#F2FAFF;"
+                                                        ng-repeat="slotMap in signUp.SignupSlotMaps track by $index">
+                                                        <div class="card-body">
+                                                            <div class="row align-items-start">
+                                                                <div class="col-12 d-flex align-items-center mb-4">
+                                                                    <div class="d-flex align-items-center me-3">
+                                                                        <img src="./images/calendar-blue-white.svg" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <span class="meeting-detail-date-value"
+                                                                            ng-bind="slotMap.SlotDateString"></span><br />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 d-flex align-items-center mb-4">
+                                                                    <span class="detail-sub-label">Slots</span>
+                                                                </div><br />
+                                                            </div>
+
+                                                            <div class="row align-items-start" data-kt-buttons="true"
+                                                                data-kt-buttons-target="[data-kt-button]">
+                                                           <div class="col-sm-6 col-lg-3 mb-3 mb-sm-6" ng-repeat="timeMap in slotMap.SignupSlotMapTimes track by $index">
+
+                                                            <!-- Slot available part -->
+                                                            <span ng-if="!timeMap.IsSlotAllocated && !GroupDetails.IsExpired && slotMap.IsSlotActive && timeMap.IsSlotActive">
+                                                                <a class="btn btn-icon border-2 border-green btn-outline btn-flex flex-column flex-center h-lg-50px h-40px w-100" ng-click="SlotSelectionClick(timeMap, slotMap, signUp)">
+                                                                    <span class="slot-label-green">
+                                                                        <span ng-bind="timeMap.StartTimeString"></span> - <span ng-bind="timeMap.EndTimeString"></span>
+                                                                    </span>
+                                                                </a>
+                                                            </span>
+
+                                                            <!-- Slot assigned to user part -->
+                                                            <span ng-if="timeMap.IsSlotAllocated">
+
+                                                                <!-- Same parent part -->
+                                                                <span ng-if="timeMap.ParentID == ParentID">
+                                                                    <a class="btn btn-icon border-2 border-blue btn-outline btn-flex flex-column flex-center h-lg-50px h-40px w-100" style="background:#2D94CD;">
+                                                                        <span class="slot-label-white">
+                                                                            <span ng-bind="timeMap.StartTimeString"></span> - <span ng-bind="timeMap.EndTimeString"></span>
+                                                                        </span>
+                                                                    </a>
+                                                                </span>
+
+                                                                <!-- Different parent part -->
+                                                                <span ng-if="timeMap.ParentID != ParentID">
+                                                                    <a class="btn btn-icon border-2 border-red btn-outline btn-flex flex-column flex-center h-lg-50px h-40px w-100">
+                                                                        <span class="slot-label-red">
+                                                                            <span ng-bind="timeMap.StartTimeString"></span> - <span ng-bind="timeMap.EndTimeString"></span>
+                                                                        </span>
+                                                                    </a>
+                                                                </span>
+
+                                                            </span>
+
+                                                            <!-- Slot not available (NA) part -->
+                                                            <span ng-if="(!timeMap.IsSlotAllocated && GroupDetails.IsExpired) || (!timeMap.IsSlotAllocated && !GroupDetails.IsExpired && (!slotMap.IsSlotActive || !timeMap.IsSlotActive))">
+                                                                <a class="btn btn-icon border-2 border-gray btn-outline btn-flex flex-column flex-center h-lg-50px h-40px w-100">
+                                                                    <span class="slot-label-gray">
+                                                                        <span ng-bind="timeMap.StartTimeString"></span> - <span ng-bind="timeMap.EndTimeString"></span>
+                                                                    </span>
+                                                                </a>
+                                                            </span>
+
+                                                            <!-- Slot cancel part -->
+                                                            <span ng-if="timeMap.IsSlotAllocated">
+                                                                <span ng-if="timeMap.ParentID == ParentID && !GroupDetails.IsExpired && slotMap.IsSlotActive && timeMap.IsSlotActive" class="d-block text-end">
+
+                                                                    <a class="btn" ng-click="SlotCancelClick(timeMap, slotMap, signUp)">
+
+                                                                        <span class="slot-label-red">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                                                                <path d="M5.52632 0C2.47406 0 0 2.47406 0 5.52632C0 8.57823 2.47406 11.0526 5.52632 11.0526C8.57823 11.0526 11.0526 8.57857 11.0526 5.52632C11.0526 2.47406 8.57823 0 5.52632 0ZM5.52632 10.3618C2.85573 10.3618 0.6908 8.1969 0.6908 5.52632C0.6908 2.85573 2.85573 0.6908 5.52632 0.6908C8.1969 0.6908 10.3618 2.85573 10.3618 5.52632C10.3618 8.1969 8.1969 10.3618 5.52632 10.3618Z" fill="#9E2222" />
+                                                                                <path d="M7.85077 7.34691L6.03123 5.52701L7.84041 3.7327C7.97684 3.59765 7.97684 3.37902 7.84041 3.24431C7.70432 3.1096 7.48328 3.1096 7.34719 3.24431L5.54042 5.03621L3.70672 3.20216C3.57063 3.06538 3.34959 3.06538 3.2135 3.20216C3.07742 3.33859 3.07742 3.56032 3.2135 3.69675L5.04445 5.52805L3.20314 7.35414C3.06705 7.48919 3.06705 7.70782 3.20314 7.84253C3.33923 7.97759 3.56027 7.97759 3.6967 7.84253L5.53557 6.01885L7.35788 7.84115C7.49396 7.97793 7.715 7.97793 7.85109 7.84115C7.98686 7.70507 7.98686 7.48368 7.85077 7.34691Z" fill="#9E2222" />
+                                                                            </svg>
+                                                                            Cancel
+                                                                        </span>
+
+                                                                    </a>
+                                                                </span>
+                                                            </span>
+
+                                                        </div>
+                                                                
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!--end::Tab content-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Tables Widget 5-->
+
+                </div>
+                <!--end::Col-->
+            </div>
+            <!--end::Row-->
+            <!--end::Col-->
+               <!-- SlotBookingConfirmationModal -->
+            <div class="modal fade" id="SlotBookingConfirmationModal" tabindex="-1" aria-labelledby="SlotBookingConfirmationModalLabel" aria-hidden="true" data-bs-backdrop="false">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-4">
+                        <form ng-submit="ConfirmAndSaveSlot()" id="SlotBookingForm" novalidate>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="SlotBookingConfirmationModalLabel">Confirm Slot Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h4 class="fw-bolder text-gray-900 mb-5">Confirm slot details before booking</h4>
+                                <div class="d-grid g-5 mb-3" style="grid-template-columns: 100px 36px 1fr;">
+                                    <div class="fw-normal fs-4 text-gray-600">Faculty</div>
+                                    <div>:</div>
+                                    <div class="fw-semibold fs-4 text-gray-800" ng-bind="SelectedSignup.OrganizerEmployeeName"></div>
+
+                                    <div class="fw-normal fs-4 text-gray-600">Date</div>
+                                    <div>:</div>
+                                    <div class="fw-semibold fs-4 text-gray-800" ng-bind="SelectedTimeSlot.SlotDateString"></div>
+
+                                    <div class="fw-normal fs-4 text-gray-600">Start Time</div>
+                                    <div>:</div>
+                                    <div class="fw-semibold fs-4 text-gray-800" ng-bind="SelectedTimeSlot.StartTimeString"></div>
+
+                                    <div class="fw-normal fs-4 text-gray-600">End Time</div>
+                                    <div>:</div>
+                                    <div class="fw-semibold fs-4 text-gray-800" ng-bind="SelectedTimeSlot.EndTimeString"></div>
+                                </div>
+
+                                <div>
+                                    <div class="fs-6 fw-semibold text-gray-500 mb-2">Students</div>
+                                    <div class="mb-3" ng-repeat="student in Students track by $index">
+                                        <div class="form-check form-check-custom form-check-solid" ng-click="StudentSelectionChange(student)">
+                                            <input class="form-check-input" type="radio" id="student_{{student.Key}}" name="student" value="{{student.Value}}" />
+                                            <label class="form-check-label text-gray-900" for="student_{{student.Key}}">
+                                                {{student.Value}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="IsError" class="mt-3">
+                                    <label ng-bind="ErrorMessage" class="text-danger"></label>
+                                </div>
+
+                                <!-- Illustration (if needed, ensure src is set) -->
+                                <div class="mb-0 text-center" ng-if="false"> <!-- Hidden for now, enable if you have an image -->
+                                    <img src="" class="mw-100 mh-200px theme-light-show" alt="Illustration">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button class="btn btn-primary" type="submit">Book slot</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SlotCancelConfirmationModal -->
+            <div class="modal fade" id="SlotCancelConfirmationModal" tabindex="-1" aria-labelledby="SlotCancelConfirmationModalLabel" aria-hidden="true" data-bs-backdrop="false">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-4">
+                         <form ng-submit="ConfirmAndCancelSlot()" id="SlotCancelForm" novalidate>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="SlotCancelConfirmationModalLabel">Confirm Slot Cancellation</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h4 class="fw-bolder text-gray-900 mb-5">Confirm slot details before cancel</h4>
+                                <div class="d-grid g-5 mb-4" style="grid-template-columns: 100px 36px 1fr;">
+                                    <div class="fw-normal fs-4 text-gray-600">Faculty</div>
+                                    <div>:</div>
+                                    <div class="fw-semibold fs-4 text-gray-800" ng-bind="SelectedSignup.OrganizerEmployeeName"></div>
+
+                                    <div class="fw-normal fs-4 text-gray-600">Date</div>
+                                    <div>:</div>
+                                    <div class="fw-semibold fs-4 text-gray-800" ng-bind="SelectedSignupSlot.SlotDateString"></div>
+
+                                    <div class="fw-normal fs-4 text-gray-600">Start Time</div>
+                                    <div>:</div>
+                                    <div class="fw-semibold fs-4 text-gray-800" ng-bind="SelectedTimeSlot.StartTimeString"></div>
+
+                                    <div class="fw-normal fs-4 text-gray-600">End Time</div>
+                                    <div>:</div>
+                                    <div class="fw-semibold fs-4 text-gray-800" ng-bind="SelectedTimeSlot.EndTimeString"></div>
+
+                                    <div class="fw-normal fs-4 text-gray-600">Student</div>
+                                    <div>:</div>
+                                    <div class="fw-semibold fs-4 text-gray-800" ng-bind="SelectedTimeSlot.Student"></div>
+                                </div>
+                                 <!-- Illustration (if needed, ensure src is set) -->
+                                <div class="mb-0 text-center" ng-if="false"> <!-- Hidden for now, enable if you have an image -->
+                                    <img src="" class="mw-100 mh-200px theme-light-show" alt="Illustration">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button class="btn btn-danger" type="submit">Cancel slot</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

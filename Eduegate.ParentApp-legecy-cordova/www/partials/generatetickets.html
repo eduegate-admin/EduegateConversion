@@ -1,0 +1,174 @@
+<div ng-controller="GenerateTicketsController">
+    <!-- Include Header -->
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+    <!-- Toolbar -->
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    Service Request
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="app-container container-xxl pt-5" ng-init="init()">
+        <div class="row g-5 g-xl-10">
+            <div class="col-sm-6 col-xl-2 mb-xl-10">
+                <div class="row gy-5 g-xl-10">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+
+
+                                <div>
+                                    <div class="form-floating mb-7">
+                                        <div class="fs-6 fw-semibold text-gray-500">Student <span style="color:red"> * </span></div>
+                                        <select class="form-control validate" required="" aria-required="true"
+                                            name="Student" id="Student"
+                                            ng-options="item as item.Value for item in Students track by item.Key"
+                                            ng-model="TicketGeneration.Student" autofocus tabindex="0"
+                                            ng-change="StudentSelectionChange($select)">
+                                            <option value="" disabled selected>Select Student</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-7">
+                                        <div class="fs-6 fw-semibold text-gray-500">Ticket Type <span style="color:red"> * </span></div>
+                                        <select class="form-control validate" required="" aria-required="true"
+                                            name="TicketType" id="TicketType"
+                                            ng-options="item as item.Value for item in TicketTypes track by item.Key"
+                                            ng-model="SelectedTicketType" autofocus tabindex="0"
+                                            ng-change="TicketTypeChanges($select)">
+                                            <option value="" disabled selected>Select Ticket Type</option>
+                                        </select>
+                                    </div>
+
+                                    <div ng-if="IsAcademic" class="mb-7">
+                                    <div class="fs-6 fw-semibold text-gray-500">Faculty Type <span style="color:red"> * </span></div>
+
+                                        <div class="input-icon ">
+                                            <select class="form-control validate" required="" aria-required="true"
+                                                name="FacultyType" id="FacultyType"
+                                                ng-options="item as item.Value for item in FacultyTypes track by item.Key"
+                                                ng-model="SelectedFacultyType" autofocus tabindex="0"
+                                                ng-change="OnFacultyTypeChanges(SelectedFacultyType)">
+                                                <option value="" disabled selected>Select Faculty Type</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div ng-if="IsAcademic" class="mb-7">
+                                        <div class="fs-6 fw-semibold text-gray-500">Faculty <span style="color:red"> * </span></div>
+                                        <div class="input-icon ">
+
+                                            <select class="form-control validate" required="" aria-required="true"
+                                                name="Faculty" id="Faculty"
+                                                ng-options="item as item.Value for item in Employees track by item.Key"
+                                                ng-model="TicketGeneration.AssignedEmployee" autofocus tabindex="0"
+                                                ng-change="OnEmployeeChanges($select)">
+                                                <option value="" disabled selected>Select </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div ng-if="IsNonAcademic" class="mb-7">
+                                                                    <div class="fs-6 fw-semibold text-gray-500">Department <span style="color:red"> * </span></div>
+
+                                        <div class="input-icon ">
+                                            <select class="form-control validate" required="" aria-required="true"
+                                                name="Department" id="Department"
+                                                ng-options="item as item.Value for item in Departments track by item.Key"
+                                                ng-model="SelectedDepartment" autofocus tabindex="0"
+                                                ng-change="OnDepartmentChanges(SelectedDepartment)">
+                                                <option value="" disabled selected>Select Department</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div ng-if="IsGeneral" class="mb-7">
+                                                                    <div class="fs-6 fw-semibold text-gray-500">Type <span style="color:red"> * </span></div>
+
+                                        <div class="fw-bolder text-gray-900 mb-5"
+                                            ng-repeat="documentType in TicketDocumentTypes track by $index">
+                                            <span ng-click="DocumentTypeChange(documentType)">
+                                                <input type="radio" id="documentType_{{documentType.Key}}"
+                                                    name="documentType" value="{{documentType.Key}}"
+                                                    placeholder=" Category " ng-model="SelectedDocumentType" />
+                                                <label>{{documentType.Value}}</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-7">
+                                                                    <div class="fs-6 fw-semibold text-gray-500">Category <span style="color:red"> * </span></div>
+
+                                        <div class="input-icon ">
+                                            <select class="form-control validate" required="" aria-required="true"
+                                                name="SupportCategory" id="SupportCategory" placeholder=" Category "
+                                                ng-options="item as item.Value for item in SupportCategories track by item.Key"
+                                                ng-model="TicketGeneration.SupportCategory" autofocus tabindex="0"
+                                                ng-change="OnCategoryChanges($select)">
+                                                <option value="" disabled selected>Select Support Category</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-7">
+                                                                    <div class="fs-6 fw-semibold text-gray-500">Sub Category</div>
+
+                                        <div class="input-icon ">
+                                            <select class="form-control validate" required="" aria-required="true"
+                                                name="SupportSubCategory" id="SupportSubCategory"
+                                                placeholder=" Sub Category"
+                                                ng-options="item as item.Value for item in SupportSubCategories track by item.Key"
+                                                ng-model="TicketGeneration.SupportSubCategory" autofocus
+                                                tabindex="0">
+                                                <option value="" disabled selected>Select Support Sub Category</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                        <span class="fs-6 fw-semibold text-gray-500">Subject <span style="color:red"> * </span></span>
+
+                                    <div class="form-floating mb-7">
+                                        <textarea class="form-control fs-5" placeholder=" Enter subject"
+                                            id="TicketSubject" required ng-model="TicketGeneration.Subject"></textarea>
+                                        <label for="TicketSubject">Subject</label>
+                                    </div>
+                                    <span class="fs-6 fw-semibold text-gray-500">Query <span style="color:red"> * </span></span>
+                                    <div class="form-floating mb-7">
+                                        
+                                        <textarea class="form-control fs-5" style="height: 100px"
+                                            placeholder=" Enter note" id="TicketDescription" required
+                                            ng-model="TicketGeneration.ProblemDescription"></textarea>
+                                        <label for="TicketDescription">Query</label>
+                                    </div>
+                                    <br />
+
+                                    <div ng-if="IsError">
+                                        <label ng-bind="ErrorMessage" style="color:red;"></label>
+                                    </div>
+                                </div>
+
+
+                                <form form method="post" ng-submit="SubmitAndGenerateTicket()" id="TicketSubmition"
+                                    novalidate class="d-flex justify-content-end pt-10">
+                                    <button class="btn btn-sm btn-primary" type="submit"
+                                        id="TicketSubmissionButton">Submit</button>
+                                </form>
+                                <!--end::Link-->
+                                <!--begin::Illustration-->
+                                <div class="mb-0">
+                                    <img src="" class="mw-100 mh-300px theme-light-show" alt="">
+                                </div>
+                                <!--end::Illustration-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Footer -->
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

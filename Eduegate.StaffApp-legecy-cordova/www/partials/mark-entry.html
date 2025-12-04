@@ -1,0 +1,16 @@
+﻿<div ng-controller="MarklistController">
+    <div class="pageContainer">
+        <div class="pageContainerInner containerWrap">
+            <div ng-if="MarkLists && MarkLists.length === 0">
+                No mark lists found.
+            </div>
+
+            <span class="listmiddleWrap flexColumn" ng-repeat="mark in MarkLists">          
+                <span class="profileName">
+                    <label>Student:</label>
+                    {{mark.Student.Key}}
+                </span>
+            </span>
+        </div>
+    </div>
+</div><!--about us-->

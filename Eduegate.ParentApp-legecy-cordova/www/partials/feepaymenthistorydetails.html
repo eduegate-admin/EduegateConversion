@@ -1,0 +1,159 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="FeepaymentHistoryDetailsController">
+    <div class="app-content flex-column-fluid" ng-init="init()">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                Fee payment Details
+            </h1>
+        </div>
+        <div class="app-container container-xxl pt-5">
+            <!--begin::Alert-->
+            <div class="alert alert-primary d-flex align-items-center p-5">
+                <!--begin::Icon-->
+                <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">...</span>
+                <!--end::Icon-->
+                <!--begin::Wrapper-->
+                <div class="d-flex flex-column">
+                    <!--begin::Title-->
+                    <h4 class="mb-1 text-dark">Payment history</h4>
+                    <!--end::Title-->
+                    <!--begin::Content-->
+                    <span>Please login to parent portal from web to view full payment details.</span>
+                    <!--end::Content-->
+                </div>
+                <!--end::Wrapper-->
+            </div>
+            <!--end::Alert-->
+
+        </div>
+        <div class=" app-container container-xxl pt-5 py-3 py-lg-0 mb-3 bg-white theme-dark-bg-body"
+             ng-repeat="gridStudentModel in FeeCollectionDetails track by $index"
+             ng-init="currentStudent = $parent.start; $parent.start=$parent.start+1;">
+
+
+            <div class="card mw-lg-950px mx-auto w-100">
+                <div class="card-body d-flex flex-center flex-column py-9 px-5">
+                    <div class="symbol symbol-65px symbol-circle mb-5 bg-info">
+                        <img src="./clients/{{$root.ClientSettings.Client}}/images/person-fill.svg" alt="image">
+                        <div class="bg-success position-absolute rounded-circle translate-middle start-100 top-100 border border-4 border-body  ms-n3 mt-n3 text-gray-100"
+                             ng-if="gridStudentModel.FeeCollectionStatusID == gridStudentModel.FeeCollectionCollectedStatusID">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-check" viewBox="0 0 16 16">
+                                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                            </svg>
+                        </div>
+                        <div class="bg-danger position-absolute rounded-circle translate-middle start-100 top-100 border border-4 border-body  ms-n3 mt-n3 text-gray-100"
+                             ng-if="gridStudentModel.FeeCollectionStatusID == gridStudentModel.FeeCollectionDraftStatusID">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-x" viewBox="0 0 16 16">
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="fs-4 text-gray-800 text-hover-primary fw-bold mb-0"
+                          ng-bind="gridStudentModel.StudentName"></span>
+                    <div class="fw-semibold text-gray-400 mb-6" ng-bind="gridStudentModel.ClassName"></div>
+                    <div class="d-flex flex-center flex-wrap mb-5">
+                        <div class="text-center flex-center">
+                            <!-- <span class="fw-bold dark-text     me-1 align-self-start badge badge-danger rounded-0 " style="background-color: rgb(105, 28, 177);">{{$root.DefaultDisplayCurrency}}</span> -->
+
+
+                            <span data-highlightword="{{$root.DefaultDisplayCurrency}}" class=" text-gray-900  fs-4  fw-bold me-6" ng-bind="gridStudentModel.Amount | currency : $root.DefaultDisplayCurrency ">
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <span class="indicator-label">
+                        <span ng-if="gridStudentModel.FeeCollectionStatusID == gridStudentModel.FeeCollectionCollectedStatusID">
+                            <span class="badge py-3 px-4 fs-7 badge-light-primary">{{gridStudentModel.FeeCollectionStatusName}}</span>
+                        </span>
+                        <span ng-if="gridStudentModel.FeeCollectionStatusID == gridStudentModel.FeeCollectionDraftStatusID">
+                            <span class="badge py-3 px-4 fs-7 badge-light-danger">{{gridStudentModel.FeeCollectionStatusName}}</span>
+                        </span>
+                    </span>
+                </div>
+                <div class="card-body py-0 px-5">
+                    <div class="d-flex justify-content-between flex-column flex-md-row">
+                        <div class="flex-grow-1 pt-8 mb-13">
+                            <div class="d-flex flex-column mw-md-300px w-100">
+                                <div class="fw-semibold fs-5 mb-3 text-dark00">BANK TRANSFER</div>
+                                <div class="d-flex flex-stack text-gray-800 mb-3 fs-6">
+                                    <div class="fw-semibold pe-5">Receipt No :</div>
+                                    <div class="text-end fw-norma" ng-bind="gridStudentModel.FeeReceiptNo"></div>
+                                </div>
+                                <div class="d-flex flex-stack text-gray-800 mb-3 fs-6">
+                                    <div class="fw-semibold pe-5">Collection Date:</div>
+                                    <div class="text-end fw-norma" ng-bind="gridStudentModel.CollectionStringDate">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-5 d-flex flex-column mb-5" ng-repeat="gridTypeModel in gridStudentModel.FeeTypes track by $index">
+                    <div class="card p-2">
+                        <span ng-if="gridTypeModel.FeePeriod" class="text-muted fw-semibold d-block"
+                              ng-bind="gridTypeModel.FeePeriod"></span>
+                        <span ng-if="!gridTypeModel.FeePeriod" class="text-muted fw-semibold d-block"
+                              ng-bind="gridStudentModel.AcademicYear.Value"></span>
+                        <div class="d-flex align-items-center p-2" data-bs-toggle="collapse"
+                             href="#collapseExample{{gridTypeModel.FeeCollectionFeeTypeMapsIID}}">
+                            <div class="h-25px w-25px me-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path d="M504 255.531c.253 136.64-111.18 248.372-247.82 248.468-59.015.042-113.223-20.53-155.822-54.911-11.077-8.94-11.905-25.541-1.839-35.607l11.267-11.267c8.609-8.609 22.353-9.551 31.891-1.984C173.062 425.135 212.781 440 256 440c101.705 0 184-82.311 184-184 0-101.705-82.311-184-184-184-48.814 0-93.149 18.969-126.068 49.932l50.754 50.754c10.08 10.08 2.941 27.314-11.313 27.314H24c-8.837 0-16-7.163-16-16V38.627c0-14.254 17.234-21.393 27.314-11.314l49.372 49.372C129.209 34.136 189.552 8 256 8c136.81 0 247.747 110.78 248 247.531zm-180.912 78.784l9.823-12.63c8.138-10.463 6.253-25.542-4.21-33.679L288 256.349V152c0-13.255-10.745-24-24-24h-16c-13.255 0-24 10.745-24 24v135.651l65.409 50.874c10.463 8.137 25.541 6.253 33.679-4.21z" /></svg>
+                            </div>
+                            <div class="flex-grow-1">
+                                <span class="text-gray-800 text-hover-primary fw-bold fs-4"
+                                      ng-bind="gridTypeModel.FeeMaster"></span>
+
+                            </div>
+                            <span data-highlightword="{{$root.DefaultDisplayCurrency}}" class=" text-gray-900  fs-4  fw-bold me-6"
+                                  ng-bind="gridTypeModel.Amount | currency : $root.DefaultDisplayCurrency "></span>
+
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 collapse" id="collapseExample{{gridTypeModel.FeeCollectionFeeTypeMapsIID}}"
+                         ng-if="gridTypeModel.MontlySplitMaps.length > 0">
+                        <td class="feeStructure p-0" colspan="3">
+                            <div class="table-responsive" class="ng-scope"
+                                 ng-if="gridTypeModel.MontlySplitMaps.length > 0">
+                                <table class="table table-striped border gy-3 gs-7 overflow-hidden">
+
+                                    <thead>
+                                        <tr class="text-start fw-semibold fs-6 text-gray-800">
+                                            <th class="text-end w-125px ">Month</th>
+                                            <th class="text-end w-125px ">Amount</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr ng-focus="FocusGrid($event,'gridModel.MontlySplitMaps')"
+                                            ng-repeat-start="gridModelMonth in gridTypeModel.MontlySplitMaps track by $index"
+                                            class="border-bottom-0">
+
+                                            <td class="text-end">
+                                                <span ng-bind="gridModelMonth.MonthName" class="ng-binding"></span><span class="redcolor"></span>
+                                            </td>
+                                            <td class="text-end">
+                                                <span data-highlightword="{{$root.DefaultDisplayCurrency}}" ng-bind="gridModelMonth.Amount|number:2  | currency : $root.DefaultDisplayCurrency "
+                                                      class="text-gray-900  fs-4  fw-bold me-6 currSign"></span><span class="redcolor"></span>
+                                            </td>
+                                        </tr>
+
+                                        <tr ng-repeat-end="" class="ng-scope"></tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

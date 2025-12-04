@@ -1,0 +1,358 @@
+﻿<div class="app-page flex-column flex-column-fluid" >
+
+
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>  
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    New Transport Application
+                </h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                <!-- Submit button is at the bottom of the form -->
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container container-xxl pt-5">
+        <div class="row g-5 g-xl-10">
+            <div class="col-12">
+                <!-- Application Number Card -->
+                <div class="card mb-5 mb-xxl-8" ng-if="Applications.ApplicationNumber">
+                    <div class="card-body text-center">
+                        <label class="form-label fs-4"><b style="color:brown">Application Number <br />{{Applications.ApplicationNumber}}</b></label>
+                    </div>
+                </div>
+
+                <!-- Student Details Cards -->
+                <div ng-repeat="data in Applications.TransportApplicationStudentMaps"
+                     ng-init="current = $parent.start; $parent.start=$parent.start+1;">
+                    <div class="card mb-5 mb-xxl-8">
+                        <div class="card-header bg-light-primary min-h-auto"> <!-- Optional: Styled header -->
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label fw-bold fs-4 text-primary">Student: {{data.FirstName}} {{data.LastName}}</span>
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <form> <!-- Individual form per student for clarity, though model is shared -->
+                                <div class="row g-3">
+                                    <input type="hidden" ng-model="data.TransportApplctnStudentMapIID" />
+                                    <input type="hidden" ng-model="data.TransportApplicationID" />
+
+                                    <div class="col-12">
+                                        <div class="form-check form-check-custom form-check-solid">
+                                              <input type="hidden" class="form-control" id="TransportApplctnStudentMapIID" name="TransportApplctnStudentMapIID" value="{{data.TransportApplctnStudentMapIID}}" ng-model="data.TransportApplctnStudentMapIID" />
+                                            <input type="hidden" class="form-control" id="TransportApplicationID" name="TransportApplicationID" value="{{data.TransportApplicationID}}" ng-model="data.TransportApplicationID" />
+                                            <input class="form-check-input" type="checkbox" ng-model="data.CheckBoxStudent" id="CheckBoxStudent{{current}}">
+                                            <label class="form-check-label fw-semibold" for="CheckBoxStudent{{current}}" style="color:maroon">
+                                                Please Tick to Submit Student Transport Application
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-12">
+                                        <label class="form-label">FIRST NAME</label>
+                                        <input type="hidden" ng-model="data.StudentID" />
+                                        <input class="form-control" type="text" ng-model="data.FirstName" readonly />
+                                    </div>
+                                    <div class="col-md-3 col-12">
+                                        <label class="form-label">LAST NAME</label>
+                                        <input type="hidden" ng-model="data.MiddleName" />
+                                        <input class="form-control" type="text" ng-model="data.LastName" readonly />
+                                    </div>
+                                    <div class="col-md-2 col-12">
+                                        <label class="form-label">GRADE</label>
+                                        <input type="hidden" ng-model="data.SchoolID" />
+                                        <input type="hidden" ng-model="data.Class.Key" />
+                                        <input class="form-control" type="text" ng-model="data.ClassName" readonly />
+                                    </div>
+                                    <div class="col-md-2 col-12">
+                                        <label class="form-label">GENDER</label>
+                                        <input type="hidden" ng-model="data.GenderID" />
+                                 <input class="form-control" type="text" ng-model="data.GenderName" readonly />
+
+                                    </div>
+                                    <div class="col-md-2 col-12">
+                                        <label class="form-label">START DATE</label>
+                                        <input type="date" placeholder="Start Date" required  ng-model="data.StartDate" class="form-control" />
+                                    </div>
+
+                                    <!-- Hidden fields for IsNewRider and LocationChange -->
+                                    <div class="form-check form-check-custom form-check-solid" ng-if="data.IsNewRider == true" style="opacity:0;">
+                                        <input class="form-check-input" type="checkbox" ng-model="data.IsNewRider" id="IsNewRider{{current}}">
+                                        <label class="form-check-label" for="IsNewRider{{current}}">New rider</label>
+                                    </div>
+                                    <div class="form-check form-check-custom form-check-solid" ng-if="data.IsNewRider != true" style="opacity:0; ">
+                                        <input class="form-check-input" type="checkbox" ng-model="data.LocationChange" id="LocationChange{{current}}" ng-bind="data.LocationChange">
+                                        <label class="form-check-label" for="LocationChange{{current}}">Location change</label>
+                                    </div>
+
+                                    <div class="col-12 mt-4">
+                                        <div class="form-check form-check-custom form-check-solid">
+                                            <input class="form-check-input" type="checkbox" ng-model="data.IsMedicalCondition" id="IsMedicalCondition{{current}}">
+                                            <label class="form-check-label fw-semibold" for="IsMedicalCondition{{current}}" style="color:maroon">
+                                                Does your child have a medical condition?
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="Remarks{{current}}" class="form-label">If Yes, please explain</label>
+                                        <textarea class="form-control" ng-model="data.Remarks" id="Remarks{{current}}" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="Applications.TransportApplicationStudentMaps.length == 0" class="alert alert-warning text-center mt-5">
+                    <h4 class="fw-bold" style="color:maroon;">
+                        All students already have an active transport application.
+                    </h4>
+                </div>
+                <!-- Parent, Emergency, Location, and Terms Card -->
+                <div class="card mb-5 mb-xxl-8">
+                    <div class="card-header min-h-auto">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fw-bold fs-4 text-gray-800">Contact, Location & Terms</span>
+                        </h3>
+                    </div>
+                <div class="card-body">
+    <form> <!-- Main form part -->
+        <input type="hidden" id="TransportApplicationIID_hidden" ng-model="Applications.TransportApplicationIID" />
+        <input type="hidden" id="ApplicationNumber_hidden" ng-model="Applications.ApplicationNumber" />
+        <input type="hidden" id="LoginID_hidden" ng-model="Applications.LoginID" />
+        <input type="hidden" id="ParentID_hidden" ng-model="Applications.ParentID" />
+
+        <div class="row g-3">
+            <div class="col-12">
+                <p class="h5 fw-bold text-dark mb-3">FATHER</p>
+            </div>
+            <div class="col-md-4 col-12">
+                <label class="form-label">NAME</label>
+                <input class="form-control" type="text" id="FatherName" ng-model="Applications.FatherName" readonly />
+            </div>
+            <div class="col-md-4 col-12">
+                <label class="form-label">EMAIL ADDRESS</label>
+                <input type="email" class="form-control" id="FatherEmailID" ng-model="Applications.FatherEmailID" readonly />
+            </div>
+            <div class="col-md-4 col-12">
+                <label class="form-label">MOBILE AND HOME PHONE</label>
+                <input type="text" class="form-control" id="FatherContactNumber" ng-model="Applications.FatherContactNumber" readonly />
+            </div>
+
+            <div class="separator separator-dashed my-5"></div>
+
+            <div class="col-12">
+                <p class="h5 fw-bold text-dark mb-3">MOTHER</p>
+            </div>
+            <div class="col-md-4 col-12">
+                <label class="form-label">NAME</label>
+                <input type="text" class="form-control" id="MotherName" ng-model="Applications.MotherName" readonly />
+            </div>
+            <div class="col-md-4 col-12">
+                <label class="form-label">EMAIL ADDRESS</label>
+                <input type="email" class="form-control" id="MotherEmailID" ng-model="Applications.MotherEmailID" readonly />
+            </div>
+            <div class="col-md-4 col-12">
+                <label class="form-label">MOBILE AND HOME PHONE</label>
+                <input type="text" class="form-control" id="MotherContactNumber" ng-model="Applications.MotherContactNumber" readonly />
+            </div>
+
+            <div class="separator separator-dashed my-5"></div>
+
+            <div class="col-12">
+                <p class="h5 fw-bold text-dark mb-3">EMERGENCY CONTACT</p>
+            </div>
+            <div class="col-md-4 col-12">
+                <label class="form-label">CHOOSE CONTACT</label>
+                <select class="form-select" required name="SelectedType" id="SelectedType" ng-model="SelectedType" ng-options="item as item.Value for item in ContactTypes track by item.Key" ng-change="TypeChanges()"></select>
+            </div>
+            <div class="col-md-4 col-12">
+                <label class="form-label">EMAIL ADDRESS</label>
+                <input type="email" class="form-control" id="EmergencyEmailID" ng-model="Applications.EmergencyEmailID" />
+            </div>
+            <div class="col-md-4 col-12">
+                <label class="form-label">MOBILE AND HOME PHONE</label>
+                <input type="text" class="form-control" required id="EmergencyContactNumber" ng-model="Applications.EmergencyContactNumber" />
+            </div>
+
+            <div class="separator separator-dashed my-5"></div>
+
+            <div class="col-12">
+                <p class="h5 fw-bold text-dark mb-3">PICK-UP LOCATION</p>
+            </div>
+            <div class="col-md-4 col-12">
+                <label class="form-label">LOCATION NAME</label>
+                <input type="text" class="form-control" required ng-model="Applications.LocationName" id="LocationName" maxlength="50" />
+            </div>
+            <div class="col-md-2 col-12">
+                <label class="form-label">BUILDING NUMBER</label>
+                <input class="form-control" type="text" required ng-model="Applications.Building_FlatNo" id="Building_FlatNo" maxlength="50" />
+                <small id="building_Message" class="text-danger d-none">Numeric values only.</small>
+            </div>
+            <div class="col-md-2 col-12">
+                <label class="form-label">STREET NUMBER</label>
+                <input class="form-control" type="text" required ng-model="Applications.StreetNo" id="StreetNo" maxlength="50" />
+                <small id="street_Message" class="text-danger d-none">Numeric values only.</small>
+            </div>
+            <div class="col-md-2 col-12">
+                <label class="form-label">ZONE NUMBER</label>
+                <input class="form-control" type="text" required ng-model="Applications.ZoneNo" id="ZoneNo" maxlength="50" />
+                <small id="zone_Message" class="text-danger d-none">Numeric values only.</small>
+            </div>
+            <div class="col-md-2 col-12">
+                <label class="form-label">LAND MARK</label>
+                <input class="form-control" type="text" required ng-model="Applications.LandMark" id="LandMark" maxlength="50" />
+            </div>
+
+            <div class="col-12 mt-4">
+                <div class="form-check form-check-custom form-check-solid">
+                    <input class="form-check-input" type="checkbox" ng-model="Applications.IsRouteDifferent" id="IsRouteDifferent">
+                    <label class="form-check-label fw-semibold" for="IsRouteDifferent">
+                        Is Drop Location Different from Pick-up Location?
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-12" ng-if="Applications.IsRouteDifferent">
+                <p class="h6 fw-bold text-dark mt-3 mb-3">DROP LOCATION DETAILS</p>
+                <div class="row g-3">
+                    <div class="col-md-4 col-12">
+                        <label class="form-label">LOCATION NAME (DROP)</label>
+                        <input class="form-control" type="text" ng-model="Applications.TransportLocation.LocationName_Drop" id="LocationName_Drop" maxlength="50" ng-disabled="!Applications.IsRouteDifferent" ng-required="Applications.IsRouteDifferent">
+                    </div>
+                    <div class="col-md-2 col-12">
+                        <label class="form-label">BUILDING NO. (DROP)</label>
+                        <input class="form-control" type="text" ng-model="Applications.TransportLocation.BuildingNo_Drop" id="BuildingNo_Drop" maxlength="50" ng-disabled="!Applications.IsRouteDifferent" ng-required="Applications.IsRouteDifferent">
+                        <small id="building_Message_Drop" class="text-danger d-none">Numeric values only.</small> <!-- Added for drop -->
+                    </div>
+                    <div class="col-md-2 col-12">
+                        <label class="form-label">STREET NO. (DROP)</label>
+                        <input class="form-control" type="text" ng-model="Applications.TransportLocation.StreetNo_Drop" id="StreetNo_Drop" maxlength="50" ng-disabled="!Applications.IsRouteDifferent" ng-required="Applications.IsRouteDifferent">
+                        <small id="street_Message_Drop" class="text-danger d-none">Numeric values only.</small> <!-- Added for drop -->
+                    </div>
+                    <div class="col-md-2 col-12">
+                        <label class="form-label">ZONE NO. (DROP)</label>
+                        <input class="form-control" type="text" ng-model="Applications.TransportLocation.ZoneNo_Drop" id="ZoneNo_Drop" maxlength="50" ng-disabled="!Applications.IsRouteDifferent" ng-required="Applications.IsRouteDifferent">
+                        <small id="zone_Message_Drop" class="text-danger d-none">Numeric values only.</small> <!-- Added for drop -->
+                    </div>
+                    <div class="col-md-2 col-12">
+                        <label class="form-label">LAND MARK (DROP)</label>
+                        <input class="form-control" type="text" ng-model="Applications.TransportLocation.LandMark_Drop" id="LandMark_Drop" maxlength="50" ng-disabled="!Applications.IsRouteDifferent" ng-required="Applications.IsRouteDifferent">
+                    </div>
+                </div>
+            </div>
+
+            <div class="separator separator-dashed my-5"></div>
+
+            <div class="col-12">
+                <label class="form-label">Remarks (Overall Application)</label>
+                <textarea class="form-control" ng-model="Applications.Remarks" id="ApplicationRemarks" placeholder="If any Remarks. Please text here.." style="height: 100px"></textarea>
+            </div>
+
+            <div class="col-12 mt-4">
+                <div class="form-check form-check-custom form-check-solid">
+                    <input class="form-check-input" type="checkbox" ng-model="Applications.TransportTerms" id="TransportTermsMain"> <!-- Changed ng-model scope and ID from your old code for consistency in your original HTML-->
+                    <label class="form-check-label fw-semibold" for="TransportTermsMain">
+                        Transport once allocated, minimum one month fee will be payable even if it is not used at all.
+                    </label>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-check form-check-custom form-check-solid">
+                    <input class="form-check-input" type="checkbox" ng-model="Applications.TermsAndConditions" id="TermsAndConditionsMain"> <!-- Changed ng-model scope and ID from your old code for consistency in your original HTML-->
+                    <label class="form-check-label fw-semibold" for="TermsAndConditionsMain">
+                        I have read & agreed to the terms and conditions.
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-12 mt-4">
+                <marquee style="color:red; font-weight:bold;">Please note any new transport request/change will take max 5 working days to take effect from the date of submission</marquee>
+            </div>
+
+            <div class="col-12 mt-5 d-grid"> <!-- d-grid for full width button -->
+                <button type="button" id="SubmitapplicationBtn" name="action" class="btn btn-danger btn-lg" ng-click="SubmitTransportApplicationClick()">Submit Application</button>
+            </div>
+        </div>
+    </form>
+</div>
+                </div>
+
+                <!-- School Transportation Rules Card -->
+                <div class="card mb-5 mb-xxl-8">
+                    <div class="card-header min-h-auto">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fw-bold fs-3 text-gray-800">School Transportation Rules and Regulations</span>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="pb-lg-10">
+                            <span ng-bind-html="TransprtRulesAndRegulationsDetails"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        function attachNumericValidation(inputId, messageId) {
+            $('#' + inputId).on('keypress', function (e) {
+                // Allow backspace, delete, tab, escape, enter, and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                    // Allow: Ctrl+A, Command+A
+                    (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                    // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                    // let it happen, don't do anything
+                    $('#' + messageId).addClass('d-none');
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.charCode < 48 || e.charCode > 57))) {
+                    $('#' + messageId).removeClass('d-none');
+                    e.preventDefault();
+                } else {
+                    $('#' + messageId).addClass('d-none');
+                }
+            });
+             $('#' + inputId).on('blur', function () { // Hide message on blur
+                $('#' + messageId).addClass('d-none');
+            });
+        }
+
+        attachNumericValidation('Building_FlatNo', 'building_Message');
+        attachNumericValidation('StreetNo', 'street_Message');
+        attachNumericValidation('ZoneNo', 'zone_Message');
+
+        // Add validation for drop-off location fields if they are created
+        // Check if IsRouteDifferent makes them visible and then attach, or attach always and rely on visibility
+        attachNumericValidation('BuildingNo_Drop', 'building_Message_Drop');
+        attachNumericValidation('StreetNo_Drop', 'street_Message_Drop');
+        attachNumericValidation('ZoneNo_Drop', 'zone_Message_Drop');
+    });
+</script>
+
+<style>
+
+
+    /* Added for card header styling example */
+    .card-header.bg-light-primary {
+        background-color: #F1FAFF !important; /* Example light primary color */
+        border-bottom: 1px solid #E1E9EF;
+    }
+    .card-title .text-primary {
+        color: #007bff !important; /* Example primary color */
+    }
+    .separator.separator-dashed {
+        border-bottom: 1px dashed #eff2f5;
+    }
+
+</style>

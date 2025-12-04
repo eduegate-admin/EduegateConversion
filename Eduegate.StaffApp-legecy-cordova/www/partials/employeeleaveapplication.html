@@ -1,0 +1,64 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="EmployeeLeaveApplicationController" ng-init="init()">
+    <div class="app-content flex-column-fluid">
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-container container-xxl pt-5">
+
+            <div class="row g-6 g-xl-9">
+                <div class="col-md-6 col-xxl-4">
+                    <div class="card">
+                        <div class="card-body p-lg-20">
+                            <form class="" id="staffLeaveApplication">
+                                <input type="hidden" id="LeaveApplicationIID" name="StaffLeaveApplicationIID"
+                                    data_ng_model="StaffLeaveApplication.LeaveApplicationIID">
+                                <input type="hidden" id="StaffID" name="StaffID"
+                                    data_ng_model="StaffLeaveApplication.StaffID">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label fs-5 text-gray-700">Leave Type</label>
+                                    <label style="color: red;">*</label>
+                                    <select class="form-select" aria-label="Select example" id="LeaveTypeID"
+                                        name="LeaveTypeID" data_ng_model="StaffLeaveApplication.LeaveTypeID"
+                                        ng-options="LeaveType as LeaveType.Value for LeaveType in LeaveTypes" required>
+                                    </select>
+                                </div>
+                                <div class="fieldWrapper" style="text-align: left;">
+                                    <span>
+                                        <label class="fs-5 text-gray-700">From Date</label>
+                                        <label style="color: red;">*</label>
+                                    </span>
+                                    <input placeholder="dd-mm-yyyy" id="FromDateString" name="FromDateString"
+                                        class="form-control border-1"
+                                        data_ng_model="StaffLeaveApplication.FromDateString" required />
+                                </div>
+                                <div class="fieldWrapper" style="text-align: left;">
+                                    <span>
+                                        <label class="fs-5 text-gray-700">To Date</label>
+                                        <label style="color: red;">*</label>
+                                    </span>
+                                    <input placeholder="dd-mm-yyyy" id="ToDateString" name="ToDateString"
+                                        class="form-control" data_ng_model="StaffLeaveApplication.ToDateString"
+                                        required />
+                                </div>
+                                <div class="mt-10">
+                                    <label for="floatingTextarea2" class="fs-5 text-gray-700 mb-2">Reason</label>
+                                    <label style="color: red;">*</label>
+                                    <textarea name="notes" id="Reason" name="Reason" required=""
+                                        class="form-control form-control-solid h-200px" rows="3" placeholder="Reason"
+                                        data_ng_model="StaffLeaveApplication.Reason"
+                                        ng-change="DataChange()"></textarea>
+                                </div>
+                                <button type="button" class="btn btn-primary mt-3 align-items-end"
+                                ng-click="SubmitStaffLeaveApplication()" 
+                                ng-disabled="isSubmitting">
+                                Submit
+                            </button>
+                            
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

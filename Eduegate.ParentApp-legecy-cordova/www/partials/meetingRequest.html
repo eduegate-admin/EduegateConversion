@@ -1,0 +1,154 @@
+<div ng-controller="MeetingRequestController">
+    <!-- Include Header -->
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+    <!-- Toolbar -->
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    Meeting Request
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="app-container container-xxl pt-5" ng-init="init()">
+        <div class="row g-5 g-xl-10">
+            <div class="col-sm-6 col-xl-2 mb-xl-10">
+                <div class="row gy-5 g-xl-10">
+                    <div class="col">
+                        <div class="card mb-5 mb-xl-8">
+                            <div class="card-body py-3">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active">
+                                        <div>
+                                            <!-- Student Selection -->
+                                            <div>
+                                                <div class="fs-5 fw-semibold text-gray-700 my-3">Student</div>
+                                                <div class="row mb-5 mb-xl-8 g-5 g-xl-8">
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-6 mb-xl-0" ng-repeat="student in StudentDetails track by $index">
+                                                        <!--begin::Chart Widget 47-->
+
+                                                        <div class="card card-flush border-0 shadow-none" style="background: #EAF7FF;" ng-click="StudentSelectionChange(student)">
+
+                                                            <div class="card-body d-flex align-items-center">
+                                                                <div class="d-flex flex-stack flex-row-fluid">
+                                                                    <div class="d-flex flex-column">
+                                                                        <div class="d-flex align-items-center mb-1">
+                                                                            <div class="symbol symbol-50px me-4">
+                                                                                <input type="radio" id="student_{{student.StudentIID}}" name="student" value="{{student.StudentIID}}" ng-model="MeetingRequest.Student" />
+                                                                                  <img class="object-fit-cover  top-0 " style="object-position:0 0;" ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{student.StudentProfile}}" onerrorsrc="/Images/profile-icon.svg" />
+                                                                            </div>
+                                                                            <div class="card-title flex-column flex-grow-1 studentname-label">
+                                                                                <span ng-bind="student.StudentFullName"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- Faculty Type Selection -->
+                                            <div class="row mb-6">
+                                                <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                                                    <span class="required text-gray-600">Faculty Type</span>
+                                                </label>
+                                                <div class="col-lg-8">
+                                                    <select class="form-select validate" required=""
+                                                        ng-options="item as item.Value for item in FacultyTypes track by item.Key"
+                                                        ng-model="SelectedFacultyType"
+                                                        ng-change="OnFacultyTypeChanges()">
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Faculty Selection -->
+                                            <div class="row mb-6">
+                                                <div class="fs-5 fw-semibold text-gray-700 mb-7">Faculty</div>
+                                                <div class="input-icon right">
+                                                    <div class="col-md-12">
+                                                        <select class="form-control validate" required=""
+                                                            ng-options="item as item.Value for item in Employees track by item.Key"
+                                                            ng-model="MeetingRequest.Faculty"
+                                                            ng-change="OnEmployeeChanges()">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Request Date Selection -->
+                                            <div class="row mb-6">
+                                                <div class="fs-5 fw-semibold text-gray-700 mb-7">Request Date</div>
+                                                <div class="input-icon right">
+                                                    <div class="col-md-3">
+                                                        <input  required="" datepicker
+                                                        readonly
+                                                            ng-model="MeetingRequest.RequestedDateString"
+                                                            id="RequestedDateString"
+                                                            class="form-control"
+                                                            ng-change="OnRequestDateChanges()" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Note Input -->
+                                            <div class="row mb-6">
+                                                <div class="fs-5 fw-semibold text-gray-700 mb-7">Note</div>
+                                                <div class="input-icon right">
+                                                    <div class="col-md-3">
+                                                        <input type="text" class="form-control" required=""
+                                                            ng-model="MeetingRequest.RequesterRemark"
+                                                            id="RequesterRemark" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Error Message Display -->
+                                            <div ng-if="IsError">
+                                                <label ng-bind="ErrorMessage" style="color:red;"></label>
+                                            </div>
+
+                                            <!-- Available Slots -->
+                                            <div ng-if="IsShowSlotDetails && MeetingSlots.length > 0">
+                                                <div class="fs-6 fw-semibold text-gray-500 mb-7">Available slots</div>
+                                                <div class="row">
+                                                <div class=" col-6 fw-bolder text-gray-900 mb-5"
+                                                    ng-repeat="slot in MeetingSlots track by $index">
+                                                    <span ng-click="SlotSelectionChange(slot)" class=" btn w-100 btn-outline btn-outline-success shadow-none border-2 border border-success">
+                                                        <input type="radio" id="slot_{{slot.SignupSlotMapIID}}"
+                                                            name="slot" value="{{slot.SignupSlotMapIID}}"
+                                                            ng-model="MeetingRequest.RequestedSignupSlotMapID" />
+                                                        <label ng-bind="slot.StartTimeString">09:35am</label> -
+                                                        <label ng-bind="slot.EndTimeString">10:45pm</label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                            <!-- Submit Button -->
+                                            <form ng-submit="ConfirmAndRequestSlot()" id="MeetingRequestSubmissionButton" novalidate
+                                                class="d-flex justify-content-end pt-10">
+                                                <button class="btn btn-sm btn-primary" type="submit">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Footer -->
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

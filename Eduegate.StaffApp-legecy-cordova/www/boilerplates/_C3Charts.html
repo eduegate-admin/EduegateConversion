@@ -1,0 +1,25 @@
+﻿
+
+<div class="card card-flush h-xl-100 rounded-1 mb-2" id="'window_{{boilerplate.BoilerplateMapIID}}" tempalte="_Charts"  style="border: 1px solid rgb(17, 141, 255);"
+ng-controller="C3ChartBoilerPlateController as c3Charts" 
+ng-init="c3Charts.childInit(boilerplate, 'window_' + boilerplate.BoilerplateMapIID, '')" >
+ 
+        
+        <div class="card-header border-0 pt-5 min-h-auto">
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label fw-bold text-dark">{{title}}</span>
+
+               
+            </h3>
+            
+        </div>
+
+        <div class="card-body" id="window_{{boilerplate.BoilerplateMapIID}}_widgetcontainer"   > 
+            <div class="text-center ng-hide" ng-show="ShowSpinner" id="window_{{boilerplate.BoilerplateMapIID}}_widgetcontainer" >
+                <div class="spinner-border position-absolute " role="status" >
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

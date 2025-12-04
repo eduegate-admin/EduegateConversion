@@ -1,0 +1,92 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="IDCardController" ng-init="LoadProfileInfo()">
+
+
+    <div class="app-content flex-column-fluid">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+        <div class="app-toolbar w-100 d-flex flex-center rounded-top-0 rounded-4">
+
+
+			<a class="mb-10 d-flex flex-center">
+				<img alt="Logo" class="h-40px me-3" ng-src="./clients/{{$root.ClientSettings.Client}}/images/staff_logo.png">
+				<img alt="Logo" class="h-40px" ng-src="./clients/{{$root.ClientSettings.Client}}/images/staff_textlogo.png">
+			</a>
+        </div>
+        <div class="app-container container-xxl pt-5   bg-light">
+			<div class="d-flex align-items-center mt-n20 flex-column">
+				<!--begin::Symbol-->
+				<div class="symbol symbol-150px mb-4 symbol-circle mt-n10">
+						<img ng-src="{{Profile.EmployeeProfileImageUrl}}" on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+						 class="img-thumbnail" style="    object-fit: cover;     object-position: right top;" width="125px" height="125px" alt="">
+
+				</div>
+				<div class="flex-center">
+                    <div class="d-flex flex-center flex-column  pt-8">
+                        <span>
+                            <span class="badge badge-info fs-3 fw-bold my-2 p-4">{{Profile.DesignationName}}</span>
+
+                        </span>
+                        <span class="text-center text-gray-900 text-hover-primary my-4 w-75 fs-3x fw-semibold me-1">
+                            {{Profile.EmployeeName}}
+                        </span>
+                        <div class="d-flex my-3">
+                            <div class="d-grid g-5 mb-0" style=" grid-template-columns: 136px 12px 1fr; grid-gap:16px 0px;">
+                                <span class="fw-normal fs-4 text-gray-600 mb-1 d-flex align-items-center">
+                                    <span class="symbol symbol-25px bg-light-pearl symbol-circle me-3">
+                                        <span class="symbol-label  bg-light-pearl">
+                                            <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/add_no.svg" class="" alt="">
+                                        </span>
+                                    </span>
+                                    Employee ID
+                                </span>
+                                <div class="">:</div>
+                                <div class="fw-semibold fs-4 text-gray-800">{{Profile.EmployeeCode}}</div>
+
+                                <span class="fw-normal fs-4 text-gray-600 mb-1 d-flex align-items-center">
+                                    <span class="symbol symbol-25px bg-light-pearl symbol-circle me-3">
+                                        <span class="symbol-label  bg-light-pearl">
+                                            <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/phone.svg" class="" alt="">
+                                        </span>
+                                    </span>
+                                    Mobile No
+                                </span>
+                                <div class="">:</div>
+                                <div class="fw-semibold fs-4 text-gray-800">{{Profile.WorkMobileNo}}</div>
+
+
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div id="qrcode">
+                                <img id="qrcode-img" src="" alt="QR Code">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="barcode" style="font-weight:normal;font-size: 20vw; ; font-weight:400; height:80px;">
+                                *{{Profile.EmployeeCode}}*
+                            </div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+    </div>
+</div>
+
+<style>
+	.app-toolbar {
+        background-color: #5F3787;
+        background-image: url(../clients/{{$root.ClientSettings.Client}}/images/b-g.svg);
+        background-size: 100%;
+		height: 200px;
+        background-repeat: no-repeat;
+        background-position: center top;
+    }
+	.barcode {
+		font-family: 'Libre Barcode 39';
+	}
+
+</style>

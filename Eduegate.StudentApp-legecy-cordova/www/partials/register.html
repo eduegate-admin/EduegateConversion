@@ -1,0 +1,98 @@
+﻿<div class="mainwrap register">
+
+    <div class="maincontentarea">
+
+        <div class="content">
+            
+            <div class="categories">
+                <!--<span class="email"><img src=""/><input /></span>
+                <span class="create-acc">
+                    <span class="create-acc-button"><button type="submit" class="button-orange">Create Account</button></span>
+                    <span class="total-amt">Payable Amount : <b>200.000 KD</b></span>
+                </span>-->
+
+                <div class="login-reg">
+                    <form name="registerForm" id="RegisterForm" ng-submit="SignUp()" novalidate>
+                        <ul>
+                            <!--<li>
+                                <span class="" id="spnMessage" ng-show="Message != '' && Message != null">{{Message}}</span>
+                            </li>-->
+                            <li>
+                                <span class="fname"><input name="FirstName" type="text" placeholder="{{'Fnamerequired'|translate}}" ng-model="register.Customer.FirstName" ng-required="true"></span>
+                                <span class="red inputerror" ng-show="submitted && registerForm.FirstName.$error.required" translate>FirstNameisrequired</span>
+                            </li>
+                            <li>
+                                <span class="lname"><input name="LastName" type="text" placeholder="{{'Lname'|translate}}" ng-model="register.Customer.LastName"></span>
+                                <!--<span class="red inputerror" ng-show="submitted && registerForm.LastName.$error.required">Last Name is required</span>-->
+                            </li>
+                            <li>
+                                <span class="email"><input name="Email" type="email" placeholder="{{'Emailrequired'|translate}}" ng-model="register.LoginEmailID" ng-required="true"></span>
+                                <span class="red inputerror" ng-show="submitted && registerForm.Email.$error.required" translate>EmailIsRequired</span>
+                                <span class="red inputerror" ng-show="submitted && registerForm.Email.$dirty && registerForm.Email.$error.email" translate>EntervalidEmail</span>
+                            </li>
+                            <li>
+                                <span class="password"><input name="Password" type="password" placeholder="{{'Pass6required'|translate}}" ng-minlength="6" ng-model="register.Password" ng-required="true"></span>
+                                <span class="red inputerror" ng-show="submitted && registerForm.Password.$error.required" translate>Passwordisrequired</span>
+                                <span class="red inputerror" ng-show="submitted && registerForm.Password.$error.minlength" translate>Passwordshouldhavemin6characters</span>
+                                <!--<span class="eyeicon"></span>-->
+                            </li>
+                            <li>
+                                <span class="password"><input name="ConfirmPassword" ng-model="ConfirmPassword" type="password" placeholder="{{'Confirmpassword'|translate}}" ng-required="true" ng-minlength="6" ng-pattern="register.Password"></span>
+                                <span class="red inputerror" ng-show="submitted && registerForm.ConfirmPassword.$error.required" translate>Passwordisrequired</span>
+                                <!--<span class="eyeicon"></span>-->
+                                <span class="red inputerror" ng-show="submitted && registerForm.ConfirmPassword.$error.pattern" translate>Passwordsdonotmatch</span>
+                            </li>
+                            <li>
+                                <span class="countries">
+                                    <select name="Country" ng-model="register.Customer.CountryID" ng-options="country.CountryID as country.CountryName for country in Countries" required>
+                                        <option value="" selected="selected" translate>Countries</option>
+                                    </select>
+                                </span>
+                                <span class="red inputerror" ng-show="submitted && registerForm.Country.$error.required" translate>SelectCountry1</span>
+                            </li>
+                            <li>
+                                <span class="phone">
+                                    <input type="text" name="Mobile" placeholder="{{'MobileorTelephone'|translate}}" ng-model="register.Customer.TelephoneNumber">
+                                </span>
+                                <!--<span class="red inputerror" ng-show="submitted && registerForm.Mobile.$error.required">Mobile No is required</span>-->
+                            </li>
+                            <li>
+                                <span class="">
+                                    <h4 class="howknow"><label translate>HowDidYouCometoKnowAboutUs</label></h4>
+                                    <select name="KnowHowOption" ng-model="register.Customer.HowKnowOptionID" ng-init="EnterText(KnowHowOptions[0].KnowHowOptionIID)" ng-options="knowhowoption.KnowHowOptionIID as knowhowoption.KnowHowOptionText for knowhowoption in KnowHowOptions" ng-change="ShowText(register.Customer.HowKnowOptionID)">
+                                        <option value="" translate>Select</option>
+                                    </select>
+                                    <input type="text" ng-model="register.Customer.HowKnowText" ng-if="isEditable==true" />
+                                </span>
+                            </li>
+                            <li>
+                                <span class="terms"><input type="checkbox" ng-model="register.Customer.IsSubscribeOurNewsLetter" value="terms" name="Newsletter" />
+                                <label translate ng-if="$root.UserCountry == '2'">ReceiveEmailupdatesfromSkien.sa.com</label>
+                                    <label translate ng-if="$root.UserCountry == '1'">ReceiveEmailupdatesfromSkien.com.kw</label>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="terms"><input type="checkbox" ng-model="register.Customer.IsTermsAndConditions" value="terms" name="TermsCondition" ng-required="true" /><label translate>ReadTerms&Conditions</label></span>
+                                <span class="red inputerror" ng-show="submitted && registerForm.TermsCondition.$error.required" ><label translate>Youmustacceptthetermsandconditions</label></span>
+                            </li>
+                        </ul>
+                        <span class="create-acc">
+                            <button type="submit" class="button-orange" value="Create Account" translate>CreateAccount</button>
+                            <!--<span class="create-acc-button"><a type="submit" class="button-orange" href="" ng-click="SignUp()">Create Account</a></span>-->
+                        </span>
+                    </form>
+                    <!--<span class="create-acc">
+                        <span class="create-acc-button fb"><a href="index.html" type="submit" class="button-orange"><i class="fa fa-facebook"></i>Register with Facebook</a></span>
+                    </span>
+                    <span class="create-acc">
+                        <span class="create-acc-button google"><a href="index.html" type="submit" class="button-orange"><img src="clients/{{$root.ClientSettings.Client}}/img/google-icon.png">Register with google</a></span>
+                    </span>-->
+                    <span class="create-acc accountlink">
+                        <span class="total-amt hv-acc"><label translate>Haveanaccount</label>&nbsp;<a ui-sref="login" class="signin" translate>SignIn</a>&nbsp;</span>
+                    </span>
+                </div>
+            </div><!--offers-->
+        </div><!--content-->
+
+    </div><!--maincontentarea-->
+</div><!-- /mainwrap -->

@@ -1,0 +1,155 @@
+﻿<div ng-controller="StudentDailyPickupRequestListController">
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl">
+            <div class=" d-flex flex-end">
+
+                <!-- <a class="btn btn-sm fw-bold btn-secondary w-100 me-4"  ng-click="SelfScan()"><img
+                    src="./images/upc-scan.svg" class="h-15px me-3"
+                    alt="My Happy SVG"
+                  /> Self Scan</a> -->
+                <a class="btn btn-sm fw-bold btn-secondary w-100 me-4" ui-sref="selfscan">
+                    <img src="./images/upc-scan.svg" class="h-15px me-3"
+                         alt="My Happy SVG" /> Self Scan
+                </a>
+
+
+                <a class="btn btn-sm fw-bold btn-primary text-white w-100" ui-sref="inspection">
+                    <img src="./images/magnifying-glass-solid.svg" class="h-15px me-3"
+                         alt="My Happy SVG" />
+                    Inspection
+                </a>
+
+            </div>
+
+            <div class="d-flex align-items-center gap-2 gap-lg-3 flex-end mt-3">
+                <a class="btn btn-sm fw-bold btn-primary text-white w-100" ng-click="RegisterDailyPickup()">
+                    <img class="h-15px me-3"
+                         src="./images/pen-to-square.svg"
+                         alt="My Happy SVG" />
+                    Register daily pickup
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="app-container container-xxl pt-5">
+        <div class="row g-5 g-xl-10 mb-xl-10">
+            <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0" ng-init="init()">
+                <div class="card h-md-100 rounded-2">
+                    <div class="card-header border-0  min-h-auto">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fw-bold text-dark">Registered list</span>
+                        </h3>
+                        <div id="qrcode" class="qrcode pt-5 mx-auto" ng-click="Share(SelectedData)"></div>
+                    </div>
+
+                    <div class="d-flex flex-center mt-3 mx-5 mb-5" ng-show="ShowShareButton">
+                        <a class="btn btn-sm btn-light  me-4 w-100" ng-click="Copy(SelectedData)">Copy</a>
+                        <a class="btn btn-sm btn-primary  w-100" ng-click="Share(SelectedData)">Share</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10"
+                 ng-repeat='request in RegisteredPickupRequests'>
+
+                <div class="card h-md-100">
+
+                    <div class="card-body pt-7 px-0" id="RegisteredPickupRequests">
+                        <div class="tab-content mb-2 pr-4">
+                            <div class="tab-pane fade show active" id="kt_timeline_widget_3_tab_content_1"
+                                 role="tabpanel">
+
+                                <div class="d-flex align-items-center mb-3">
+                                    <span data-kt-element="bullet"
+                                          class="bullet bullet-vertical d-flex align-items-center min-h-70px mh-100 me-8"
+                                          ng-class="{'bg-success' : request.IsActive == true, 'bg-danger' : request.IsActive != true}"></span>
+                                    <div class="flex-grow-1 me-5 text-truncate" ng-click="generateQRCode(request)">
+                                        <div class="text-gray-600 fw-normal fs-5" style="overflow: scroll !important;">
+                                            Pickup person :
+                                            <span class="text-primary opacity-75-hover fw-bold text-truncate" style="overflow: scroll !important;">{{request.PickByFullName}}</span>
+                                        </div>
+
+                                        <div class="text-gray-600 fw-normal fs-5">
+                                            PickUp By :
+                                            <span class="text-primary opacity-75-hover fw-semibold">{{request.PickUpBy}}</span>
+                                        </div>
+
+                                        <div class="text-gray-600 fw-normal fs-5">
+                                            Created date :
+                                            <span class="text-primary opacity-75-hover fw-semibold">{{request.CreatedDateString}}</span>
+                                        </div>
+
+                                        <div class="text-gray-600 fw-normal fs-5">
+                                            Student :
+                                            <span ng-show="request.Student.Value"
+                                               class="text-primary opacity-75-hover fw-semibold">{{request.Student.Value}}</span>
+                                            <span ng-show="!request.Student.Value"
+                                               class="text-primary opacity-75-hover fw-semibold">All</span>
+                                        </div>
+                                        <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+                                    </div>
+
+                                    <div class="text-gray-400 fw-bold fs-7 p-4">
+                                        <a data-fancybox href="{{ContentService}}/ReadImageContentsByID?contentID={{request.PickerProfile}}">
+                                            <img ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{request.PickerProfile}}"
+                                                 on-error-src="./images/profile_img.png" alt="Avatar" class="avatar" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex ms-8 flex-end">
+                                    <div class="d-flex flex-column me-5" ng-if=" request.IsActive == true">
+                                        <a ng-click="generateQRCode(request)"
+                                           class="btn btn-sm btn-light  w-100">Show QR</a>
+                                    </div>
+                                    <div class="d-flex flex-column me-5">
+                                        <a ng-click='CancelorActivePickupRegistration(request)'
+                                           class="btn btn-sm btn-primary  w-100">{{request.ButtonName}}</a>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-xxl-4">
+                <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"
+                     ng-if="!ShowLoader && RegisteredPickupRequests.length == 0">
+                    <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                        <svg width="24" height="24"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                            <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)"
+                                  fill="currentColor" />
+                            <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)"
+                                  fill="currentColor" />
+                        </svg>
+                    </span>
+                    <div class="d-flex flex-column">
+                        <h3 class="mb-1 text-danger">
+                            Student  Pickup Requests not found.</h4>
+                            <span>Student  Pickup Requests not found.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-include src="'partials/Templates/footer.html'"></ng-include>
+
+<style>
+    .avatar {
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+    }
+</style>

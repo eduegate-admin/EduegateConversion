@@ -1,0 +1,180 @@
+﻿<div class="app-page flex-column flex-column-fluid"  ng-controller="LessonPlanController">
+
+
+    <div class="app-content flex-column-fluid"  ng-init="init()">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-container container-xxl pt-5">
+<!-- The main repeater now uses the new card and flexbox styling -->
+<div class="dataWrap setBorder card marginBtm10 border-0" ng-repeat="lesson in LessonPlans">
+
+    <div class="toggleContainer displayFlex flexColumn">
+        <!-- COLLAPSED HEADER: Shows the most important info at a glance -->
+        <div class="toggleHeader displayFlex flexColumn pad10">
+            <div class="d-flex align-items-center">
+
+                <!-- Left side: Title, Subject, and Unit -->
+                <div class="d-flex flex-column flex-grow-1 my-lg-0 pe-3 overflow-hidden">
+                    <a class="text-gray-800 fw-bold text-hover-primary fs-5 capitalize text-lowercase text-truncate">
+                        <span class="fs-2">{{lesson.Title}}</span> <br>
+                        <span class="text-gray-600 fw-normal fs-5">{{lesson.Subject.Value}}</span>
+                    </a>
+                    <!-- Display the Unit here for quick context -->
+                    <span class="text-gray-700 fw-normal fs-6 my-1 mw-300px text-truncate" title="{{lesson.SubjectUnit.Value}}">
+                        Unit: {{lesson.SubjectUnit.Value || 'N/A'}}
+                    </span>
+                </div>
+
+                <!-- Right side: Created Date and the "View All" toggle button -->
+                <div class="text-gray-700 fw-bold fs-6 text-end d-flex flex-column flex-end">
+                    <span class="mb-2 text-nowrap">
+                        {{lesson.CreatedDate | date : 'dd-MM-yyyy'}}
+                    </span>
+                    <div>
+                        <span class="text-primary flexAuto" style="cursor: pointer;" ng-click="toggleGrid($event);">
+                            View All
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPANDED CONTENT: Shows all the detailed information -->
+        <div class="toggleContent pad10 noPaddingTop">
+
+            <!-- General Information Section -->
+            <div class="gridDataWrap">
+                <label>Status:</label>
+                <span>{{lesson.LessonPlanStatus.Value}}</span>
+            </div>
+            <div class="gridDataWrap">
+                <label>Start date:</label>
+                <span>{{lesson.Date1 | date : 'dd-MM-yyyy'}}</span>
+            </div>
+            <div class="gridDataWrap">
+                <label>End date:</label>
+                <span>{{lesson.Date2 | date : 'dd-MM-yyyy'}}</span>
+            </div>
+            <div class="gridDataWrap" ng-if="lesson.Date3">
+                <label>Maximum extended date:</label>
+                <span>{{lesson.Date3 | date : 'dd-MM-yyyy'}}</span>
+            </div>
+            <div class="gridDataWrap" ng-if="lesson.NumberOfPeriods">
+                <label>Number of periods:</label>
+                <span>{{lesson.NumberOfPeriods}}</span>
+            </div>
+            <div class="gridDataWrap" ng-if="lesson.TotalHours">
+                <label>Total hours:</label>
+                <span>{{lesson.TotalHours}}</span>
+            </div>
+
+            <!-- Lesson Details Section -->
+            <div class="subTitle mt-3" ng-if="lesson.Introduction || lesson.Content"><b>Lesson Details</b></div>
+            <div class="gridDataWrap" ng-if="lesson.Introduction">
+                <label>Introduction:</label>
+                <span>{{lesson.Introduction}}</span>
+            </div>
+            <div class="gridDataWrap" ng-if="lesson.Content">
+                <label>Content:</label>
+                <!-- Using ng-bind-html in case the content contains formatting. Ensure you are using $sce in your controller. -->
+                <p ng-bind-html="lesson.Content" class="mb-0"></p>
+            </div>
+             <div class="gridDataWrap" ng-if="lesson.Closure">
+                <label>Closure:</label>
+                <span>{{lesson.Closure}}</span>
+            </div>
+
+            <!-- Topics Section -->
+            <div ng-if="lesson.LessonPlanTopicMap.length > 0">
+                <div class="subTitle mt-3"><b>Topics Covered</b></div>
+                <ul class="list-group list-group-flush mt-2">
+                    <li class="list-group-item py-2 px-0" ng-repeat="topic in lesson.LessonPlanTopicMap">
+                        <strong>{{topic.LectureCode}}:</strong> {{topic.Topic}}
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Tasks and Activities Section -->
+            <div ng-if="lesson.LessonPlanTask.length > 0">
+                <div class="subTitle mt-3"><b>Tasks / Activities</b></div>
+                <ul class="list-group list-group-flush mt-2">
+                    <li class="list-group-item py-2 px-0" ng-repeat="task in lesson.LessonPlanTask">
+                       <span ng-if="task.TaskType.Value" class="badge bg-secondary me-2">{{task.TaskType.Value}}</span> {{task.Task}}
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Additional Information Section -->
+            <div class="subTitle mt-3" ng-if="lesson.SkillFocused || lesson.TeachingMethodology || lesson.LearningExperiences || lesson.HomeWorks"><b>Additional Information</b></div>
+            <div class="gridDataWrap" ng-if="lesson.SkillFocused">
+                <label>Skills Focused:</label>
+                <span>{{lesson.SkillFocused}}</span>
+            </div>
+            <div class="gridDataWrap" ng-if="lesson.TeachingMethodology">
+                <label>Teaching Methodology:</label>
+                <span>{{lesson.TeachingMethodology}}</span>
+            </div>
+            <div class="gridDataWrap" ng-if="lesson.LearningExperiences">
+                <label>Learning Experiences:</label>
+                <span>{{lesson.LearningExperiences}}</span>
+            </div>
+            <div class="gridDataWrap" ng-if="lesson.HomeWorks">
+                <label>Home Works:</label>
+                <span>{{lesson.HomeWorks}}</span>
+            </div>
+
+
+            <!-- Attachments Section -->
+            <div class="gridDataWrap" ng-if="lesson.LessonPlanAttachmentMap.length > 0">
+                <div class="subTitle mt-3"><b>Attachments</b></div>
+                <div ng-repeat="attachment in lesson.LessonPlanAttachmentMap track by $index" class="mt-2">
+                    <div ng-if="attachment.AttachmentReferenceID != null" class="mb-2">
+                        <div class="d-flex align-items-center border border-1 border-gray-300 rounded w-100 bg-light flex-wrap overflow-hidden">
+                            <div class="d-flex flex-aligns-center flex-grow-1 p-3">
+                                <img alt="file icon" class="w-30px me-3" src="./images/pdf.svg">
+                                <div class="ms-1 fw-semibold">
+                                    <a class="fs-5 text-hover-primary fw-bold" ng-bind="attachment.AttachmentName"></a>
+                                    <div class="text-gray-500 fs-7" ng-if="attachment.AttachmentDescription">{{attachment.AttachmentDescription}}</div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-aligns-center bg-white flex-end p-2 border-top border-gray-300 w-100 w-sm-auto border-sm-0">
+                                <a ng-click="DownloadURL(attachment.AttachmentReferenceID)" style="cursor: pointer;" class="d-flex align-items-center text-decoration-none">
+                                    <img src="./images/Downloadsvg.svg" class="me-2" />
+                                    <span class="fs-5 text-gray-700">Download</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!--/toggleContent-->
+
+    </div> <!--/toggleContainer-->
+
+</div>
+            <div class="alert alert-warning text-center" role="alert" ng-if="!ShowLoader && LessonPlans.length == 0">
+                <b>Lesson plan details not found.</b>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .mainTitle {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .toggleHeader.active {
+        padding-bottom: 0;
+        font-weight: bold;
+    }
+    .gridDataWrap {
+    padding: 5px;
+    }
+    .text-center {
+    text-align: center!important;
+    font-weight: 500;
+    }
+</style>

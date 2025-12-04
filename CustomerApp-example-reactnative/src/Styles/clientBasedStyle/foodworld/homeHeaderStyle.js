@@ -1,0 +1,211 @@
+import { StyleSheet } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import colors from "../../../config/colors";
+
+const homeHeaderStyles = StyleSheet.create({
+  mainView: {
+    width: wp("100%"),
+    minHeight: 170,
+    backgroundColor: "white",
+    paddingTop: 30,
+    paddingBottom: 15,
+    overflow: "visible",
+  },
+  headerContainer: {
+    width: wp("100%"),
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: wp("2.5%"),
+  },
+  bannerCnt: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: wp("95%"),
+    minHeight: 70,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+  },
+  bannerSearch: {
+    padding: 10,
+  },
+  bannerCntLeft: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    marginRight: 10,
+  },
+  bannerCntRight: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  mapIcon: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+  },
+  welcomeText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "black",
+    marginLeft: 5,
+    textAlign: "left",
+  },
+  center: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "green",
+    borderRadius: 10,
+    padding: 10,
+    minWidth: 50,
+    minHeight: 50,
+  },
+  tinyLogo: {
+    width: 20,
+    height: 20,
+    resizeMode: "contain",
+    color: colors.green,
+  },
+  welcomeLogo: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    borderColor: "white",
+    borderWidth: 2,
+  },
+  deliveryPoint: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "black",
+    textAlign: "left",
+  },
+  searchContainer: {
+    alignSelf: "center",
+    height: 48,
+    width: wp("90%"),
+    borderColor: "green",
+    borderWidth: 1,
+    borderRadius: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  searchIconContainer: {
+    marginHorizontal: 20,
+  },
+  textInputContainer: {
+    fontSize: 16,
+    marginLeft: 5,
+    flex: 1,
+  },
+  paddbtm14: {
+    paddingBottom: 14,
+  },
+  deliveryPointContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  scanner: {
+    width: 29,
+    height: 29,
+    resizeMode: "contain",
+  },
+  searchResultsContainer: {
+    position: "absolute",
+    top: 155, // Adjusted to be just below the search bar
+    width: wp("90%"),
+    alignSelf: "center",
+    backgroundColor: "#fff",
+    zIndex: 999,
+    maxHeight: hp("40%"),
+    borderTopWidth: 1,
+    borderTopColor: "#eee",
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  searchResultItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 12,
+    paddingHorizontal: wp("4.44%"),
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+    backgroundColor: "#fff",
+  },
+  searchResultImage: {
+    width: 40,
+    height: 40,
+    resizeMode: "contain",
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  searchResultText: {
+    flex: 1,
+    fontSize: 14,
+    color: "#333",
+  },
+  searchResultsHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: wp("4.44%"),
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+    backgroundColor: "#f8f8f8",
+  },
+  searchResultsTitle: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#333",
+  },
+  closeButton: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: "#e0e0e0",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  closeButtonText: {
+    fontSize: 12,
+    color: "#666",
+    fontWeight: "bold",
+  },
+  searchLoadingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 20,
+    paddingHorizontal: wp("4.44%"),
+  },
+  searchLoadingText: {
+    marginLeft: 10,
+    fontSize: 14,
+    color: "#666",
+  },
+  noResultsContainer: {
+    paddingVertical: 20,
+    paddingHorizontal: wp("4.44%"),
+    alignItems: "center",
+  },
+  noResultsText: {
+    fontSize: 14,
+    color: "#666",
+    textAlign: "center",
+  },
+});
+
+export default homeHeaderStyles;

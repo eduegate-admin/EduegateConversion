@@ -1,0 +1,146 @@
+<div ng-controller="StudentExamsDashboardController">
+
+    <!-- Header for mobile -->
+    <div class="app-header d-flex shodow-sm">
+        <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12" id="kt_app_header_container">
+            <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                <a ng-click="$root.goBack()" class="p-5 ms-n5">
+                    <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                </a>
+            </div>
+            <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+                <!-- Mobile menu toggle can be placed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">Exams</h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                <!-- Toolbar items can go here -->
+                 {{CandidateDetails.CandidateName}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="containerWrap" ng-init="Init()">
+        <div class="row g-5 g-xl-10">
+
+            <!-- Welcome Banner - Full width on all devices -->
+            <div class="col-12">
+                <div class="main-carousel" data-flickity='{ "freeScroll": true }'>
+                    <div class="carousel-cell is-selected w-100">
+                        <img src="./images/Onlineexamdashboardimage.png" class="img-fluid is-selected" alt="Online Exam Dashboard"/>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <!-- Scheduled Exams -->
+            <div class="col-12 col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center h-100 gap-4">
+                            <div>
+                                <img src="./images/ScheduledExams.svg" alt="Icon">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title fw-normal fs-2">Scheduled</p>
+                                <p class="card-subtitle fw-semibold fs-2x">Exams</p>
+                            </div>
+                            <div class="card-number fs-3x ms-auto">{{DashBoardDetails[0].Value}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completed Exams -->
+            <div class="col-12 col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center h-100 gap-4">
+                            <div>
+                                <img src="./images/CompletedExams.svg" alt="Icon">
+                            </div>
+                            <div class="card-content">
+                                <p class="card-title fw-normal fs-2">Completed</p>
+                                <p class="card-subtitle fw-semibold fs-2x">Exams</p>
+                            </div>
+                            <div class="card-number fs-3x ms-auto">{{DashBoardDetails[1].Value}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Published Results -->
+            <div class="col-12 col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center h-100 gap-4">
+                            <div>
+                                <img src="./images/PublishedResults.svg" alt="Icon">
+                            </div>
+                            <div class="card-content1">
+                                <p class="card-title fw-normal fs-2">Published</p>
+                                <p class="card-subtitle fw-semibold fs-2x">Results</p>
+                            </div>
+                            <div class="card-number fs-3x ms-auto">{{DashBoardDetails[2].Value}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <!-- Enter Exam -->
+            <div class="col-6 col-md-3" ng-click="ExamListViewClick()">
+                <img src="./images/enter exam.svg" alt="Enter Exam Image" class="img-fluid w-100">
+            </div>
+
+            <!-- Check Result -->
+            <div class="col-6 col-md-3" ng-click="UpcomingExamListViewClick()">
+                <img src="./images/chech result.svg" alt="Check Result Image" class="img-fluid w-100">
+            </div>
+
+            <!-- Upcoming Exams Table -->
+            <div class="col-12 col-md-6">
+                <div class="upcoming-exams-card card">
+                    <div class="card-header">
+                        <h3 class="card-title">Upcoming Exams</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Exam</th>
+                                        <th>Duration</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="exam in UpcomingExams">
+                                        <td>{{exam.OnlineExamDescription}}</td>
+                                        <td>{{exam.Duration}}</td>
+                                        <td>{{exam.OnlineExamStatusName}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="alert alert-warning text-center" role="alert" ng-if="UpcomingExams.length == 0">
+                            <span>There are no scheduled exams for this student at the moment.</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+   
+
+        </div>
+    </div>
+</div>

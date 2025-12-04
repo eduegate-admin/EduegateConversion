@@ -1,0 +1,26 @@
+<ul class="scroll-x row flex-row flex-nowrap gx-5 mb-0">
+    <li data-ng-class="[{'selected':facetItem.Selected},{'hasImage':!facetItem.InitialsText}]"
+        class="w-auto"
+        data-ng-repeat="facetItem in ProductListViewModel.FacetsDetails[1].FaceItems track by $index"
+        ui-sref="productcategory({searchText:'',filterValue:'Category:' + facetItem.value, caption : facetItem.key, category : facetItem.code , showfilter:false })">
+            <a class="d-flex flex-column align-items-center">
+                <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+                    <div class="symbol symbol-circle symbol-60px" ng-if="!facetItem.InitialsText">
+                        <img ng-src="{{facetItem.ItemImage}}" onerror="this.onerror=null;this.src='./images/no-image.jpg'" />
+                    </div>
+                    <div class="symbol symbol-60px symbol-circle" ng-if="facetItem.InitialsText">
+                        <span class="symbol-label bg-light-primary">
+                            <!--begin::Svg Icon | path: icons/duotune/abstract/abs038.svg-->
+                            <span class="d-flex w-25px h-25px fs-1 flex-center ">{{facetItem.InitialsText}}
+
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                    </div>
+                </span>
+                <span class="fw-bold text-gray-800 mb-3 w-70px  text-center" data-ng-bind-html="SkipValidation(facetItem.key)"></span>
+            </a>
+
+    </li>
+</ul>

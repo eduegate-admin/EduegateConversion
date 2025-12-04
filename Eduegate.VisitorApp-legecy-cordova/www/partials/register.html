@@ -1,0 +1,182 @@
+﻿<div>
+    <div class="app-header d-flex d-lg-none">
+        <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12">
+            <div class="d-flex align-items-center  me-lg-15">
+                <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                    <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                </a>
+            </div>
+            <div class="d-flex align-items-center d-lg-none ms-2 fs-3" title="Show sidebar menu">
+                Registration
+            </div>
+            <div class="w-40px">
+            </div>
+        </div>
+    </div>
+
+    <div class="app-main flex-column flex-row-fluid">
+        <div class="d-flex flex-column flex-column-fluid">
+            <div class="app-content flex-column-fluid">
+                <div class="app-container container-xxl pt-5">
+                    <div class="d-flex flex-column flex-lg-row">
+                        <div class="flex-lg-auto min-w-lg-300px">
+                            <div class="card">
+                                <form class="card-body p-10" id="VisitorRegistration"  name="registerform">
+                                    <input type="hidden" id="StudentID" name="StudentID"
+                                        data_ng_model="VisitorRegistration.StudentID">
+                                    <input type="hidden" id="StudentPickerIID" name="StudentPickerIID"
+                                        data_ng_model="VisitorRegistration.StudentPickerIID">
+
+                                    <div class="mb-10">
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">First Name</label>
+                                                <label style="color: red;">*</label>
+                                            </span>
+                                            <input id="FirstName" name="FirstName"  ng-required="true"
+                                                class="form-control form-control-solid" placeholder="First Name"
+                                                data_ng_model="VisitorRegistration.FirstName" />
+                                                <span ng-show=
+                                                "registerform.FirstName.$touched && registerform.FirstName.$error.required "
+                                                               style="color:red">
+                                                             Name is required and can have only alphabets.
+                                                         </span>
+                                        </div>
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Middle Name</label>
+
+                                            </span>
+                                            <input id="MiddleName" name="MiddleName"
+                                                class="form-control form-control-solid" placeholder="Middle Name"
+                                                data_ng_model="VisitorRegistration.MiddleName" />
+
+                                        </div>
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Last Name</label>
+                                                <label style="color: red;">*</label>
+
+                                            </span>
+                                            <input id="LastName" name="LastName" class="form-control form-control-solid"  ng-required="true"
+                                                placeholder="Last Name" data_ng_model="VisitorRegistration.LastName" />
+                                                <span ng-show= "registerform.LastName.$touched && registerform.LastName.$error.required "  style="color:red">
+                                                    Last Name is required and can have only alphabets.
+                                                </span>
+                                        </div>
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Mobile Number</label>
+                                                <label style="color: red;">*</label>
+
+                                            </span>
+                                            <input id="MobileNumber" name="MobileNumber" class="form-control form-control-solid" ng-required="true"
+                                                placeholder="Mobile Number" data_ng_model="VisitorRegistration.MobileNumber" />
+                                                <span ng-show= "registerform.MobileNumber.$touched && registerform.MobileNumber.$error.required "  style="color:red">
+                                                    Mobile Number is required.
+                                                </span>
+                                        </div>
+
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Alternate Mobile Number</label>
+                                            </span>
+                                            <input id="MobileNumber2" name="MobileNumber2" class="form-control form-control-solid"
+                                                placeholder="Mobile Number" data_ng_model="VisitorRegistration.MobileNumber2" />
+                                        </div>
+
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Email ID</label>
+                                                <label style="color: red;">*</label>
+
+                                            </span>
+                                            <input id="EmailID" name="EmailID" type="email" class="form-control form-control-solid" ng-required="true"
+                                                placeholder="Email ID" data_ng_model="VisitorRegistration.EmailID" />
+                                                <span ng-show= "registerform.EmailID.$touched && registerform.EmailID.$error.required "  style="color:red">
+                                                    Email ID is required.
+                                                </span>
+                                        </div>
+
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700" >QID</label>
+
+                                            </span>
+                                            <input id="QID" name="QID" class="form-control form-control-solid"    pattern="[1-9]{1}[0-9]{10}"
+                                                placeholder="QID" data_ng_model="VisitorRegistration.QID" ng-disabled="QIDfill"/>
+
+                                        </div>
+
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Passport Number</label>
+                                                <label style="color: red;">*</label>
+
+                                            </span>
+                                            <input id="PassportNumber" name="PassportNumber" class="form-control form-control-solid" ng-required="true"
+                                                placeholder="Passport Number" data_ng_model="VisitorRegistration.PassportNumber" ng-disabled="PassportNumberfill"/>
+                                                <span ng-show= "registerform.PassportNumber.$touched && registerform.PassportNumber.$error.required "  style="color:red">
+                                                    Passport Number is required.
+                                                </span>
+                                        </div>
+
+<!--
+                                        <div class="mb-8">
+                                            <div class="fieldWrapper" style="text-align: left;">
+                                                <span>
+                                                    <label>Passport Expiry Date</label>
+                                                    <label style="color: red;">*</label>
+                                                </span>
+                                                <input type="date" placeholder="Passport Expiry Date" required=""
+                                                    id="PassportExpiryDate" name="PassportExpiryDate"
+                                                    class="form-control bg-transparent"
+                                                    data_ng_model="StudentPickupRequest.PassportExpiryDate" />
+                                            </div>
+                                    </div> -->
+
+                                    <div class="body mb-10">
+                                        <div class="img-post m-b-15">
+                                            <span>
+                                                <label>Visitor Image</label>
+                                            </span>
+                                            <img id="myImage" on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                class="bd-placeholder-img rounded mx-auto d-block" height="200" width="200" name="avatar"
+                                                accept=".png, .jpg, .jpeg"></img>
+                                            <div class="text-center pt-5">
+                                                <span class="text-center">
+                                                    <button type="button" id="cameraTakePicture" class="btn btn-secondary btn-sm">Take Picture</button>
+                                                </span>
+                                                <!-- <span class="text-center">
+                                                    <button type="button" id="UploadPicture" class="btn btn-primary btn-sm">Upload Image</button>
+                                                </span> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-0">
+
+                                        <button class="btn btn-primary w-100" type="submit"
+                                            ng-click="SubmitVisitorRegistration()" value="Submit"
+                                            style="width: 45%;float: left;">
+                                            <span class="svg-icon svg-icon-3">
+
+                                            </span>Submit
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+
+input:invalid {
+  background-color: #ffeac8 !important;
+}
+
+</style>

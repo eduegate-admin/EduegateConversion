@@ -1,0 +1,320 @@
+<div class="app-page flex-column flex-column-fluid h-100">
+
+    <div class="app-header d-flex shodow-sm">
+        <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+            id="kt_app_header_container">
+            <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                    <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg"
+                        class="h-25px">
+                </a>
+            </div>
+            <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="app-toolbar py-3 py-lg-0 border-bottom border-gray-300">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    <span class="question-count">Q. <span>{{currentQuestionIndex + 1}}</span> of
+                        <span>{{TotalQuestions}}</span></span>
+
+                </h1>
+            </div>
+
+            <div class="px-4 py-2 fs-2 fw-semibold rounded-4 border border-light-danger bg-white border-1 d-flex">
+
+                <div class="fs-3 fw-bolder text-danger" id="endTimeHr"></div>
+                <div class="fs-3 fw-bolder text-danger">:</div>
+
+                <div class="fs-3 fw-bolder  text-danger" id="endTimeMn"> </div>
+                <div class="fs-3 fw-bolder  text-danger"> :</div>
+
+                <div class="fs-3 fw-bolder   text-danger" id="endTimeSc"></div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class=" flex-root  app-container container-xxl pt-5 h-100 d-grid" ng-init="Init()">
+
+
+        <div class="card card-reset h-100">
+
+            <input type="hidden" id="curentindex" name="curentindex" value="1" />
+            <input type="hidden" id="totalquestion" name="totalquestion" value="{{TotalQuestions}}" />
+            <br>
+            <div class="card-body p-0">
+                <div class="d-flex flex-column h-100">
+                    <div class="overflow-scroll h-100">
+
+
+                        <div class="wizard-content" ng-repeat="question in ExamQuestionDatas"
+                            ng-show="$index === currentQuestionIndex">
+                            <div class="fs-2 fw-bolder text-gray-900 text-hover-primary me-1 mb-4">
+                                <span class="fw-normal">Q {{currentQuestionIndex + 1}} .</span> {{question.Question}}
+                            </div>
+
+                            <div ng-if="question.DocFile">
+                                <a data-fancybox="gallery" data-preload="false"
+                                    class="overlay-wrapper avatar-container d-flex border-5 avatar-css">
+                                    <img ng-src="/Content/ReadContentsByID?contentID={{question.DocFile}}"
+                                        onerror="this.src='/img/profile-holder.svg'"
+                                        style="height: 250px; object-fit: cover;"
+                                        class="lozad rounded-4 border border-danger" />
+                                </a>
+                            </div>
+
+                            <div ng-if="question.IsPassageQn">
+                                <div class="passage-content">{{question.PassageContent}}</div>
+                                <div ng-repeat="subquestion in question.PassageQuestions">
+                                    <label style="color: black;">Sub Question {{currentQuestionIndex + 1}}.{{$index +
+                                        1}}</label>
+                                    <div class="fs-3 fw-bold text-gray-700 text-hover-primary me-1">
+                                        {{subquestion.Question}}</div>
+                                    <div ng-if="subquestion.DocFile">
+                                        <a data-fancybox="gallery" data-preload="false"
+                                            class="overlay-wrapper avatar-container d-flex border-5 avatar-css">
+                                            <img ng-src="/Content/ReadContentsByID?contentID={{subquestion.DocFile}}"
+                                                onerror="this.src='/img/profile-holder.svg'"
+                                                style="height: 250px; object-fit: cover;"
+                                                class="lozad rounded-4 border border-danger" />
+                                        </a>
+                                    </div>
+                                    <div ng-if="subquestion.QuestionOptionCount > 0">
+                                        <div class="d-flex flex-column ">
+                                            <span class="mb-4">Answers</span>
+                                            <div ng-if="subquestion.QuestionOptionCount > 0" class="d-grid"
+                                                style="grid-template-columns: repeat(1, 300px); column-gap: 70px;  grid-auto-rows: minmax(100px, auto);">
+                                                <div ng-repeat="option in subquestion.QuestionOptions">
+                                                    <!-- Multiple Choice -->
+                                                    <div ng-if="subquestion.AnswerType == 'Multiple Choice'">
+                                                        <div class="flex-column">
+                                                            <div class="mb-10">
+                                                                <div
+                                                                    class="form-check form-check-custom form-check-solid position-relative">
+                                                                    <input
+                                                                        class="form-check-input btn-check end-0 me-10 bg-transparent"
+                                                                        style="clip: unset; z-index:3; background-size: 100% 100%;"
+                                                                        type="radio"
+                                                                        id="{{question.QuestionIID}}_{{subquestion.QuestionIID}}_{{option.QuestionOptionMapIID}}_SelectedChoice"
+                                                                        name="{{question.QuestionIID}}_{{subquestion.QuestionIID}}_SelectedChoice_Group"
+                                                                        ng-model="question.SelectedOption"
+                                                                        ng-value="option.QuestionOptionMapIID"
+                                                                        ng-click="OptionalChanges(option, question, 'MultipleChoice')" />
+
+                                                                    <label
+                                                                        class="ant-btn option-card ant-btn-button form-check-label mb-0"
+                                                                        for="{{question.QuestionIID}}_{{subquestion.QuestionIID}}_{{option.QuestionOptionMapIID}}_SelectedChoice">
+                                                                        <span
+                                                                            class="option-text">{{option.OptionText}}</span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Multi Select -->
+                                                    <div ng-if="subquestion.AnswerType == 'Multi Select'">
+                                                        <div class="mb-10">
+                                                            <div
+                                                                class="form-check form-check-custom form-check-solid position-relative">
+                                                                <input
+                                                                    class="form-check-input btn-check end-0 me-10 bg-transparent"
+                                                                    style="clip: unset; z-index:3; background-size: 100% 100%;"
+                                                                    type="checkbox"
+                                                                    name="{{question.QuestionIID}}_IsSelectedOption"
+                                                                    id="{{question.QuestionIID}}_{{subquestion.QuestionIID}}_{{option.QuestionOptionMapIID}}_IsSelectedOption"
+                                                                    ng-model="option.IsSelected"
+                                                                    ng-click="OptionalChanges(option, subquestion, 'MultiSelect')" />
+
+                                                                <label
+                                                                    class="ant-btn option-card ant-btn-button form-check-label mb-0"
+                                                                    for="{{question.QuestionIID}}_{{subquestion.QuestionIID}}_{{option.QuestionOptionMapIID}}_IsSelectedOption">
+                                                                    <span
+                                                                        class="option-text">{{option.OptionText}}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        ng-if="subquestion.QuestionOptionCount == 0 && subquestion.AnswerType == 'Text Answer'">
+                                        <div class="form-floating mw-500px border-2">
+                                            <textarea ng-model="subquestion.QuestionAnswer"
+                                                class="form-control form-control form-control-solid"
+                                                placeholder="Enter your answer" style="height: 200px"></textarea>
+                                        </div>
+
+                                        <button type="button" class="btn btn-success"
+                                            ng-click="SaveCandidateQuestionAnswer(null, subquestion, 'textAnswer')">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-if="!question.IsPassageQn">
+                                <div class="d-flex flex-column gap-4     ">
+                                    <span class="mb-4">Answers</span>
+                                    <div ng-if="question.QuestionOptionCount > 0" class="d-grid"
+                                        style="grid-template-columns: repeat(1, 300px); column-gap: 70px;  grid-auto-rows: minmax(100px, auto);">
+                                        <div ng-repeat="option in question.QuestionOptions" class="">
+                                            <div ng-if="question.AnswerType == 'Multiple Choice'">
+                                                <div class="flex-column">
+                                                    <div class="mb-10">
+                                                        <div
+                                                            class="form-check form-check-custom form-check-solid position-relative">
+                                                            <input
+                                                                class="form-check-input btn-check end-0 me-10 bg-transparent"
+                                                                type="radio"
+                                                                style="clip: unset; z-index:3; background-size: 100% 100%;"
+                                                                id="{{question.QuestionIID}}_{{option.QuestionOptionMapIID}}_SelectedChoice"
+                                                                name="{{question.QuestionIID}}_SelectedChoice_Group"
+                                                                ng-model="question.SelectedOption"
+                                                                ng-value="option.QuestionOptionMapIID"
+                                                                ng-click="OptionalChanges(option, question, 'MultipleChoice')" />
+                                                            <label
+                                                                class="ant-btn option-card ant-btn-button form-check-label mb-0"
+                                                                for="{{question.QuestionIID}}_{{option.QuestionOptionMapIID}}_SelectedChoice">
+                                                                <span class="option-text">{{option.OptionText}}</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div ng-if="question.AnswerType == 'Multi Select'">
+                                                <div class="mb-10">
+                                                    <div
+                                                        class="form-check form-check-custom form-check-solid position-relative">
+                                                        <input
+                                                            class="form-check-input btn-check end-0 me-10 bg-transparent"
+                                                            type="checkbox"
+                                                            style="clip: unset; z-index:3; background-size: 100% 100%;"
+                                                            id="{{question.QuestionIID}}_{{option.QuestionOptionMapIID}}_IsSelectedOption"
+                                                            name="IsSelectedOption" ng-model="option.IsSelected"
+                                                            ng-click="OptionalChanges(option, question, 'MultiSelect')" />
+                                                        <label
+                                                            class="ant-btn option-card ant-btn-button form-check-label mb-0"
+                                                            for="{{question.QuestionIID}}_{{option.QuestionOptionMapIID}}_IsSelectedOption">
+                                                            <span class="option-text">{{option.OptionText}}</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="question.QuestionOptionCount == 0 && question.AnswerType == 'Text Answer'">
+                                    <div class="form-floating mw-500px d-flex flex-wrap justify-content-end">
+                                        <textarea ng-model="question.QuestionAnswer" class="form-control rounded-4   form-control min-h-500px"
+                                            placeholder="Enter your answer" ></textarea>
+                                        <button type="button" class="btn btn-success mt-4"
+                                            ng-click="SaveCandidateQuestionAnswer(null, question, 'textAnswer')">Save</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <div class="d-flex flex-center">
+
+                    <button type="button" class=" btn-reset" ng-click="prevQuestion()"
+                        ng-hide="currentQuestionIndex === 0">
+                        <img src="./images/leftarrow.svg" class="me-1" />
+
+                    </button>
+                    <button type="button" class=" btn-reset" ng-click="nextQuestion()"
+                        ng-hide="currentQuestionIndex === TotalQuestions - 1">
+
+                        <img src="./images/rightarrow.svg" class="ms-1" />
+                    </button>
+                    <button type="button" class="btn btn-primary d-flex align-items-center"
+                        ng-click="UpdateExamStatus()" ng-if="currentQuestionIndex + 1 == TotalQuestions">
+                        Finish
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 111111">
+       <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+           <div class="toast-header" style="text-align: center; align-items: center;">
+               <strong class="me-auto">Time Alert</strong>
+               <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+           </div>
+           <div class="toast-body" style="text-align: center; align-items: center;">
+               <b>Exam ends in {{ExamEndBalanceTime}}</b>
+           </div>
+       </div>
+   </div>
+   <div class="modal fade" id="examTimeEndAlert" tabindex="-1" aria-labelledby="examTimeEndAlertLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+       <div class="modal-dialog">
+           <div class="modal-content" style="text-align: center; align-items: center;">
+               <div class="modal-header">
+                   <h1>ATTENTION!</h1>
+               </div>
+               <div class="modal-body">
+                   <b>The maximum time allotted for your exam has been exceeded.</b><br />
+                   <b>But don't worry, your answers will be automatically saved.</b>
+               </div>
+               <div class="modal-footer">
+                   <a class="btn btn-primary" ng-click="FinishExamPopup()">OK</a>
+               </div>
+           </div>
+       </div>
+   </div>
+   <div class="modal fade" id="examTimeChangeAlert" tabindex="-1" aria-labelledby="examTimeChangeAlertLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+       <div class="modal-dialog">
+           <div class="modal-content" style="text-align: center; align-items: center;">
+               <div class="modal-header">
+                   <h1>ATTENTION!</h1>
+               </div>
+               <div class="modal-body">
+                   <b>Time-changing malfunction occurred during the exam.</b><br />
+                   <b>Therefore, the exam has been terminated.</b><br />
+                   <b>Please contact the administration or exam coordinator for assistance.</b><br />
+               </div>
+               <div class="modal-footer">
+                   <a class="btn btn-primary">OK</a>
+               </div>
+           </div>
+       </div>
+   </div>
+   <div class="modal fade" id="examCompletedPopup" tabindex="-1" aria-labelledby="examCompletedLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+       <div class="modal-dialog modal-dialog-centered">
+           <div class="modal-content text-center p-4">
+               <div class="modal-body">
+                   <div class="d-flex flex-column">
+                       <div class="mb-3">
+                           <img src="~/img/success.gif" alt="Check Icon" width="80">
+                       </div>
+                       <h3 class="fw-bold">Exam Completed</h3>
+                       <span class="finish-popup2">Your responses have been submitted.</span>
+                       <button type="button" class="btn btn-primary btn-sm mt-3 mx-auto" data-bs-dismiss="modal" ng-click="FinishExamPopup()">OK</button>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+
+
+</div>

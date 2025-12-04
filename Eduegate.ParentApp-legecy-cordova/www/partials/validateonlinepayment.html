@@ -1,0 +1,27 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="OnlinePaymentController">
+    <div class="app-content flex-column-fluid">
+
+<ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+        <div class="app-container container-xxl pt-5">
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+
+                    <div class="row g-6 g-xl-9" ng-init="init('Validate')">
+
+                        <div class="col-md-6">
+                            <div class="accordion" id="kt_accordion_1">
+                                <p style="margin-bottom:9px; color:#181C32; font-size: 22px; font-weight:700">Processing Your Request</p>
+                                <p style="margin-bottom:2px; color:#7E8299">
+                                    Please Wait,  Don't Refresh
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

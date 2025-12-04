@@ -1,0 +1,303 @@
+﻿<div ng-controller="StudentProfileController">
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    Student profile
+                </h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="pageContainer" ng-init="LoadStudentInfo()">
+        <div class="app-content flex-column-fluid">
+            <div class="app-container container-xxl ">
+                <div class="card mb-5 mb-xl-10 mt-20">
+                    <div class="card-body p-6 fs-5 pt-20 mt-20">
+                        <div class="d-flex flex-column text-center mb-9 px-9 profileImg studentProfile">
+                            <div class="symbol  symbol-150px mt-10 symbol-circle position-absolute top-0 start-50 translate-middle mb-4 border border-3 border-gray-300">
+                                <img style="    object-fit: cover;     object-position: top center;" ng-src="{{StudentDetail.StudentProfileImageUrl}}" on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" />
+                                <i ng-if="!StudentDetail.StudentProfile" class="fa fa-3x fa-user" aria-hidden="true"></i>
+
+                            </div>
+                            <div class="text-center d-flex flex-column">
+                                <a class="text-gray-800 fw-bold text-hover-primary fs-3">
+                                    {{StudentDetail.FirstName}} {{StudentDetail.MiddleName}} {{StudentDetail.LastName}}
+
+                                </a>
+                                <a class="text-gray-600 fw-bold text-hover-primary fs-5">
+                                    {{StudentDetail.ClassName}} {{StudentDetail.SectionName}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/add_no.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-semibold ">Admission no</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800">{{StudentDetail.AdmissionNumber}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/calander.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-semibold">Date of birth</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800">{{StudentDetail.DateOfBirth | date | date : 'dd-MM-yyyy'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/gender.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-semibold">Gender</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800 me-2">{{StudentDetail.GenderName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/bllod.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-semibold">Blood Group</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800">{{StudentDetail.BloodGroupName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/add-date.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4  fw-semibold">Admission Date</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800">{{StudentDetail.AdmissionDate | date | date : 'dd-MM-yyyy'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/email.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4  fw-semibold">Email</label>
+                                <div class="col-lg-8 fv-row">
+                                    <span class="fw-bold text-gray-800 fs-6">{{StudentDetail.EmailID}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/phone.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4  fw-semibold">
+                                    Mobile number
+                                    <div class="col-lg-8 d-flex align-items-center">
+                                        <span class="fw-bold fs-6 text-gray-800 me-2">{{StudentDetail.MobileNumber}}</span>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-5 mb-xl-10">
+                    <div class="card-header px-6 border-0 min-h-50px">
+                        <h3 class="card-title fw-bold text-gray-900">
+                            Father Details
+                        </h3>
+                    </div>
+                    <div class="card-body p-6 fs-5">
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/profile.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-semibold">Father name</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800" ng-bind="StudentDetail.Guardian.FatherFirstName"></span>
+                                    <span class="fw-bold fs-6 text-gray-800" ng-bind="StudentDetail.Guardian.FatherMiddleName"></span>
+                                    <span class="fw-bold fs-6 text-gray-800" ng-bind="StudentDetail.Guardian.FatherLastName"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/phone.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-bold fw-semibold">Father mobile no</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800">{{StudentDetail.MobileNumber}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/email.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-bold fw-semibold">Father email</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800">{{StudentDetail.Guardian.FatherEmailID}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-5 mb-xl-10">
+                    <div class="card-header px-6 border-0 min-h-50px">
+                        <h3 class="card-title fw-bold text-gray-900">
+                            Mother Details
+                        </h3>
+                    </div>
+                    <div class="card-body p-6 fs-">
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/femaleprofile.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-bold fw-semibold">Mother name</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800" ng-bind="StudentDetail.Guardian.MotherFirstName"></span>
+                                    <span class="fw-bold fs-6 text-gray-800" ng-bind="StudentDetail.Guardian.MotherMiddleName"></span>
+                                    <span class="fw-bold fs-6 text-gray-800" ng-bind="StudentDetail.Guardian.MotherLastName"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/phone.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-bold fw-semibold">Mother mobile no</label>
+                                <div class="col-lg-8">
+                                    <span class="fw-bold fs-6 text-gray-800">{{StudentDetail.Guardian.MotherPhone}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/email.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-bold fw-semibold">Mother email</label>
+                                <div>
+                                    <span class="fw-bold fs-6 text-gray-800">{{StudentDetail.Guardian.MotherEmailID}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-5 mb-xl-10" ng-if="StudentDetail.StudentSiblings.length > 0">
+                    <div class="card-header px-6 border-0 min-h-50px">
+                        <h3 class="card-title fw-bold text-gray-900">
+                            Sibling Details
+
+                        </h3>
+                    </div>
+                    <div class="card-body p-6 fs-5">
+
+                        <div class="d-flex" >
+                            <div>
+                                <div class="symbol symbol-35px bg-light-pearl symbol-circle me-3">
+                                    <span class="symbol-label  bg-light-pearl">
+                                        <img src="./images/profile/sibling.svg" class="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <label class="col-lg-4 fw-bold fw-semibold">Siblings</label>
+                                <div class="gridDataWrap col-lg-8">
+
+                                    <span ng-repeat="sibling in StudentDetail.StudentSiblings">{{sibling.Value}}<br /></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>
+<style>
+
+
+    .studentProfile .profileImg {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 0 10px;
+    }
+</style>

@@ -1,0 +1,31 @@
+
+<div class=" card-flush h-xl-100"
+   class="carousel carousel-custom slide" >
+   <div class="separator separator-content my-10 ng-scope border-secondary">
+    <h4 class="w-250px text-gray-800 fw-bold mb-0  ng-scope">Shop by Category</h4>
+</div>
+    <!-- <div class="card-header align-items-center pt-7">
+        <h4 class="card-label fw-bold text-gray-800 m-0">Shop by Category</h4>
+        <div class="card-toolbar">
+
+        </div>
+    </div> -->
+    <div class="card-body pt-3">
+<div class="row g-3 g-md-5 mb-0">
+    <div   class="col-4 col-sm-3 col-md-2 col-lg-1"  ng-repeat="category in Categories" >
+        <div class="w-100 rounded-0">
+                <div class="d-flex align-items-center row mb-0 "   ui-sref="productcategory({filterValue:'Category:' + category.CategoryIID, caption : category.CategoryName, category : category.CategoryCode, showfilter:false })">
+                    <div class="">
+                        <img ng-src="{{category.ImageName}}" onerror="this.onerror=null;this.src='./images/no-image.jpg'" class="w-100 rounded-3 custom-10  mb-3 " alt="">
+
+                    </div>
+                    <div class="m-0" >
+                        <h5 class="fw-bold text-gray-800 ">{{category.CategoryName}} </h5>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+</div>

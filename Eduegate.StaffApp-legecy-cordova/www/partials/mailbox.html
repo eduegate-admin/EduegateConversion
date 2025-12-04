@@ -1,0 +1,53 @@
+<div class="app-page flex-column flex-column-fluid" >
+
+
+    <div class="app-content flex-column-fluid">
+        <div class="app-toolbar py-3 py-lg-0 justify-content-end">
+            
+            <button class="btn btn-sm fw-bold btn-primary text-white right me-4" ng-click="MarkAsRead(data.NotificationAlertIID)">Mark all as read</button>
+
+        </div>
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+      
+        <div class="app-container container-xxl pt-5">
+ 
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+                    <div class="row g-6 g-xl-9"  id="mailbox-container" style="overflow-y: auto; height: 100vh;">
+                        <div class="col-md-6 col-xxl-4"  ng-repeat="data in MailBoxes">
+                            <div class="card">
+                                <div class="card-body p-lg-20">
+                                    <div class="gridDataWrap">
+                                        <label class="text-gray-800">Notification Date</label>
+                                        <div class="text-success fs-6">{{data.NotificationDate | date | date : 'dd-MM-yyyy'}}</div>
+                                    </div>
+                                    <div class="gridDataWrap">
+                                        <label class="text-gray-800">Message</label>
+                                        <div class="text-info fs-6 fw-semibold" ng-bind-html='data.Message | newlineToBr '></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert" ng-if="!ShowLoader && MailBoxes.length == 0">
+                                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                                        <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                        <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <div class="d-flex flex-column">
+                                    <h3 class="mb-1 text-danger">Not found!</h3>
+                                    <span>No notifications found.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

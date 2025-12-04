@@ -1,0 +1,63 @@
+<div class="header">
+    <div class="header-inner">
+        <ng-include ng-show="ShowLoader" src="'partials/main-loader.html'"></ng-include>
+        <div class="nav-sidebar align-left">
+            <div class="backtopage"><a ui-sref="home({loadBlocks:false})" ui-sref-opts="{reload: true}"></a></div>
+            <!-- <div class="backtopage"><a href="" ng-click="$root.goBack()" class=" p-5 ms-n5">&nbsp;</a></div> -->
+        </div><!--nav-sidebar-->
+        <div class="header-text"><span translate>CHOOSESTORE</span></div>
+        <ng-include src="'partials/header.html'"></ng-include>
+        <span class="cart-icon"><a href="" id="cart" ui-sref="cart" ui-sref-opts="{reload: true}"><i class="fa fa-shopping-cart"></i></a></span>
+    </div>
+</div><!--header-->
+
+<div class="loginregContainer withHeader">
+    <div class="loginregInner">
+        <div class="loginRegWrap">
+             <div class="loginregLogo"><img src="clients/{{$root.ClientSettings.Client}}/img/tabLogo.png" loading="lazy"/></div>
+             <div class="tabData fullwidth displaylineBlock noMarginBtm">
+                <form name="registerForm" id="RegisterForm" ng-submit="Save()" novalidate>
+                    <div class="formContainer">
+                        <div class="whiteBg formInner boxShadow displaylineBlock noMarginBtm">                   
+                            <div class="fieldWrap locateStore">
+                                <label>{{'CHOOSESTORE'|translate}}
+                                    <span class="labelControls">
+                                        <span class="textright cursorPointer" ng-click="GetNearestBranch()">
+                                            <i class="fa fa-map-marker" aria-hidden="true">
+                                            </i>&nbsp;{{'AUTOLOCATE' | translate}}
+                                        </span><span>|</span>
+                                        <span ng-click="PickStoreFromMap()"
+                                            class="textright cursorPointer"><i class="fa fa-map" aria-hidden="true">
+                                            </i>&nbsp;{{'PICK' | translate}}
+                                        </span>
+                                    </span>
+                                </label>
+                                <span class="countries">
+                                    <select required name="
+                                    SelectedStore" id="SelectedStore" ng-model="SelectedStore"                                 
+                                    ng-change="BranchChange(SelectedStore)">
+                                    <option ng-repeat="brn in Branches" value="{{brn.BranchIID}}">
+                                        {{brn.BranchName}}
+                                    </option>
+                                </select>
+                                <span class="red inputerror" ng-show="submitted && registerForm.Country.$error.required" translate>SELECTYOURSTORE</span>
+                                </span>
+
+                                <br/>
+                                <br/>
+                                <div class="fullwidth align-left textcenter paddingtop5 tabCredentials">
+                                    <button type="submit" class="btnStyle rounded" translate>Submit</button>
+                                </div>     
+                            </div>     
+                        </div>
+                    </div>
+                             
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="googleMapStoreContainer" ng-if="isGoogleMapStoreContainer">
+    <ng-include src="'partials/storeingooglemap.html'"></ng-include>
+</div>
+    

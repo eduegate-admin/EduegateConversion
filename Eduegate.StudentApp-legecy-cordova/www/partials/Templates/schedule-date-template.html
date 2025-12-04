@@ -1,0 +1,101 @@
+<div ng-controller="DatePickerController">
+    <div class="dateTimePickerOverlay" ng-click=hideDateTimePicker()></div>
+    <div class="dateTimePicker">
+        <div class="dateTimeCalendar"></div>
+        <!-- <input class="form-control form-control-solid" placeholder="Pick date rage" id="kt_daterangepicker_4"/> -->
+        <!-- <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+              <button type="button" class="btn btn-secondary">1</button>
+              <button type="button" class="btn btn-secondary">2</button>
+              <button type="button" class="btn btn-secondary">3</button>
+              <button type="button" class="btn btn-secondary">4</button>
+            </div>
+        </div> -->
+        <!-- <script>
+            var start = moment().subtract(29, "days");
+var end = moment();
+
+function cb(start, end) {
+    $("#kt_daterangepicker_4").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
+}
+
+$("#kt_daterangepicker_4").daterangepicker({
+    startDate: start,
+    endDate: end,
+    ranges: {
+    "Today": [moment(), moment()],
+    "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+    "Last 7 Days": [moment().subtract(6, "days"), moment()],
+    "Last 30 Days": [moment().subtract(29, "days"), moment()],
+    "This Month": [moment().startOf("month"), moment().endOf("month")],
+    "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+    }
+}, cb);
+
+cb(start, end);
+        </script>    -->
+        <!-- <div class="selectedData displayFlex flexColumn pad10 relativePos">
+            <div class="displayFlex flexColumn">
+                <div class="schedule schedulerDate displayFlex padbtm10 align-items-center">
+                    <label>
+                        <img src="./images/calendar-pen.svg"  class="h-15px me-3"/>
+                        <span translate>SELECTEDDATE</span></label>
+                    <div id="pickedDate">{{ScheduleDate | date : 'dd/MM/yyyy'}}</div>
+                </div> -->
+                <!-- <div class="schedule schedulerTime displayFlex">
+                    <label><i class="fa fa-clock-o" aria-hidden="true"></i><span translate>SELECTEDTIME</span></label>
+                    <div id="pickedTime">{{ScheduleDate | date : 'hh:mm a'}}</div>
+                </div> -->
+            <!-- </div>
+        </div> -->
+        <div class="displayFlex flexColumn pad10 fullwidth borderBtmE4 borderTopE4">
+            <label class="displayFlex fullwidth" translate>Delivery Place</label>
+            <div class="fieldWrap noPaddingLeft noPaddingRight">
+                <div class="d-flex flex-column">
+                    <div id="timeSlot" class="relativePos selectRadioOption bgSelect my-4"
+                        ng-repeat="type in OrderTypes">
+                        <div class="displayFlex justify-center">
+                            <div
+                                class="form-check form-check-custom form-check-solid form-check-primary me-6">
+                                <input class="form-check-input" type="radio" value="{{type.Key}}"
+                                    name="ordertype" id="ordertype" ng-model="$root.OrderType" />
+                            </div>
+                            <span class="selection">
+                                {{type.Value}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="text-danger" ng-show="ShowTimeslot">Select Timeslot</span>
+        </div>
+        <div class="displayFlex flexColumn pad10 fullwidth borderBtmE4 borderTopE4">
+            <label class="displayFlex fullwidth" translate>TIMESLOT</label>
+            <div class="fieldWrap noPaddingLeft noPaddingRight">
+                <div class="d-flex flex-column">
+                    <div id="timeSlot" class="relativePos selectRadioOption bgSelect my-4"
+                        ng-repeat="time in TimeSlots"
+                        ng-click="CartDeliverySelectionChanged($event,undefined,time.DeliveryTypeTimeSlotMapIID, undefined, delivery)">
+                        <div class="displayFlex justify-center">
+                            <div
+                                class="form-check form-check-custom form-check-solid form-check-primary me-6">
+                                <input class="form-check-input" type="radio" value="1"
+                                    name="deliveryslot" />
+                            </div>
+                            <span class="selection">
+                                {{time.TimeFrom}} -
+                                {{time.TimeTo}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="text-danger" ng-show="ShowTimeslot">Select Timeslot</span>
+        </div>
+        <hr class="noMargin"/>
+        <div class="d-flex flex-end m-3">
+            <button class="btn btn-sm  medium resetminWidth me-4"  ng-click="hideDateTimePicker()" translate>CANCEL</button>
+            <button class="btn btn-sm btn-primary resetminWidth btn-primary"  ng-click="$parent.SelectScheduleDateTime(ScheduleDate, $parent.SelectedTimeSlotMapID)" translate>OK</button>
+        </div>
+    </div>
+</div>

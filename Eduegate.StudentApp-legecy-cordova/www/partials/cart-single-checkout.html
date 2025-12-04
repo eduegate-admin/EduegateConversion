@@ -1,0 +1,382 @@
+<div class="app-page flex-column flex-column-fluid">
+    <div class="app-content flex-column-fluid">
+        <div class="app-header d-flex shodow-sm">
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12" id="kt_app_header_container">
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                    <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0"> Checkout </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3"></div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5">
+            <div class="row g-5 g-xl-10">
+                <ng-include src="'partials/delivery-point.html'" ng-if="$root.ClientSettings.ShowStickyDeliveryPoint"> </ng-include>
+                <div class="col-xl-4 mb-xl-10">
+                    <div class="card" ng-if="(shoppingCart.Products.length <= 0 || shoppingCart.Products == null) && isLoaded == true">
+                        <div class="card-body ">
+                            <div class="cartempty"> <img src="clients/{{$root.ClientSettings.Client}}/img/cartempty.png" alt="Empty Cart" />
+                                <span class="errormsg" translate>Shoppingcartisempty</span> <span class="create-acc-button">
+                                    <a type="submit" class="btn btn-light-primary" href="" ui-sref="onlinestore" ui-sref-opts="{reload: true}" translate>StartShoppingNow</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" ng-if="shoppingCart.Products.length > 0">
+                        <div class="card-body px-6" id="myButton" tabindex="-1">
+                            <div>
+                                <div class="displayFlex fullwidth padbtm5 justify-end" feature-flag="removeallbutton">
+                                    <button class="btn btn-sm btn-light btn-active-light-primary me-3">
+                                        <span class="indicator-label" ng-click="RemoveCartItem(product.SKUID,true, $index)">Delete</span>
+                                    </button>
+                                </div>
+                                <ul class="shoppingcartlist noMarginBtm">
+                                    <li ng-repeat="product in shoppingCart.Products track by $index" ng-class="{'liproductqtyoutofstock':errorcheckout[$index] == 3}" class="last-seperator">
+                                        <div class="d-flex flex-row position-relative " style="border-radius: .85rem;">
+                                            <span class="position-absolute w-100 h-100 rounded-2 product" id="{{product.ProductID}}"></span>
+                                            <span class="symbol symbol-100px me-4 border border-1 border-grey-100">
+                                                <img ng-src="{{GetProductImage(product.ImageFile)}}" loading="lazy" on-error-src="{{ErrorImage()}}" /></span>
+                                                <span class="">
+                                                    <a class="text-gray-800 text-hover-primary fs-4 fw-bold" ng-bind-html="SkipValidation(product.BrandName)"></a>
+                                                    <a ui-sref="productdetails({skuID:product.SKUID})" class="text-gray-600 fw-semibold mb-3 d-block" ng-bind-html="SkipValidation(product.ProductName)">
+
+                                                    </a>
+                                                <div class="d-flex align-items-center justify-content-start">
+                                                    <span class="fw-bold text-gray-800 fs-6" ng-if="product.PriceUnit != product.DiscountedPrice" ng-bind="product.PriceUnit"> </span>
+                                                    <span class="fw-bold text-gray-800 fs-5" data-highlightword="{{$root.DefaultDisplayCurrency}} "  ng-bind="product.DiscountedPrice |   currency : $root.DefaultDisplayCurrency "> </span>
+                                                </div>
+                                                <span class="amount text-grey-700 noMargin noPadding" ng-if="product.ProductOptionName" ng-bind="product.ProductOptionName"></span>
+                                                <span class="prop red" ng-if="errorcheckout[$index] == 2"><label translate>Out Of Stock</label></span>
+                                                <span class="prop red" ng-if="errorcheckout[$index] == 4"><label translate>Product not available</label></span>
+                                                <div class="">
+                                                    <span class="add-to-cart ng-scope ng-hide" ng-show="$root.GetCartItemQuantity(product.SelectedCatalog.SKUID) == 0" ng-if="product.SelectedCatalog.ProductDiscountPrice > 0 &amp;&amp; product.SelectedCatalog.ProductAvailableQuantity > 0">
+                                                        <button type="button" title="ADD TO CART" class="to-Cart add-to-cart-btn" ng-click="AddtoCart(product.SelectedCatalog, 1);">
+                                                            <span class="txt-btn ng-scope" translate="">Add</span> <span class="add-plus"></span>
+                                                        </button>
+                                                    </span>
+                                                    <div class="cart-counter ng-scope" ng-show="$root.GetCartItemQuantity(product.SelectedCatalog.SKUID) != 0" ng-if="!(product.SelectedCatalog.ProductDiscountPrice == 0 || product.SelectedCatalog.ProductAvailableQuantity <= 0)"> <button class="btn-cart left" ng-click="AddtoCart(product.SelectedCatalog,-1);">
+                                                        <div class="touch-cart-btn leftBtn">-</div>
+                                                        </button>
+                                                        <button class="btn-cart right" ng-click="AddtoCart(product.SelectedCatalog,1);">
+                                                            <div class="touch-cart-btn rightBtn">+</div>
+                                                        </button>
+                                                    </div>
+                                                    <div class="no-count" ng-show="$root.GetCartItemQuantity(product.SelectedCatalog.SKUID) != 0">
+                                                        <div>
+                                                            <span class="ng-binding">1</span>
+                                                        </div>
+                                                    </div>
+                                                </div> <span class="button disableanchor savelater displaynone" ng-if="LoggedIn==true"><a href="" ng-click="AddSaveForLater(product.SKUID)" class="greygradient"><label translate>SaveforLater</label></a></span>
+                                            </span>
+                                        </div>
+                                        <span class="qty-cart-container mt-0 pt-4">
+                                            <span class="">
+                                                <span ng-if="errorcheckout[$index] == 1">
+                                                    <div class="dropdown relativePos displaylineBlock d-flex flex-row flex-center">
+                                                        <a ng-click="RemoveCartItem(product.SKUID,true, $index)" class="text-gray-800 text-hover-danger fw-bolder  fs-5">Delete</a>
+                                                        <div class="cart-counter rounded">
+                                                            <button class="btn btn-icon btn-sm btn-light-info rounded" ng-click="decreaseQty(product.Quantity,product)" ng-disabled="product.Quantity == 1"> - </button>
+                                                            <span class="w-35px">
+                                                                <input class="form-control form-control-transparent form-control-sm text-center" type="text" ng-model="product.Quantity" ng-change="UpdateItem(product,product.Quantity)" ng-value="product.Quantity" readonly />
+                                                            </span>
+                                                            <button class="btn btn-icon btn-sm btn-light-info rounded" ng-click="increaseQty(product.Quantity,product)"> + </button>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                                <span ng-if="errorcheckout[$index] == 3">
+                                                    <div class="dropdown relativePos displaylineBlock">
+                                                        <div class="quantityField">
+                                                            <button class="qtyCntrl reduceQty" ng-click="decreaseQty(product.Quantity,product)" ng-disabled="product.Quantity == 1"> - </button>
+                                                            <span class="fieldQty">
+                                                                <input type="text" class="form-control form-control-transparent" ng-model="product.Quantity" ng-change="UpdateItem(product, product.Quantity)" ng-value="product.Quantity" />
+                                                            </span>
+                                                            <button class="qtyCntrl increaseQty" ng-click="increaseQty(product.Quantity,product)"> + </button>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </span>
+                                            <span ng-if="errorcheckout[$index] == 3" class="quantityoos-sign"><i id="quantityoostxt" ng-click="showQtyError()" class="fa fa-question-circle-o"></i></span>
+                                        </span>
+                                        <span ng-if="errorcheckout[$index] == 3" class="quantityoos">
+                                            <label translate>SelectedproductQuantityisnotavailable </label><br /> <label translate>Defaultmaxquantityselected </label><i class="fa fa-caret-up"></i> </span>
+                                        <div ng-if="shoppingCart.Products.length <= 0" class="separator my-10"></div>
+                                        <div class="separator my-6 "></div>
+                                    </li>
+                                </ul>
+                                <div class=" noMarginBtm" ng-if="$root.ClientSettings.EmployeeLogin || $root.IsCustomerAdmin"> <span class="fullwidth displaylineBlock padbtm5"> <span class="orderid" translate>Customer Name</span> </span>
+                                    <div class="displayFlex fullwidth padbtm justify-content-between align-items-center pad10 boxShadow setBorder highLight">
+                                        <div class="d-flex flex-column" ng-if="shoppingCart.CustomerID && shoppingCart.CustomerID > 0">
+                                            <label class="ng-scope">{{shoppingCart.CustomerCode}}</label>
+                                            <label class="font-bold ng-scope">{{shoppingCart.CustomerName}}</label>
+                                        </div>
+                                        <div class="d-flex flex-column" ng-if="!(shoppingCart.CustomerID && shoppingCart.CustomerID > 0)">
+                                            <label class="font-bold ng-scope">No customer selected</label>
+                                        </div>
+                                        <button class="btnStyle small" ng-click="FilterClick()"><span translate>Change/Pick Customer</span><i class="fa fa-user-circle fontSize14 padLeft5 padRight5" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 mb-5 mb-xl-10" ng-if="(shoppingCart.Products.length > 0 || shoppingCart.Products != null) && isLoaded == true">
+                    <div class="card card-custom bg-body  h-md-100">
+                        <div class="card-header pt-5 px-6 border-0">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label fw-bold text-gray-800 fs-3">Choose Student</span> </h3>
+                        </div>
+                        <div class="card-body d-flex justify-content-center flex-wrap pt-6 px-6">
+                            <div class="d-flex flex-column mw-md-300px w-100 " ng-if="isLoaded == true && ClientSettings.DeliveryAddressEnabled == false">
+                                <div class="" ng-if="Students" data-kt-buttons="true" data-kt-buttons-target=".btn-outline, .form-check-input">
+                                    <label ng-repeat="student in Students" ng-click="GetStudentDeliveryDetails(student)" data-ng-class="{'active  border-active border-primary'  :CheckOutPaymentDTO.SelectedStudentID == student.StudentIID}" class="btn btn-outline btn-active-light-primary d-flex flex-stack text-start p-6 mb-5 border border-2 border-light ">
+                                        <div class="d-flex align-items-center me-2">
+                                            <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
+                                                <input class="form-check-input" type="radio" value="1" name="group1" />
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h2 class="d-flex align-items-center fs-4 fw-bold flex-wrap"> {{ student.FirstName}} {{ student.MiddleName }} {{ student.LastName }} </h2>
+                                                <div class="fw-semibold opacity-50"> {{student.ClassName}} </div>
+                                            </div>
+                                        </div>
+                                        <div class="ms-5">
+                                            <span class="mb-2">#</span>
+                                            <span class="fs-3 fw-bold"> {{student.AdmissionNumber}} </span>
+                                        </div>
+                                    </label>
+                                    <div class="modal fade" tabindex="-1" id="allergyModal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content position-absolute">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Allergy alert</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Selected student may have possible </p> <span class="text-danger">
+                                                        <div class="" ng-repeat="SelectedStudentAllergy in SelectedStudentAllergy">
+                                                            <span class="text-danger" ng-bind="SelectedStudentAllergy.AllergyName"></span>
+                                                            <span>Allergy from the product </span>
+                                                            <span class="text-danger" ng-bind="SelectedStudentAllergy.ProductName"></span>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="separator my-5"></div>
+                            </div>
+                            <div class="w-100 mb-6" ng-if="CheckOutPaymentDTO.SelectedStudent">
+                                <div class="tab-content rounded h-100 bg-light p-6">
+                                    <div class="tab-pane fade show active">
+                                        <div class="pb-5">
+                                            <h2 class="fw-bold text-dark">Selected Student's Details!</h2>
+                                            <div class="text-muted fw-semibold"> Order will be delivered to selected student class </div>
+                                        </div>
+                                        <div class="pt-1">
+                                            <div class="d-flex align-items-center mb-7"> <span class="fw-semibold fs-5 text-gray-700 flex-grow-1 text-truncate"> Student </span> <a class="text-dark fw-bold text-hover-primary fs-5 me-4 text-truncate"> {{CheckOutPaymentDTO.SelectedStudentFirstName}} {{CheckOutPaymentDTO.SelectedStudentMiddleName}} {{CheckOutPaymentDTO.SelectedStudentLastName}} </a> </div>
+                                            <div class="d-flex align-items-center mb-7"> <span class="fw-semibold fs-5 text-gray-700 flex-grow-1 text-truncate"> Class </span> <a class="text-dark fw-bold text-hover-primary fs-5 me-4 text-truncate"> {{CheckOutPaymentDTO.SelectedShippingAddress}} </a> </div>
+                                            <div class="d-flex align-items-center mb-7"> <span class="fw-semibold fs-5 text-gray-700 flex-grow-1 text-truncate"> School </span> <a class="text-dark fw-bold text-hover-primary fs-5 me-4 text-truncate"> {{CheckOutPaymentDTO.SelectedStudentSchool}} </a> </div>
+                                            <div class="d-flex align-items-center "> <span class="fw-semibold fs-5 text-grey-700 flex-grow-1 text-truncate"> Academic Year </span> <a class="text-dark fw-bold text-hover-primary fs-5 me-4 text-truncate"> {{CheckOutPaymentDTO.SelectedStudentAcademicYear}} </a> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column mw-md-300px w-100">
+                                <h4 class="fw-bold text-gray-800 mb-5 fs-3">Choose how to Deliver</h4>
+                                <div class="d-grid flex-equal gap-5 gap-xxl-9 px-0 mb-12 " style=" grid-template-columns: auto auto auto;"> <label ng-repeat="delivery in DeliveryTypes" ng-click="CartDeliverySelectionChanged($event,'type',undefined, delivery.DeliveryTypeID, delivery)" class="selectRadioOption btn bg-light btn-color-gray-600 btn-active-text-gray-800 border border-3 border-gray-100 border-active-primary btn-active-light-primary w-100 px-4">
+                                    <input class="btn-check" type="radio" name="group1">
+                                        <div class="fs-2hx mb-2 pe-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16">
+                                                <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z" />
+                                            </svg>
+                                        </div>
+                                        <span class="fs-7 fw-bold d-block">{{ delivery.DeliveryTypeName }}</span>
+                                    </label>
+                                </div>
+                                <div class="">
+                                    <div class="" ng-show="OrderTypes" ng-if="OrderTypes && DeliveryTypeID == 14">
+                                        <div class="delivery-op commonOption deliveryType">
+                                            <span class="fullwidth displaylineBlock padbtm5">
+                                                <span class="orderid">Select Delivery Place</span>
+                                            </span> <br>
+                                            <div class="d-flex flex-column">
+                                                <div id="timeSlot" class="relativePos selectRadioOption bgSelect my-2" ng-repeat="type in OrderTypes">
+                                                    <div class="displayFlex justify-center">
+                                                        <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
+                                                            <input class="form-check-input" type="radio" value="{{type.Key}}"
+                                                             name="ordertypes" id="ordertype" ng-model="$root.OrderType"/>
+                                                        </div>
+                                                        <span class="selection"> {{type.Value}} </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="" ng-show="TimeSlots" ng-if="HastimeSlot && DeliveryTypeID !=14">
+                                        <div class="delivery-op commonOption deliveryType">
+                                            <span class="fullwidth displaylineBlock padbtm5">
+                                                <span class="orderid">Select Delivery Slot</span>
+                                            </span> <br>
+                                            <div class="d-flex flex-column">
+                                                <div id="timeSlot" class="relativePos selectRadioOption bgSelect my-2" ng-repeat="time in TimeSlots" ng-click="CartDeliverySelectionChanged($event,undefined,time.DeliveryTypeTimeSlotMapIID, undefined, delivery)">
+                                                    <div class="displayFlex justify-center">
+                                                        <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
+                                                            <input class="form-check-input" type="radio" value="1" name="deliveryslot" />
+                                                        </div>
+                                                        <span class="selection"> {{time.TimeFrom}} - {{time.TimeTo}} </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-center justify-content-between w-100" ng-show="DeliveryTypeID==13">
+                            <label translate>SCHEDULEFORLATER</label>
+                            <div class="schedular  displayFlex">
+                                <div class="displayFlex fullwidth schedularInner" ng-click="showDateTimePicker();">
+                                    <div class="scheduledTime displayFlex">
+                                        <span>{{OrderScheduleDate | date : 'dd/MM/yyyy'}}</span>
+                                    </div>
+                                    <span class="icon"></span>
+                                </div>
+                                <ng-include src="'partials/Templates/schedule-date-template.html'"></ng-include>
+                            </div>
+                        </div>
+                        <div class="col-xl-6" ng-show="DeliveryTypeID==14">
+                            <div class="card card-flush h-lg-100" id="kt_contacts_main">
+                                <div class="card-header" id="kt_chat_contacts_header">
+                                    <div class="card-title"> <i class="ki-outline ki-badge fs-1 me-2"></i>
+                                        <h2>Scheduel dates</h2>
+                                    </div>
+                                </div>
+                                <div class="separator"></div>
+                                <div class="card-body pt-5">
+                                    <form id="subscriptionForm" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                                        <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                                            <div class="col">
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                                        <span class="required">how often do you want this subscription</span>
+                                                    </label>
+                                                    <div class="w-100">
+                                                        <select id="subscriptionTypeID" name="multipleSelect" id="multipleSelect{{ward.StudentIID}}" data_ng_model="subscriptionForm.subscriptionTypeID" ng-change="isWeekly(subscriptionForm.subscriptionTypeID)" style="display: block;" class=" my-2 form-select  form-select-lg form-select-solid js-example-basic-single allergies" ng-options="subscriptionTypes as subscriptionTypes.SubscriptionName for subscriptionTypes in SubscriptionTypes" required>
+                                                        </select>
+                                                    </div>
+                                                    <div class="d-grid w-100" ng-show="isweekselected" style=" grid-column-start: 1;   grid-column-end: 3;  justify-items: stretch;align-content: space-evenly;  row-gap: 16px; grid-template-columns: auto auto auto;">
+                                                        <div class="form-check" ng-repeat="GetWeekDays in GetWeekDays"> <input id="subscriptionDaysID{{GetWeekDays.DayID}}" data-DayID="{{GetWeekDays.DayID}}" class="form-check-input" type="checkbox" name="subscriptionDaysID{{GetWeekDays.DayID}}" data_ng_model="subscriptionForm.subscriptionDaysID[GetWeekDays.DayID]" />
+                                                            <input type="hidden" />
+                                                            <label class="form-check-label" for="subscriptionDaysID{{GetWeekDays.DayID}}"> {{GetWeekDays.DayName}}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fieldWrapper" style="text-align: left;">
+                                                        <span>
+                                                            <label>Start date</label>
+                                                            <label style="color: red;">*</label>
+                                                        </span>
+                                                        <input type="date" placeholder="Subsciption Start date" required="" id="SubsciptionStartDateString" data_ng_model="subscriptionForm.SubsciptionStartDateString" name="SubsciptionStartDateString" class="form-control bg-transparent" ng-change="DateChange()" min="{{minDate | date:'yyyy-MM-dd'}} " />
+                                                    </div>
+                                                    <div class="fieldWrapper" style="text-align: left;">
+                                                        <span>
+                                                            <label>end date</label>
+                                                            <label style="color: red;">*</label>
+                                                        </span>
+                                                        <input type="date" ng-change="updateSelectedDate()" placeholder="Subsciption End date" required="" id="SubsciptionEndDateString" data_ng_model="subscriptionForm.SubsciptionEndDateString" name="SubsciptionEndString" class="form-control bg-transparent" data_ng_model="StudentPickupRequest.SubsciptionEndString" /> </div>
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback" ng-hide="!isDisabledErrorMessage">
+                                                        <span class="text-danger fs-5">Select at least two consecutive workdays from the input start date and end date, excluding weekends and holidays</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-12 "> </div>
+                                            <div class="col-12">
+                                                <div class="" ng-show="TimeSlots" ng-if="HastimeSlot && DeliveryTypeID ==14">
+                                                    <div class="delivery-op commonOption deliveryType">
+                                                        <span class="fullwidth displaylineBlock padbtm5">
+                                                            <span class="orderid">Select Delivery Slot</span>
+                                                        </span> <br>
+                                                        <div class="d-flex flex-column">
+                                                            <div id="timeSlot" class="relativePos selectRadioOption bgSelect mt-4" ng-repeat="time in TimeSlots">
+                                                                <div class="displayFlex justify-center">
+                                                                    <div class="form-check form-check-custom form-check-solid form-check-primary me-6">
+                                                                        <input class="form-check-input" type="radio" value="1" name="deliveryslot" id="SubsciptionTimeSlotString" data_ng_model="subscriptionForm.SubsciptionTimeSlotString" name="SubsciptionTimeSlotString" />
+                                                                    </div>
+                                                                    <span class="selection">{{time.TimeFrom}} - {{time.TimeTo}} </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="separator mb-3"></div>
+                                        <div class="d-flex flex-end w-100">
+                                            <button ng-disabled="isDisabled" ng-click="CartDeliverySelectionChangedforSchedule($event,undefined, undefined, delivery)" class="btn btn-primary btn-sm">save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer py-5 w-100">
+                            <div class="d-flex flex-stack">
+                                <span class="fw-bold text-gray-600">Sub total</span>
+                                <span class="text-gray-700 fw-bolder fs-6" ng-bind="shoppingCart.SubTotalWithDiscount| currency : $root.DefaultDisplayCurrency"></span>
+                            </div>
+                            <div class="d-flex flex-stack">
+                                <span class="fw-bold text-gray-600">Discount</span>
+                                <span class="payLimit textcenter warningInfo ng-scope" ng-if="shoppingCart.DiscountWarning">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <span ng-bind="shoppingCart.DiscountWarning"> </span>
+                                </span>
+                                <span class="text-gray-700 fw-bolder fs-5"  data-highlightword="{{$root.DefaultDisplayCurrency}} " ng-bind="shoppingCart.Discount| currency : $root.DefaultDisplayCurrency"></span>
+                            </div>
+                            <div class="d-flex flex-stack">
+                                <span class="fw-bold text-gray-600">Total</span>
+                                <span class=" fw-bolder fs-5"  data-highlightword="{{$root.DefaultDisplayCurrency}} " ng-bind="shoppingCart.Total| currency : $root.DefaultDisplayCurrency"></span>
+                            </div>
+                            <span class="payLimit fullwidth textcenter warningInfo" ng-if="shoppingCart.CartWarning">
+                            <span ng-bind="shoppingCart.CartWarning"></span> </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modalOverlay" ng-click="hideModalOverlay()"> </div>
+<div class="modalPopUp" ng-show="$root.ShowLoader == false">
+    <div class="circleloaderWrap" ng-show="ShowLoader">
+        <div class="circleloader"></div>
+    </div>
+    <ng-include class="card" src="'partials/Templates/checkout-payment.html'"></ng-include>
+</div>
+<style>
+    @keyframes animation-pulse {
+        0% {
+            opacity: 1
+        }
+
+        40% {
+            opacity: 0
+        }
+
+        50% {
+            opacity: 0
+        }
+
+
+        100% {
+            opacity: 1
+        }
+    }
+</style>

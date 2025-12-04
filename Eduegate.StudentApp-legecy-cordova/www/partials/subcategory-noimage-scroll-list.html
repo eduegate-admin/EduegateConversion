@@ -1,0 +1,13 @@
+<div class="categoryTabList boxShadow"
+    ng-if="ProductListViewModel && ProductListViewModel.FacetsDetails[1] && ProductListViewModel.FacetsDetails[1].FaceItems.length > 0">
+    <div class="categoryTabInner">
+        <ul>
+            <!-- <li><span class="catTabCaption" translate>VIEWALL</span></li> -->
+            <li data-ng-class="{'selected':facetItem.Selected}" class="categoryWidget"
+                data-ng-repeat="facetItem in ProductListViewModel.FacetsDetails[0].FaceItems track by $index"
+                ui-sref="productcategory({searchText:'',filterValue:'Category:' + facetItem.value, caption : facetItem.key, category : facetItem.code  })">
+                <span class="catTabCaption" data-ng-bind-html="SkipValidation(facetItem.key)"></span>
+            </li>
+        </ul>
+    </div>
+</div>

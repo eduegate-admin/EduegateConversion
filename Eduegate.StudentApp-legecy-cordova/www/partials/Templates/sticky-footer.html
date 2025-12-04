@@ -1,0 +1,6 @@
+<div class="footerStickyControls displayFlex" id ="footer" ng-if="$root.ShoppingCartItemCount > 0">
+    <div class="cartcount">{{$root.ShoppingCartItemCount}} <span translate>Items</span></div>
+    <div feature-flag="multipagecheckout" class="viewCart textcenter" ui-sref="cart" translate>VIEWCART</div>
+    <div feature-flag="singlepagecheckout" class="viewCart textcenter" ui-sref="singlecheckout" translate>VIEWCART</div>
+    <div class="cartTotal textright"><span></span><span>{{$root.ShoppingCartAmount | currency : $root.DefaultDisplayCurrency}}</span></div>
+</div>

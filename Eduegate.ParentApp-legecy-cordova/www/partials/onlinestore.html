@@ -1,0 +1,353 @@
+<div class="app-wrapper flex-column flex-row-fluid" ng-controller="OnlineStoreHomeController">
+    <div class="app-main flex-column flex-row-fluid pb-20">
+        <div class="card card-flush h-xl-100  border-0  rounded-0 position-sticky z-index-3 bg-green"
+            style="top: -140px;">
+            <div
+                class="card-header rounded rounded-0 bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-200px">
+                <h3 class="card-title align-items-start flex-column  text-gray-800 pt-10">
+                          <a  ng-click="$root.goBack()" class=" p-5 ms-n5">
+                <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+            </a>
+                </h3>
+                <div class="card-toolbar pt-15">
+                    <div class="menu">
+                        <div class="menu-icon">
+                            <a  data-target="slide-out" class="sidenav-trigger">
+                                <div class="menu-icon"><span></span><span></span><span></span></div>
+                                <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/bars-solid.svg"
+                                    class="theme-light-show h-25px w-30px" />
+                                <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/menu.png"
+                                    class="theme-dark-show" />
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body mt-n20 pb-0 app-container">
+                <div class="mt-n20 position-relative">
+                    <div class="col-xxl-8">
+                        <!-- <div class="banner-search-logo mb-4">
+                            <img src="clients/{{$root.ClientSettings.Client}}/img/logo-search.png" height="30px">
+                        </div> -->
+                        <div class="row g-5 g-xl-10">
+                            <form class="w-100 position-relative" autocomplete="off"
+                                ng-click="$root.ClientSettings.FullPageSearch && DisplaySearchPopover()">
+                                <span
+                                    class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 ms-5 translate-middle-y">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+                                            transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
+                                        <path
+                                            d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                            fill="currentColor"></path>
+                                    </svg>
+                                </span>
+                                <input class="form-control form-control-solid px-15 border-1 border-secondary shadow-sm"
+                                    type="search" autocomplete="off" style="box-sizing: border-box;"
+                                    placeholder="{{'SearchHere' | translate}}" ng-model="$root.searchText"
+                                    ng-keyup="$event.keyCode == 13 && $root.SearchProducts($event)">
+                                <span class="position-absolute top-50 end-0 translate-middle-y lh-0 me-5 d-none">
+                                    <span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="kt_app_toolbar" class="app-toolbar  py-4 pt-lg-10 ">
+
+            <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex align-items-stretch ">
+                <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+                    <div class="d-flex align-items-center" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+                        data-kt-menu-overflow="true" data-kt-menu-placement="top-start">
+                        <div class="d-flex flex-center cursor-pointer symbol symbol-circle symbol-40px">
+                            <img style="    object-fit: cover;     object-position: right top;" class="z-index-3 w-40px"
+                                ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{DefaultStudent.StudentProfile}}"
+                                on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                alt="image" loading="lazy">
+                        </div>
+
+                        <div class="d-flex flex-column align-items-start justify-content-center ms-3">
+                            <span class="text-gray-500  fs-8 fw-semibold">Selected student</span>
+                            <a class="text-gray-800 fs-7 fw-bold text-hover-primary">{{DefaultStudent.StudentName}}</a>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+
+                        <a ui-sref="defaultstudent" class="btn btn-flex btn-primary h-40px fs-7 fw-bold"
+                            data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">
+                            Change
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl bg-white theme-dark-bg-body rounded-3 rounded-bottom-0">
+            <div class="boilerPlateContainer" ng-if="BoilerPlates.length > 0">
+                <div class="fullwidth align-left d-flex flexColumn" ng-controller="CategoryParameterController"
+                    ng-repeat="boilerplate in $root.BoilerPlates">
+                    <div class="row g-5 g-xl-10">
+                        <div class="col-xl-4 mb-xl-10">
+                            <ng-include src="'boilerplates/' + boilerplate.Template"
+                                onload="finishLoading(boilerplate)"></ng-include>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+</div>
+
+<!--<footer class="footer rounded-0">
+    <div class="footer-bottom ios-pb-5">
+        <div class="h-80px">
+        </div>
+        <div class="footer-menu app-container container-xxl">
+            <div class="footer-menu-left">
+                <div class="footer-menu-list" ui-sref="home({loadBlocks:false})" ui-sref-opts="{reload: true}">-->
+                    <!-- <img class="footer-menu-list-icon active" src="clients/{{$root.ClientSettings.Client}}/img/home-icon.svg"> -->
+                    <!--<span class="footer-menu-list-icon active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z" />
+                        </svg>
+                    </span>
+                    <h3 class="text-grey-800">Home</h3>
+                </div>
+                <div class="footer-menu-list" ui-sref="allcategoriestree">-->
+                    <!-- <img class="footer-menu-list-icon active" src="clients/{{$root.ClientSettings.Client}}/img/options-lines.svg"> -->
+                    <!--<span class="footer-menu-list-icon active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            class="bi bi-collection-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z" />
+                        </svg>
+                    </span>
+                    <h3 class="text-grey-800">Category</h3>
+                </div>
+            </div>
+            <div class="footer-menu-right">
+
+                <div class="licartClick footer-menu-list " ui-sref="singlecheckout">
+                    <span class="footer-menu-list-icon active position-relative">
+                        <span
+                            class="badge badge-circle badge-danger position-absolute translate-end bottom-100 start-100 ms-n10 mb-n4 d-flex flex-center  h-20px w-20px fs-9 text-white  "
+                            ng-bind="ShoppingCartCount" ng-if="ShoppingCartCount > 0"
+                            style="border: 2px solid var(--bs-body-bg);"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+                            fill="currentColor">--><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                            <!--<path
+                                d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                        </svg>
+                    </span>-->
+                    <!-- <img class="footer-menu-list-icon active" src="clients/{{$root.ClientSettings.Client}}/img/more-icon.svg"> -->
+                    <!--<h3 class="text-grey-800">Cart</h3>
+
+                </div>
+                <div class="footer-menu-list" ui-sref="setting">-->
+                    <!-- <img class="footer-menu-list-icon active" src="clients/{{$root.ClientSettings.Client}}/img/options-lines.svg"> -->
+                    <!--<span class="footer-menu-list-icon active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            class="bi bi-gear-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                        </svg>
+                    </span>
+                    <h3 class="text-grey-800">Settings</h3>
+                </div>
+
+
+            </div>
+        </div>
+</footer>-->
+<ng-include src="'partials/Templates/footer.html'"></ng-include>
+
+
+<div class="modal fade" id="modal_new_target" tabindex="-1" aria-modal="true" role="dialog"
+    ng-controller="ProfileController">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content rounded">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                <!--begin:Form-->
+                <form id="kt_modal_new_target_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#">
+                    <!--begin::Heading-->
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Allergy Selection Form</h1>
+                        <!--end::Title-->
+
+                        <!--begin::Description-->
+                        <div class="text-muted fw-semibold fs-5">
+                            This form is used to collect information about your allergies <a
+                                class="fw-bold link-primary">This information will be used to help keep you safe and
+                                healthy in the school environment.</a>.
+                        </div>
+                        <!--end::Description-->
+                    </div>
+                    <!--end::Heading-->
+                    <div class="row gy-5 g-xl-10">
+
+                        <div class="col-xl-4">
+                            <div class="accordion" id="kt_accordion_1">
+                                <div class="accordion-item" ng-repeat="ward in MyWards">
+                                    <h2 class="accordion-header border" id="kt_accordion_1_header_2">
+                                        <button class="accordion-button fs-4 fw-bold collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#kt_accordion_1_body_{{$index}}"
+                                            aria-expanded="false" aria-controls="kt_accordion_1_body_{{$index}}">
+                                            <div
+                                                class="d-flex fs-6 fw-bold align-items-center w-100 justify-content-between">
+                                                <div class="d-flex flex-column">
+                                                    <div class="text-gray-700 flex-grow-1 ">{{ward.FirstName}}
+                                                        {{ward.MiddleName}} {{ward.LastName}}</div>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="kt_accordion_1_body_{{$index}}" class="accordion-collapse collapse show"
+                                        ng-class='{show:$first}' aria-labelledby="kt_accordion_1_header_{{$index}}"
+                                        data-bs-parent="#kt_accordion_{{$index}}">
+                                        <div class="accordion-body">
+                                            <div class="row g-5">
+                                                <div class="my-5">
+                                                    Selected Student Allergies
+                                                    <div ng-repeat="sustudentAllergies in StudentAllergies">
+                                                        <div class=""
+                                                            ng-if="ward.StudentIID == sustudentAllergies.StudentID">
+                                                            <span
+                                                                class="badge bg-primary text-inverse-primary py-2 px-3 me-3 mb-3"
+                                                                ng-repeat="Allergiesa in sustudentAllergies.Allergies">{{Allergiesa.AllergyName}}
+                                                                -
+                                                                {{Allergiesa.AllergySeverityName}} </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card" ng-repeat="allergy in Allergies">
+                                                        <div class="card-body">
+                                                            <div class="form-group d-flex align-items-center mb-3">
+                                                                <div class="d-flex flex-column me-4">
+                                                                    <h4 class="fw-bold text-dark mb-0">{{allergy.Value}}
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="d-flex justify-content-end">
+                                                                    <div
+                                                                        class="form-check form-check-custom form-check-solid form-check-success form-switch">
+                                                                        <input type="hidden" value="false"
+                                                                            name="layout-allergy-{{ward.FirstName}}-{{allergy.Value}}">
+                                                                        <input ng-model="checked"
+                                                                            class="form-check-input w-45px h-30px"
+                                                                            type="checkbox" value="true"
+                                                                            name="layout-allergy-{{ward.FirstName}}-{{allergy.Value}}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group " ng-repeat="severity in Severity">
+                                                                <div class="d-flex gap-7 mb-3">
+                                                                    <div
+                                                                        class="form-check form-check-custom form-check-success form-check-solid form-check-sm">
+                                                                        <input ng-model="value" ng-disabled="!checked"
+                                                                            value="{{severity.Key}}"
+                                                                            ng-change="SaveAllergies($event, ward.StudentIID, {{allergy.Key}}, severity)"
+                                                                            class="form-check-input" type="radio"
+                                                                            checked=""
+                                                                            id="layout-severity-{{ward.FirstName}}-{{allergy.Value}}-{{severity.Value}}"
+                                                                            name="layout-severity-{{ward.FirstName}}-{{allergy.Value}}">
+                                                                        <label
+                                                                            class="form-check-label text-gray-700 fw-bold text-nowrap"
+                                                                            for="layout-severity-{{ward.FirstName}}-{{allergy.Value}}-{{severity.Value}}">{{severity.Value}}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <!--begin::Input group-->
+                    <div class="mb-15 fv-row">
+                        <!--begin::Wrapper-->
+                        <div class="d-flex flex-stack">
+                            <!--begin::Label-->
+                            <div class="fw-semibold me-5">
+                                <label class="fs-6">Hide Form</label>
+
+                                <div class="fs-7 text-muted">Don't show this message again</div>
+                            </div>
+                            <!--end::Label-->
+
+                            <!--begin::Checkboxes-->
+                            <div class="d-flex align-items-center">
+                                <!--begin::Checkbox-->
+                                <label class="form-check form-check-custom form-check-solid me-10">
+                                    <input class="form-check-input h-20px w-20px" type="checkbox" name="communication[]"
+                                        value="email" checked="checked" ng-model="allergiesSelected">
+
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--begin::Actions-->
+                    <div class="text-center">
+                        <button type="reset" id="kt_modal_new_target_cancel" class="btn btn-light me-3"
+                            data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+
+                        <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary"
+                            ng-click="allergiesClose($event, allergiesSelected)" data-bs-dismiss="modal">
+                            <span class="indicator-label">
+                                Submit
+                            </span>
+                            <span class="indicator-progress">
+                                Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end:Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+
+<style>
+    .loader-blk {
+        background: var(--bs-white);
+        z-index: 2;
+    }
+</style>

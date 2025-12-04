@@ -1,0 +1,79 @@
+<div ng-controller="StudentFinesController">
+
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    Fines
+                </h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="containerWrap" ng-init="Init()">
+        <div class="dataWrap setBorder boxShadow marginBtm10" ng-repeat="gridModel in FeeFines track by $index">
+            <div class="toggleContainer displayFlex flexColumn whiteBg">
+                <div class="toggleHeader displayFlex flexColumn pad10">
+                    <div class="mainTitle fullwidth relativePos displayFlex">
+                        <span class="flexOne" translate>Invoice no : <strong>{{gridModel.InvoiceNo}}</strong></span>
+                        <span style="float: right;" class="currSign">{{gridModel.Amount|number:2}}</span>
+                        <span class="headerBtn flexAuto" ng-click="toggleGrid($event);">
+                            <i class="fa fa-eye"
+                               aria-hidden="true"></i> View all
+                        </span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Type :</label>
+                        <span>{{gridModel.FeeMaster}}</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Fee period :</label>
+                        <span>{{gridModel.FeePeriod}}</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Date :</label>
+                        <span>{{gridModel.InvoiceDateString}}</span>
+                    </div>
+                </div>
+                <div class="toggleContent pad10 noPaddingTop">
+                    <div class="gridNestedContainer">
+                        <div class="gridNestedData" ng-repeat="gridMonthModel in gridModel.FeeMonthly track by $index">
+                            <div class="gridDataWrap" style="border-bottom: 1px solid #ece2e2; padding-bottom: .5rem;">
+                                <label>Month :</label>
+                                <span class="">{{gridMonthModel.MonthName}}</span>
+                            </div>
+                            <div class="gridDataWrap" style="border-bottom: 1px solid #ece2e2; padding-bottom: .5rem;">
+                                <label>Amount :</label>
+                                <span class="currSign">{{gridMonthModel.Amount|number:2}}</span>
+                            </div>
+                            <div class="gridDataWrap" style="border-bottom: 1px solid #ece2e2; padding-bottom: .5rem;">
+                                <label>Credit note :</label>
+                                <span class="currSign">{{gridMonthModel.CreditNote|number:2}}</span>
+                            </div>
+                            <div class="gridDataWrap">
+                                <label>Balance :</label>
+                                <span class="currSign">{{gridMonthModel.Balance|number:2}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>
+
+
+<style>
+    .gridNestedData .gridDataWrap {
+        padding: 0;
+        margin-bottom: 1rem;
+    }
+</style>

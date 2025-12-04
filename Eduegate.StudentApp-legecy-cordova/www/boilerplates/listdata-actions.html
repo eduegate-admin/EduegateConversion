@@ -1,0 +1,18 @@
+<div  ng-controller="DataListController">
+    <div ng-if="DataLists">
+        <div class="product-title fullwidth align-left"><span ng-bind="WidgetTitle" class="ng-binding" translate>{{WidgetTitle}}</span>
+        </div>
+    </div>
+</div>
+<div class="listwidget" ng-controller="DataListController">
+    <div ng-if="DataLists">
+
+
+        <ul>
+            <li ng-repeat="list in DataLists.Items">
+                <a ng-if="list.Link" href="" ui-sref="{{list.Link}}"><span class="widget_icon"><img src={{list.ImageUrl}}></span><span translate>{{list.Caption}}</span></a>
+                <a ng-if="!list.Link" href=""><span class="widget_icon"><img src={{list.ImageUrl}}></span><span translate>{{list.Caption}}</span></a>
+            </li>
+        </ul>
+    </div>
+</div>

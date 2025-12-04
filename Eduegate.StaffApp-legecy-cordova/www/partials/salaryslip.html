@@ -1,0 +1,101 @@
+﻿<div ng-controller="SalarySlipController">
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+    <div class="app-container container-xxl pt-5" ng-init="init()">
+        <div class="row g-5 g-xl-10">
+            <div class="col-xl-6 mb-5 mb-xl-10">
+                <div class="card card-flush carousel carousel-custom carousel-stretch slide h-xl-100 pointer-event">
+                    <div class="card-body p-5">
+                        <div class="">
+                            <div class="d-flex flex-column overflow-hidden">
+                                <form class="d-flex flex-column w-100" style="text-align: left;" id="StaffSalarySlip">
+                                    <div class="row gy-10 g-xl-10">
+                                        <div class="col-12">
+                                            <span class="form-group">
+                                                <span class="controls w-100">
+
+                                                    <span class="controls brand">
+                                                        <label>Month<span class="cufon"
+                                                            style="color:red;font-weight:700">&nbsp;*</span></label>
+                                                        <select class="form-select" required=""
+                                                            aria-required="true" name="SelectedMonth" id="SelectedMonth"
+                                                            ng-options="item as item.Value for item in Months track by item.Key"
+                                                            data_ng_model="StaffSalarySlip.SelectedMonth"
+                                                             autofocus=autofocus tabindex="0">
+                                                        </select>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="form-group">
+                                                <span class="controls w-100">
+                                                    <label>Year<span class="cufon"
+                                                            style="color:red;font-weight:700">&nbsp;*</span></label>
+                                                    <span class="controls brand">
+                                                        <select class="form-select" required=""
+                                                            aria-required="true" name="SelectedYear" id="SelectedYear"
+                                                            data_ng_model="StaffSalarySlip.SelectedYear"
+                                                            ng-options="item as item.Value for item in Years track by item.Key"
+                                                            >
+                                                        </select>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary mt-3 align-items-end" type="submit"
+                                        ng-click="GetSalarySlipList()" value="Submit">Submit</button>
+                                </form>
+                                <div class="d-flex m-0 flex-column flex-end gap-3 mt-4" ng-if="SalarySlips.length != 0">
+                                    <div ng-if="SalarySlips!= null">
+                                        <a class="btn btn-primary ms-2 flex-shrink-0"
+                                            ng-click="DownloadURL(SalarySlips.ReportContentID)">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="currentColor" class="bi bi-file-earmark-arrow-down"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z" />
+                                                    <path
+                                                        d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                </svg>
+                                            </span>
+                                            </i>Download Salary slip for date {{SalarySlips.SlipDate | date:
+                                            'fullDate'}}
+                                        </a>
+
+
+                                    </div>
+
+
+                                </div>
+                                <div class="flex flex-col text-center py-9 gap-5" ng-if="SalarySlips.length == 0">
+                                    <div class="flex flex-col gap-1.5">
+                                        <h3 class=" font-semibold text-gray-900 text-center">
+                                            No payslips available for download
+                                        </h3>
+                                        <span class="font-medium text-center text-gray-600">
+                                            There are currently no payslips available for download for
+                                            <br>
+                                            Selected Month.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--containerWrap-->
+
+
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

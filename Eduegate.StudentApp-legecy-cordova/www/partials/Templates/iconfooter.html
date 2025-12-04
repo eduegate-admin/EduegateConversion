@@ -1,0 +1,8 @@
+<div class="footerStickyControls displayFlex" ng-if="$root.ShoppingCartItemCount > 0">
+    <div class="promotion" href="" ui-sref="promotion" translate></div>
+    <div class="homelogo" ui-sref="home({loadBlocks:false})" ui-sref-opts="{reload: true}" href="#!/homefalse"></div>
+    <!-- <div class="cartcount">{{$root.ShoppingCartItemCount}} <span translate>Items</span></div>
+    <div class="cartTotal textright"><span>AED </span><span>{{$root.ShoppingCartAmount}}</span></div> -->
+    <div feature-flag="multipagecheckout" class="viewCart textcenter" ui-sref="cart" translate></div>
+    <div feature-flag="singlepagecheckout" class="viewCart textcenter" ui-sref="singlecheckout" translate></div>
+</div>

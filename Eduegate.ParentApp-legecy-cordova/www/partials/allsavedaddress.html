@@ -1,0 +1,82 @@
+﻿<div class="mainwrap savedaddress">
+
+    <div class="header">
+        <div class="header-inner">
+            <ng-include ng-show="ShowLoader" src="'partials/main-loader.html'"></ng-include>
+            <div class="nav-sidebar align-left">
+                <div class="backtopage"><a href="" ng-click="$root.goBack()" class=" p-5 ms-n5">&nbsp;</a></div>
+            </div>
+            <!--nav-sidebar-->
+            <div class="header-text"><span translate>SavedAddress</span></div>
+            <ng-include src="'partials/header.html'"></ng-include>
+        </div>
+        <ng-include src="'partials/searchheader.html'"></ng-include>
+    </div>
+    <!--header-->
+
+    <div class="maincontentarea noSearch">
+
+        <div class="content greybg">
+            <div class="pagesections">
+                <div class="fullwidth align-left main-spacing">
+                    <div class="categories list-container listview align-left">
+                        <span class="fullwidth align-left product-title main-spacing">
+                            <span class="orderid"><span ng-bind="AddressList.length"></span>&nbsp;<label
+                                    class="greyColor" translate>ADDRESSADDED</label></span>
+                            <span class="addaddress"><a href="" ng-click="AddAddress()">+</a></span>
+                        </span>
+                        <ul class="productlist">
+                            <li ng-repeat="address in AddressList">
+                                <section class="tdys-deals-sc">
+                                    <div class="container">
+                                        <div class="dsh-menu-cnt">
+                                            <span class="titlecolumn addressclick">
+                                                <span class="caption">
+                                                    <span class="add-name"
+                                                        ng-bind-html="SkipValidation(address.FirstName + ' ' + (address.LastName != undefined && address.LastName != null ?  address.LastName : ''))"></span>
+                                                    <span ng-bind-html="SetAddress(address)"></span>
+                                                </span>
+
+                                                <span class="edit-delete">
+                                                    <!--<a href="" ng-click="EditAddress(address.ContactID)"><i class="fa fa-edit"></i></a>-->
+                                                    <button type="button" ng-click="DeleteAddress(address.ContactID)"><i
+                                                            class="fa fa-trash"></i></button>
+                                                    <!--<a href="" ng-click="DeleteAddress(address.ContactID)"><i class="fa fa-trash"></i></a>-->
+                                                </span>
+                                                <span
+                                                    class="fullwidth align-left saveaddressbtncontrols padtop10 textcenter">
+                                                    <button style="margin-bottom: 5px;" class="primary-button buttoncolourblue" type="button"
+                                                        ng-click="EditAddress(address.ContactID)"><label style="margin-bottom: 0;"
+                                                            translate>EditAddress</label></button>
+                                                    <button class="primary-button" type="button"
+                                                        ng-click="SelectAddress(address)" ng-if="UseThisAddress"><label  style="margin-bottom: 0;"
+                                                            translate>USETHISADDRESS</label></button>
+                                                </span>
+                                            </span>
+                                            <span class="fullwidth displaylineBlock textright tagAddress"
+                                                ng-if="GeolocationEnabled">
+                                                <span class="tagAddress align-right"
+                                                    ng-click="GetTaggedAddressMap(address.Latitude,address.Longitude)">
+                                                    <span class="tagAddress" translate>yourTaggedlocation</span><i
+                                                        class="fa fa-map-o" aria-hidden="true"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </section>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--offers-->
+            </div>
+        </div>
+        <!--content-->
+
+    </div>
+    <!--maincontentarea-->
+</div>
+<div class="googleMapContainer" ng-if="$root.ClientSettings.RegisterWithGeoLocation">
+    <ng-include src="'partials/googlemap.html'"></ng-include>
+</div>

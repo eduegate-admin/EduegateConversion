@@ -1,0 +1,124 @@
+﻿<div ng-controller="AssignmentController">
+    <div class="containerWrap">
+        <div ng-if="Assignments && Assignments.length === 0">
+            No assignments found.
+        </div>
+        <div class="dataWrap setBorder boxShadow marginBtm10" ng-repeat="assignment in Assignments"><!--ng-repeat="assignment in Assignments"-->
+            <div class="toggleContainer displayFlex flexColumn whiteBg">
+                <div class="toggleHeader displayFlex flexColumn pad10">
+                    <div class="mainTitle fullwidth relativePos displayFlex">
+                        <span class="flexOne" translate>{{assignment.Title}}</span>
+                        <span class="headerBtn flexAuto" ng-click="toggleGrid($event);"><i class="fa fa-eye" aria-hidden="true"></i> View All</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Title:</label>
+                        <span>Shapes</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Description:</label>
+                        <span>Collect different type of shapes</span>
+                    </div>
+                </div><!--toggleHeader-->
+                <div class="toggleContent pad10 noPaddingTop">
+                    <div class="gridDataWrap">
+                        <label>start Date:</label>
+                        <span>05/21/2020</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Freeze Date:</label>
+                        <span>06/21/2020</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Date of Submission:</label>
+                        <span>06/21/2020</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Assignment Type:</label>
+                        <span>06/21/2020</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Assignment Status:</label>
+                        <span>Created</span>
+                    </div>
+                    <div class="gridNestedContainer"><!--ng-if-->
+                        <div class="subTitle">Assignment Details</div>
+
+                        <div class="gridNestedData"><!-- ng-repeat=""-->
+                            <div class="gridDataWrap">
+                                <label>Assignment Id:</label>
+                                <span>11</span>
+                            </div>
+                            <div class="gridDataWrap">
+                                <label>Attachment Name:</label>
+                                <span>Shapes</span>
+                            </div>
+                            <div class="gridDataWrap">
+                                <label>Description:</label>
+                                <span>A shape is the form of an object or its outline, outer boundary or outer surface.</span>
+                            </div>
+                            <div class="gridDataWrap">
+                                <label>Notes:</label>
+                                <span>Require the signature from Class Teacher.</span>
+                            </div>
+                        </div>
+
+                        <div class="gridNestedData"><!-- ng-repeat=""-->
+                            <div class="gridDataWrap">
+                                <label>Assignment Id:</label>
+                                <span>11</span>
+                            </div>
+                            <div class="gridDataWrap">
+                                <label>Attachment Name:</label>
+                                <span>Shapes</span>
+                            </div>
+                            <div class="gridDataWrap">
+                                <label>Description:</label>
+                                <span>A shape is the form of an object or its outline, outer boundary or outer surface.</span>
+                            </div>
+                            <div class="gridDataWrap">
+                                <label>Notes:</label>
+                                <span>Require the signature from Class Teacher.</span>
+                            </div>
+                        </div>
+
+                    </div><!--gridNestedContainer-->
+                    
+                </div><!--toggleContent-->
+            </div><!--toggleContainer-->
+
+            <!-- <div class="dataWrap setBorder boxShadow" ng-repeat="assignment in Assignments">
+                <div class="fieldListing displayFlex alignItemCenter borderBtm whiteBg">
+                    <label>Title</label>
+                    <span>{{assignment.Title}}</span>
+                </div>   
+                <div class="fieldListing displayFlex alignItemCenter borderBtm whiteBg">          
+                    <label>Status</label>
+                    <span>{{assignment.AssignmentStatus.Value}}</span>
+                </div>
+                <div class="fieldListing displayFlex alignItemCenter borderBtm whiteBg">          
+                    <label>Type</label>
+                    <span>{{assignment.AssignmentType.Value}}</span>
+                </div>
+                <div class="fieldListing displayFlex alignItemCenter borderBtm whiteBg"> 
+                    <label>Class</label>
+                    <span>{{assignment.Class.Value}}</span>
+                </div>
+                <div class="fieldListing displayFlex alignItemCenter borderBtm whiteBg">   
+                    <label>Section</label>
+                    <span>{{assignment.Section.Value}}</span>
+                </div>
+                <div class="fieldListing displayFlex alignItemCenter borderBtm whiteBg"> 
+                    <label>Subject</label>
+                    <span>{{assignment.Subject.Value}}</span>
+                </div>
+                <div class="fieldListing displayFlex alignItemCenter whiteBg"> 
+                    <label>Due Date</label>
+                    <span>{{assignment.FreezeDate | date}}</span>
+                </div>
+            </div> -->
+            <!--dataWrap-->
+        
+        </div><!--dataWrap-->       
+
+    </div><!--containerWrap-->
+</div><!--about us-->

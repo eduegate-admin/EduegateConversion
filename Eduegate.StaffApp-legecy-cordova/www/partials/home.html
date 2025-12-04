@@ -1,0 +1,33 @@
+﻿<div ng-controller="HomeController" ng-init="Init()">
+    <!-- <div class="headerBar">
+        <ng-include src="'partials/header.html'"></ng-include>
+    </div> -->
+    <div class="" ng-if="(DashbaordType != 1 && DashbaordType != 4) && DashbaordType && IsLoggedIn">
+        <!-- <div class="excludeHeaderInner"> -->
+            <br />
+            <br />
+            <div class="pageTitle">You have no dashbaord assigned!!! <br /> <br /> please check with administrator!!!</div>
+        <!-- </div> -->
+    </div>
+    <div class="" ng-if="DashbaordType == 1 && IsLoggedIn">
+        <!-- <div class="excludeHeaderInner fullheight overflowY"> -->
+            <ng-include src="'partials/superadminhome.html'"></ng-include>
+        <!-- </div> -->
+    </div>
+    <div class="" ng-if="DashbaordType == 2 && IsLoggedIn">
+        <!-- <div class="excludeHeaderInner"> -->
+            <ng-include src="'partials/adminhome.html'"></ng-include>
+        <!-- </div> -->
+    </div>
+    <div class="" ng-if="DashbaordType == 3 && IsLoggedIn">
+        <!-- <div class="excludeHeaderInner"> -->
+            <ng-include src="'partials/normaluserhome.html'"></ng-include>
+        <!-- </div> -->
+    </div>
+
+    <div class="" ng-if="DashbaordType == 4 && IsLoggedIn">
+        <!-- <div class="excludeHeaderInner"> -->
+            <ng-include src="'partials/directorshome.html'"></ng-include>
+        <!-- </div> -->
+    </div>
+</div>

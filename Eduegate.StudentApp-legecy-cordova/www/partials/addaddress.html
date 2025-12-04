@@ -1,0 +1,160 @@
+﻿<div class="mainwrap addnewadd">
+    <form name="addForm" id="AddForm" ng-submit="SaveAddress()">
+        <div class="header">
+            <div class="header-inner">
+                <ng-include ng-show="ShowLoader" src="'partials/main-loader.html'"></ng-include>
+                <div class="nav-sidebar align-left">
+                    <div class="backtopage"><a href="" ng-click="$root.goBack()" class=" p-5 ms-n5">&nbsp;</a></div>
+                    <div class="header-text"><span>Add New Address</span></div>
+                    <!-- <ng-include src="'partials/header.html'"></ng-include> -->
+                </div>
+                <ng-include src="'partials/searchheader.html'"></ng-include>
+                </div>
+                <!--nav-sidebar-->
+
+        </div>
+        <!--header-->        
+        <div class="maincontentarea noSearch hasstickyBtmBtns">
+
+            <div class="content greybg">
+                <!--<div class="home-menu searchbar">
+                    <div class="searchwrap"><input type="text" ng-model="SearchText" placeholder="What are you looking for..." /><span class="search"><input type="submit" value="" ng-click="SearchText != '' && $root.SearchProducts(SearchText)" /></span></div>
+                </div-->
+                <div class="pagesections">
+                    <div class="fullwidth align-left">
+
+                        <div class="login-reg">
+                            <div class="login-reg">
+                                <ul class="boxShadow">
+                                    <!--<li><span class="email">Name :<input type="text" disabled value="{{Address.FirstName + ' ' + (Address.LastName != undefined && Address.LastName != null ?  Address.LastName : '')}}"></span></li>-->
+                                    <li>
+                                        <span class="fieldWrap">
+                                            <label class="mandateLabel"><span translate>FirstName:</span><sup
+                                                    class="red">*</sup></label>
+                                            <input type="text" name="FirstName" maxlength="100" ng-model="Address.FirstName"
+                                                ng-required="true">
+                                            <span class="red inputerroraddress"
+                                                ng-show="isSubmitted  && addForm.FirstName.$error.required"
+                                                translate>EnterFirstName</span>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="fieldWrap">
+                                            <label translate>LastName:</label><input type="text" maxlength="100"
+                                                name="LastName" ng-model="Address.LastName">
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="fieldWrap">
+                                            <label class="mandateLabel"><span translate>Telephone/Mobile:</span><sup
+                                                    class="red">*</sup></label>
+                                            <input type="text" inputmode="numeric" name="MobileNo1" maxlength="50"
+                                                ng-model="Address.MobileNo1" ng-required="true">
+                                            <span class="red inputerroraddress"
+                                                ng-show="isSubmitted  && addForm.MobileNo1.$error.required"
+                                                translate>EnterMobile</span>
+                                        </span>
+                                    </li>
+                                    <!-- <li>
+                                        <span class="fieldWrap">
+                                            <label class="mandateLabel"><span translate>LOCATION</span><sup
+                                                    class="red">*</sup></label>
+                                            <select ng-model="Address.AreaID" name="Area"
+                                                ng-options="area.AreaID as area.AreaName for area in Areas"
+                                                ng-required="isAreaRequired" ng-click="Event=$event"
+                                                ng-change="GetLocationsChangeEvent(Address.AreaID, Event)">
+                                                <option value="" translate>SelectArea</option>
+                                            </select>
+                                            <span class="pointer"></span>
+                                            <span class="red inputerror"
+                                                ng-show="isSubmitted && isAreaRequired && addForm.Area.$error.required"
+                                                translate>SelectArea1</span>
+                                        </span>
+                    
+                                    </li>
+                                    <li ng-if="$root.ClientSettings.BuildingNameID != -1">
+                                        <span class="fieldWrap" feature-flag="register-with-location">
+                                            <label class="mandateLabel"><span>BUILDING NAME</span><sup
+                                                    class="red">*</sup></label>
+                                            <select ng-required="true" name="location" id="location" ng-model="Address.LocationID">
+                                                <option ng-repeat="location in Locations" value="{{location.LocationID}}">
+                                                    {{location.LocationName}}</option>
+                                            </select>
+                                            <span class="pointer"></span>
+                                            <span class="red inputerror"
+                                                ng-show="isSubmitted && addForm.location.$error.required"
+                                                >CHOOSE BUILDING NAME</span>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="fieldWrap" feature-flag="register-with-location">
+                                            <label class="mandateLabel" ng-if="$root.ClientSettings.BuildingNameID != -1"><span translate>OTHERBUILDINGNAME</span></label>
+                                            <label class="mandateLabel" ng-if="$root.ClientSettings.BuildingNameID == -1"><span translate>BUILDINGNAME</span></label>
+                    
+                                            <input ng-disabled="Address.LocationID != -1 && $root.ClientSettings.BuildingNameID != -1" type="text" name="Location"
+                                                maxlength="100" ng-model="Address.Location">
+                    
+                                            <span class="red inputerror"
+                                                ng-show="isSubmitted && addForm.Location.$dirty && addForm.Location.$error.required"
+                                                >ENTER BUILDING NAME</span>
+                                        </span>
+                                    </li> -->
+                                    <li feature-flag="register-with-manual-address">
+                                        <span class="fieldWrap locateStore">
+                                            <label class="mandateLabel"><span>{{'Address'|translate}}</span><sup
+                                                    class="red">*</sup>
+                                            </label>
+                                            <textarea type="text" name="AddressLine1" ng-model="Address.AddressLine1"
+                                                maxlength="100" placeholder="{{'Address:'|translate}}"
+                                                ng-required="true"></textarea>
+                    
+                                            <span class="red inputerror"
+                                                ng-show="isSubmitted && addForm.AddressLine1.$error.required"
+                                                translate>Address</span>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="fieldWrap">
+                                            <label translate>LandMark:</label>
+                                            <input type="text" name="LandMark" ng-model="Address.LandMark" maxlength="100"
+                                                placeholder="{{'LandMark:'|translate}}">
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="fieldWrap">                                        
+                                            <label class="mandateLabel"><span translate>FLAT OR VILLA</span><sup
+                                                    class="red">*</sup></label>
+                                            <input name="FirstName" type="text"
+                                                placeholder="{{'FlatNumberRequired'|translate}}"
+                                                ng-model="Address.BuildingNo" ng-required="true">
+                                            <span class="red inputerror"
+                                                ng-show="isSubmitted && addForm.FlatName.$error.required"
+                                                translate>Flat Name Required</span>
+                                        </span>
+                    
+                                    </li>
+                                </ul>
+                                    
+                    
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--offers-->
+                </div>
+            </div>
+            <!--content-->
+
+        </div>
+        <!--maincontentarea-->
+        <div class="add-edit-addr">
+            <div class="add-edit-cancle"><button class="btnStyle btnGrey heightnew" type="button" value="Cancel"
+                    ng-click="CancelAddAddress()" translate>CANCEL</button></div>
+            <div class="add-edit-save"><button class="btnStyle primary heightnew" type="submit" value="Save"
+                    translate>SAVE</button></div>
+        </div>
+    </form>
+</div>
+<div class="googleMapContainer" ng-if="$root.ClientSettings.RegisterWithGeoLocation">
+    <ng-include src="'partials/googlemap.html'"></ng-include>
+</div>

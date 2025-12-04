@@ -1,0 +1,19 @@
+<div class="productCategoryWidget scrollWidget fullwidth align-left" ng-controller="ProductCategoryWidgetByTagController">
+   <div class="product-title fullwidth align-left"><span ng-bind="WidgetTitle"></span>
+      <!-- <a class="topbutton" href="" ui-sref="productcategory({searchText:'',filterBy:'skutags',filterValue:'skutags:' 
+      + RecommendedTag,filterText:'',sortText:'relevance',pageType:'Recommended',searchTitle:RecommendedTitle})" 
+      translate>ViewAll</a> -->
+   </div>
+
+    <ul class="displayFlex">
+        <li ng-repeat="category in Categories" 
+        ui-sref="productcategory({searchText:'',filterValue:'Category:' + category.CategoryIID, caption : category.CategoryName, category : category.CategoryCode })" >
+           <span class="categoryMenuWrap categoryWidget" ng-init="setInitials()">
+            <span class="categoryIcon" ng-if="category.SlidingImageName">
+               <img class="" ng-src="{{category.SlidingImageName}}"/>
+               </span> 
+            <span class="categoryCaption" translate>{{category.CategoryName}}</span>
+           </span>
+        </li>      
+    </ul>
+</div>

@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "Employee Management App",
+    "slug": "employee-management-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#1976d2"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "bundler": "webpack"
+    },
+    "platforms": ["ios", "android", "web"]
+  }
+}

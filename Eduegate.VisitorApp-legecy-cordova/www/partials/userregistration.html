@@ -1,0 +1,76 @@
+<div ng-controller="UserRegistrationController">
+    <div class="headerBar" ng-if="!isAnonymous">
+        <ng-include src="'partials/header.html'"></ng-include>
+    </div>
+    <div class="fullscreen logregisterPage registration">
+      <div class="sectionTitle"><img src="../clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg"/></div>
+      <div class="bgTopSection"></div>
+      
+      <form class="formFields" name="memberResiger" id="userRegister" ng-submit="" novalidate>
+        <div class="formFieldsWrap z-depth-3">
+            <div class="formFieldsInner">
+              <h2 class="formTitle">CREATE ACCOUNT</h2>
+
+                <div class="fieldWrapper">
+                    <input type="text" placeholder="User Name" ng-model='Model.UserName' required>
+                </div>
+
+                <div class="fieldWrapper">
+                    <input type="text" placeholder="Email ID" ng-model='Model.LoginEmailID' required>
+                </div>
+
+                <div class="fieldWrapper input-field selectDropdown" ng-show="!isAnonymous">
+                    <select ng-model='Model.RoleName'>
+                        <option value="admin" disabled selected>Choose your Role</option>
+                        <option value="admin">Normal</option>
+                        <option value="admin">Admin</option>                                
+                    </select>  
+                </div>
+
+                <div class="fieldWrapper">
+                    <input type="password" placeholder="Password" ng-model='Model.Password' required>
+                </div>
+
+                <div class="fieldWrapper">
+                    <input type="password" placeholder="Confirm Password" required>
+                </div>
+
+                <div class="fieldWrapper input-field selectDropdown" ng-show="!isAnonymous">
+                  <select ng-model='Model.Status'> 
+                      <option value="admin" disabled selected>Choose your Status</option>
+                      <option value="admin">Status 1</option>
+                      <option value="admin">Status 2</option>                                             
+                    </select>
+                </div>
+
+                <input class="btn" type="submit" ng-click="Register()" value="Submit" />
+                <br><br>
+                <div ng-if="isAnonymous">
+                  <a  ng-click="login()"><strong>LOGIN</strong></a>
+                </div>
+               
+            </div>
+        </div>
+
+      </form>
+    </div>
+</div>
+
+<script>
+ 
+        (function($){
+         
+          $(function(){
+         
+            // Plugin initialization
+         
+            $('select').formSelect();
+         
+          });
+         
+        })(jQuery); // end of jQuery name space
+         
+        </script>
+<style>
+
+</style>

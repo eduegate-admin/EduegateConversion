@@ -1,0 +1,99 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="DriverDetailsController">
+
+
+    <div class="app-content flex-column-fluid">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        Locate driver
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+        <div class="googlemap h-400px bg-white" id="trackDriverMap">
+            <div id="drivermap" style="overflow: hidden; position: relative; width: 100%; height: 100%;">
+
+            </div>
+        </div>
+        <div class="mt-n5 ">
+
+            <div class="card rounded-4 h-300px shadow-none bg-light">
+                <div class="card-body p-10 pb-20">
+                    <div class="notice d-flex bg-light-warning rounded border-warning border p-6" ng-if="DriverDetails.EmployeeCode != null">
+                        <!--begin::Icon-->
+                        <i class="ki-duotone ki-information fs-2tx text-warning me-4"><span class="path1"></span><span
+                                class="path2"></span><span class="path3"></span></i>
+                        <div class="d-flex flex-stack flex-grow-1 ">
+                            <div class=" fw-semibold">
+                                <h4 class="text-gray-900 fw-bold">{{DriverDetails.EmployeeCode}}:{{DriverDetails.EmployeeName}}</h4>
+
+                                <div class="fs-6 text-gray-700 ">phone: {{DriverDetails.WorkMobileNo}}</div>
+                                    <div class="fs-6 text-gray-700 ">Vehicle Numnber: {{DriverDetails.Vehicle}}</div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 timeline" id="accordionFlushExample">
+                        <div class=" mx-2 timeline__row border-0" ng-repeat="stop in StopsPositionsByRoute"
+                            ng-init="current3 = $parent.start; $parent.start=$parent.start+1;">
+                            <div class="timeline__row_icon m-0">
+                                <div class="timeline-icon " ng-class="{'success': stop.arrived}">
+                                    <!-- <img src="./clients/{{$root.ClientSettings.Client}}/images/truck-front-fill.svg" alt="truck SVG" /> -->
+                                    <span class="pulse-ring w-45px h-45px" ng-if="stop.arrived"></span>
+                                </div>
+                            </div>
+                            <div class="timeline__row_content">
+                                <div class="mb-5 ms-5">
+                                    {{stop.StopName}}
+                                    <!-- {{stop.Latitude}}
+                                    {{stop.Longitude}} -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="storeList trackingDetails">
+                        <div class="fs-5" ng-if="!DriverDetails">
+                            We couldn't find any driver details.
+                        </div>
+                        <ul>
+                            <li ng-if="driverPlaces">
+                                <label translate>CurrentLocation</label>
+                                <span>{{driverPlaces}} </span>
+                            </li>
+                            <li ng-if="DriverDetails &&  DriverDetails.EstimatedTime">
+                                <label translate>EstimatedTimeofArrival</label>
+                                <span>{{DriverDetails.EstimatedTime| date : 'dd-MM-yyyy hh:mm a'}} </span>
+                                (<small translate>Mayvarybasedontrafficconditions</small>)
+                                </span>
+                            </li>
+                            <li ng-if="DriverDetails &&  DriverDetails.DriverName">
+                                <label translate>DriverName</label>
+                                <span>{{DriverDetails.DriverName}}</span>
+                            </li>
+                            <li ng-if="DriverDetails && DriverDetails.DriverNumber">
+                                <label translate>ContactNumber</label>
+                                <span>{{DriverDetails.DriverNumber}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/templates/footer.html'"></ng-include>
+
+
+<style>
+    .rotated-marker {
+        transform-origin: center;
+    }
+</style>

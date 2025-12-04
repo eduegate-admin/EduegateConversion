@@ -1,0 +1,26 @@
+﻿<div id="divinterestedwidget" class="product-inner recommended PositionRelative" ng-controller="CategoryInterestedInController">
+    <div ng-show="ShowLoaders" id="HomeBannerLoader" class="LoaderSmall">
+        <div>
+            <i class="fa fa-spinner fa-pulse"></i>
+        </div>
+    </div>
+    <div class="product-title main-spacing"><label translate>INSPIREDBROWSINGHISTORY</label></div>
+    <div class="fullwidth align-left borderbtm innerwrap main-spacing">
+        <div class="swiper-container products item1">
+            <div class="item-wrapper" homerecentlyvieweddirective>
+
+                <div class="item-container interedted-slider" ng-repeat="view in interestedProducts">
+                    <a data-scarabitem="{{view.SKUID}}" ui-sref="productdetails({skuID:view.SKUID})">
+                        <span class="recommend-img"><img ng-src="{{view.ProductThumbnailImage}}" loading="lazy" on-error-src="{{ErrorImage()}}" /></span>
+                        <span class="caption" ng-bind-html="SkipValidation(view.ProductName)"></span>
+                        <span class="amount text-grey-700 " ng-if="view.ProductDiscountPrice > 0" ng-bind="view.ProductDiscountPrice + ' ' + view.Currency"></span>
+                    </a>
+                    <span class="addtocart" ng-if="view.ProductAvailableQuantity > 0"><a href="" ng-click="AddtoCart(view,'1')"><label translate>Addtocart</label></a></span>
+                    <span class="addtocart outofstock" ng-if="view.ProductAvailableQuantity <= 0"><a href="" ng-click="$root.NotifyMeProductSKUID = view.SKUID;"><label translate>NotifyMe</label></a></span>
+                </div>
+            </div>
+            <!--<div class="swiper-button-prev item1-prev"></div>
+            <div class="swiper-button-next item1-next"></div>-->
+        </div><!--swipe--><!--products-->
+    </div>
+</div>

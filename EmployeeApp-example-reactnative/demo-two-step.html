@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management - Two Step Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            color: #1976d2;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .employee-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .employee-details {
+            color: #1976d2;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #1976d2;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .btn:hover {
+            background: #1565c0;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .back-btn {
+            background: transparent;
+            color: #1976d2;
+            border: 1px solid #1976d2;
+            padding: 10px 20px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            background: #1976d2;
+            color: white;
+        }
+
+        .help-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .help-text {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .loading {
+            opacity: 0.7;
+        }
+
+        /* Hide screens */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* Dashboard styles */
+        .dashboard {
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .welcome-text {
+            color: #1976d2;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: #d32f2f;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 20px;
+            background: white;
+            border: 2px solid #1976d2;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #1976d2;
+            font-weight: bold;
+        }
+
+        .action-btn:hover {
+            background: #1976d2;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Employee Code Screen -->
+    <div class="container screen active" id="employeeCodeScreen">
+        <div class="logo">👨‍💼</div>
+        <div class="title">Employee Login</div>
+        <div class="subtitle">Enter your employee code to continue</div>
+        
+        <div id="error1" class="error hidden"></div>
+        
+        <div class="input-group">
+            <label for="employeeCode">Employee Code</label>
+            <input type="text" id="employeeCode" placeholder="Enter your employee code" value="EMP001">
+        </div>
+        
+        <button class="btn" onclick="validateEmployeeCode()" id="continueBtn">Continue</button>
+        
+        <div class="help-section">
+            <div class="help-text">Demo Employee Codes: EMP001, EMP002, ADMIN</div>
+        </div>
+    </div>
+
+    <!-- Password Screen -->
+    <div class="container screen" id="passwordScreen">
+        <button class="btn back-btn" onclick="goBackToEmployeeCode()">← Back</button>
+        
+        <div class="logo">👨‍💼</div>
+        <div class="title" id="welcomeTitle">Welcome, Employee</div>
+        <div class="subtitle">Enter your password to access the system</div>
+        
+        <div class="employee-info" id="employeeInfo">
+            <div class="employee-details" id="empCodeDisplay">Employee Code: EMP001</div>
+            <div class="employee-details" id="empDeptDisplay">Department: Operations</div>
+        </div>
+        
+        <div id="error2" class="error hidden"></div>
+        
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" value="password123">
+        </div>
+        
+        <button class="btn" onclick="validatePassword()" id="loginBtn">Sign In</button>
+        
+        <div class="help-section">
+            <div class="help-text">Demo Password: password123 or admin123</div>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div class="container dashboard screen" id="dashboardScreen">
+        <div class="dashboard-header">
+            <div class="welcome-text" id="dashboardWelcome">Welcome, Employee</div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="newOrdersCount">12</div>
+                <div class="stat-label">New Orders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingOrdersCount">8</div>
+                <div class="stat-label">Pending Orders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="completedOrdersCount">25</div>
+                <div class="stat-label">Completed Today</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalProductsCount">156</div>
+                <div class="stat-label">Total Products</div>
+            </div>
+        </div>
+
+        <div class="actions-grid">
+            <button class="action-btn" onclick="navigateToOrders()">📋 Order Management</button>
+            <button class="action-btn" onclick="navigateToProducts()">📦 Product Management</button>
+            <button class="action-btn" onclick="navigateToStock()">📊 Stock Management</button>
+            <button class="action-btn" onclick="navigateToPOS()">💳 Point of Sale</button>
+            <button class="action-btn" onclick="navigateToEmployees()">👥 Employee Tracking</button>
+            <button class="action-btn" onclick="navigateToReports()">📈 Reports</button>
+        </div>
+    </div>
+
+    <script>
+        let currentEmployee = null;
+
+        function showScreen(screenId) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Show target screen
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function showError(elementId, message) {
+            const errorEl = document.getElementById(elementId);
+            errorEl.textContent = message;
+            errorEl.classList.remove('hidden');
+            
+            setTimeout(() => {
+                errorEl.classList.add('hidden');
+            }, 4000);
+        }
+
+        function validateEmployeeCode() {
+            const employeeCode = document.getElementById('employeeCode').value.trim();
+            const continueBtn = document.getElementById('continueBtn');
+            
+            if (!employeeCode) {
+                showError('error1', 'Please enter your employee code.');
+                return;
+            }
+
+            // Show loading state
+            continueBtn.textContent = 'Validating...';
+            continueBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                const validCodes = ['EMP001', 'EMP002', 'ADMIN'];
+                
+                if (validCodes.includes(employeeCode.toUpperCase())) {
+                    // Valid employee code
+                    currentEmployee = {
+                        code: employeeCode.toUpperCase(),
+                        name: employeeCode.toUpperCase() === 'ADMIN' ? 'Admin User' : `Employee ${employeeCode.toUpperCase()}`,
+                        department: employeeCode.toUpperCase() === 'ADMIN' ? 'Administration' : 'Operations'
+                    };
+                    
+                    // Update password screen with employee info
+                    document.getElementById('welcomeTitle').textContent = `Welcome, ${currentEmployee.name}`;
+                    document.getElementById('empCodeDisplay').textContent = `Employee Code: ${currentEmployee.code}`;
+                    document.getElementById('empDeptDisplay').textContent = `Department: ${currentEmployee.department}`;
+                    
+                    // Navigate to password screen
+                    showScreen('passwordScreen');
+                    document.getElementById('password').focus();
+                } else {
+                    showError('error1', 'Invalid employee code. Please try again.');
+                }
+                
+                // Reset button
+                continueBtn.textContent = 'Continue';
+                continueBtn.disabled = false;
+            }, 1000);
+        }
+
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            
+            if (!password) {
+                showError('error2', 'Please enter your password.');
+                return;
+            }
+
+            // Show loading state
+            loginBtn.textContent = 'Signing In...';
+            loginBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                const validPasswords = ['password123', 'admin123'];
+                
+                if (validPasswords.includes(password)) {
+                    // Valid password - go to dashboard
+                    document.getElementById('dashboardWelcome').textContent = `Welcome, ${currentEmployee.name}`;
+                    showScreen('dashboardScreen');
+                    
+                    // Update dashboard stats (simulate real-time data)
+                    updateDashboardStats();
+                } else {
+                    showError('error2', 'Invalid password. Please try again.');
+                }
+                
+                // Reset button
+                loginBtn.textContent = 'Sign In';
+                loginBtn.disabled = false;
+            }, 1500);
+        }
+
+        function goBackToEmployeeCode() {
+            showScreen('employeeCodeScreen');
+            document.getElementById('password').value = '';
+            currentEmployee = null;
+        }
+
+        function logout() {
+            currentEmployee = null;
+            document.getElementById('employeeCode').value = 'EMP001';
+            document.getElementById('password').value = 'password123';
+            showScreen('employeeCodeScreen');
+        }
+
+        function updateDashboardStats() {
+            // Simulate real-time dashboard updates
+            setInterval(() => {
+                const newOrders = Math.floor(Math.random() * 20) + 5;
+                const pendingOrders = Math.floor(Math.random() * 15) + 3;
+                const completedOrders = Math.floor(Math.random() * 40) + 15;
+                const totalProducts = Math.floor(Math.random() * 50) + 150;
+                
+                document.getElementById('newOrdersCount').textContent = newOrders;
+                document.getElementById('pendingOrdersCount').textContent = pendingOrders;
+                document.getElementById('completedOrdersCount').textContent = completedOrders;
+                document.getElementById('totalProductsCount').textContent = totalProducts;
+            }, 5000);
+        }
+
+        // Navigation functions
+        function navigateToOrders() {
+            alert('Navigating to Order Management...\n\nThis would open the orders screen in the actual React Native app.');
+        }
+
+        function navigateToProducts() {
+            alert('Navigating to Product Management...\n\nThis would open the products screen in the actual React Native app.');
+        }
+
+        function navigateToStock() {
+            alert('Navigating to Stock Management...\n\nThis would open the stock screen in the actual React Native app.');
+        }
+
+        function navigateToPOS() {
+            alert('Navigating to Point of Sale...\n\nThis would open the POS screen in the actual React Native app.');
+        }
+
+        function navigateToEmployees() {
+            alert('Navigating to Employee Tracking...\n\nThis would open the employee tracking screen in the actual React Native app.');
+        }
+
+        function navigateToReports() {
+            alert('Navigating to Reports...\n\nThis would open the reports screen in the actual React Native app.');
+        }
+
+        // Handle Enter key press
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('employeeCode').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    validateEmployeeCode();
+                }
+            });
+            
+            document.getElementById('password').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    validatePassword();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

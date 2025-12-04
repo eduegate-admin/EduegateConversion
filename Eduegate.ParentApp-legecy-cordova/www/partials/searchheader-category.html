@@ -1,0 +1,14 @@
+﻿<form>
+    <div class="home-menu searchbar alignCenter">
+        <div class="displayFlex">
+        <div class="searchwrap flexAuto"><input type="text" 
+             class="searchbarinput" 
+            ng-model="CategorySearchText" placeholder="{{'lookingfor'|translate}}" />
+            <span class="search"><input type="submit" value="" 
+                ng-click="ReloadList($event, CategorySearchText);hideSearchBar()" /></span></div>
+        <div class="flexZero pad5">
+            <button class="cancelBtn" ng-click="hideSearchBar()">Cancel</button>
+        </div>
+    </div>
+    </div>
+</form>

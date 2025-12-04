@@ -1,0 +1,191 @@
+import { StyleSheet } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import colors from "../../../config/colors";
+import { RFValue } from "react-native-responsive-fontsize";
+
+const CheckoutStyle = StyleSheet.create({
+ 
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    width: "100%",
+    zIndex: 1,
+  },
+  ScrollView: {
+    backgroundColor: "#F6F6F6",
+    paddingBottom: 190,
+    // marginTop: 10,
+    paddingBottom: 170,
+  },
+  contentHeader: {
+    marginHorizontal: 10,
+    // marginTop: 8,
+  },
+  contentHeaderText: {
+    fontSize: 22,
+    fontWeight: 500,
+    left: 11,
+    color: colors.green,
+  },
+  
+  AddressView: {
+    width: "100%",
+    // paddingVertical: 3,
+    // height: "100%",
+    borderRadius: 15,
+    overflow: "hidden",
+    backgroundColor: '#FFF',
+    
+
+  },
+  AddressTextView: {
+    // backgroundColor: 'blue',
+    paddingVertical: 3,
+    justifyContent: "space-around",
+    flexDirection: "row",
+    borderBottomWidth:1,
+    borderColor:"#F1F1F1"
+    // backgroundColor: "white",
+  },
+  AddressTextHead: {
+    fontSize: 20,
+    fontWeight: 700,
+    textAlign: "left",
+    color: colors.green,
+  },
+  paymentTypeText: {
+    fontSize: 18,
+    fontWeight: 600,
+    textAlign: "left",
+    color: "#252525",
+  },
+  AddressText: {
+    fontSize: 16,
+    fontWeight: 700,
+    textAlign: "left",
+    color: colors.green,
+  },
+  paymentMethod: {
+    // backgroundColor: "#000",
+    marginVertical: 7,
+    // paddingVertical: 10,
+    width: "89%",
+    // height: 208,
+    alignSelf: "center",
+    borderRadius: 15,
+    flexDirection: "column",
+  },
+  paymentSection: {
+    backgroundColor: "#FFFFFF",
+    marginVertical: 7,
+    width: "89%",
+    // height: 185,
+    alignSelf: "center",
+    borderRadius: 15,
+    flexDirection: "column",
+  },
+  AmountView: {
+    // backgroundColor: "green",
+    width: "100%",
+    height: "100%",
+    borderRadius: 15,
+    alignSelf: "center",
+    // marginTop: 8,
+    paddingTop: 15,
+    overflow: "hidden",
+  },
+   deliverySelectionView: {
+    width: 55,
+    height: 52,
+    borderRadius: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    // backgroundColor: "green",
+  },
+  deliverySelectionButton: {
+    resizeMode: "contain",
+    width: 25,
+    height: 25,
+  },
+  deliveryTypeName: {
+    width: 265,
+    height: 52,
+    borderRadius: 15,
+    justifyContent: "center",
+  },
+  TextView: {
+    // marginTop:15,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    // borderBottomColor: "red",
+    // backgroundColor : 'white',
+    // borderBottomWidth: 1,
+    paddingHorizontal: 20,
+  },
+  Text: {
+    fontSize: 20,
+    fontWeight: 500,
+    textAlign: "center",
+    color: "#133051",
+    lineHeight: 44,
+  },
+  ButtonView: {
+    backgroundColor: "#58BB47",
+    width: "89%",
+    height: "6.5%",
+    alignSelf: "center",
+    position: "absolute",
+    bottom: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+  },
+  buttonText: {
+    textAlign: "center",
+    color: "#FFFFFF",
+    fontSize: 20,
+    fontWeight: 500,
+  },
+    Voucher: {
+    // marginHorizontal: wp("4.44%"),
+    marginVertical: hp("2.875%"),
+    marginBottom: hp("3.8%"),
+    flexDirection: "row",
+    width: wp("91.11%"),
+    borderRadius: 10,
+    height: hp("7.25%"),
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "#ccc",
+  },
+  VoucherInput: {
+    width: wp("63.11%"),
+    height: hp("7%"),
+    fontSize: RFValue(14),
+    left: wp("4.44%"),
+    // borderWidth: 1,
+    // borderColor: "#ccc",
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+  VoucherButton: {
+    width: wp("28%"),
+    height: hp("7.25%"),
+    backgroundColor: "#56a6ecff",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  VoucherButtonText: {
+    fontSize: RFValue(14, 800),
+    fontWeight: "600",
+    textAlign: "center",
+    color: "#FFFFFF",
+    fontFamily: "Poppins-Medium",
+  },
+  });
+
+export default CheckoutStyle;

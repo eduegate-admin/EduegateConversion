@@ -1,0 +1,5 @@
+﻿<form ng-controller="SearchController">
+    <div class="home-menu searchbar" mass-autocomplete>
+        <div class="searchwrap"><input type="text" id="autocomplete" mass-autocomplete-item="autocomplete_options" class="searchbarinput" ng-model="$root.searchText" placeholder="{{'lookingfor'|translate}}" /><span class="search"><input type="submit" value="" ng-click="$root.searchText != '' && $root.SearchProducts()" /></span></div>
+    </div>
+</form>

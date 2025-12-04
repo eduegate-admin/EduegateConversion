@@ -1,0 +1,149 @@
+<div ng-controller="GalleryController" ng-init="init()">
+    <div class="app-content flex-column-fluid">
+
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        Teacher details
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="app-container container-xxl pt-5">
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active" role="tabpanel">
+                    <div class="row g-6 g-xl-9">
+
+                        <section class="home-section-wrap">
+
+
+
+
+                            <div class="row">
+                                <div class="column">
+                                    <h1>
+                                        <Center>Gallery</Center>
+                                    </h1>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group row  margin-top-20">
+                                                <label class="control-label col-md-12"
+                                                       for="School">
+                                                    Select locations of the
+                                                    school <span class="required">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="input-icon right">
+                                                    <i class="fa"></i>
+                                                </div>
+                                                <div class="input-icon right ps-0">
+                                                    <i class="fa"></i>
+                                                    <select class="form-control validate"
+                                                            required="" aria-required="true"
+                                                            name="GallerySchool"
+                                                            id="GallerySchool"
+                                                            ng-options="item as item.Value for item in Schools track by item.Key"
+                                                            ng-model="GallerySchool"
+                                                            autofocus tabindex="0"
+                                                            ng-change="SchoolChanges()"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group row  margin-top-20">
+                                                <label class="control-label col-md-12"
+                                                       for="SchoolAcademicyear">
+                                                    Academic
+                                                    Year <span class="required">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="input-icon right ps-0">
+                                                    <i class="fa"></i>
+                                                    <select class="form-control validate"
+                                                            required="" aria-required="true"
+                                                            name="SchoolAcademicYear"
+                                                            id="SchoolAcademicYear"
+                                                            ng-options="item as item.Value for item in AcademicYears track by item.Key"
+                                                            ng-model="SchoolAcademicYear"
+                                                            ng-change="GetGalleryDataByAcademic()"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div><br><br>
+                            <div class="card-stacked" ng-if="Gallery.length == 0">
+                                <div class="alert alert-info text-center">
+                                    <b>No data found.</b>
+                                </div>
+                            </div>
+                            <div ng-repeat="datas in Gallery">
+                                <div>
+                                    <div class="col-lg-5 mb-4 mb-lg-0">
+
+                                        <h4 class="mb-0 fw-bold"
+                                            ng-bind="datas.Description"></h4>
+                                        <h6 class="mb-4 mt-0 text-muted">
+                                            {{
+datas.GalleryDate | filterdate |
+                                                                            date:'dd/MM/yyyy'
+                                            }}
+                                        </h6>
+
+                                    </div>
+                                    <section class="pb-4">
+                                        <div class="bg-white border card-rounded">
+                                            <!-- Gallery -->
+                                            <div class="row  p-md-10 ">
+                                                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0"
+                                                     ng-repeat="mapData in datas.GalleryAttachmentMaps">
+                                                    <a class="overlay hover-elevate-up"
+                                                       href="~/Content/ReadContentsByID?contentID={{mapData.AttachmentContentID}}"
+                                                       data-fancybox="gallery"
+                                                       data-preload="false">
+                                                        <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded">
+                                                            <img ng-src="~/Content/ReadContentsByID?contentID={{mapData.AttachmentContentID}}"
+                                                                 onerrorsrc="~/images/unknown.png"
+                                                                 alt="No files"
+                                                                 style="background-size:cover;background-repeat:no-repeat;top:0;"
+                                                                 class="w-100 shadow-1-strong img-responsive card-rounded" />
+                                                        </div>
+
+                                                        <div class="overlay-layer card-rounded  bg-dark bg-opacity-75">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                 width="16" height="16"
+                                                                 fill="#ffffff"
+                                                                 class="bi bi-eye-fill"
+                                                                 viewBox="0 0 16 16">
+                                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                                            </svg>
+                                                        </div>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                </div>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

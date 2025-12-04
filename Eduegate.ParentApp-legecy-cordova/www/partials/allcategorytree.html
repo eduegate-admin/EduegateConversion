@@ -1,0 +1,65 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="CategoryTreeController">
+
+
+    <div class="app-content flex-column-fluid">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        All categories
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5 pb-20">
+            <div class="row g-4 g-md-5">
+                <div class="pagesections allCategoryList">
+                    <div class="fl-left fullwidth align-left toggletab rounded-2 overflow-hidden card border-0">
+                        <ul>
+                            <li data-ng-repeat="facets in AllCategories[0].FaceItems track by $index">
+                                <!-- <span class="categoryIcon" ng-if="facets.ItemImage">
+                                    <img ng-src="{{facets.ItemImage}}"/>
+                                    </span>  -->
+                                <a href="" data-attr="option_{{$index+1}}" data-ng-click="FilterOptionClick($event)">
+                                    <label class="fs-3 font-bold text-gray-800" data-ng-bind-html="SkipValidation(facets.key)"></label>
+                                </a>
+                                <ul class="select_filters togglecontent option_{{$index + 1}}" data-attr="option_{{$index + 1}}">
+                                    <li>
+                                        <span class="option_wrap" ng-repeat="facetItem in facets.FaceItems">
+                                            <label class="fs-4 font-semibold text-gray-700" ui-sref="productcategory({searchText:'',filterValue:'Category:' + facetItem.value, caption : facetItem.key, category : facetItem.value })">
+                                                <!-- <span ng-class="{'checked check':facetItem.Selected==true,'check':facetItem.Selected !=true}">
+                                                    <input type="checkbox" ng-model="facetItem.Selected">
+                                                </span> -->
+                                                {{SkipValidation(facetItem.key)}}
+                                            </label>
+                                        </span>
+                                        <ul ng-if="facetItem.FaceItems.length > 0">
+                                            <li>
+                                                <span class="option_wrap" ng-repeat="facetItem1 in facetItem.FaceItems">
+                                                    <label ui-sref="productcategory({searchText:'',filterValue:'Category:' + facetItem1.value, caption : facetItem1.key, category : facetItem1.value })">
+                                                        <span ng-class="{'checked check':facetItem1.Selected==true,'check':facetItem1.Selected !=true}">
+                                                            <input type="checkbox" ng-model="facetItem1.Selected">
+                                                        </span>
+                                                        {{SkipValidation(facetItem1.key)}}
+                                                    </label>
+                                                </span>
+                                            </li>
+                                        </ul>
+
+                                    <li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-include src="'partials/Templates/footer.html'"></ng-include>
+

@@ -1,0 +1,135 @@
+<div class="app-page flex-column flex-column-fluid">
+
+
+    <div class="app-content flex-column-fluid">
+
+<ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">My
+                        Wishlist
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5">
+            <div class="row gy-5 g-xl-10">
+                <div class="col-xl-4">
+                    <div class="card card-flush h-xl-100" ng-if="WishListProducts.length > 0">
+                        <div class="card-header pt-7 px-6">
+                            <!--begin::Title-->
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label fw-bold text-dark">Wishlist</span>
+                                <span class="text-gray-400 mt-1 fw-semibold fs-6">saved for later</span>
+                            </h3>
+                            <!--end::Title-->
+
+                            <!--begin::Toolbar-->
+                            <div class="card-toolbar">
+                            <!-- <a class="btn btn-sm btn-light">Remove all</a> -->
+                            </div>
+                            <!--end::Toolbar-->
+                        </div>
+                        <div class="card-body px-6">
+                            <div class=" pe-6 me-n6" >
+                                <div class=" last-seperator"
+                                    ng-repeat="product in WishListProducts track by $index"
+                                    ng-class="{'liproductqtyoutofstock':errorcheckout[$index] == 3}">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <div class="me-3 d-flex">
+                                            <img ng-src="{{GetProductImage(product.ProductImageUrl)}}" loading="lazy"
+                                                onerror="this.onerror=null;this.src='./images/no-image.jpg'" class="w-70px ms-n1 me-3" alt="">
+                                            <a ui-sref="productdetails({skuID:product.SKUID})"
+                                                class="text-gray-800 text-hover-primary fw-bold"
+                                                ng-bind-html="SkipValidation(product.ProductName)"></a>
+                                        </div>
+                                        <div class="m-0">
+                                            <button
+                                                class="btn btn-sm btn-icon btn-color-gray-400 btn-active-color-primary justify-content-middle align-items-center"
+                                                ng-click="RemoveWishList(product.SKUID)">
+
+                                                <span class="svg-icon svg-icon-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                      </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-stack">
+                                        <span class="text-gray-400 fw-bold">Price:
+                                            <a data-highlightword="{{$root.DefaultDisplayCurrency}} " ng-bind="product.ProductDiscountedPrice | currency : $root.DefaultDisplayCurrency | translate"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold"></a>
+                                        </span>
+                                        <!-- <span class="badge badge-light-success">Delivered</span> -->
+                                        <span class="cart-button">
+                                            <span class="itemcount">
+                                                <span ng-if="errorcheckout[$index] == 1">
+                                                    <select ng-model="product.Quantity"
+                                                        ng-options="qty for qty in range(1,product.AvailableQuantity)"
+                                                        ng-change="UpdateItem(product,product.Quantity)"></select>
+                                                </span>
+                                                <span ng-if="errorcheckout[$index] == 3">
+                                                    <select ng-model="product.Quantity"
+                                                        ng-options="qty for qty in range(1,product.AvailableQuantity)"
+                                                        ng-change="UpdateItem(product,product.Quantity)"></select>
+                                                </span>
+                                            </span>
+                                            <span ng-if="errorcheckout[$index] == 3" class="quantityoos-sign"><i
+                                                    id="quantityoostxt" ng-click="showQtyError()"
+                                                    class="fa fa-question-circle-o"></i></span>
+                                        </span>
+                                        <!-- <span class="button disableanchor remove cursor" ng-click="RemoveWishList(product.SKUID);"><i class="fa fa-trash"></i></span> -->
+                                        <span class="">
+                                            <a href="" ng-click="AddtoCart(product.SKUID);" class="btn btn-sm btn-primary"translate>Addtocart
+                                                </a>
+                                        </span>
+                                        <span class="prop red" ng-if="errorcheckout[$index] == 2"><label translate>OutOfStock</label></span>
+                                        <span class="prop red" ng-if="errorcheckout[$index] == 4"><label translate>Productnotavailable</label></span>
+                                    </div>
+                                    <div class="separator my-6"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="row g-10"  ng-if="WishListProducts == '' &&  IsLoaded == true">
+                <div class="col-xl-4" >
+                    <div class="d-flex h-100 align-items-center">
+                        <div class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
+                            <div class="mb-2">
+                                <!--begin::Title-->
+                                <h1 class="fw-semibold text-gray-800 text-center lh-lg">
+                                    Your wish list <br> Is
+                                    <span class="fw-bolder"> Empty</span>
+                                </h1>
+                                <!--end::Title-->
+
+                                <!--begin::Illustration-->
+                                <div class="py-10 text-center">
+                                                        <img src="./clients/{{$root.ClientSettings.Client}}/images/_wishlis.svg" class="theme-light-show w-200px" alt="">
+                                        <img src="./clients/{{$root.ClientSettings.Client}}/images/_wishlis.svg" class="theme-dark-show w-200px" alt="">
+                                                </div>
+                                <!--end::Illustration-->
+                            </div>
+                            <a class="btn btn-sm btn-secondary"  ui-sref="onlinestore"   translate>KEEPSHOPPING</a>
+                            <!--end::Select-->
+                        </div>
+                        <!--end::Option-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-include src="'partials/Templates/footer.html'"></ng-include>

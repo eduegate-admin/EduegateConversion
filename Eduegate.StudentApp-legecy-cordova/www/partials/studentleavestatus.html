@@ -1,0 +1,114 @@
+﻿<div ng-controller="StudentLeaveStatusController">
+    <!-- <div class="headerBar displayFlex alignItemCenter innerHeader">
+        <div class="nav-sidebar align-left">
+            <div class="backtopage" ng-click="$root.goBack()" class=" p-5 ms-n5">
+                <img src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" />
+            </div>
+        </div>
+        <div class="header-text"><span translate>Leave status</span></div>
+        <div class="headerRight alignright">
+            <div class="notifyIcon"><i class="fa fa-bell-o"></i></div>
+        </div>
+    </div> -->
+    <div class="app-header d-flex">
+        <!--begin::Header container-->
+        <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+            id="kt_app_header_container">
+            <!--begin::Logo-->
+            <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                    <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                </a>
+            </div>
+            <!--end::Logo-->
+            <!--begin::Header mobile toggle-->
+            <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+
+            </div>
+            <!--end::Header mobile toggle-->
+        </div>
+        <!--end::Header container-->
+    </div>
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+                        <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">Student
+                            leave</h1>
+
+        </div>
+    </div>
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="card w-100">
+                <div class="card-header">
+                    <div class="card-title d-flex flex-column justify-content-center me-3">
+                        <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">Student
+                            leave</h1>
+                    </div>
+                    <div class="card-toolbar">
+                        <a class="btn fw-bold btn-primary text-white" ng-click='Applyleave(StudentID)'>Apply Leave</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="app-container container-xxl pt-5">
+        <div class="row g-5 g-xl-10 mb-xl-10">
+            <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0"  ng-init="init()"  >
+
+                <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0"  ng-repeat='leave in StudentLeaveApplications'>
+                    <div class="card h-md-100">
+                        <div class="card-header min-h-auto">
+                            <div class="card-title">
+                                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                                Leave Status</h1>
+                            </div>
+                        </div>
+                        <div class="card-body pt-7 px-0" id="studentleavelist">
+                            <div class="d-flex align-items-center mb-6">
+                                <span class="bullet bullet-vertical d-flex align-items-center min-h-70px mh-100 me-8"
+                                    ng-class="{' bg-primary' : leave.LeaveStatusDescription == 'Submitted',' bg-success' : leave.LeaveStatusDescription == 'Approved',' bg-danger' : leave.LeaveStatusDescription == 'Rejected'}"></span>
+                                    <div class="flex-grow-1 me-5">
+                                    <div class="text-gray-800 fw-bold fs-2">{{leave.FromDate | date |
+                                        date:'dd/MM/yyyy'}} - {{leave.ToDate | date | date:'dd/MM/yyyy'}}
+                                    </div>
+                                    <div class="text-gray-700 fw-bold fs-4">{{leave.Reason}}</div>
+                                    <div class="text-gray-400 fw-bold fs-5">Status :
+                                                <span class="fw-bold badge badge-lg fs-5"
+                                                    ng-class="{'badge-primary' : leave.LeaveStatusDescription == 'Submitted',' badge-success' : leave.LeaveStatusDescription == 'Approved',' badge-danger' : leave.LeaveStatusDescription == 'Rejected'}"
+                                                    >{{leave.LeaveStatusDescription}}</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                        </div>
+                        <div class="card-footer"  ng-if="leave.LeaveStatusID == 1">
+                            <div class="d-flex flex-end">
+
+                                <a ng-click='DeleteLeaveRequestClick(leave)'
+                                ng-if="leave.LeaveStatusID == 1" class="btn btn-sm btn-light me-2">
+                               Delete</a>
+                                <a ng-click='EditLeaveRequestClick(leave)'
+                                ng-if="leave.LeaveStatusID == 1" class="btn btn-sm btn-primary  ">Edit</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            <div class="col-md-6 col-xxl-4">
+                <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert" ng-if="!ShowLoader && StudentLeaveApplications.length == 0">
+                    <span class="svg-icon svg-icon-2hx svg-icon-danger me-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor"/>
+                     <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor"/>
+                     <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor"/>
+                     </svg>
+                    </span>
+                    <div class="d-flex flex-column">
+                        <h3 class="mb-1 text-danger">Leave application not found.</h4>
+                        <span>Leave application not found.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,168 @@
+﻿<div>
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                Library
+            </h1>
+
+        </div>
+    </div>
+    <div class="app-main flex-column flex-row-fluid">
+        <div class="d-flex flex-column flex-column-fluid">
+            <div class="app-content flex-column-fluid">
+                <div class="app-container container-xxl pt-5">
+                    <div class="d-flex flex-column flex-lg-row">
+                        <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                            Issued
+                        </h1>
+                        <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0" ng-if="IssueTransactions.length == 0">
+                            <div class="d-flex align-items-center rounded py-5 px-5 bg-light-warning my-3"><i class="ki-duotone ki-information-5 fs-3x text-warning me-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+                                  </svg>
+                            </i>    <!--begin::Description-->    <div class="text-gray-700 fw-bold fs-6">
+                                There are currently no library books issued for return.                                 </div>    <!--end::Description--></div>
+                        </div>
+                        <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0"
+                            ng-repeat='libraryTransactions in IssueTransactions'>
+
+                            <div class="card h-md-100 rounded-2 overflow-hidden">
+                                <span class="bullet-custom position-absolute bottom-0 h-100 w-6px"
+                                ng-class="{' bg-success': libraryTransactions.Status === 'Return', 'bg-warning': libraryTransactions.Status !== 'Return'}"></span>
+
+                                <div class="card-body px-6 ps-8 py-4 ">
+
+                                    <div class="d-flex flex-stack flex-row-fluid mb-3">
+                                        <div class="d-flex flex-column me-3">
+
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span
+                                                    class="fs-5 fw-bold text-gray-800 me-2">{{libraryTransactions.BookTitle}}</span>
+                                                <span class="fw-semibold text-success fs-6">
+
+                                                </span>
+                                            </div>
+                                            <!-- <span class="fw-semibold text-gray-500">class</span> -->
+
+                                            <div class="d-flex align-items-center ">
+                                                <span class=" fw-normal text-gray-600 me-2">Student :</span>
+                                                <span class="fw-semibold text-success fs-6">
+
+                                                </span>
+                                            </div>
+                                            <span class="fw-semibold text-gray-800 fs-6">{{libraryTransactions.StudentName}}</span>
+                                        </div>
+                                        <img src="./images/library.png" />
+                                    </div>
+                                    <div class="d-flex flex-stack gap-2">
+                                        <div class="d-flex align-items-center gap-3">
+
+                                            <div class="d-flex flex-column">
+                                                <span class="text-gray-600 fw-normal fs-6">Transaction Date:</span>
+                                                <span
+                                                    class="text-gray-800 fw-semibold fs-6">{{libraryTransactions.TransactionDate|
+                                                    date | date:'dd/MM/yyyy'}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-end gap-4">
+                                            <div class="d-flex flex-column align-items-end">
+                                                <span class="text-gray-600 fw-normal fs-6">Return Date:</span>
+                                                <span
+                                                    class="text-gray-800 fw-semibold fs-6">{{libraryTransactions.ReturnDueDate
+                                                    | date | date:'dd/MM/yyyy'}}</span>
+                                            </div>
+                                            <div class="d-flex flex-column align-items-end">
+                                                <span class="text-gray-600 fw-normal fs-6">Status</span>
+                                                <span class="badge fw-normal fs-6"
+                                                ng-class="{'badge-success': libraryTransactions.Status === 'Return', 'badge-warning': libraryTransactions.Status !== 'Return'}">
+                                                    {{libraryTransactions.Status}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-3">
+                            Returned
+                        </h1>
+                        <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0" ng-if="ReturnTransactions.length == 0">
+                            <div class="d-flex align-items-center rounded py-5 px-5 bg-light-warning my-3"><i class="ki-duotone ki-information-5 fs-3x text-warning me-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+                                  </svg>
+                            </i>    <!--begin::Description-->    <div class="text-gray-700 fw-bold fs-6">
+                                No books have been returned yet               </div>    <!--end::Description--></div>
+                        </div>
+                        <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0"
+                        ng-repeat='libraryTransactions in ReturnTransactions'>
+
+                        <div class="card h-md-100 rounded-2 overflow-hidden">
+                            <span class="bullet-custom position-absolute bottom-0 h-100 w-6px"
+                            ng-class="{' bg-success': libraryTransactions.Status === 'Return', 'bg-warning': libraryTransactions.Status !== 'Return'}"></span>
+
+                            <div class="card-body px-6 ps-8 py-4 ">
+
+                                <div class="d-flex flex-stack flex-row-fluid mb-3">
+                                    <div class="d-flex flex-column me-3">
+
+                                        <div class="d-flex align-items-center mb-2">
+                                            <span
+                                                class="fs-5 fw-bold text-gray-800 me-2">{{libraryTransactions.BookTitle}}</span>
+                                            <span class="fw-semibold text-success fs-6">
+
+                                            </span>
+                                        </div>
+                                        <!-- <span class="fw-semibold text-gray-500">class</span> -->
+
+                                        <div class="d-flex align-items-center ">
+                                            <span class=" fw-normal text-gray-600 me-2">Student :</span>
+                                            <span class="fw-semibold text-success fs-6">
+
+                                            </span>
+                                        </div>
+                                        <span class="fw-semibold text-gray-800 fs-6">{{libraryTransactions.StudentName}}</span>
+                                    </div>
+                                    <img src="./images/library.png" />
+                                </div>
+                                <div class="d-flex flex-stack gap-2">
+                                    <div class="d-flex align-items-center gap-3">
+
+                                        <div class="d-flex flex-column">
+                                            <span class="text-gray-600 fw-normal fs-6">Transaction Date:</span>
+                                            <span
+                                                class="text-gray-800 fw-semibold fs-6">{{libraryTransactions.TransactionDate|
+                                                date | date:'dd/MM/yyyy'}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center justify-content-end gap-4">
+                                        <div class="d-flex flex-column align-items-end">
+                                            <span class="text-gray-600 fw-normal fs-6">Return Date:</span>
+                                            <span
+                                                class="text-gray-800 fw-semibold fs-6">{{libraryTransactions.ReturnDueDate
+                                                | date | date:'dd/MM/yyyy'}}</span>
+                                        </div>
+                                        <div class="d-flex flex-column align-items-end">
+                                            <span class="text-gray-600 fw-normal fs-6">Status</span>
+                                            <span class="badge fw-normal fs-6"
+                                            ng-class="{'badge-success': libraryTransactions.Status === 'Return', 'badge-warning': libraryTransactions.Status !== 'Return'}">
+                                                {{libraryTransactions.Status}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

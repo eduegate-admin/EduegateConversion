@@ -1,0 +1,42 @@
+﻿
+<div class="app-page flex-column flex-column-fluid" ng-init="init()">
+
+    <div class="app-content flex-column-fluid theme-dark-bg-body">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        Feedback
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5">
+            <div class="row g-5 g-xl-10 mb-xl-10">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="pagesections pad10 complaints">
+                                <div class="product-title fullwidth displayFlex padtop10" translate>YOUROPINION</div>
+                                <form>
+                                    <div class="displayFlex fullwidth padtop10 padbtm10">
+                                        <textarea class="boxShadow h-150px fs-4" placeholder=" Write your query here!" ng-model="Message"></textarea>
+                                    </div>
+                                    <div class="w-100 d-flex flex-end   ">
+                                        <button class="btn btn-primary" translate ng-click="SaveFeedback(Message)">SEND</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

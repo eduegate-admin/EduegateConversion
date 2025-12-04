@@ -1,0 +1,34 @@
+﻿<div class="flex-column flex-row-fluid" ng-controller="StudentDashbaordController">
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+    <div class="app-main flex-column flex-row-fluid">
+        <div class="powerpagecontent my-4"    ng-controller="PowerBIController" ng-init="pageID=45">
+            <section id="report-container-" class="embed-container"></section>
+        </div>
+        <!-- <div class="app-container container-xxl">
+            <div class="boilerPlateContainer" ng-if="BoilerPlates.length > 0">
+                <div class="fullwidth align-left d-flex flexColumn" ng-repeat="boilerplate in $root.BoilerPlates">
+                    <div class="row g-5 mb-0 g-xl-10">
+                        <div class="col-xl-4 mb-xl-10">
+                            <ng-include src="'boilerplates/' + boilerplate.Template + '.html'"
+                                onload="finishLoading(boilerplate)"></ng-include>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+
+
+    </div>
+
+    <ng-include src="'partials/Templates/footer.html'"></ng-include>
+
+
+
+    <style>
+        .loader-blk {
+            background: var(--bs-white);
+            z-index: 2;
+        }
+    </style>

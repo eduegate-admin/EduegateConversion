@@ -1,0 +1,203 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="MyWardsController">
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+    <div  class="card card-flush h-xl-100  border-0  rounded-0 position-sticky z-index-3 bg-green shadow-none ios-pt-12 overflow-hidden bg-transparent">
+        <div class="card-body pb-0 app-container">
+            <div class="row g-5 g-xl-10">
+                <div class="col-lg-6 mb-lg-10">
+                    <div class=" h-150px bgi-no-repeat bgi-size-cover bgi-position-y-center h-150px rounded-4"
+                        style="background-image:url('./clients/{{$root.ClientSettings.Client}}/images/banner 4.png')">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app-container container-xxl bg-light theme-dark-bg-body rounded-4 rounded-bottom-0" ng-init="Init()">
+        <div class="row g-5 g-xl-10">
+
+
+            <div class="col-sm-6 col-xl-2 mb-xl-10">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap justify-content-evenly fs-5">
+                            <a class="d-flex flex-column align-items-center  col-4"  ui-sref="teacherclasses">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2">
+                                    <div class="symbol symbol-circle symbol-75px "
+                                        style="background: linear-gradient(130deg, #AF70FF 0%, #694399 100%);">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/classes.svg" class="object-fit-none">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4  text-center position-relative">Class
+                                    <div
+                                        class="badge badge-circle badge-danger position-absolute translate-middle end-0 top-0 me-n10 h-20px w-20px fs-7">
+                                        {{MyClassCount}}</div>
+                                </span>
+
+                            </a>
+                            <a class="d-flex flex-column align-items-center  col-4" ui-sref="assignments">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2" style="">
+                                    <div class="symbol symbol-circle symbol-75px"
+                                        style="background: linear-gradient(130deg, #97DA77 0%, #50743F 100%);">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/assignments.svg" class="object-fit-none ">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center position-relative">Assignments
+                                    <div
+                                        class="badge badge-circle badge-danger position-absolute translate-middle top-0 end-0 me-n10 h-20px w-20px fs-7">
+                                        {{MyAssignmentCount}}</div>
+                                </span>
+
+                            </a>
+                            <!-- <a class="d-flex flex-column align-items-center  col-4" ng-if="!Driver && !Admin"
+                                ui-sref="lessonplan">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2" style="">
+                                    <div class="symbol symbol-circle symbol-75px ng-scope"
+                                        style="background: linear-gradient(130deg, #708FFF 0%, #4062D9 100%);">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/lessonplan.svg" class="object-fit-none ">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center position-relative">Lesson Plan
+                                    <div
+                                        class="badge badge-circle badge-danger position-absolute translate-middle end-0 top-0 me-n10 h-20px w-20px fs-7" ng-if="LessonPlanCount > 0">
+                                        {{LessonPlanCount}}</div>
+                                </span>
+
+
+                            </a> -->
+                              <a class="d-flex flex-column align-items-center  col-4" ng-if="!Driver && !Admin"
+                                ui-sref="topic">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2" style="">
+                                    <div class="symbol symbol-circle symbol-75px ng-scope"
+                                        style="background: linear-gradient(130deg, #708FFF 0%, #4062D9 100%);">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/lessonplan.svg" class="object-fit-none ">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center position-relative">Notes
+                                    <!-- <div
+                                        class="badge badge-circle badge-danger position-absolute translate-middle end-0 top-0 me-n10 h-20px w-20px fs-7" ng-if="LessonPlanCount > 0">
+                                        {{NotesCount}}</div> -->
+                                </span>
+
+
+                            </a>
+                            <a class="d-flex flex-column align-items-center  col-4" ui-sref="mycirculars">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2" style="">
+                                    <div class="symbol symbol-circle symbol-75px "
+                                        style="background: linear-gradient(130deg, #FF8170 0%, #CF402C 100%);">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/circulars.svg" class="object-fit-none ">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4  text-center position-relative">Circulars
+                                    <div
+                                        class="badge badge-circle badge-danger position-absolute translate-middle me-n8 end-0 top-0  h-20px w-20px fs-7" ng-if="CircularCount > 0">
+                                        {{CircularCount}}</div>
+                                </span>
+
+                            </a>
+                            <a class="d-flex flex-column align-items-center  col-4" ui-sref="notifications">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2" style="">
+                                    <div class="symbol symbol-circle symbol-75px "
+                                        style="background: linear-gradient(130deg, #FFA370 0%, #E3BF00 100%);">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/notifications.svg" class="object-fit-none">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4  text-center position-relative">
+                                    Notifications
+                                    <div
+                                        class="badge badge-circle badge-danger position-absolute translate-middle end-0 top-0 me-n10 h-20px w-20px fs-7" ng-if="NotificationCount > 0">
+                                        {{NotificationCount}}</div>
+                                </span>
+
+                            </a>
+                            <a class="d-flex flex-column align-items-center  col-4" ui-sref="studentattendance">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2" style="">
+                                    <div class="symbol symbol-circle symbol-75px "
+                                        style="background: linear-gradient(130deg, #4B9DE9 0%, #3CCFFD 100%);">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/student_attandance.svg" class="object-fit-none ">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center">Student
+                                     <br>
+                                     Attendance
+                                </span>
+                            </a>
+
+                                <a class="d-flex flex-column align-items-center  col-4" ui-sref="attendanceclasses">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2" style="">
+                                    <div class="symbol symbol-circle symbol-75px "
+                                        style="background: linear-gradient(130deg, #AF70FF 0%, #694399 100%);">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/student_attandance.svg" class="object-fit-none ">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center"> Detailed
+                                     <br>
+                                     Attendance</span>
+
+                            </a>
+
+                            <!-- <a class="d-flex flex-column align-items-center  col-4" ui-sref="stafftimetable"  ng-if="!Driver && !Admin">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2" style="">
+                                    <div class="symbol symbol-circle symbol-75px "
+                                    style="background: linear-gradient(130deg, #FF8170 0%, #CF402C 100%);">
+                                        <img src="./clients/{{$root.ClientSettings.Client}}/images/timetable.svg" class="object-fit-none ">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center">Time Table</span>
+                            </a> -->
+
+                            <a class="d-flex flex-column align-items-center  col-4" ui-sref="studentleaverequest"  ng-if="!Driver && !Admin">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2" style="">
+                                    <div class="symbol symbol-circle symbol-75px "
+                                    style="background: linear-gradient(130deg, #FF8170 0%, #CF402C 100%);">
+                                        <img src="./clients/{{$root.ClientSettings.Client}}/images/leaverequest.svg" class="object-fit-none ">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center">Student Leave Applications</span>
+                            </a>
+
+                            <a class="d-flex flex-column align-items-center  col-4" ui-sref="studentearlypickup"  ng-if="!Driver && !Admin">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2" style="">
+                                    <div class="symbol symbol-circle symbol-75px "
+                                    style="background: linear-gradient(130deg, #FF8170 0%, #CF402C 100%);">
+                                        <img src="./clients/{{$root.ClientSettings.Client}}/images/pickuprequest.svg" class="object-fit-none ">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center">Student Early Pick Requests</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<ng-include src="'partials/Templates/footer.html'"></ng-include>
+
+
+
+<script>
+    var chart = c3.generate({
+        bindto: '#attendanceSpline',
+        size: {
+            height: 50
+        },
+        data: {
+            columns: [
+                ['data1', 10, 9.9, 9.8, 10, 9.9]
+            ],
+            type: 'spline'
+        },
+        axis: {
+            x: { show: false },
+            y: { show: false }
+        },
+        legend: {
+            show: false
+        }
+    });
+</script>

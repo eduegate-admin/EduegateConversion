@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+build/
+dist/
+android/app/build/
+android/.gradle/
+ios/build/
+ios/Pods/
+bin/
+obj/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*.suo
+*.user
+
+# React Native
+.expo/
+web-build/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cordova
+**/platforms/
+**/plugins/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Android secrets
+local.properties
+*.keystore
+*.jks

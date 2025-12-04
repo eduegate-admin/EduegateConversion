@@ -1,0 +1,1804 @@
+﻿<div class="app-page flex-column flex-column-fluid"   ui-view="DriverSchedule" >
+  <div class="app-content flex-column-fluid">
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+    <div class="app-toolbar pt-4">
+      <div class="app-container  container-xxl d-flex flex-stack flex-row-fluid ">
+
+        <div class="card w-100">
+          <div class="card-header border-0 min-h-auto">
+            <label>
+              <span class="p-2">{{CurrentTab}}</span>
+            </label>
+            <span class="fa fa-refresh right pt-1" aria-hidden="true" ng-click="RefreshSummary()"></span>
+
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-wrap mb-5">
+              <div class="rounded min-w-90px py-3 px-4 my-1 me-6 blue" >
+                  <div class="d-flex align-items-center">
+                      <div class="text-white fs-2 fw-bold counted" >{{BlueCount}}</div>
+                  </div>
+                  <div class="fw-semibold fs-6 text-white opacity-50">{{BlueBadge}}</div>
+              </div>
+              <div class="rounded min-w-90px py-3 px-4 my-1 me-6 green">
+                  <div class="d-flex align-items-center">
+                      <div class="text-white fs-2 fw-bold counted">{{GreenCount}}</div>
+                  </div>
+                  <div class="fw-semibold fs-6 text-white opacity-50">{{GreenBadge}}</div>
+              </div>
+              <div class="rounded min-w-90px py-3 px-4 my-1  red">
+                <div class="d-flex align-items-center">
+                    <div class="text-white fs-2 fw-bold counted">{{RedCount}}</div>
+                </div>
+                <div class="fw-semibold fs-6 text-white opacity-50">{{RedBadge}}</div>
+            </div>
+          </div>
+          </div>
+
+      
+      </div>
+
+      </div>
+    </div>
+    <div class="position-fixed end-0 me-2 bottom-0" style="z-index: 2;">
+      <div class="m3-button-container mb-3" ng-click="syncClick()">
+        <div class="m3-button-inner">
+          <div class="m3-button"><span style="outline: none;">{{SyncButtonName}}</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="app-toolbar  w-100 py-4" ng-if="ScheduleDetails.length > 0">
+      <div class="app-container  container-xxl d-flex flex-stack flex-row-fluid ">
+      <div class="alert alert-warning text-center " role="alert" ng-if="!ShowLoader && ScheduleDetails.length == 0">
+        <b>{{AlertText}}</b>
+      </div>
+    </div>
+    </div>
+    <div class="app-toolbar  w-100 py-4" ng-if="ScheduleDetails.length > 0">
+      <div class="app-container  container-xxl d-flex flex-stack flex-row-fluid ">
+
+        <!-- <div ng-if="ScheduleDetails.length > 0" class="card-rounded bg-white d-flex flex-stack flex-wrap p-5" >
+          <label>
+            <input type="checkbox" class="filled-in" id="InorOutChecked" value="InorOutChecked"
+              name="InorOutChecked" ng-model="IsAutoInOrOut" ng-change="AutoMarkInOutCheckBoxChange(IsAutoInOrOut)"/>
+            <span>Auto In/Out</span>
+          </label>
+        </div> -->
+
+      <div class="card card-flush w-100 rounded-2" style="background: linear-gradient(180deg, #1858FD 0%, #1652EA 100%); box-shadow: 0px 14px 40px 0px rgba(24, 85, 243, 0.20);">
+
+        <div class="card-body d-flex align-items-end pb-0">
+            <div class="d-flex flex-stack flex-row-fluid">
+              <p>
+                <label>
+                  <input  class="filled-in"
+                  type="checkbox" id="InorOutChecked" value="InorOutChecked"
+                  name="InorOutChecked" ng-model="IsAutoInOrOut" ng-change="AutoMarkInOutCheckBoxChange(IsAutoInOrOut)" />
+                  <span class="fs-5 fw-semibold text-white">            Auto In/Out
+                  </span>
+                </label>
+              </p>
+            </div>
+        </div>
+
+      </div>
+ 
+      </div>
+    </div>
+    <div class="app-toolbar  w-100 py-4" ng-if="ScheduleDetails.length > 0">
+      <div class="app-container  container-xxl d-flex flex-stack flex-row-fluid ">
+      
+        <div class="card card-flush w-100 rounded-2">
+      
+          <!-- <div class="card-body d-flex align-items-end">
+            <div class="d-flex flex-stack flex-row-fluid">
+              <ng-include class="w-100" src="'partials/facedetection.html'"></ng-include>
+              <button class="btn btn-primary" ng-click="OpenFaceDetection()">
+                <i class="fa fa-camera"></i> Face Detection
+            </div>
+            <div ui-view="DriverSchedule"></div>
+          </div> -->
+        <!-- In your driverscheduler.html file -->
+        <!-- In your driverscheduler.html file -->
+
+<div class="modal-overlay" ng-if="showScannedPassengerModal">
+    <div class="modal-panel">
+        <div class="modal-header">
+            <h3>Confirm Passenger Status</h3>
+            <button class="close-button" ng-click="closeScannedPassengerModal()">×</button>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- START: REPLACE THE MODAL-BODY WITH THIS DETAILED VERSION -->
+        <!-- ========================================================= -->
+        <div class="modal-body">
+            <!-- This container ensures styling matches your list view -->
+            <div class="m-0 mt-3 rounded-3 bg-lighten">
+                <!-- Profile Header (Photo and Name) -->
+                <div id="profile-header" class="header-wrapper fileOnlyHeader-23hdD">
+                    <div class="header-wrapper-inner">
+                        <div class="resume-header-wrapper">
+                            <div class="resume-header grid-container">
+                                <div class="grid-row centered m-0">
+                                    <div class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                        <div class="header-text shadow-border">
+                                            <div class="avatar-outer fs-mask">
+                                                <!-- The ng-class dynamically shows if the student is already in or out -->
+                                                <div class="avatar-container avatar-css horizontal position-relative overflow-hidden" 
+                                                     ng-class="{'student-in': scannedPassengerContext.passenger.IsStudentIn, 'student-out': !scannedPassengerContext.passenger.IsStudentIn}">
+                                                    
+                                                    <img ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{scannedPassengerContext.passenger.StudentProfile}}" 
+                                                         on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" 
+                                                         class="position-absolute w-100" 
+                                                         style="background-size: cover; background-repeat: no-repeat; top: 0;">
+                                                </div>
+                                            </div>
+                                            <div class="header-text-inner">
+                                                <div class="fullname heading3 fs-5 fs-mask">
+                                                    {{ scannedPassengerContext.passenger.StudentName }}
+                                                </div>
+                                                <div class="location fs-mask">
+                                                    <img class="icon-3-7xg css-1xqhio eac13zx0" 
+                                                         ng-src="./clients/{{$root.ClientSettings.Client}}/images/location.svg" />
+                                                    <span class="text-capitalize fs-5">{{ scannedPassengerContext.stop.StopName }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Info (ID, Class, etc.) -->
+                <div class="m-0">
+                    <div class="d-grid g-5 mx-4" style="grid-template-columns: 90px 24px 1fr;">
+                        <div class="fw-normal fs-4 text-gray-700 mb-1">Admn no</div>
+                        <div>:</div>
+                        <div class="fw-semibold fs-4 text-gray-800">{{ scannedPassengerContext.passenger.AdmissionNumber }}</div>
+
+                        <div class="fw-normal fs-4 text-gray-700 mb-1">Class / Section</div>
+                        <div>:</div>
+                        <div class="fw-semibold fs-4 text-gray-800">
+                            {{ scannedPassengerContext.passenger.ClassName }} / {{ scannedPassengerContext.passenger.SectionName }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ========================================================= -->
+        <!-- END: REPLACEMENT -->
+        <!-- ========================================================= -->
+
+
+        <!-- The modal-footer remains the same, as it provides the action buttons -->
+        <div class="modal-footer">
+            <button class="btn btn-danger" 
+                    ng-click="processScannedPassenger(false)">
+                Mark as Absent / OUT
+            </button>
+            <button class="btn btn-success" 
+                    ng-click="processScannedPassenger(true)">
+                Mark as Present / IN
+            </button>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+    <div class="app-container container-xxl pt-5  mt-n5 rounded-3 bg-light" ng-init="LoadScheduleInfo()">
+      <span class="red inputerror" style="text-align: center;" ng-="ErrorMessage"
+        ng-if="ErrorMessage!=''">{{ErrorMessage}}</span>
+
+      <div class="row g-6 g-xl-9">
+
+        <div class="col-md-6 col-xxl-4">
+          <div class="accordion accordion-flush mb-4" id="accordionExample"
+            ng-repeat="shedule in ScheduleDetails track by $index"
+            ng-init="current = $parent.start; $parent.start=$parent.start+1;">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button accordion-button-main collapsed p-6 rounded-2 shadow-sm" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapse{{current.toString()}}" aria-expanded="true"
+                  aria-controls="collapse{{current.toString()}}">
+                  <!-- Media object -->
+                  <div class="d-flex text-reset">
+                    <!-- Image -->
+                    <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/transport.svg" alt="calendar" class="me-3 rounded-circle primary-backgroud"
+                      style="width: 30px; height: 30px" />
+                    <!-- Body -->
+                    <div class="">
+                      <a class="fw-bold mb-3 fs-4 text-reset d-block">Vehicle Reg. no :
+                        {{shedule.VehicleRegistrationNumber}}</a>
+                      <a class="badge fs-5 me-3" target="_blank" style="background-color: hsl(247, 55.7%, 93%);
+                              color: hsl(247, 55.7%, 38%);">
+                        {{shedule.VehicleType}}</a>
+                      <a class="badge fs-5" target="_blank" style="background-color: hsl(217, 88.8%, 92.8%);
+                              color: hsl(217, 88.8%, 30.8%);">
+                        {{CurrentDateString}}
+                      </a>
+                      <br>
+                    </div>
+                  </div>
+                  <!-- Media object -->
+                </button>
+                <!-- <button class="accordion-button accordion-button-main collapsed" type="button"
+                                  >
+
+                              </button> -->
+              </h2>
+              <div id="collapse{{current.toString()}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                data-bs-parent="#collapse{{current.toString()}}">
+                <div class="accordion-body p-0 mt-2">
+                  <div class="vehicleToggleContainer displayFlex flexColumn">
+                    <div class="alert alert-warning text-center mx-3" role="alert"
+                      ng-if="!ShowLoader && shedule.RoutesDetails.length == 0">
+                      <b>No routes found for this vehicle!</b>
+                    </div>
+                    <div class="accordion accordion-flush" id="accordionExample2"
+                      ng-repeat="route in shedule.RoutesDetails track by $index"
+                      ng-init="current2 = $parent.start; $parent.start=$parent.start+1;">
+                      <div class="accordion-item route-accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                          <button class="accordion-button collapsed rounded-2" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseRoute{{current.toString() + current2.toString() }}"
+                            aria-expanded="true"
+                            aria-controls="collapseRoute{{current.toString() + current2.toString() }}">
+                            <div
+                              class="fullwidth row displayFlex justify-spacebetween alignCenter textleft routeToggleHeader m-2"
+                              data-toggle="toggledata_a">
+                              <span class="flexOne">
+                                <label>Route Code :</label>
+                                <span>{{route.RouteCode}}</span>
+                              </span>
+                            </div>
+                          </button>
+                        </h2>
+                        <div id="collapseRoute{{current.toString() + current2.toString()}}"
+                          class="accordion-collapse collapse" aria-labelledby="headingOne"
+                          data-bs-parent="#accordionExample2">
+                          <div
+                            class="accordion-body bg-lighter rounded-2 mt-1 accordion-body-bordered app-container container-xxl">
+                            <ul
+                              class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold flex-center"
+                              id="myTab" role="tablist">
+                              <li class="nav-item" role="presentation">
+                                <button class="nav-link text-active-primary ms-0 me-10 py-2 my-3 bg-transparent active"
+                                  id="Pick_up-tab{{current.toString() + current2.toString()}}" data-bs-toggle="tab"
+                                  data-bs-target="#Pick_up{{current.toString() + current2.toString()}}" type="button"
+                                  role="tab" aria-controls="Pick_up{{current.toString() + current2.toString()}}"
+                                  aria-selected="true" ng-click="RouteStopTypeChange('Pickup')">
+                                  Pickup
+                                </button>
+                              </li>
+                              <li class="nav-item" role="presentation">
+                                <button class="nav-link text-active-primary ms-0 me-10 py-2 bg-transparent my-3"
+                                  id="_Drop-tab{{current.toString() + current2.toString()}}" data-bs-toggle="tab"
+                                  data-bs-target="#_Drop{{current.toString() + current2.toString()}}" type="button"
+                                  role="tab" aria-controls="_Drop{{current.toString() + current2.toString()}}"
+                                  aria-selected="false" ng-click="RouteStopTypeChange('Drop')">
+                                  Drop
+                                </button>
+                              </li>
+                            </ul>
+                            <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                              <div class="col-xl-6">
+                                <div class="card-rounded rounded-2 bg-light d-flex flex-stack flex-wrap p-5">
+                                  <div class="">
+                                    <form class="">
+                                      <p class="mb-0">
+                                        <label>
+                                          <input type="checkbox" class="filled-in"
+                                            ng-click="GetDetails('Student', $event)" ng-model="IsStudentDetails"
+                                            ng-checked="IsStudentDetails" />
+                                          <span class="fs-5 fw-semibold"> Student details</span>
+                                        </label>
+                                        <!-- </p>
+                                              <p> -->&nbsp;&nbsp;
+                                        <label>
+                                          <input type="checkbox" class="filled-in"
+                                            ng-click="GetDetails('Staff', $event)" ng-model="IsStaffDetails"
+                                            ng-checked="IsStaffDetails" />
+                                          <span class="fs-5 fw-semibold">Staff details</span>
+                                        </label>
+                                      </p>
+                                    </form>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+
+
+                            <div class="tab-content bg-light rounded-3 pb-3" id="myTabContent">
+                              <div class="tab-pane fade show active"
+                                id="Pick_up{{current.toString() + current2.toString()}}" role="tabpanel"
+                                aria-labelledby="Pick_up-tab{{current.toString() + current2.toString()}}">
+                                <ul class="nav flex-wrap border-transparent fw-bold flex-center" id="myTab"
+                                  role="tablist">
+                                  <li class="nav-item my-3" role="presentation">
+                                    <button class="btn btn-color-gray-600 btn-active-primary btn-active-color-white fw-bolder fs-8 fs-lg-base nav-link px-3 px-lg-8 mx-1
+                                              active" id="Pickup_in-tab{{current.toString() + current2.toString()}}"
+                                      data-bs-toggle="tab"
+                                      data-bs-target="#Pickup_in{{current.toString() + current2.toString()}}"
+                                      type="button" role="tab"
+                                      aria-controls="Pickup_in{{current.toString() + current2.toString()}}"
+                                      aria-selected="true" ng-click="RouteStopTypeChange('PickupIn')">
+                                      Pickup in
+                                    </button>
+                                  </li>
+                                  <li class="nav-item my-1" role="presentation">
+                                    <button class="btn btn-color-gray-600 btn-active-primary btn-active-color-white fw-bolder fs-8 fs-lg-base nav-link px-3 px-lg-8 mx-1
+                                              " id="Pickup_Out-tab{{current.toString() + current2.toString()}}"
+                                      data-bs-toggle="tab"
+                                      data-bs-target="#Pickup_Out{{current.toString() + current2.toString()}}"
+                                      type="button" role="tab"
+                                      aria-controls="Pickup_Out{{current.toString() + current2.toString()}}"
+                                      aria-selected="false"
+                                      ng-click="GetScheduledDatasByRoute('IsPickup', shedule, route)">
+                                      Pickup out
+                                    </button>
+                                  </li>
+                                </ul>
+                                <div class="d-flex flex-center mx-4">
+                                    <div class="input-group flex-nowrap w-100">
+                                      <input
+                                        class="form-control border-1 border-gray-700 border px-3 rounded-2 mb-0 bg-white"
+                                        type="search" placeholder="Search" id="search-input-pickup"
+                                        ng-keyup="$event.keyCode == 13 && FillSearchText(route, shedule, 'Pickup')" />
+                                      <button ng-click="ScanBarcode(route, shedule,'Pickup');" style="z-index: 1"
+                                        class=" barcode-btn btn-outline-secondary rounded-2  border ms-5 bg-secondary"
+                                        type="button">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/upc-scan.svg" alt="My Happy SVG" />
+                                      </button>
+                                  </div>
+                                </div>
+                                <div class="text-center" ng-if="LoadingSpinner == true">
+                                  <div class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </div>
+
+                                <!-- <div ng-if="isAlertMsg == true" style="padding: 5px;
+                                        background-color: #f44336;
+                                        color: white;" ng-bind="SearchDataAlreadyExistMsg">
+                                        </div> -->
+
+                                <!-- Pickup In Searched Data List Start -->
+                                <div ng-if="FilterScheduleStudentPickInDetails.length > 0 && IsStudentDetails == true"
+                                  style="width: 100%">
+                                  <div colspan="4">
+                                    <div class="tab-content" id="pills-tabContent">
+                                      <div class="tab-pane fade show active p-2"
+                                        id="pills-In{{current.toString() + current2.toString() + current3.toString()}}"
+                                        role="tabpanel" aria-labelledby="pills-In-tab">
+                                        <div ng-repeat="student in FilterScheduleStudentPickInDetails"
+                                          ng-if="student.IsPickupStop == true"
+                                          ng-init="currenttoggleid = $parent.start; $parent.start=$parent.start+1;"
+                                          class="bg-light rounded-3">
+                                          <div id="profile-header" class="header-wrapper fileOnlyHeader-23hdD">
+                                            <div class="header-wrapper-inner">
+                                              <div class="resume-header-wrapper">
+                                                <div class="resume-header grid-container">
+                                                  <div class="grid-row centered m-0">
+                                                    <div
+                                                      class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                      <div class="header-text shadow-border">
+                                                        <div class="avatar-outer fs-mask">
+                                                          <div
+                                                            class="avatar-container avatar-css horizontal position-relative overflow-hidden"
+                                                            ng-class="{'student-in': student.IsStudentIn===true , 'student-out': student.IsStudentIn===false}">
+
+                                                            >
+                                                            <img ng-src="{{student.StudentProfile}}"
+                                                              on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" style="
+                                                                        background-size: cover;
+                                                                        background-repeat: no-repeat;
+                                                                        top: 0;
+                                                                      " class="position-absolute w-100" />
+                                                          </div>
+                                                        </div>
+                                                        <div class="header-text-inner">
+                                                          <div class="fullname heading3 fs-5 fs-mask">
+                                                            {{student.StudentName}}
+                                                          </div>
+                                                          <div class="location fs-mask">
+                                                            <img class="icon-3-7xg css-1xqhio eac13zx0"
+                                                            ng-src="./clients/{{$root.ClientSettings.Client}}/images/location.svg" />
+
+                                                            <span ng-bind="student.StopName"
+                                                              class="text-capitalize fs-5"></span>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="m-0">
+                                            <div class="d-grid g-5 p-4" style=" grid-template-columns: 80px 36px 1fr;">
+                                              <div class="fw-normal fs-4 text-gray-700 mb-1">Admn no </div>
+                                              <div class="">:</div>
+                                              <div class="fw-semibold fs-4 text-gray-800"> {{student.AdmissionNumber}}
+                                              </div>
+
+                                              <div class="fw-normal fs-4 text-gray-700 mb-1">Class / Section</div>
+                                              <div class="">:</div>
+                                              <div class="fw-semibold fs-4 text-gray-800">
+                                                {{student.ClassName}} /
+                                                {{student.SectionName}}</div>
+                                            </div>
+                                          </div>
+
+                                          <div class="form-check p-3 d-flex justify-content-between">
+                                            <label class="screen-reader-only fs-4" for="choice">&nbsp; In or
+                                              not?</label>
+                                            <div>
+                                              <input type="checkbox" id="togBtnPickInStud{{currenttoggleid}}"
+                                                data-switch="success" ng-model="student.IsStudentIn"
+                                                ng-click="ChangeFilterPickupDataStatus(student, 'Student', student.IsStudentIn)" />
+                                              <label for="togBtnPickInStud{{currenttoggleid}}" data-on-label="In"
+                                                data-off-label="Not In"></label>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div ng-if="FilterScheduleStaffPickInDetails.length > 0 && IsStaffDetails == true"
+                                  style="width: 100%">
+                                  <div colspan="4">
+                                    <div class="tab-content" id="pills-tabContent">
+                                      <div class="tab-pane fade show active p-2"
+                                        id="pills-In{{current.toString() + current2.toString() + current3.toString()}}"
+                                        role="tabpanel" aria-labelledby="pills-In-tab">
+                                        <div ng-repeat="staff in FilterScheduleStaffPickInDetails track by $index"
+                                          ng-if="staff.IsPickupStop == true" class="bg-light rounded-3">
+                                          <div class="m-0">
+                                            <div class="d-grid g-5 p-4" style=" grid-template-columns: 100px 36px 1fr;">
+                                              <div class="fw-normal fs-4 text-gray-700 mb-1">Emp code </div>
+                                              <div class="">:</div>
+                                              <div class="fw-semibold fs-4 text-gray-800">{{staff.EmployeeCode}}</div>
+
+                                              <div class="fw-normal fs-4 text-gray-700 mb-1">Name</div>
+                                              <div class="">:</div>
+                                              <div class="fw-semibold fs-4 text-gray-800"> {{staff.StaffName}}</div>
+                                            </div>
+                                          </div>
+
+                                          <div class="form-check p-3 d-flex justify-content-between">
+                                            <label class="screen-reader-only fs-4" for="choice">&nbsp; In or
+                                              not?</label>
+                                            <div>
+                                              <input type="checkbox" id="togBtnPickInStaff{{$index}}"
+                                                data-switch="success" ng-model="staff.IsStaffIn"
+                                                ng-click="ChangeFilterPickupDataStatus(staff, 'Employee', staff.IsStaffIn)" />
+                                              <label for="togBtnPickInStaff{{$index}}" data-on-label="In"
+                                                data-off-label="Not In"></label>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- Pickup in Searched Data List End -->
+
+                                <div class="tab-content  bg-light rounded-3 px-2 py-4 timeline" id="myTabContent">
+                                  <div class="tab-pane fade show active"
+                                    id="Pickup_in{{current.toString() + current2.toString()}}" role="tabpanel"
+                                    aria-labelledby="Pickup_in-tab{{current.toString() + current2.toString()}}">
+
+                                    <div class="gridDataWrap driver-schedule">
+                                      <div class="alert alert-warning text-center" role="alert"
+                                        ng-if="!ShowLoader && route.Stops.length == 0">
+                                        <b>No stop details found!</b>
+                                      </div>
+                                      <div class="accordion accordion-flush mt-4 timeline" id="accordionFlushExample">
+                                        <div class="accordion-item mx-2 timeline__row border-0"
+                                          ng-repeat="stop in route.Stops"
+                                          ng-init="current3 = $parent.start; $parent.start=$parent.start+1;">
+                                          <div class="timeline__row_icon m-0">
+                                            <div class="timeline-icon success" style="position: sticky; top: 70px;">
+                                              <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/truck-front-fill.svg" alt="truck SVG" />
+                                            </div>
+                                          </div>
+                                          <div class="timeline__row_content">
+                                            <h2 class="accordion-header"
+                                              style="position: sticky; top: 70px; z-index: 10;"
+                                              id="flush-headingOne_Stop_Name{{current.toString() + current2.toString() + current3.toString()}}">
+                                              <button class="accordion-button p-3 mb-2 bg-light rounded-2 collapsed"
+                                                type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#flush-collapseOne_Stop_Name{{current.toString() + current2.toString() + current3.toString()}}"
+                                                aria-expanded="false"
+                                                aria-controls="flush-collapseOne_Stop_Name{{current.toString() + current2.toString() + current3.toString()}}">
+                                                <div
+                                                  class="fullwidth row displayFlex justify-spacebetween alignCenter textleft stopToggleHeader mb-0">
+                                                  <span class="flexOne">
+                                                    <label class=" text-gray-700">Stop Name:</label>
+                                                    <span class="badgeData font-bold" ng-bind="stop.StopName"></span>
+                                                  </span>
+                                                </div>
+                                              </button>
+                                            </h2>
+                                            <div
+                                              id="flush-collapseOne_Stop_Name{{current.toString() + current2.toString() + current3.toString()}}"
+                                              class="accordion-collapse collapse"
+                                              aria-labelledby="flush-headingOne_Stop_Name{{current.toString() + current2.toString() + current3.toString()}}"
+                                              data-bs-parent="#accordionFlushExample">
+                                              <div class="accordion-body p-0">
+                                                <div class="stopToggleContainer  p-0">
+                                                  <div class="" style="width: 100%">
+                                                    <div class="pagesections noOverflow">
+                                                      <div colspan="4"
+                                                        class="badge fs-5 p-2 float-none badge-info mt-3">
+                                                        <b>Total count (staff,
+                                                          students) :</b>
+                                                        &nbsp;
+                                                        <span ng-bind="GetStopCount(stop)" class="fs-4"></span>
+                                                      </div>
+                                                      <div class="tab-content" id="pills-tabContent">
+                                                        <div class="tab-pane fade show active"
+                                                          id="pills-home{{current.toString() + current2.toString() + current3.toString()}}"
+                                                          role="tabpanel" aria-labelledby="pills-home-tab">
+                                                          <div>
+                                                            <div class="alert alert-warning text-center" role="alert"
+                                                              ng-if="!ShowLoader && stop.StopsStudentDetails.length == 0 && IsStudentDetails == true">
+                                                              <b>No student
+                                                                details found!</b>
+                                                            </div>
+                                                          </div>
+
+                                                          <div
+                                                            ng-if="stop.StopsStudentDetails.length > 0 && IsStudentDetails == true"
+                                                            style="width: 100%">
+                                                            <div colspan="4">
+                                                              <div class="tab-content" id="pills-tabContent">
+                                                                <div class="tab-pane fade show active"
+                                                                  id="pills-In{{current.toString() + current2.toString() + current3.toString()}}"
+                                                                  role="tabpanel" aria-labelledby="pills-In-tab">
+                                                                  <div ng-repeat="student in stop.StopsStudentDetails"
+                                                                    ng-init="currenttoggleid = $parent.start; $parent.start=$parent.start+1;"
+                                                                    class="m-0 mt-3 rounded-3 bg-lighten" style=""
+                                                                    ng-if="student.IsPickupStop == true">
+                                                                    <div id="profile-header"
+                                                                      class="header-wrapper fileOnlyHeader-23hdD">
+                                                                      <div class="header-wrapper-inner">
+                                                                        <div class="resume-header-wrapper">
+                                                                          <div class="resume-header grid-container">
+                                                                            <div class="grid-row centered m-0">
+                                                                              <div
+                                                                                class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                                                <div class="header-text shadow-border">
+                                                                                  <div class="avatar-outer fs-mask">
+                                                                                    <div
+                                                                                      class="avatar-container avatar-css horizontal position-relative overflow-hidden"
+                                                                                      ng-class="{'student-in': student.IsStudentIn===true , 'student-out': student.IsStudentIn===false}">
+                                                                                      <img
+                                                                                        ng-src="{{student.StudentProfile}}"
+                                                                                        on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                                                        style="
+                                                                                                  background-size: cover;
+                                                                                                  background-repeat: no-repeat;
+                                                                                                  top: 0;
+                                                                                                "
+                                                                                        class="position-absolute w-100" />
+
+                                                                                      <!-- <div class="first-letter">A</div>
+                                                                                                                                                                              <div>N</div> -->
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="header-text-inner">
+                                                                                    <div
+                                                                                      class="fullname heading3 fs-5 fs-mask">
+                                                                                      {{student.StudentName}}
+                                                                                    </div>
+                                                                                    <div class="location fs-mask">
+                                                                                      <img
+                                                                                        class="icon-3-7xg css-1xqhio eac13zx0"
+                                                                                        ng-src="./clients/{{$root.ClientSettings.Client}}/images/location.svg"
+                                                                                        alt="My Happy SVG" />
+
+                                                                                      <span ng-bind="stop.StopName"
+                                                                                        class="text-capitalize fs-5"></span>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="m-0">
+                                                                      <div class="d-grid g-5 mx-4"
+                                                                        style="   grid-template-columns: 90px 24px 1fr;  ">
+                                                                        <div class="fw-normal fs-4 text-gray-700 mb-1">
+                                                                          Admn no </div>
+                                                                        <div class="">:</div>
+                                                                        <div class="fw-semibold fs-4 text-gray-800">
+                                                                          {{student.AdmissionNumber}}</div>
+
+                                                                        <div class="fw-normal fs-4 text-gray-700 mb-1">
+                                                                          Class / Section</div>
+                                                                        <div class="">:</div>
+                                                                        <div class="fw-semibold fs-4 text-gray-800">
+                                                                          {{student.ClassName}} /
+                                                                          {{student.SectionName}}</div>
+                                                                      </div>
+                                                                    </div>
+
+                                                                    <div
+                                                                      class="form-check p-3 d-flex justify-content-between">
+                                                                      <label class="screen-reader-only fs-4"
+                                                                        for="choice">&nbsp; In
+                                                                        or
+                                                                        not?</label>
+                                                                      <div class="">
+                                                                        <input type="checkbox"
+                                                                          id="togBtnPickInStud{{currenttoggleid}}"
+                                                                          data-switch="success"
+                                                                          ng-model="student.IsStudentIn"
+                                                                          ng-click="ChangeStatus('IsPickup', shedule, route, stop, student, 'Student', student.IsStudentIn)" />
+                                                                        <label for="togBtnPickInStud{{currenttoggleid}}"
+                                                                          data-on-label="In"
+                                                                          data-off-label="Not In"></label>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+
+                                                              <div colspan="4"
+                                                                class="badge fs-5 p-2 float-none badge-info mt-3">
+                                                                <span>Total pickup
+                                                                  students
+                                                                  :</span>
+                                                                &nbsp;
+                                                                <span ng-bind="GetDetailCount(stop,'StudentPickupStop')"
+                                                                  class="fs-4"></span>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+
+                                                          <div class="alert alert-warning text-center my-3" role="alert"
+                                                            ng-if="!ShowLoader && stop.StopsStaffDetails.length == 0 && IsStaffDetails == true">
+                                                            <b>No staff details
+                                                              found!</b>
+                                                          </div>
+
+                                                          <div
+                                                            ng-if="stop.StopsStaffDetails.length > 0 && IsStaffDetails == true"
+                                                            style="width: 100%">
+                                                            <div colspan="4">
+                                                              <div class="tab-content" id="pills-tabContent">
+                                                                <div class="tab-pane fade show active"
+                                                                  id="pills-Pickup-In-staff{{current.toString() + current2.toString() + current3.toString()}}"
+                                                                  role="tabpanel"
+                                                                  aria-labelledby="pills-Pickup-In-tab-staff">
+                                                                  <div
+                                                                    ng-repeat="staff in stop.StopsStaffDetails track by $index"
+                                                                    class="bg-lighten rounded-3 mt-3 "
+                                                                    ng-if="staff.IsPickupStop == true">
+                                                                    <div class="">
+                                                                      <div class="m-0">
+                                                                        <div class="d-grid g-5 p-4"
+                                                                          style=" grid-template-columns: 90px 24px 1fr;">
+                                                                          <div
+                                                                            class="fw-normal fs-4 text-gray-700 mb-1">
+                                                                            Emp code </div>
+                                                                          <div class="">:</div>
+                                                                          <div class="fw-semibold fs-4 text-gray-800">
+                                                                            {{staff.EmployeeCode}}</div>
+
+                                                                          <div
+                                                                            class="fw-normal fs-4 text-gray-700 mb-1">
+                                                                            Name</div>
+                                                                          <div class="">:</div>
+                                                                          <div class="fw-semibold fs-4 text-gray-800">
+                                                                            {{staff.StaffName}}</div>
+                                                                        </div>
+                                                                      </div>
+
+                                                                    </div>
+                                                                    <hr class="my-2 mx-4">
+                                                                    <div
+                                                                      class="form-check p-3 border-top d-flex justify-content-between">
+                                                                      <label class="screen-reader-only fs-4"
+                                                                        for="choice">&nbsp; In
+                                                                        or
+                                                                        not?</label>
+                                                                      <input type="checkbox"
+                                                                        id="togBtnPickInStaff_{{stop}}_{{$index}}"
+                                                                        data-switch="success" ng-model="staff.IsStaffIn"
+                                                                        ng-click="ChangeStatus('IsPickup', shedule, route, stop, staff, 'Employee', staff.IsStaffIn)" />
+                                                                      <label for="togBtnPickInStaff_{{stop}}_{{$index}}"
+                                                                        data-on-label="In"
+                                                                        data-off-label="Not In"></label>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+
+                                                              <div colspan="4"
+                                                                class="badge fs-5 p-2 float-none badge-info mt-3">
+                                                                <span>Total pickup
+                                                                  staff :</span>
+                                                                <span
+                                                                  ng-bind="GetDetailCount(stop,'StaffPickupStop', 'IsStaff')"
+                                                                  class="fs-4">
+                                                                </span>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="tab-pane d-flex flex-wrap timeline__row mx-2 mt-4 fade"
+                                    id="Pickup_Out{{current.toString() + current2.toString()}}" role="tabpanel"
+                                    aria-labelledby="Pickup_Out-tab{{current.toString() + current2.toString()}}">
+                                    <div class="timeline__row_icon m-0">
+                                      <div class="timeline-icon success"
+                                        style="position: sticky; top: 70px; z-index: 10;">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/truck-front-fill.svg" alt="truck SVG" />
+                                      </div>
+                                    </div>
+                                    <div class="timeline__row_content">
+                                      <!-- Pickup Out Searched Data List Start -->
+                                      <div
+                                        ng-if="FilterScheduleStudentPickOutDetails.length > 0 && IsStudentDetails == true"
+                                        style="width: 100%">
+                                        <div colspan="4">
+                                          <div class="tab-content" id="pills-tabContent">
+                                            <div class="tab-pane fade show active p-2"
+                                              id="pills-home{{current.toString() + current2.toString() + current3.toString()}}"
+                                              role="tabpanel" aria-labelledby="pills-home-tab">
+                                              <div ng-repeat="student in FilterScheduleStudentPickOutDetails"
+                                                ng-if="student.IsPickupStop == true"
+                                                ng-init="currenttoggleid = $parent.start; $parent.start=$parent.start+1;"
+                                                class="bg-light rounded-3">
+                                                <div id="profile-header" class="header-wrapper fileOnlyHeader-23hdD">
+                                                  <div class="header-wrapper-inner">
+                                                    <div class="resume-header-wrapper">
+                                                      <div class="resume-header grid-container">
+                                                        <div class="grid-row centered m-0">
+                                                          <div
+                                                            class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                            <div class="header-text shadow-border">
+                                                              <div class="avatar-outer fs-mask">
+                                                                <div
+                                                                  class="avatar-container avatar-css horizontal position-relative overflow-hidden"
+                                                                  ng-class="{'student-in': student.IsStudentIn===true , 'student-out': student.IsStudentIn===false}">
+                                                                  <img ng-src="{{student.StudentProfile}}"
+                                                                    on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" style="
+                                                                            background-size: cover;
+                                                                            background-repeat: no-repeat;
+                                                                            top: 0;
+                                                                          " class="position-absolute w-100" />
+                                                                </div>
+                                                              </div>
+                                                              <div class="header-text-inner">
+                                                                <div class="fullname heading3 fs-5 fs-mask">
+                                                                  {{student.StudentName}}
+                                                                </div>
+                                                                <div class="location fs-mask">
+                                                                  <img class="icon-3-7xg css-1xqhio eac13zx0"
+                                                                  ng-src="./clients/{{$root.ClientSettings.Client}}/images/location.svg" />
+
+                                                                  <span ng-bind="student.StopName"
+                                                                    class="text-capitalize fs-5"></span>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="m-0">
+                                                  <div class="d-grid g-5 mx-4"
+                                                    style=" grid-template-columns: 90px 24px 1fr;">
+                                                    <div class="fw-normal fs-4 text-gray-700 mb-1">Admn no </div>
+                                                    <div class="">:</div>
+                                                    <div class="fw-semibold fs-4 text-gray-800">
+                                                      {{student.AdmissionNumber}}</div>
+
+                                                    <div class="fw-normal fs-4 text-gray-700 mb-1">Class / Section</div>
+                                                    <div class="">:</div>
+                                                    <div class="fw-semibold fs-4 text-gray-800">
+                                                      {{student.ClassName}} /
+                                                      {{student.SectionName}}</div>
+                                                  </div>
+                                                </div>
+
+                                                <div class="form-check p-3 d-flex justify-content-between fs-5">
+                                                  <label class="screen-reader-only fs-4" for="choice">&nbsp; In or
+                                                    not?</label>
+                                                  <div>
+                                                    <input type="checkbox" id="togBtnPickOutStud{{currenttoggleid}}"
+                                                      data-switch="success" ng-model="student.IsStudentIn"
+                                                      ng-click="ChangeFilterPickupDataStatus(student, 'Student', student.IsStudentIn)" />
+                                                    <label for="togBtnPickOutStud{{currenttoggleid}}" data-on-label="In"
+                                                      data-off-label="Out"></label>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div
+                                        ng-if="FilterScheduleStaffPickOutDetails.length > 0 && IsStaffDetails == true"
+                                        style="width: 100%">
+                                        <div colspan="4">
+                                          <div class="tab-content" id="pills-tabContent">
+                                            <div class="tab-pane fade show active"
+                                              id="pills-home{{current.toString() + current2.toString() + current3.toString()}}"
+                                              role="tabpanel" aria-labelledby="pills-home-tab">
+                                              <div ng-repeat="staff in FilterScheduleStaffPickOutDetails"
+                                                ng-if="staff.IsPickupStop == true"
+                                                ng-init="currenttoggleid = $parent.start; $parent.start=$parent.start+1;"
+                                                class="bg-light rounded-3">
+                                                <div class="m-0">
+                                                  <div class="d-grid g-5 p-4"
+                                                    style=" grid-template-columns: 100px 36px 1fr;">
+                                                    <div class="fw-normal fs-4 text-gray-700 mb-1">Emp code </div>
+                                                    <div class="">:</div>
+                                                    <div class="fw-semibold fs-4 text-gray-800"> {{staff.EmployeeCode}}
+                                                    </div>
+
+                                                    <div class="fw-normal fs-4 text-gray-700 mb-1">Name</div>
+                                                    <div class="">:</div>
+                                                    <div class="fw-semibold fs-4 text-gray-800">{{staff.StaffName}}
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                                <div class="form-check p-3 d-flex justify-content-between">
+                                                  <label class="screen-reader-only fs-4" for="choice">&nbsp; In or
+                                                    not?</label>
+                                                  <div>
+                                                    <input type="checkbox" id="togBtnPickOutStaff{{currenttoggleid}}"
+                                                      data-switch="success" ng-model="staff.IsStaffIn"
+                                                      ng-click="ChangeFilterPickupDataStatus(staff, 'Employee', staff.IsStaffIn)" />
+                                                    <label for="togBtnPickOutStaff{{currenttoggleid}}"
+                                                      data-on-label="In" data-off-label="Out"></label>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- Pickup Out Searched Data List End -->
+
+                                      <div ng-if="IsStudentDetails == true">
+                                        <div class="m-3 mt-0 rounded-3 bg-lighten" style=""
+                                          ng-repeat="shedule in StudentPickupSheduledList"
+                                          ng-init="currenttoggleid2 = $parent.start; $parent.start=$parent.start+1;">
+                                          <div id="profile-header" class="header-wrapper fileOnlyHeader-23hdD">
+                                            <div class="header-wrapper-inner">
+                                              <div class="resume-header-wrapper">
+                                                <div class="resume-header grid-container">
+                                                  <div class="grid-row centered m-0">
+                                                    <div
+                                                      class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                      <div class="header-text shadow-border">
+                                                        <div class="avatar-outer fs-mask">
+                                                          <div
+                                                            class="avatar-container avatar-css horizontal position-relative overflow-hidden"
+                                                            ng-class="{'student-in': shedule.StudentRouteStopMap.IsStudentIn===true , 'student-out': shedule.StudentRouteStopMap.IsStudentIn===false}">
+                                                            <img ng-src="{{shedule.StudentRouteStopMap.StudentProfile}}"
+                                                              on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" style="
+                                                                      background-size: cover;
+                                                                      background-repeat: no-repeat;
+                                                                      top: 0;
+                                                                    " class="position-absolute w-100" />
+
+                                                            <!-- <div class="first-letter">A</div>
+                                                                                                                          <div>N</div> -->
+                                                          </div>
+                                                        </div>
+                                                        <div class="header-text-inner">
+                                                          <div class="fullname heading3 fs-5 fs-mask">
+                                                            {{shedule.StudentRouteStopMap.StudentName}}
+                                                          </div>
+                                                          <div class="location fs-mask">
+                                                            <img class="icon-3-7xg css-1xqhio eac13zx0"
+                                                            ng-src="./clients/{{$root.ClientSettings.Client}}/images/mortarboard-fill.svg" alt="My Happy SVG" />
+
+                                                            <span
+                                                              class="text-capitalize fs-5">{{shedule.StudentRouteStopMap.StopName}}</span>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="m-0">
+                                            <div class="d-grid g-5 p-4" style=" grid-template-columns: 100px 36px 1fr;">
+                                              <div class="fw-normal fs-4 text-gray-700 mb-1">Admn no </div>
+                                              <div class="">:</div>
+                                              <div class="fw-semibold fs-4 text-gray-800">
+                                                {{shedule.StudentRouteStopMap.AdmissionNumber}}</div>
+
+                                              <div class="fw-normal fs-4 text-gray-700 mb-1">Class</div>
+                                              <div class="">:</div>
+                                              <div class="fw-semibold fs-4 text-gray-800">
+                                                {{shedule.StudentRouteStopMap.ClassName}}</div>
+
+                                              <div class="fw-normal fs-4 text-gray-700 mb-1">Section</div>
+                                              <div class="">:</div>
+                                              <div class="fw-semibold fs-4 text-gray-800">
+                                                {{shedule.StudentRouteStopMap.SectionName}}</div>
+
+                                            </div>
+                                          </div>
+                                          <hr class="my-2 mx-4">
+
+                                          <div class="form-check p-3 border-top d-flex justify-content-between">
+                                            <label class="screen-reader-only fs-4" for="choice">&nbsp; In or
+                                              not?</label>
+                                            <input type="checkbox" id="togBtnPickOutStud{{currenttoggleid2}}"
+                                              data-switch="success" ng-model="shedule.StudentRouteStopMap.IsStudentIn"
+                                              ng-click="AddNewSheduleData(shedule, 'Student', shedule.StudentRouteStopMap.IsStudentIn)" />
+                                            <label for="togBtnPickOutStud{{currenttoggleid2}}" data-on-label="In"
+                                              data-off-label="Out"></label>
+                                          </div>
+                                        </div>
+                                        <div colspan="4" class="badge fs-5 p-2 float-none badge-info mt-3" style="
+                                                  border-top: 1px solid #d3d0d0;
+                                                  margin-top: 10px;
+                                                  padding: 4px;
+                                                ">
+                                          <span>Total drop students :</span>
+                                          <span class="fs-4">{{StudentPickoutSheduleCount}}</span>
+                                        </div>
+                                      </div>
+
+                                      <div ng-if="IsStaffDetails == true">
+                                        <div ng-repeat="shedule in StaffPickupSheduledList"
+                                          ng-init="currenttoggleid3 = $parent.start; $parent.start=$parent.start+1;"
+                                          class="bg-lighten rounded-3 m-2 ">
+                                          <div>
+                                            <div class="m-0">
+                                              <div class="d-grid g-5 p-4"
+                                                style=" grid-template-columns: 90px 24px 1fr;">
+                                                <div class="fw-normal fs-4 text-gray-700 mb-1">Emp code </div>
+                                                <div class="">:</div>
+                                                <div class="fw-semibold fs-4 text-gray-800">
+                                                  {{shedule.StaffRouteStopMap.EmployeeCode}}</div>
+
+                                                <div class="fw-normal fs-4 text-gray-700 mb-1">Name</div>
+                                                <div class="">:</div>
+                                                <div class="fw-semibold fs-4 text-gray-800">
+                                                  {{shedule.StaffRouteStopMap.StaffName}}</div>
+                                              </div>
+                                            </div>
+                                            <hr class="my-2 mx-4">
+
+                                            <div class="form-check p-2 mt-2">
+                                              <label class="screen-reader-only fs-4" for="choice">&nbsp; In or
+                                                not?</label>
+                                              <input type="checkbox" id="togBtnPickOutStaff{{currenttoggleid3}}"
+                                                data-switch="success" ng-model="shedule.StaffRouteStopMap.IsStaffIn"
+                                                ng-click="AddNewSheduleData(shedule, 'Staff', shedule.StaffRouteStopMap.IsStaffIn)" />
+                                              <label for="togBtnPickOutStaff{{currenttoggleid3}}" data-on-label="In"
+                                                data-off-label="Out" class="pull right"></label>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div colspan="4" class="badge fs-5 p-2 float-none badge-info mt-3" style="
+                                                  border-top: 1px solid #d3d0d0;
+                                                  margin-top: 10px;
+                                                  padding: 4px;
+                                                ">
+                                          <span>Total drop staffs :</span>
+                                          <span class="ng-binding">{{StaffPickoutSheduleCount}}</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="tab-pane fade" id="_Drop{{current.toString() + current2.toString()}}"
+                                role="tabpanel" aria-labelledby="_Drop-tab{{current.toString() + current2.toString()}}">
+                                <ul class="nav flex-wrap border-transparent fw-bold flex-center" id="myTab"
+                                  role="tablist">
+                                  <li class="nav-item my-3" role="presentation">
+                                    <button class="btn btn-color-gray-600 btn-active-primary btn-active-color-white fw-bolder fs-8 fs-lg-base nav-link px-3 px-lg-8 mx-1
+                                              active" id="Drop_in-tab{{current.toString() + current2.toString()}}"
+                                      data-bs-toggle="tab"
+                                      data-bs-target="#Drop_in{{current.toString() + current2.toString()}}"
+                                      type="button" role="tab"
+                                      aria-controls="Drop_in{{current.toString() + current2.toString()}}"
+                                      aria-selected="true" ng-click="RouteStopTypeChange('DropIn')">
+                                      Drop in
+                                    </button>
+                                  </li>
+                                  <li class="nav-item" role="presentation">
+                                    <button class="btn btn-color-gray-600 btn-active-primary btn-active-color-white fw-bolder fs-8 fs-lg-base nav-link px-3 px-lg-8 mx-1
+                                              " id="Drop_out-tab{{current.toString() + current2.toString()}}"
+                                      data-bs-toggle="tab"
+                                      data-bs-target="#Drop_out{{current.toString() + current2.toString()}}"
+                                      type="button" role="tab"
+                                      aria-controls="Drop_out{{current.toString() + current2.toString()}}"
+                                      aria-selected="false"
+                                      ng-click="GetScheduledDatasByRoute('IsDrop', shedule, route)">
+                                      Drop out
+                                    </button>
+                                  </li>
+                                </ul>
+                                <div class="d-flex flex-center mx-4">
+                                    <div class="input-group flex-nowrap w-100">
+                                      <input
+                                        class="form-control border-1 border-gray-700 border px-3 rounded-2 mb-0 bg-white"
+                                        type="search" placeholder="Search" id="search-input-drop"
+                                        ng-keyup="$event.keyCode == 13 && FillSearchText(route, shedule, 'Drop')" />
+                                      <button ng-click="ScanBarcode(route, shedule,'Drop')" style="z-index: 1"
+                                        class=" barcode-btn btn-outline-secondary rounded-2  border ms-5 bg-secondary"
+                                        type="button">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/upc-scan.svg" alt="My Happy SVG" />
+                                      </button>
+                                    </div>
+                                </div>
+                                <div class="text-center" ng-if="LoadingSpinner == true">
+                                  <div class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </div>
+                                <div class="tab-content  bg-light rounded-3 px-2 py-4" id="myTabContent">
+                                  <div class="tab-pane timeline show active"
+                                    id="Drop_in{{current.toString() + current2.toString()}}" role="tabpanel"
+                                    aria-labelledby="Drop_in-tab{{current.toString() + current2.toString()}}">
+
+                                    <div class="d-flex flex-wrap timeline__row ">
+                                      <div class="timeline__row_icon m-0">
+                                        <div class="timeline-icon success"
+                                          style="position: sticky; top: 70px; z-index: 10;">
+                                          <img src="./clients/{{$root.ClientSettings.Client}}/images/truck-front-fill.svg" alt="truck SVG" />
+                                        </div>
+                                      </div>
+                                      <div class="timeline__row_content">
+                                        <!-- Drop In Searched Data List Start -->
+                                        <div
+                                          ng-if="FilterScheduleStudentDropInDetails.length > 0 && IsStudentDetails == true"
+                                          style="width: 100%">
+                                          <div colspan="4">
+                                            <div class="tab-content" id="pills-tabContent">
+                                              <div class="tab-pane fade show active"
+                                                id="pills-home{{current.toString() + current2.toString() + current3.toString()}}"
+                                                role="tabpanel" aria-labelledby="pills-home-tab">
+                                                <div ng-repeat="student in FilterScheduleStudentDropInDetails"
+                                                  ng-if="student.IsDropStop == true"
+                                                  ng-init="currenttoggleid = $parent.start; $parent.start=$parent.start+1;"
+                                                  class="bg-light rounded-3">
+                                                  <div id="profile-header" class="header-wrapper fileOnlyHeader-23hdD">
+                                                    <div class="header-wrapper-inner">
+                                                      <div class="resume-header-wrapper">
+                                                        <div class="resume-header grid-container">
+                                                          <div class="grid-row centered m-0">
+                                                            <div
+                                                              class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                              <div class="header-text shadow-border">
+                                                                <div class="avatar-outer fs-mask">
+                                                                  <div
+                                                                    class="avatar-container avatar-css horizontal position-relative overflow-hidden"
+                                                                    ng-class="{'student-in': student.IsStudentIn===true , 'student-out': student.IsStudentIn===false}">
+                                                                    <img ng-src="{{student.StudentProfile}}"
+                                                                      on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" style="
+                                                                            background-size: cover;
+                                                                            background-repeat: no-repeat;
+                                                                            top: 0;
+                                                                          " class="position-absolute w-100" />
+                                                                  </div>
+                                                                </div>
+                                                                <div class="header-text-inner">
+                                                                  <div class="fullname heading3 fs-5 fs-mask">
+                                                                    {{student.StudentName}}
+                                                                  </div>
+                                                                  <div class="location fs-mask">
+                                                                    <img class="icon-3-7xg css-1xqhio eac13zx0"
+                                                                    ng-src="./clients/{{$root.ClientSettings.Client}}/images/location.svg" />
+
+                                                                    <span ng-bind="student.StopName"
+                                                                      class="text-capitalize fs-5"></span>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="m-0">
+                                                    <div class="d-grid g-5 p-4"
+                                                      style=" grid-template-columns: 100px 36px 1fr;">
+                                                      <div class="fw-normal fs-4 text-gray-700 mb-1">Admn no </div>
+                                                      <div class="">:</div>
+                                                      <div class="fw-semibold fs-4 text-gray-800">
+                                                        {{student.AdmissionNumber}}</div>
+
+                                                      <div class="fw-normal fs-4 text-gray-700 mb-1">Class / Section
+                                                      </div>
+                                                      <div class="">:</div>
+                                                      <div class="fw-semibold fs-4 text-gray-800"> {{student.ClassName}}
+                                                        /
+                                                        {{student.SectionName}}</div>
+
+                                                    </div>
+                                                  </div>
+
+                                                  <div class="form-check p-3 d-flex justify-content-between">
+                                                    <label class="screen-reader-only fs-4" for="choice">&nbsp; In or
+                                                      not?</label>
+                                                    <div>
+                                                      <input type="checkbox" id="togBtnDropInStud{{currenttoggleid}}"
+                                                        data-switch="success" ng-model="student.IsStudentIn"
+                                                        ng-click="ChangeFilterDropDataStatus(student, 'Student', student.IsStudentIn)" />
+                                                      <label for="togBtnDropInStud{{currenttoggleid}}"
+                                                        data-on-label="In" data-off-label="Not In"></label>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <div
+                                          ng-if="FilterScheduleStaffDropInDetails.length > 0 && IsStaffDetails == true"
+                                          style="width: 100%">
+                                          <div colspan="4">
+                                            <div class="tab-content" id="pills-tabContent">
+                                              <div class="tab-pane fade show active"
+                                                id="pills-home{{current.toString() + current2.toString() + current3.toString()}}"
+                                                role="tabpanel" aria-labelledby="pills-home-tab">
+                                                <div ng-repeat="staff in FilterScheduleStaffDropInDetails"
+                                                  ng-if="staff.IsDropStop == true"
+                                                  ng-init="currenttoggleid = $parent.start; $parent.start=$parent.start+1;"
+                                                  class="bg-light rounded-3">
+                                                  <div class="m-0">
+                                                    <div class="d-grid g-5 p-4"
+                                                      style=" grid-template-columns: 100px 36px 1fr;">
+                                                      <div class="fw-normal fs-4 text-gray-700 mb-1">Emp code </div>
+                                                      <div class="">:</div>
+                                                      <div class="fw-semibold fs-4 text-gray-800">{{staff.EmployeeCode}}
+                                                      </div>
+
+                                                      <div class="fw-normal fs-4 text-gray-700 mb-1">Name</div>
+                                                      <div class="">:</div>
+                                                      <div class="fw-semibold fs-4 text-gray-800"> {{staff.StaffName}}
+                                                      </div>
+                                                    </div>
+                                                  </div>
+
+                                                  <div class="form-check p-3 d-flex justify-content-between">
+                                                    <label class="screen-reader-only fs-4" for="choice">&nbsp; In or
+                                                      not?</label>
+                                                    <div>
+                                                      <input type="checkbox" id="togBtnDropInStaff{{currenttoggleid}}"
+                                                        data-switch="success" ng-model="staff.IsStaffIn"
+                                                        ng-click="ChangeFilterDropDataStatus(staff, 'Employee', staff.IsStaffIn)" />
+                                                      <label for="togBtnDropInStaff{{currenttoggleid}}"
+                                                        data-on-label="In" data-off-label="Not In"></label>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <!-- Drop In Searched Data List End -->
+
+                                        <div ng-if="IsStudentDetails == true">
+                                          <div ng-repeat="stop in route.Stops">
+                                            <div ng-repeat="student in stop.StopsStudentDetails"
+                                              class="m-3 mt-0 rounded-3 bg-lighten" style=""
+                                              ng-if="student.IsDropStop == true">
+                                              <div id="profile-header" class="header-wrapper fileOnlyHeader-23hdD">
+                                                <div class="header-wrapper-inner">
+                                                  <div class="resume-header-wrapper">
+                                                    <div class="resume-header grid-container">
+                                                      <div class="grid-row centered m-0">
+                                                        <div
+                                                          class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                          <div class="header-text shadow-border">
+                                                            <div class="avatar-outer fs-mask">
+                                                              <div
+                                                                class="avatar-container avatar-css horizontal position-relative overflow-hidden"
+                                                                ng-class="{'student-in': student.IsStudentIn===true , 'student-out': student.IsStudentIn===false}">
+                                                                <img ng-src="{{student.StudentProfile}}"
+                                                                  on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" style="
+                                                                        background-size: cover;
+                                                                        background-repeat: no-repeat;
+                                                                        top: 0;
+                                                                      " class="position-absolute w-100" />
+
+                                                                <!-- <div class="first-letter">A</div>
+                                                                                                                              <div>N</div> -->
+                                                              </div>
+                                                            </div>
+                                                            <div class="header-text-inner">
+                                                              <div class="fullname heading3 fs-5 fs-mask">
+                                                                {{student.StudentName}}
+                                                              </div>
+                                                              <div class="location fs-mask">
+                                                                <img class="icon-3-7xg css-1xqhio eac13zx0"
+                                                                ng-src="./clients/{{$root.ClientSettings.Client}}/images/mortarboard-fill.svg"
+                                                                  alt="My Happy SVG" />
+
+                                                                <span
+                                                                  class="text-capitalize fs-5">{{stop.StopName}}</span>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <div class="m-0">
+                                                <div class="d-grid g-5 p-4"
+                                                  style=" grid-template-columns: 100px 36px 1fr;">
+                                                  <div class="fw-normal fs-4 text-gray-700 mb-1">Admn no </div>
+                                                  <div class="">:</div>
+                                                  <div class="fw-semibold fs-4 text-gray-800">
+                                                    {{student.AdmissionNumber}}</div>
+
+                                                  <div class="fw-normal fs-4 text-gray-700 mb-1">Class / Section</div>
+                                                  <div class="">:</div>
+                                                  <div class="fw-semibold fs-4 text-gray-800"> {{student.ClassName}} /
+                                                    {{student.SectionName}}</div>
+
+                                                </div>
+                                              </div>
+                                              <hr class="my-2 mx-4">
+
+                                              <div class="form-check p-3 border-top d-flex justify-content-between">
+                                                <label class="screen-reader-only fs-4" for="choice">&nbsp; In or
+                                                  not?</label>
+                                                <input type="checkbox" id="togBtnDropInStud{{student.AdmissionNumber}}"
+                                                  data-switch="success" ng-model="student.IsStudentIn"
+                                                  ng-click="ChangeStatus('IsDrop', shedule, route, stop, student, 'Student', student.IsStudentIn)" />
+                                                <label for="togBtnDropInStud{{student.AdmissionNumber}}"
+                                                  data-on-label="In" data-off-label="Not in"></label>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div ng-if="route.Stops.length !== 0" colspan="4"
+                                            class="badge fs-5 p-2 float-none badge-info mt-3" style="
+                                                  border-top: 1px solid #d3d0d0;
+                                                  margin-top: 10px;
+                                                  padding: 4px;
+                                                ">
+                                            <span>Total drop students :</span>
+                                            <span ng-bind="GetDetailCountByRoute(route,'StudentDropStop')"
+                                              class="ng-binding"></span>
+                                          </div>
+                                        </div>
+
+                                        <div ng-if="IsStaffDetails == true">
+                                          <div ng-repeat="stop in route.Stops">
+                                            <div ng-repeat="staff in stop.StopsStaffDetails"
+                                              ng-init="currenttoggleid5 = $parent.start; $parent.start=$parent.start+1;"
+                                              class="bg-lighten rounded-3 m-3" ng-if="staff.IsDropStop == true">
+                                              <div class="m-0">
+                                                <div class="d-grid g-5 p-4"
+                                                  style=" grid-template-columns: 90px 24px 1fr;">
+                                                  <div class="fw-normal fs-4 text-gray-700 mb-1">Emp code </div>
+                                                  <div class="">:</div>
+                                                  <div class="fw-semibold fs-4 text-gray-800">{{staff.EmployeeCode}}
+                                                  </div>
+
+                                                  <div class="fw-normal fs-4 text-gray-700 mb-1">Name</div>
+                                                  <div class="">:</div>
+                                                  <div class="fw-semibold fs-4 text-gray-800"> {{staff.StaffName}}</div>
+                                                </div>
+                                              </div>
+
+                                              <div class="form-check p-2 mt-2">
+                                                <label class="screen-reader-only fs-4" for="choice">&nbsp; In or
+                                                  not?</label>
+                                                <input type="checkbox" id="togBtnDropInStaff{{staff.EmployeeCode}}"
+                                                  data-switch="success" ng-model="staff.IsStaffIn"
+                                                  ng-click="ChangeStatus('IsDrop', shedule, route, stop, staff, 'Employee', staff.IsStaffIn)" />
+                                                <label for="togBtnDropInStaff{{staff.EmployeeCode}}" data-on-label="In"
+                                                  data-off-label="Not in" class="pull right"></label>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div ng-if="route.Stops.length !== 0" colspan="4"
+                                          class="badge fs-5 p-2 float-none badge-info mt-3" style="
+                                                  border-top: 1px solid #d3d0d0;
+                                                  margin-top: 10px;
+                                                  padding: 4px;
+                                                ">
+                                          <span>Total drop staffs :</span>
+                                          <span ng-bind="GetDetailCountByRoute(route,'StaffDropStop')"
+                                            class="ng-binding"></span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="tab-pane fade" id="Drop_out{{current.toString() + current2.toString()}}"
+                                    role="tabpanel"
+                                    aria-labelledby="Drop_out-tab{{current.toString() + current2.toString()}}">
+                                    <!-- Drop Out Searched Data List Start -->
+                                    <div
+                                      ng-if="FilterScheduleStudentDropOutDetails.length > 0 && IsStudentDetails == true"
+                                      style="width: 100%">
+                                      <div colspan="4">
+                                        <div class="tab-content" id="pills-tabContent">
+                                          <div class="tab-pane fade show active"
+                                            id="pills-home{{current.toString() + current2.toString() + current3.toString()}}"
+                                            role="tabpanel" aria-labelledby="pills-home-tab">
+                                            <div ng-repeat="student in FilterScheduleStudentDropOutDetails"
+                                              ng-if="student.IsDropStop == true"
+                                              ng-init="currenttoggleid = $parent.start; $parent.start=$parent.start+1;"
+                                              class="bg-light rounded-3">
+                                              <div id="profile-header" class="header-wrapper fileOnlyHeader-23hdD">
+                                                <div class="header-wrapper-inner">
+                                                  <div class="resume-header-wrapper">
+                                                    <div class="resume-header grid-container">
+                                                      <div class="grid-row centered m-0">
+                                                        <div
+                                                          class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                          <div class="header-text shadow-border">
+                                                            <div class="avatar-outer fs-mask">
+                                                              <div
+                                                                class="avatar-container avatar-css horizontal position-relative overflow-hidden"
+                                                                ng-class="{'student-in': student.IsStudentIn===true , 'student-out': student.IsStudentIn===false}">
+                                                                <img ng-src="{{student.StudentProfile}}"
+                                                                  on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" style="
+                                                                            background-size: cover;
+                                                                            background-repeat: no-repeat;
+                                                                            top: 0;
+                                                                          " class="position-absolute w-100" />
+                                                              </div>
+                                                            </div>
+                                                            <div class="header-text-inner">
+                                                              <div class="fullname heading3 fs-5 fs-mask">
+                                                                {{student.StudentName}}
+                                                              </div>
+                                                              <div class="location fs-mask">
+                                                                <img class="icon-3-7xg css-1xqhio eac13zx0"
+                                                                ng-src="./clients/{{$root.ClientSettings.Client}}/images/location.svg" />
+
+                                                                <span ng-bind="student.StopName"
+                                                                  class="text-capitalize fs-5"></span>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <div class="m-0">
+                                                <div class="d-grid g-5 p-4"
+                                                  style=" grid-template-columns: 100px 36px 1fr;">
+                                                  <div class="fw-normal fs-4 text-gray-700 mb-1">Admn no </div>
+                                                  <div class="">:</div>
+                                                  <div class="fw-semibold fs-4 text-gray-800">
+                                                    {{student.AdmissionNumber}}</div>
+
+                                                  <div class="fw-normal fs-4 text-gray-700 mb-1">Class / Section</div>
+                                                  <div class="">:</div>
+                                                  <div class="fw-semibold fs-4 text-gray-800"> {{student.ClassName}} /
+                                                    {{student.SectionName}}</div>
+
+                                                </div>
+                                              </div>
+                                              <hr class="py-2">
+                                              <div class="form-check p-3 d-flex justify-content-between">
+                                                <label class="screen-reader-only fs-4" for="choice">&nbsp; In or
+                                                  not?</label>
+                                                <div>
+                                                  <input type="checkbox" id="togBtnDropOutStud{{currenttoggleid}}"
+                                                    data-switch="success" ng-model="student.IsStudentIn"
+                                                    ng-click="ChangeFilterDropDataStatus(student, 'Student', student.IsStudentIn)" />
+                                                  <label for="togBtnDropOutStud{{currenttoggleid}}" data-on-label="In"
+                                                    data-off-label="Out"></label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div ng-if="FilterScheduleStaffDropOutDetails.length > 0 && IsStaffDetails == true"
+                                      style="width: 100%">
+                                      <div colspan="4">
+                                        <div class="tab-content" id="pills-tabContent">
+                                          <div class="tab-pane fade show active"
+                                            id="pills-home{{current.toString() + current2.toString() + current3.toString()}}"
+                                            role="tabpanel" aria-labelledby="pills-home-tab">
+                                            <div ng-repeat="staff in FilterScheduleStaffDropOutDetails"
+                                              ng-if="staff.IsDropStop == true"
+                                              ng-init="currenttoggleid = $parent.start; $parent.start=$parent.start+1;"
+                                              class="bg-light rounded-3">
+                                              <div class="m-0">
+                                                <div class="d-grid g-5 p-4"
+                                                  style=" grid-template-columns: 100px 36px 1fr;">
+                                                  <div class="fw-normal fs-4 text-gray-700 mb-1">Emp code </div>
+                                                  <div class="">:</div>
+                                                  <div class="fw-semibold fs-4 text-gray-800">{{staff.EmployeeCode}}
+                                                  </div>
+
+                                                  <div class="fw-normal fs-4 text-gray-700 mb-1">Name</div>
+                                                  <div class="">:</div>
+                                                  <div class="fw-semibold fs-4 text-gray-800"> {{staff.StaffName}}</div>
+                                                </div>
+                                              </div>
+
+                                              <div class="form-check p-3 d-flex justify-content-between">
+                                                <label class="screen-reader-only fs-4" for="choice">&nbsp; In or
+                                                  not?</label>
+                                                <div>
+                                                  <input type="checkbox" id="togBtnDropOutStaff{{currenttoggleid}}"
+                                                    data-switch="success" ng-model="staff.IsStaffIn"
+                                                    ng-click="ChangeFilterDropDataStatus(staff, 'Employee', staff.IsStaffIn)" />
+                                                  <label for="togBtnDropOutStaff{{currenttoggleid}}" data-on-label="In"
+                                                    data-off-label="Out"></label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- Drop Out Searched Data List End -->
+
+                                    <div>
+                                      <div ng-if="StudentStaffDropOutStopWiseDetails != null">
+                                        <div class="alert alert-warning text-center" role="alert"
+                                          ng-if="!ShowLoader && StudentStaffDropOutStopWiseDetails.Stops.length == 0">
+                                          <b>No stop details found!</b>
+                                        </div>
+                                        <div class="accordion accordion-flush mt-4 timeline" id="accordionFlushExample">
+                                          <div class="accordion-item mx-2 timeline__row border-0"
+                                            ng-repeat="stop in StudentStaffDropOutStopWiseDetails.Stops"
+                                            ng-init="current5 = $parent.start; $parent.start=$parent.start+1;">
+                                            <div class="timeline__row_icon m-0">
+                                              <div class="timeline-icon success"
+                                                style="position: sticky; top: 70px; z-index: 10;">
+                                                <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/truck-front-fill.svg" alt="truck SVG" />
+                                              </div>
+                                            </div>
+                                            <div class="timeline__row_content">
+                                              <h2 class="accordion-header"
+                                                style="position: sticky; top: 70px; z-index: 10;"
+                                                id="flush-headingOne_Stop_Name{{current.toString() + current2.toString() + current3.toString()+current5.toString()}}">
+                                                <button class="accordion-button p-3 mb-2 bg-light rounded-2"
+                                                  type="button" data-bs-toggle="collapse"
+                                                  data-bs-target="#flush-collapseOne_Stop_Name{{current.toString() + current2.toString() + current3.toString() +current5.toString()}}"
+                                                  aria-expanded="false"
+                                                  aria-controls="flush-collapseOne_Stop_Name{{current.toString() + current2.toString() + current3.toString()+current5.toString()}}">
+                                                  <div
+                                                    class="fullwidth row displayFlex justify-spacebetween alignCenter textleft stopToggleHeader mb-0">
+                                                    <span class="flexOne">
+                                                      <label class=" text-gray-700">Stop Name:</label>
+                                                      <span class="badgeData font-bold" ng-bind="stop.StopName"></span>
+                                                    </span>
+                                                  </div>
+                                                </button>
+                                              </h2>
+
+                                              <div
+                                                id="flush-collapseOne_Stop_Name{{current.toString() + current2.toString() + current3.toString()+current5.toString()}}"
+                                                class="accordion-collapse collapse"
+                                                aria-labelledby="flush-headingOne_Stop_Name{{current.toString() + current2.toString() + current3.toString()+current5.toString()}}"
+                                                data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body p-0 pb-3">
+                                                  <div class="stopToggleContainer  p-0">
+                                                    <div class="" style="width: 100%">
+                                                      <div class="pagesections noOverflow">
+                                                        <div class="tab-content" id="pills-tabContent">
+                                                          <div class="tab-pane fade show active"
+                                                            id="pills-home{{current.toString() + current2.toString() + current3.toString()+current5.toString()}}"
+                                                            role="tabpanel" aria-labelledby="pills-home-tab">
+                                                            <div>
+                                                              <div class="alert alert-warning text-center" role="alert"
+                                                                ng-if="!ShowLoader && stop.StopsStudentDetails.length == 0 && stop.StopsStaffDetails.length == 0">
+                                                                <b>No
+                                                                  details
+                                                                  found!</b>
+                                                              </div>
+                                                            </div>
+                                                            <div
+                                                              ng-if="stop.StopsStudentDetails.length > 0 && IsStudentDetails == true"
+                                                              style="width: 100%">
+                                                              <div colspan="4">
+                                                                <div class="tab-content" id="pills-tabContent">
+                                                                  <div class="tab-pane fade show active"
+                                                                    id="pills-In{{current.toString() + current2.toString() + current3.toString()}}"
+                                                                    role="tabpanel" aria-labelledby="pills-In-tab">
+                                                                    <div ng-repeat="student in stop.StopsStudentDetails"
+                                                                      ng-if="student.IsDropStop == true"
+                                                                      class="m-0 mt-2 rounded-3 bg-lighten" style="">
+                                                                      <div id="profile-header"
+                                                                        class="header-wrapper fileOnlyHeader-23hdD">
+                                                                        <div class="header-wrapper-inner">
+                                                                          <div class="resume-header-wrapper">
+                                                                            <div class="resume-header grid-container">
+                                                                              <div class="grid-row centered m-0">
+                                                                                <div
+                                                                                  class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                                                  <div
+                                                                                    class="header-text shadow-border">
+                                                                                    <div class="avatar-outer fs-mask">
+                                                                                      <div
+                                                                                        class="avatar-container avatar-css horizontal position-relative overflow-hidden"
+                                                                                        ng-class="{'student-in': student.IsStudentIn===true , 'student-out': student.IsStudentIn===false}">
+                                                                                        <img
+                                                                                          ng-src="{{student.StudentProfile}}"
+                                                                                          on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                                                          style="
+                                                                        background-size: cover;
+                                                                        background-repeat: no-repeat;
+                                                                        top: 0;
+                                                                      " class="position-absolute w-100" />
+                                                                                      </div>
+                                                                                    </div>
+                                                                                    <div class="header-text-inner">
+                                                                                      <div
+                                                                                        class="fullname heading3 fs-5 fs-mask">
+                                                                                        {{student.StudentName}}
+                                                                                      </div>
+                                                                                      <div class="location fs-mask">
+                                                                                        <img
+                                                                                          class="icon-3-7xg css-1xqhio eac13zx0"
+                                                                                          ng-src="./clients/{{$root.ClientSettings.Client}}/images/location.svg" />
+
+                                                                                        <span ng-bind="stop.StopName"
+                                                                                          class="text-capitalize fs-5"></span>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="m-0">
+                                                                        <div class="d-grid g-5 p-4"
+                                                                          style=" grid-template-columns: 100px 36px 1fr;">
+                                                                          <div
+                                                                            class="fw-normal fs-4 text-gray-700 mb-1">
+                                                                            Admn no </div>
+                                                                          <div class="">:</div>
+                                                                          <div class="fw-semibold fs-4 text-gray-800">
+                                                                            {{student.AdmissionNumber}}</div>
+
+                                                                          <div
+                                                                            class="fw-normal fs-4 text-gray-700 mb-1">
+                                                                            Class / Section</div>
+                                                                          <div class="">:</div>
+                                                                          <div class="fw-semibold fs-4 text-gray-800">
+                                                                            {{student.ClassName}} /
+                                                                            {{student.SectionName}}</div>
+
+                                                                        </div>
+                                                                      </div>
+
+                                                                      <div
+                                                                        class="form-check p-3 d-flex justify-content-between">
+                                                                        <label class="screen-reader-only fs-4"
+                                                                          for="choice">&nbsp; In or not?</label>
+                                                                        <div>
+                                                                          <input type="checkbox"
+                                                                            id="togBtnDropOutStud{{student.AdmissionNumber}}"
+                                                                            data-switch="success"
+                                                                            ng-model="student.IsStudentIn"
+                                                                            ng-click="AddNewDropSheduleData(student, route, stop, shedule, 'Student', student.IsStudentIn)" />
+                                                                          <label
+                                                                            for="togBtnDropOutStud{{student.AdmissionNumber}}"
+                                                                            data-on-label="In" data-off-label="Out"
+                                                                            class="pull right"></label>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+
+                                                            <div ng-repeat="staff in stop.StopsStaffDetails"
+                                                              class="bg-lighten rounded-3"
+                                                              ng-if="stop.StopsStaffDetails.length > 0 && IsStaffDetails == true ">
+                                                              <div>
+                                                                <div class="m-0">
+                                                                  <div class="d-grid g-5 p-4"
+                                                                    style=" grid-template-columns: 90px 24px 1fr;">
+                                                                    <div class="fw-normal fs-4 text-gray-700 mb-1">Emp
+                                                                      code </div>
+                                                                    <div class="">:</div>
+                                                                    <div class="fw-semibold fs-4 text-gray-800">
+                                                                      {{staff.EmployeeCode}}</div>
+
+                                                                    <div class="fw-normal fs-4 text-gray-700 mb-1">Name
+                                                                    </div>
+                                                                    <div class="">:</div>
+                                                                    <div class="fw-semibold fs-4 text-gray-800">
+                                                                      {{staff.StaffName}}</div>
+                                                                  </div>
+                                                                </div>
+
+                                                                <div class="form-check p-2 mt-2">
+                                                                  <label class="screen-reader-only fs-4"
+                                                                    for="choice">&nbsp; In or not?</label>
+                                                                  <input type="checkbox"
+                                                                    id="togBtnDropOutStaff{{staff.EmployeeCode}}"
+                                                                    data-switch="success" ng-model="staff.IsStaffIn"
+                                                                    ng-click="AddNewDropSheduleData(staff, route, stop, shedule, 'Staff', staff.IsStaffIn)" />
+                                                                  <label for="togBtnDropOutStaff{{staff.EmployeeCode}}"
+                                                                    data-on-label="In" data-off-label="Out"
+                                                                    class="pull right"></label>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col-md-6 col-xxl-4">
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+
+
+<style>
+  .monthPicker .ui-datepicker-calendar {
+    display: none;
+  }
+
+  .Pressent_A {
+    font-weight: bold;
+    color: var(--danger);
+    background-color: var(--danger-light);
+  }
+
+  .Pressent_AE {
+    color: var(--warning);
+    background-color: var(--warning-light);
+    font-weight: bold;
+  }
+
+  .Pressent_H {
+    color: var(--primary);
+    background-color: var(--primary-light);
+    font-weight: bold;
+  }
+
+  .Pressent_L {
+    color: var(--primary);
+    background-color: var(--primary-light);
+    font-weight: bold;
+  }
+
+  .Pressent_NA {
+    color: var(--light-inverse);
+    background-color: var(--light);
+    font-weight: bold;
+  }
+
+  .Pressent_P {
+    color: var(--success);
+    background-color: var(--success-light);
+    font-weight: bold;
+  }
+
+  .Pressent_T {
+    color: #12616b !important;
+    background-color: var(--warning-light);
+    font-weight: bold;
+  }
+
+  .Pressent_TE {
+    color: #12616b !important;
+    background-color: var(--warning-light);
+    font-weight: bold;
+  }
+
+  .Pressent_UM {
+    color: var(--light-inverse);
+    background-color: var(--light);
+    font-weight: bold;
+  }
+
+  .Pressent_W {
+    color: #be2323 !important;
+    background-color: var(--warning-light);
+    font-weight: bold;
+  }
+
+  .mainGrid {
+    max-height: 100vw;
+    overflow-y: auto;
+    width: 100%;
+    clear: both;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    padding: 10px;
+  }
+
+  .list-table th {
+    background-color: #fff;
+  }
+
+  .list-table tr {
+    background-color: #fff;
+  }
+
+
+
+  .nav.nav-pills.nav-pills-custom.nav-pills-active-custom .nav-item .nav-link.active span:nth-child(1) {
+    font-size: 13px !important;
+  }
+
+  .nav.nav-pills.nav-pills-custom.nav-pills-active-custom .nav-item .nav-link.active span:nth-child(2) {
+    font-size: 32px !important;
+    line-height: 32px;
+
+  }
+</style>

@@ -1,0 +1,189 @@
+﻿<div class="flex-column flex-row-fluid" ng-controller="DirectorDashboardController">
+    <div class="app-header  shadow-none ">
+        <div class="app-container  container-fluid d-flex align-items-stretch justify-content-between ">
+            <div class="d-flex align-items-center  d-lg-none ms-n3 me-1 me-md-2" title="Show sidebar menu">
+                <a class="btn btn-icon btn-active-color-primary w-35px h-35px sidenav-trigger shadow-none" href="#"
+                    data-target="slide-out">
+                    <img alt="Logo" ng-src="./clients/{{$root.ClientSettings.Client}}/images/magicoon-Bold.svg"
+                        class="h-30px  filter-green">
+                </a>
+            </div>
+            <div class="d-flex align-items-center flex-center flex-grow-1 flex-lg-grow-0">
+                <a class="d-lg-none">
+                    <img alt="Logo" ng-src="./clients/{{$root.ClientSettings.Client}}/images/PODARLOGO-01 1.png"
+                        class="h-30px">
+                </a>
+            </div>
+            <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
+                <div class="app-navbar flex-shrink-0">
+                    <div class="app-navbar-item ms-1 ms-md-4" ui-sref="notifications">
+                        <div
+                            class="btn btn-icon shadow-none btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px position-relative">
+                            <img alt="Logo" ng-src="./clients/{{$root.ClientSettings.Client}}/images/notification.svg"
+                                class="h-25px filter-green">
+
+                            <div class="badge badge-circle badge-danger position-absolute translate-middle start-0 bottom-0 me-10 mb-3 h-20px w-20px fs-7"
+                                ng-if="NotificationCount > 0">
+                                {{NotificationCount}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
+<div class="app-container container-xxl  theme-dark-bg-body rounded-4 rounded-bottom-0">
+    <div class="row g-5 g-xl-10 mb-4">
+        <div class="col-sm-6 col-xl-2 mb-xl-10">
+            <div
+                class="card card-flush h-xl-100  border-0  rounded-0 position-sticky z-index-3 bg-green shadow-none ios-pt-12 overflow-hidden bg-transparent">
+                <div
+                    class="card-header rounded rounded-0 p-0 m-0 bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start">
+                    <h3 class="card-title align-items-start flex-column pt-4">
+                        <div class="fs-4 mt-1 fw-normal">
+                            <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+                                <div class="d-flex align-items-center">
+                                    <div
+                                        class="d-flex flex-center cursor-pointer symbol symbol-circle waves-effect waves-light  symbol-60px">
+
+                                        <img style="    object-fit: cover;     object-position: right top;"
+                                            class="z-index-3 w-60px"
+                                            on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                            alt="image" loading="lazy"
+                                            ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{Profile.EmployeePhoto}}">
+                                    </div>
+                                    <div class="d-flex flex-column align-items-start justify-content-center ms-3">
+                                        <span class="text-gray-500  fs-8 fw-semibold"></span>
+                                        <span class="fw-light fs-3x mb-1">Welcome</span>
+
+                                        <a
+                                            class="text-gray-800 fs-4 mt-2 fw-bold text-hover-primary ng-binding">{{Profile.EmployeeName}}!</a>
+                                        <div class="fs-4 mt-2 ">
+                                            <span class="badge mt-1 badge-info fs-5">{{Profile.EmployeeCode}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                                </div>
+                            </div>
+                        </div>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="app-container container-xxl  theme-dark-bg-body rounded-4 rounded-bottom-0">
+    <div class="row g-5 g-xl-10">
+        <div class="col-sm-6 col-xl-2 mb-xl-10">
+
+            <div class="d-grid gap-3" style="  
+                        grid-template-columns: repeat(2, 1fr);">
+                <div style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));" ui-sref="financialhealthdashbaord"
+                    class=" rounded-3 bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100  purplegrad_bg  ">
+                    <div class="d-flex align-items-center justify-content-between h-100 px-6 py-4">
+                        <div class="fw-normal fs-5 text-white  me-3 d-flex align-items-center">
+                            <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/Financial_Health.png"
+                                class="object-fit-cover w-50px me-3">
+                            <span class="d-block">Financial Health</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40));"
+                    class=" rounded-3  bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100  greengrad_bg  "
+                    ui-sref="liverevenuedashbaord">
+
+                    <div class="d-flex align-items-center justify-content-between h-100 px-6 py-4">
+                        <div class="fw-normal fs-5 text-white me-3 d-flex align-items-center">
+                            <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/revenue.png"
+                                class="object-fit-cover w-50px me-3">
+
+                            <span class="d-block">Live Revenue</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div style="filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.40)); background: linear-gradient(130deg, #AF70FF 0%, #694399 100%);"
+                    ui-sref="studentdashbaord"
+                    class=" rounded-3  bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100  greengrad_bg">
+
+                    <div class="d-flex align-items-center justify-content-between h-100 px-6 py-4">
+                        <div class="fw-normal fs-5 text-white me-3 d-flex align-items-center">
+                            <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/academics.svg"
+                                class="object-fit-none me-3">
+
+                            <span class="d-block">Student Dashboard</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="powerpagecontent my-4"    ng-controller="PowerBIController" ng-init="pageID=58">
+    <section id="report-container-" class="embed-container"></section>
+</div>
+<!-- 
+<div class="app-container container-xxl  theme-dark-bg-body rounded-4 rounded-bottom-0">
+    <div class="card rounded-1 mb-2" style="border: 1px solid rgb(17, 141, 255);">
+        <div class="card-body">
+
+            <div class="AcademicYear gridItemContent" data-attr="AcademicYear">
+                    <label>School</label>
+                    <select class="form-select form-select-solid" required="" aria-required="true" name="School" id="School"
+                        ng-options="item as item.Value for item in School track by item.Key"
+                        ng-change="FillAcademicYearBySchool()" ng-model="SelectedSchool" autofocus=autofocus
+                        tabindex="0">
+                    </select>
+                    <label>Academic Year</label>
+                    <select class="form-select form-select-solid" required="" aria-required="true" name="AcademicYear"
+                        id="AcademicYear" ng-options="item as item.Value for item in AcademicYear track by item.Key"
+                        ng-model="SelectedAcademicYear" autofocus=autofocus tabindex="0">
+                    </select>
+                    <div class="w-100 d-flex flex-end">
+                    <input type="button" value="Apply"
+                        class="btn btn-sm btn-primary mt-3" ng-click="SaveSchool();" />
+                    </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- <div class="app-container container-xxl" >
+
+    <div class="boilerPlateContainer" ng-if="BoilerPlates.length > 0  && SelectedSchool">
+        
+        <div class="fullwidth align-left d-flex flexColumn" ng-repeat="boilerplate in $root.BoilerPlates">
+            
+            <div class="row g-3 mb-0 g-xl-10">
+                <div class="col-xl-4 mb-xl-10">
+                    <ng-include src="'boilerplates/' + boilerplate.Template + '.html'"
+                        onload="finishLoading(boilerplate)"></ng-include>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+
+</div>
+
+<ng-include src="'partials/Templates/footer.html'"></ng-include>
+
+
+
+<style>
+    .loader-blk {
+        background: var(--bs-white);
+        z-index: 2;
+    }
+</style>
+
+<style>
+  
+</style>

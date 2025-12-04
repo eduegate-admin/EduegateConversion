@@ -1,0 +1,127 @@
+import { Dimensions, StyleSheet } from "react-native";
+import colors from "../../../config/colors";
+const { width, height } = Dimensions.get('screen');
+
+const ProductListHorizontalSlideStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: "100%",
+    // paddingHorizontal: 10,
+    padding: 10,
+    // elevation:5,
+    // marginTop: -100,
+    // backgroundColor: colors.darkGrey,
+  },
+  dshMenuCnt: {
+    paddingTop: 15,
+    paddingHorizontal: 3,
+    // backgroundColor: "green",
+    // borderRadius: 5,
+    height: height * 0.34,
+  },
+  dshMenuTitle: {
+    paddingHorizontal: 15,
+    marginBottom: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  widgetTitle: {
+    fontSize: 21,
+    fontWeight: "600",
+    // color: colors.darkGrey,
+  },
+  viewAll: {
+    color: colors.green,
+    fontSize: 14,
+  },
+  wishlist: { position: "absolute", right: 15, top: 10 },
+  wishlistIcon: {
+    resizeMode: "contain",
+    width: 25,
+    height: 25,
+  },
+  widget: {
+    // backgroundColor: "red",
+    marginHorizontal: 5,
+    height: height * 0.255,
+    width: width * 0.44,
+    borderRadius: 5,
+    // elevation:2,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "#D3D3D3",
+    alignItems: "center",
+    // justifyContent: "center",
+  },
+  imageTouchView: {
+    // elevation: 35,
+    // backgroundColor: "white",
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    height: height * 0.155,
+    width: width * 0.44,
+    resizeMode: "contain",
+    // margin: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    // marginHorizontal:10,
+    overflow: "hidden",
+  },
+  images: {
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    height: height * 0.155,
+    width: width * 0.43,
+    resizeMode: "contain",
+    // padding: 10,
+    backgroundColor: "#fff",
+    // borderRadius: 50,
+    // elevation:3,
+  },
+  textView: {
+    // backgroundColor:'red',
+    height: height * 0.1,
+    width: width * 0.4,
+  },
+  ProductNametextView: {
+    // backgroundColor: "green",
+    width: "100%",
+    height: "35%",
+  },
+  PriceCommonView: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    // backgroundColor:'blue',
+    top: 25,
+  },
+  ProductPrice: {
+    alignItems: "center",
+    textAlign: "left",
+    fontSize: 17,
+    fontWeight: "800",
+    color: "#133051",
+  },
+  CurrencyText: {
+    fontSize: 17,
+    textAlign: "left",
+    left: 2,
+    fontWeight: "900",
+    color: "#133051",
+  },
+  ProductName: {
+    alignItems: "center",
+    textAlign: "left",
+    top: 5,
+    fontSize: 14,
+    fontWeight: "400",
+    color: "#404040",
+  },
+  quantitySelector: {
+    // backgroundColor:"green",
+    position: "absolute",
+    bottom: 15,
+    right: 10,
+  },
+});
+
+export default ProductListHorizontalSlideStyle;

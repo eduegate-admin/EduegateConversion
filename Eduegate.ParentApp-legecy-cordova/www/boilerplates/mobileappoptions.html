@@ -1,0 +1,54 @@
+<div class="separator separator-content my-10 ng-scope border-secondary">
+    <h4 class="w-250px text-gray-800 fw-bold mb-0 ng-scope">Order Details</h4>
+</div>
+<ul class="nav nav-pills nav-pills-custom mb-3 " role="tablist">
+    <!--begin::Item--> 
+    <li class="nav-item mb-3 me-0 me-lg-6 col-3" role="presentation"  ui-sref="orderhistory">
+        <a class="nav-link d-flex justify-content-between flex-column flex-center overflow-hidden w-85px h-100px py-4  border-0" data-bs-toggle="pill" href="#kt_stats_widget_2_tab_1" aria-selected="true" role="tab">
+            <div class="nav-icon mb-3">                                                                                          
+                <img alt="" src="./clients/{{$root.ClientSettings.Client}}/images/journal-check.svg" class="">                                                                                         
+            </div>
+            <span class="nav-text text-gray-700 fw-bold fs-6 lh-1 text-center">
+                My Orders
+            </span> 
+            <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+        </a>
+    </li>
+    <li class="nav-item mb-3 me-0 me-lg-6 col-3" role="presentation"  ui-sref="promotion">
+        <a class="nav-link d-flex justify-content-between flex-column flex-center overflow-hidden w-80px h-85px py-4 border-0" data-bs-toggle="pill" href="#kt_stats_widget_2_tab_1" aria-selected="true" role="tab">
+            <div class="nav-icon mb-3">  
+                <img alt="" src="./clients/{{$root.ClientSettings.Client}}/images/bookmark-check.svg" class="">                                                                                         
+                                                                                        
+            </div>
+            <span class="nav-text text-gray-700 fw-bold fs-6 lh-1 text-center">
+                Promo
+            </span> 
+            <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+        </a>
+    </li>
+    <li class="nav-item mb-3 me-0 me-lg-6 col-3" role="presentation"   ui-sref="wishlist" >
+        <a class="nav-link d-flex justify-content-between flex-column flex-center overflow-hidden w-80px h-85px py-4  border-0" data-bs-toggle="pill" href="#kt_stats_widget_2_tab_1" aria-selected="true" role="tab">
+            <div class="nav-icon mb-3">     
+                <img alt="" src="./clients/{{$root.ClientSettings.Client}}/images/chat-left-heart.svg" class="">                                                                                         
+                                                                                     
+            </div>
+            <span class="nav-text text-gray-700 fw-bold fs-6 lh-1 text-center">
+                Wishlist
+            </span> 
+            <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+        </a>
+    </li>
+    <li class="nav-item mb-3 me-0 me-lg-6 col-3" role="presentation" ui-sref="singlecheckout">
+        <a class="nav-link d-flex justify-content-between flex-column flex-center overflow-hidden w-80px h-85px py-4  border-0" data-bs-toggle="pill" href="#kt_stats_widget_2_tab_1" aria-selected="true" role="tab">
+            <div class="nav-icon mb-3">     
+                <img alt="" src="./clients/{{$root.ClientSettings.Client}}/images/bag-dash.svg" class="">                                                                                         
+                                                                                     
+            </div>
+            <span class="nav-text text-gray-700 fw-bold fs-6 lh-1 text-center">
+                Cart
+            </span> 
+            <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+        </a>
+    </li>
+
+</ul>

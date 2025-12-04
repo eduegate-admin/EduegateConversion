@@ -1,0 +1,8 @@
+﻿keytool -genkeypair -v -keystore C:\SoftTop\eduegateerp.mobileapp\Eduegate.ParentApp\eduegate.parentapp.keystore -alias EDUEGATE -keyalg RSA -keysize 2048 -validity 10000
+
+password : EDUEGATE123
+last name : EDUEGATE
+Organization, Unit : EDUEGATE
+City : KERALA
+State : KERALA
+Country Code : IN

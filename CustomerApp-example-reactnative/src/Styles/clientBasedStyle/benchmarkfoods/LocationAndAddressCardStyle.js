@@ -1,0 +1,142 @@
+import { StyleSheet } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFValue } from "react-native-responsive-fontsize";
+
+const LocationAndAddressCardStyle = StyleSheet.create({
+  container: {
+     width: wp("91.11%"),
+     // height: hp("11%"),
+     // backgroundColor: "#000",
+     // marginTop: 20,
+     // paddingTop: 10,
+     justifyContent: "center",
+     alignItems: "center",
+     alignSelf: "center",
+   },
+   LocationContain: {
+     width: wp("91.11%"),
+     height: hp("3%"),
+     flexDirection: "row",
+     justifyContent: "space-between",
+     // alignItems: "center",
+     // paddingHorizontal: 20,
+     // backgroundColor: "#1A9",
+   },
+   locationTextAndIcon: {
+     width: wp("80%"),
+     // height: "90%",
+     flexDirection: "row",
+     // justifyContent: "space-between",
+     // backgroundColor: "#AAA",
+   },
+   locationTextView: {
+     width: wp("80%"),
+     // height: "100%",
+     flexDirection: "column",
+     justifyContent: "space-around",
+     alignItems: "flex-start",
+     backgroundColor: "blue",
+   },
+   locationIcon: {
+     paddingBottom: hp("1%"),
+     width: wp("6.66%"),
+     height: hp("3%"),
+     resizeMode: "contain",
+     // top: 5,
+   },
+   locationText: {
+     fontSize: RFValue(16),
+     fontWeight: "600",
+     color: "#525252",
+     fontFamily: "Poppins-SemiBold",
+     lineHeight: 25,
+     left: wp("1.5%"),
+   },
+   locationText2: {
+     fontSize: RFValue(12),
+     fontWeight: "400",
+     color: "#525252",
+     fontFamily: "Poppins-Regular",
+     marginBottom: hp("2%"),
+     marginLeft: wp("7.8%"),
+   },
+   editIconView: {
+     marginTop: hp("0.5%"),
+     width: wp("5.56%"),
+     height: wp("5.56%"),
+     justifyContent: "center",
+     alignItems: "center",
+     backgroundColor: "white",
+   },
+   editIcon: {
+     width: wp("5.56%"),
+     height: wp("5.56%"),
+     resizeMode: "contain",
+   },
+   AddAddressViewContainer: {
+     // marginTop: 10,
+     width: wp("91.11%"),
+     height: hp("4.5%"),
+     // backgroundColor: "yellow",
+     justifyContent: "center",
+     alignItems: "flex-start",
+   },
+   AddAddressView: {
+     width: wp("47.5%"),
+     height: hp("4.5%"),
+     // backgroundColor: "red",
+     justifyContent: "center",
+     alignItems: "center",
+     // left: 25,
+     borderRadius: 5,
+     borderWidth: 1,
+     borderColor: "#1D9ADC",
+   },
+   // AddressText: {
+   //   fontSize: 20,
+   //   fontWeight: "500",
+   //   color: "#1D9ADC",
+   // },
+   contentHeader: {
+     marginHorizontal: 10,
+     marginTop: 8,
+     borderRadius: 15,
+   },
+   contentHeaderText: {
+     fontSize: 22,
+     fontWeight: 500,
+     left: 11,
+     color: "#133051",
+   },
+   DeliverSection: {},
+   AddressView: {
+     width: "100%",
+     // height: "100%",
+     borderRadius: 15,
+     overflow: "hidden",
+   },
+   AddressTextView: {
+     // backgroundColor: 'blue',
+     justifyContent: "space-around",
+     flexDirection: "row",
+     backgroundColor: "white",
+   },
+   AddressTextHead: {
+     fontSize: 20,
+     fontWeight: 700,
+     textAlign: "left",
+     color: "#133051",
+   },
+   AddressText: {
+     fontSize: RFValue(14),
+     fontWeight: "500",
+     textAlign: "left",
+     color: "#1D9ADC",
+     fontFamily: "Poppins-Medium",
+   },
+  });
+
+export default LocationAndAddressCardStyle;

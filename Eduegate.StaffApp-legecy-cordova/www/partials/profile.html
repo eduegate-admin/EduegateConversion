@@ -1,0 +1,109 @@
+﻿
+<div class="app-page flex-column flex-column-fluid" ng-controller="ProfileController">
+
+
+    <div class="app-content flex-column-fluid">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-container container-xxl pt-5">
+
+            <section class=" ">
+                <div class="container">
+                    <div class="dsh-menu-cnt shadow-none py-0 bg-transparent">
+                        <div id="profile-header" class=" w-100 header-wrapper fileOnlyHeader-23hdD" ng-if="Profile != null">
+                            <div class="header-wrapper-inner py-0">
+                                <div class="resume-header-wrapper bg-transparent">
+                                    <div class="resume-header grid-container p-0">
+                                        <div class="grid-row centered m-0">
+                                            <div class="grid-col-md-8 grid-fill-height is-file-only-width overflow-auto">
+                                                <div class="header-text shadow-border flex-column p-0 bg-transparent">
+                                                    <div class="avatar-outer fs-mask mb-3">
+                                                        <div
+                                                            class="avatar-container border-0 avatar-css horizontal position-relative overflow-hidden avatar-profile">
+                                                            <img ng-src="{{Profile.EmployeeProfileImageUrl}}" on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                                style="background-size:cover;background-repeat:no-repeat;top:0;"
+                                                                class="position-absolute w-100" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="header-text-inner m-0 d-flex flex-column align-items-center">
+                                                        <div class="fullname text-gray-800 heading3 fs-mask">{{Profile.EmployeeName}}</div>
+                                                        <div class="location fs-mask">
+                                                            <span class="text-capitalize fs-4 text-gray-700">{{Profile.EmployeeCode}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="">
+                <div class="pageContainer" ng-init="LoadProfileInfo(SelectedWard)">
+                    <div ng-if="Profile != null">
+                        <div class="  ">
+                            <div class="card gridStyle displayFlex  flexColumn p-3 fs-5 fw-semibold mb-4" style="box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+                            border-radius: 8px;">
+                                <div class="gridDataWrap bg-transparent pb-0">
+                                    <label class=" fs-5 ">Work email</label>
+                                </div>
+                                <div class="gridDataWrap bg-transparent pt-0">
+                                    <span>{{Profile.WorkEmail}}</span>
+                                </div>
+                                <div class="gridDataWrap bg-transparent pb-0">
+                                    <label  class=" fs-5 ">Date of birth</label>
+                                </div>
+                                <div class="gridDataWrap bg-transparent pt-0">
+                                    <span>{{Profile.DateOfBirthString}}</span>
+                                </div>
+                                <div class="gridDataWrap bg-transparent pb-0">
+                                    <label  class=" fs-5 ">Age</label>
+                                </div>
+                                <div class="gridDataWrap bg-transparent pt-0">
+                                    <span>{{Profile.Age}}</span>
+                                </div>
+                                <div class="gridDataWrap bg-transparent pb-0">
+                                    <label>Gender</label>
+                                </div>
+                                <div class="gridDataWrap bg-transparent pt-0">
+                                    <span>{{Profile.GenderName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                                <div class=" ">
+                                    <div class="card gridStyle displayFlex  flexColumn p-3 fs-5 fw-semibold mb-4" style="box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+                                    border-radius: 8px;">
+                                <div class="gridDataWrap bg-transparent pb-0">
+                                    <label  class=" fs-5 ">Date of joining</label>
+                                </div>
+                                <div class="gridDataWrap bg-transparent pt-0">
+                                    <span>{{Profile.JoiningDateString}}</span>
+                                </div>
+
+                                <div class="gridDataWrap bg-transparent pb-0">
+                                    <label  class=" fs-5 ">Department name</label>
+                                </div>
+                                <div class="gridDataWrap bg-transparent pt-0">
+                                    <span>{{Profile.DepartmentName}}</span>
+                                </div>
+
+                                <div class="gridDataWrap bg-transparent pb-0">
+                                    <label  class=" fs-5 ">Designation name</label>
+                                </div>
+                                <div class="gridDataWrap bg-transparent pt-0">
+                                    <span>{{Profile.DesignationName}}</span>
+                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

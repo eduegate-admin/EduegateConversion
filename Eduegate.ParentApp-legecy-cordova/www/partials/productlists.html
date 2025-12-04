@@ -1,0 +1,246 @@
+﻿<div class="app-page flex-column flex-column-fluid">
+
+
+    <div class="app-content flex-column-fluid">
+        <div class="app-header d-flex d-lg-none shodow-sm">
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-10"
+                >
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                    <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                    </a>
+                </div>
+                <div class="d-flex align-items-center ms-3 ms-lg-4">
+                    <div class="btn btn-icon btn-color-gray-700 btn-active-color-primary  btn-active-bg-light w-30px h-30px w-lg-40px h-lg-40px position-relative"
+                    data-bs-toggle="collapse" href="#SearchToggle" role="button" aria-expanded="false" aria-controls="SearchToggle">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
+                            <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+                    <div class="d-flex align-items-center d-lg-none ms-2" >
+
+                        <span class="svg-icon svg-icon-2x position-relative" ui-sref="singlecheckout">
+                            <span class="rounded-circle position-absolute bg-dark badge translate-end bottom-100 start-100 h-20px w-20px fs-9 text-grey-800 mb-n3 ms-n3 d-flex flex-center"  ng-bind="ShoppingCartCount" ng-if="ShoppingCartCount > 0">5</span><!-- end ngIf: ShoppingCartCount > 0 -->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path></svg>
+                            </span>
+                </div>
+                </div>
+            </div>
+        </div>
+        <ng-include class="app-toolbar  py-3 py-lg-0 collapse position-fixed top-0 top-30px w-100" style="z-index: 50000;"
+        id="SearchToggle"
+                src="'partials/Templates/searchbox.html'"></ng-include>
+        <div class="app-toolbar py-3 py-lg-0 shadow-sm">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="btn-group w-100">
+                    <button type="button" class="btn btn-primary w-100" ng-click="ShowSortOption()">
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
+                                <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                              </svg>
+                        </span>
+                            Sort By
+                        <!-- <span class="sortoption" ng-bind="SortText"></span> -->
+
+                    </button>
+                        <button type="button" class="btn btn-primary" ng-click="ListViewChange($event)">
+                            <span class="svg-icon svg-icon-1">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid" viewBox="0 0 16 16">
+                                <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+                            </svg>
+                            </span>
+                        </button>
+                    <button type="button" class="btn btn-primary w-100" ng-click="FilterClick()">
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                                <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+                              </svg>
+                        </span>
+                            Filter By</button>
+                  </div>
+            </div>
+        </div>
+
+        <div class="app-container bg-white theme-dark-bg-body container-xxl pt-5">
+            <div class="prod-added">
+                <div class="prod-added-blk">
+                    <div><span class="tick"> </span></div>
+                    <div><span class="prod-addedtxt" translate>ProductAddedtoyourCart</span></div>
+                    <!-- <div><img class="prodimg" src="[IMAGEPATH]" on-error-src="{{ErrorImage()}}" /></div> -->
+                    <div><span><label translate>[PRODUCTNAME]</label></span></div>
+                    <div><span><b><label translate>Quantity:[QUANTITY]</label></b></span></div>
+                    <div><span><b class=""><label translate>Price:[PRICE]</label></b></span></div>
+                    <div><button type="submit" ui-sref="checkout" translate>CONTINUECHECKOUT</button></div>
+                </div>
+            </div>
+            <div class="row g-3 " ng-if="NoProducts == false">
+                <div ng-repeat="product in ProductListList" class="grid col-6"  ng-class="{'hasdiscount': product.SelectedCatalog.ProductPrice != product.SelectedCatalog.ProductDiscountPrice}">
+                    <ng-include src="'partials/Templates/add-to-cart-button.html'"></ng-include>
+                </div>
+            </div>
+
+            <div class="cartempty" ng-if="NoProducts == true">
+                <img src="clients/{{$root.ClientSettings.Client}}/img/noresult.png" />
+                <span class="errorsearchmsgheader" ng-if="!ProductListViewModel.DisplayMessage"><label>Sorry no results found</label></span>
+                <span class="errorsearchmsgheader" ng-if="ProductListViewModel.DisplayMessage"><label>{{ProductListViewModel.DisplayMessage}}</label></span>
+                <!-- <span class="errorsearchmsg"><label translate>Wecouldn'tfindanythingthatmatchesyoursearch.</label></span> -->
+            </div>
+            <ul class="AttachWayPointsDiv lazyload">
+                <div class="d-flex justify-content-center">
+                    <div id="LoadLi" class="spinner-border text-dark " role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                </div>
+            </ul>
+
+        </div>
+
+        <div class="app-content flex-column-fluid   filtersection">
+
+            <div class="app-header d-flex d-lg-none shadow-none">
+                <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12">
+                    <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                        <a ng-click="FilterClose()">
+                            <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                        </a>
+                    </div>
+                    <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+
+                    </div>
+                </div>
+            </div>
+            <div class="app-container container-xxl bg-white theme-dark-bg-body pt-5 " >
+
+                    <div class=" hover-scroll-overlay-y vh-100">
+                        <div class="filtercrumbs">
+                            <span data-ng-if="selectedFilters.length > 0" class="spacer noborder"></span>
+                            <ul>
+                                <li data-ng-repeat="selectedFilter in selectedFilters" data-ng-click="GeneralFilterClick(selectedFilter,$event)">
+                                    <span data-ng-bind="selectedFilter.key"></span>
+                                </li>
+                            </ul>
+                            <span data-ng-if="selectedFilters.length > 0" data-ng-click="ClearSelectedFilters();" class="clearall" translate>CLEARALL</span>
+                            <span data-ng-if="selectedFilters.length > 0" class="spacer"></span>
+                        </div>
+                        <div class="fl-left fullwidth align-left toggletab">
+                            <ul>
+                                <li data-ng-class="{'displaynone':facets.Name == 'skutags'}"
+                                    data-ng-repeat="facets in ProductListViewModel.FacetsDetails track by $index">
+                                    <a href="" data-attr="option_{{$index+1}}" data-ng-click="FilterOptionClick($event)">
+                                        <label translate>{{facets.Name}}</label>
+                                    </a>
+                                    <ul class="select_filters togglecontent option_{{$index + 1}}" data-attr="option_{{$index + 1}}">
+                                        <li>
+                                            <span class="option_wrap" ng-repeat="facetItem in facets.FaceItems">
+                                                <label  ng-click="GeneralFilterClick(facetItem, $event)">
+                                                    <span ng-class="{'checked check':facetItem.Selected==true,'check':facetItem.Selected !=true}">
+                                                        <input type="checkbox" ng-model="facetItem.Selected"  ng-change="SetSelectFilter(facetItem)">
+                                                    </span>
+                                                        {{SkipValidation(facetItem.key)}}
+                                                </label>
+
+                                                <ul ng-if="facetItem.FaceItems.length > 0">
+                                                    <li>
+                                                        <span class="option_wrap" ng-repeat="facetItem1 in facetItem.FaceItems">
+                                                            <label  ng-click="GeneralFilterClick(facetItem1, $event)">
+                                                                <span ng-class="{'checked check':facetItem1.Selected==true,'check':facetItem1.Selected !=true}">
+                                                                    <input type="checkbox" ng-model="facetItem1.Selected"  ng-change="SetSelectFilter(facetItem)">
+                                                                </span>
+                                                                    {{SkipValidation(facetItem1.key)}}
+                                                            </label>
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </span>
+                                        <li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!--pagesections-->
+            </div><!--maincontentarea-->
+            <ng-include  src="'./partials/Templates/sticky-footer.html'"></ng-include>
+
+        </div><!--mainwrap-filterpage-->
+    </div>
+
+
+    <div class="sortoverlay" ng-click="CloseSortOverlay($event)"></div><!--overlay-->
+    <div class="sortbyoption">
+        <span class="close" ng-click="CloseSortOption()"> x </span>
+        <div class="fv-row card-body p-4">
+            <label class="fs-6 fw-semibold mb-2">
+                Sort by
+            </label>
+
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-3 g-4 mb-0"  >
+                <div class="col">
+                    <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-2"
+                    ng-if="showRelevance == true" ng-click="SelectedSortValue = 'relevance';SetSortValue();"  ng-class="{'active' :SelectedSortValue == 'relevance'}">
+                        <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1" >
+                                                            <input class="form-check-input" type="radio" nname="sort" ng-model="SelectedSortValue" value="relevance">
+                                                    </span>
+                        <span class="ms-5">
+                            <span class="fs-4 fw-bold text-gray-800 d-block" translate>Relevance</span>
+                        </span>
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-2"  ng-class="{'active' :SelectedSortValue == 'price-low'}"
+                    ng-click="SelectedSortValue = 'price-low';SetSortValue();">
+                        <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                            <input class="form-check-input" type="radio" nname="sort" ng-model="SelectedSortValue" value="price-low" >
+                                                    </span>
+                        <span class="ms-5">
+                            <span class="fs-4 fw-bold text-gray-800 d-block" translate>PriceLowtoHigh</span>
+                        </span>
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-2"  ng-class="{'active' :SelectedSortValue == 'price-high'}"
+                    ng-click="SelectedSortValue = 'price-high';SetSortValue();">
+                        <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                            <input class="form-check-input" type="radio" nname="sort" ng-model="SelectedSortValue" value="price-high"  >
+                                                    </span>
+                        <span class="ms-5">
+                            <span class="fs-4 fw-bold text-gray-800 d-block" translate>PriceHightoLow</span>
+                        </span>
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-2"  ng-class="{'active' :SelectedSortValue == 'best-sellers'}"
+                    ng-click="SelectedSortValue = 'best-sellers';SetSortValue();">
+                        <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                            <input class="form-check-input" type="radio" name="sort"  ng-model="SelectedSortValue" value="best-sellers" >
+                                                    </span>
+                        <span class="ms-5">
+                            <span class="fs-4 fw-bold text-gray-800 d-block" translate>Best-Sellers</span>
+                        </span>
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-2"  ng-class="{'active' :SelectedSortValue == 'new-arrivals'}"
+                    ng-click="SelectedSortValue = 'new-arrivals';SetSortValue();">
+                        <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                            <input class="form-check-input" type="radio" name="sort" ng-model="SelectedSortValue" value="new-arrivals" >
+                                                    </span>
+                        <span class="ms-5">
+                            <span class="fs-4 fw-bold text-gray-800 d-block" translate>NEWARRIVAL</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-include src="'partials/notifyme.html'"></ng-include>
+</div>
+
+
+<div id="#scrolltop_control" class="scrolltop btn-info rounded-5" data-kt-scrolltop="true">
+    <span class="svg-icon svg-icon-gray-100">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg>        </span>
+</div>

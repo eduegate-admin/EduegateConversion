@@ -1,0 +1,159 @@
+﻿<div class="header" ng-show="ShowRegisterHeader">
+    <div class="headerBar displayFlex alignItemCenter innerHeader">
+        <div class="nav-sidebar align-left">
+            <div class="backtopage" ng-click="$root.goBack()" class=" p-5 ms-n5">
+                <img src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" />
+            </div>
+        </div>
+        <!--nav-sidebar-->
+        <div class="header-text"><span>Regitser</span></div>
+        <div class="headerRight alignright">
+        </div>
+</div>
+<!--header-->
+
+<div class="maincontentarea noSearch">
+    <div class="content">
+        <div class="register pagesections">
+            <!-- <div class="loginregLogo"><img src="clients/{{$root.ClientSettings.Client}}/img/tabLogo.png" loading="lazy" /></div> -->
+            <form name="registerForm" id="RegisterForm" ng-submit="SignUp()" novalidate>
+                <div class="formContainer">
+                    <div class="whiteBg formInner boxShadow displaylineBlock">
+                        <div class="fieldWrap">
+                            <label class="mandateLabel"><span translate>FirstName:</span><sup class="red">*</sup></label>
+                            <input name="FirstName" type="text" placeholder="{{'Fnamerequired'|translate}}"
+                                ng-model="register.Customer.FirstName" ng-required="true">
+                            <span class="red inputerror" ng-show="submitted && registerForm.FirstName.$error.required"
+                                translate>FirstNameisrequired</span>
+                        </div>
+                        <div class="fieldWrap">
+                            <label translate>Last Name</label>
+                            <input name="LastName" type="text" placeholder="{{'Lname'|translate}}"
+                                ng-model="register.Customer.LastName">
+                        </div>
+                        <div class="fieldWrap" ng-if="$root.ClientSettings.EmailMandatory">
+                            <label class="mandateLabel"><span translate>Email</span><sup class="red">*</sup></label>
+                            <input required name="Email" type="email" placeholder="{{'Enteremail'|translate}}"
+                                ng-model="register.LoginEmailID">
+                            <span class="red inputerror" ng-show="submitted && registerForm.Email.$error.required"
+                                translate>EmailIsRequired</span>
+                            <span class="red inputerror"
+                                ng-show="submitted && registerForm.Email.$error.email"
+                                translate>EntervalidEmail</span>
+                        </div>
+            
+                        <div class="fieldWrap" ng-if="!$root.ClientSettings.EmailMandatory">
+                            <label class="mandateLabel"><span translate>Email</span></label>
+                            <input name="Email" type="email" placeholder="{{'Enteremail'|translate}}"
+                                ng-model="register.LoginEmailID">
+                            
+                            <span class="red inputerror"
+                                ng-show="submitted && registerForm.Email.$error.email"
+                                translate>EntervalidEmail</span>
+                        </div>
+            
+                        <div class="fieldWrap">
+                            <label class="mandateLabel"></label><span translate>Telephone/Mobile:</span><sup
+                                class="red">*</sup></label>
+                            <input required type="text" inputmode="numeric" name="MobileNumber" maxlength="50" ng-model="register.MobileNumber"
+                                ng-required="true">
+                            <span class="red inputerroraddress" ng-show="submitted  && registerForm.MobileNumber.$error.required"
+                                translate>EnterMobile</span>
+                        </div>
+
+                        <div class="fieldWrap locateStore">
+                            <label class="mandateLabel"><span>{{'CHOOSESTORE'|translate}}</span><sup class="red">*</sup>
+                            </label>
+
+                            <span class="countries">
+                                <select required name="SelectedStore" id="SelectedStore" ng-model="SelectedStore"
+                                    ng-change="BranchChange(SelectedStore)">
+                                    <option ng-repeat="brn in Branches" value="{{brn.BranchIID}}">
+                                        {{brn.BranchName}}
+                                    </option>
+                                </select>
+                                <span class="pointer"></span>
+                            </span>
+                            <span class="red inputerror"
+                                ng-show="submitted && registerForm.SelectedStore.$error.required"
+                                translate>SELECTYOURSTORE</span>
+                        </div>
+            
+                        <!-- <div class="fieldWrap">
+                             <label class="mandateLabel"><span translate>Location</span><sup class="red">*</sup></label>
+                            <select required name="area" id="area" ng-model="register.AreaID"
+                                ng-options="area.AreaID as area.AreaName for area in Areas"
+                                 ng-click="Event=$event"
+                                ng-change="GetLocationsChangeEvent(register.AreaID, Event)"
+                              >
+                                <option value="" translate>SelectArea</option>
+                            </select>
+                            <span class="red inputerror"
+                                ng-show="submitted && registerForm.area.$error.required"
+                                translate>Choose Location</span>
+                        </div> -->
+            
+                        <div class="fieldWrap" ng-if="$root.ClientSettings.BuildingNameID != -1">
+                            <label class="mandateLabel"><span translate>Building Name</span><sup class="red">*</sup></label>
+                            <input name="FlatNumber" type="text" placeholder="{{'BuildingNameRequired'|translate}}"
+                                ng-model="register.location" ng-required="true">
+                            <span class="red inputerror" ng-show="submitted && registerForm.location.$error.required"
+                                translate>Choose Building Name</span>
+                        </div>
+            
+                        <div class="fieldWrap" ng-if="$root.ClientSettings.BuildingNameID != -1">
+                            <label class="mandateLabel"><span translate>Flat Number/Villa Number</span><sup
+                                    class="red">*</sup></label>
+                            <input name="FlatNumber" type="text" placeholder="{{'FlatNumberRequired'|translate}}"
+                                ng-model="register.FlatNumber" ng-required="true">
+                            <span class="red inputerror" ng-show="submitted && registerForm.FlatNumber.$error.required"
+                                translate>FlatNameRequired</span>
+                        </div>
+            
+                        <div class="fieldWrap terms">
+                            <label>
+                                <span class="checkBox">
+                                    <input name="LastName" type="checkbox" placeholder="{{'privacypolicy'|translate}}"
+                                        ng-model="register.IsPrivacyPolicy">
+                                    <span class="check"></span>
+                                </span>
+                                <span translate>Iagreethe</span>
+                            </label>
+                            <span class="termsCondition" ng-click="LoadPrivacyPolicy()">
+                                {{"termsandcondition"|translate}}</span>
+                        </div>
+                    </div>
+                    <span class="fullwidth align-left textcenter paddingtop5 tabCredentials">
+                        <button type="submit" class="btnStyle btnGrey submitBtn" id="submitBtn" value="Create Account" translate>Submit</button>
+                        <button ng-show="ShowGuestLogin" class="btnStyle guestLoginBtn" value="Home" translate
+                            ng-click='ContineAsGuest()' translate>ContineAsGuest</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- <div class="googleMapContainer">
+    <ng-include src="'partials/googlemap.html'"></ng-include>
+</div> -->
+<!-- <div class="googleMapStoreContainer" ng-if="isGoogleMapStoreContainer">
+    <ng-include src="'partials/storeingooglemap.html'"></ng-include>
+</div> -->
+
+<!-- <div class="privacyPolicy" ng-if="showPrivacyPolicy">
+    <ng-include src="'partials/terms.html'"></ng-include>
+</div> -->
+<div class="termsWindow">
+    <div class="termsWindowOverlay" ng-if="showPrivacyPolicy" ng-click="HidePrivacyPolicy()"></div>
+    <div class="termsWindowWrap" ng-if="showPrivacyPolicy">
+        <div class="notifyclose" ng-click="HidePrivacyPolicy()">x</div>
+        <div class="termsWindowInner">
+            <ng-include ng-if="$root.UserLanguage == 'en'  || !$root.UserLanguage" 
+                src="'partials/term-en.html'">
+            </ng-include>
+            <ng-include ng-if="$root.UserLanguage == 'ar'  || !$root.UserLanguage" 
+                src="'partials/term-ar.html'">
+            </ng-include>
+        </div>
+    </div>
+</div>

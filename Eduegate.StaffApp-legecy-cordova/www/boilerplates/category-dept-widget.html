@@ -1,0 +1,32 @@
+﻿<!--<div></div>-->
+<div id="divDeptRecommendation" >
+    <div class="product-inner recommended PositionRelative min-height-emarsys"  ng-controller="CategoryDeptWidgetController"  ng-repeat="i in [] | range:$parent.noOfCategories track by $index" id="deptrecommendation{{$index+1}}" ng-init="getIndex($index+1)">
+        <div ng-show="ShowLoaders" id="HomeBannerLoader" class="LoaderSmall">
+            <div>
+                <i class="fa fa-spinner fa-pulse"></i>
+            </div>
+        </div>
+        <div class="product-title whitebg main-spacing"><span class="blocktitle" ng-bind-html="SkipValidation(categoryName)"></span><a class="topbutton" ng-click="ViewAll()" ><label translate>ViewAll-Category</label></a></div>
+        <div class="fullwidth align-left">
+            <ul class="productlist">
+                <li ng-repeat="product in departmentProducts">
+                    <a data-scarabitem="{{product.SKUID}}" ui-sref="productdetails({skuID:product.SKUID})">
+                        <span class="prod-img"><img ng-src="{{product.ProductThumbnailImage}}" loading="lazy" on-error-src="{{ErrorImage()}}" /></span>
+                        <span class="titlecolumn">
+                            <span class="caption" ng-bind-html="SkipValidation(product.ProductName)"></span>
+                            <span class="amount text-grey-700" ng-if="product.ProductDiscountPrice > 0" ng-bind="product.ProductDiscountPrice + ' ' + product.Currency"></span>
+                        </span>
+                    </a>
+                    <span class="addtocart" ng-if="product.ProductAvailableQuantity > 0"><a href="" ng-click="AddtoCart(product,'1')"><label translate>Addtocart</label></a></span>
+                    <span class="addtocart outofstock" ng-if="product.ProductAvailableQuantity <= 0"><a href="" ng-click="$root.NotifyMeProductSKUID = product.SKUID;"><label translate>NotifyMe</label></a></span>
+                </li>
+
+
+            </ul>
+        </div>
+        <!--<div id="deptrecommendationdummy{{$index+1}}" class="absolute-prod-id">
+
+        </div>-->
+    </div>
+
+</div>

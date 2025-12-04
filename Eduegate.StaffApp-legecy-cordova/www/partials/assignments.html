@@ -1,0 +1,114 @@
+﻿<div class="app-page flex-column flex-column-fluid">
+
+
+    <div class="app-content flex-column-fluid">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-container container-xxl pt-5">
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+                    <div class="row g-6 g-xl-9" ng-init="FillAssignments()">
+                        <div class="col-md-6 col-xxl-4" ng-repeat="assignment in AssignmentList">
+                            <div class="card">
+                                <div class="card-header min-h-auto border-0 pt-4">
+                                    <div class="fw-bold fs-4 badge badge-primary">{{assignment.Subject.Value}}</div>
+
+                                </div>
+                                <div class="card-body p-lg-20">
+                                    <div class="d-flex flex-column flex-xl-row">
+                                        <div class="flex-lg-row-fluid me-xl-18">
+                                            <div class="mt-n1 toggleContainer" >
+
+                                                <div class="m-0">
+                                                    <div class="d-grid g-5 mb-0" style=" grid-template-columns: 100px 36px 1fr;">
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Class</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{assignment.Class.Value}} ({{assignment.Section.Value}})</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Title</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{assignment.Title}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Description</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{assignment.Description}}</div>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="toggleContent">
+                                                    <div class="d-grid g-5 mb-5" style=" grid-template-columns: 100px 36px 1fr;">
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Start Date </div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{assignment.StartDate | date | date : 'dd-MM-yyyy'}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Freeze Date</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{assignment.FreezeDate | date | date : 'dd-MM-yyyy'}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Date of Submission</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{assignment.DateOfSubmission | date | date : 'dd-MM-yyyy'}}</div>
+
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Assignment Type</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{assignment.AssignmentType.Value}}</div>
+
+                                                        <div class="fw-normal fs-4 text-gray-600 mb-1">Assignment Status</div>
+                                                        <div class="">:</div>
+                                                        <div class="fw-semibold fs-4 text-gray-800">{{assignment.AssignmentStatus.Value}}</div>
+
+
+
+                                                    </div>
+
+                                                    <div class="my-2">
+                                                        <div class="subTitle"><b>Attachments</b></div>
+                                                    </div>
+                                                    <div class="">
+                                                        <div ng-repeat="attachment in assignment.AssignmentAttachmentMaps track by $index">
+                                                            <div ng-if="attachment.AttachmentReferenceID != null" class="btn btn-primary btn-sm"  ng-click="DownloadURL(attachment.AttachmentReferenceID)">
+                                                                <i class="fa fa-2x fa-download" aria-hidden="true"
+                                                                   >
+                                                                </i>
+                                                                <span ng-bind="attachment.AttachmentName" class="ng-binding"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="toggleHeader d-flex flex-end">
+                                                <span class="headerBtn btn btn-sm btn-primary" ng-click="toggleGrid($event);"><i class="fa fa-eye"
+                                                    aria-hidden="true"></i> View All</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-xxl-4">
+                            <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert" ng-if="!ShowLoader && AssignmentList.length == 0">
+                                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                                        <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                        <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <div class="d-flex flex-column">
+                                    <h3 class="mb-1 text-danger">Not found!</h3>
+                                    <span>Assignments not found, please try again later.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

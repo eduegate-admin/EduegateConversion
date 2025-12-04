@@ -1,0 +1,37 @@
+<div ng-controller="ExamController">
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    Exams
+                </h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="containerWrap" ng-init="Init()">
+        <div class="dataWrap setBorder boxShadow marginBtm10" ng-repeat="exam in ExamLists">
+            <div class="toggleContainer displayFlex flexColumn whiteBg">
+                <div class="toggleHeader displayFlex flexColumn pad10">
+                    <div class="gridDataWrap">
+                        <label>Exam :</label>
+                        <span>{{exam.ExamDescription}}</span>
+                    </div>
+                    <div class="gridDataWrap">
+                        <label>Type :</label>
+                        <span>{{exam.ExamTypeName}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

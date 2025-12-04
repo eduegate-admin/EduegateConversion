@@ -1,0 +1,30 @@
+
+        <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+            <a  ng-click="$root.goBack()" class=" p-5 ms-n5">
+                <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+            </a>
+        </div>
+        <div class="d-flex align-items-center ms-3 ms-lg-4">
+            <div class="btn btn-icon btn-color-gray-700 btn-active-color-primary  btn-active-bg-light w-30px h-30px w-lg-40px h-lg-40px position-relative"
+            ng-click="FilterClick()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+              </svg>
+            </div>
+        </div>
+        <div class="d-flex align-items-center ms-3 ms-lg-4">
+            <div class="btn btn-icon btn-color-gray-700 btn-active-color-primary  btn-active-bg-light w-30px h-30px w-lg-40px h-lg-40px position-relative"
+            data-bs-toggle="collapse" href="#SearchToggle" role="button" aria-expanded="false" aria-controls="SearchToggle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
+                    <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
+                </svg>
+            </div>
+        </div>
+        <div class="d-flex align-items-center d-lg-none ms-3">
+            <span class="svg-icon svg-icon-2x position-relative" ui-sref="singlecheckout">
+                <span class="rounded-circle position-absolute bg-dark badge translate-end bottom-100 start-100 h-20px w-20px fs-9 text-grey-800 mb-n3 ms-n3 d-flex flex-center"  ng-bind="ShoppingCartCount" ng-if="ShoppingCartCount > 0">5</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path></svg>
+            </span>
+        </div>
+

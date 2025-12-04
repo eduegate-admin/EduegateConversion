@@ -1,0 +1,77 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="EnrollController">
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+    <div
+        class="card card-flush h-xl-100  border-0  rounded-0 position-sticky z-index-3 bg-green shadow-none ios-pt-12 overflow-hidden bg-transparent">
+        <div class="card-body pb-0 app-container">
+            <div class="row g-5 g-xl-10">
+                <div class="col-lg-6 mb-lg-10">
+                    <div class=" h-150px bgi-no-repeat bgi-size-cover bgi-position-y-center h-150px rounded-4"
+                        style="background-image:url('./clients/{{$root.ClientSettings.Client}}/images/banner 4.png')">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app-container container-xxl bg-light theme-dark-bg-body rounded-4 rounded-bottom-0"
+        ng-init="setMultiColor();">
+        <div class="row g-5 g-xl-10">
+
+
+            <div class="col-sm-6 col-xl-2 mb-xl-10">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap gap-3 justify-content-evenly fs-5">
+                            <a class="d-flex flex-column align-items-center" ui-sref="staffleavelist">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2">
+                                    <div class="symbol symbol-circle symbol-75px "
+                                        style="background: linear-gradient(130deg, #AF70FF 0%, #694399 100%);">
+                                        <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/myleave.svg" class="object-fit-none">
+                                    </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4  text-center position-relative">My Leaves
+                                </span>
+                            </a>
+                            <a class="d-flex flex-column align-items-center" ui-sref="staffattendance">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2">
+                                    <div class="symbol symbol-circle symbol-75px "
+                                    style="background: linear-gradient(130deg, #4B9DE9 0%, #3CCFFD 100%);">
+                                    <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/student_attandance.svg" class="object-fit-none ">
+                                </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center position-relative">My Attendance
+                                </span>
+                            </a>
+                            <a class="d-flex flex-column align-items-center" ui-sref="employeeleaveapplication">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2">
+                                    <div class="symbol symbol-circle symbol-75px "
+                                    style="background: linear-gradient(130deg, #FFA370 0%, #E3BF00 100%);">
+                                    <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/leave.svg" class="object-fit-none ">
+                                </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center position-relative">Employee <br>
+                                    leave request
+                                </span>
+                            </a>
+                            <a class="d-flex flex-column align-items-center" ui-sref="salaryslip">
+                                <span class="svg-icon svg-icon-1 pt-1 mb-2">
+                                    <div class="symbol symbol-circle symbol-75px "
+                                    style="background: linear-gradient(130deg, #FFA370 0%, #E3BF00 100%);">
+                                    <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/payslip.svg" class="object-fit-none ">
+                                </div>
+                                </span>
+                                <span class="fw-bold text-gray-800 my-4 text-center position-relative">Pay Slip <br>
+
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

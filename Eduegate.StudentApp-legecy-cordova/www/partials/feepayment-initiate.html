@@ -1,0 +1,42 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="PaymentGatewayStatusController">
+    <div class="app-content flex-column-fluid">
+        <div class="app-header d-flex shodow-sm">
+            <!--begin::Header container-->
+            <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+                id="kt_app_header_container">
+                <!--begin::Logo-->
+                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                    <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                        <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                    </a>
+                </div>
+                <!--end::Logo-->
+                <!--begin::Header mobile toggle-->
+                <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5">
+            <div class="card h-md-100" dir="ltr" ng-init="init('Initiate')"> 
+                <div class="card-body d-flex flex-column flex-center">  
+                    <div class="mb-2">
+                        <h1 class="fw-semibold text-gray-800 text-center lh-lg">           
+                            You will be redirected to the secure payment page to complete  payment
+                            <span class="fw-bolder">If you need to cancel please tap on cancel button</span>
+                        </h1>
+                        <div class="py-10 text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                              </div>
+                                        </div>
+                    </div>
+                    <div class="text-center mb-1"> 
+                        <a class="btn btn-sm btn-primary me-2" ui-sref="feepaymenthistory">
+                            Cancel Payment          </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "133057763179",
+    "project_id": "podar-pearl-student-app",
+    "storage_bucket": "podar-pearl-student-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133057763179:android:46b94ea34b881de6db5e2e",
+        "android_client_info": {
+          "package_name": "com.podarpearl.studentapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQTGOBg8YtdLhSjL2ZEo4uthrIX7MWNiU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

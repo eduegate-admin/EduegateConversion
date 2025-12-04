@@ -1,0 +1,140 @@
+<div ng-controller="TopicController">
+
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    Notes
+                </h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+            </div>
+        </div>
+    </div>
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3 flex-column">
+                <select id="Select2" name="cmb_cur" class="form-control select2-sm  w-250px"
+                    ng-change="FillTopic(edt.teachersubject.Key, FilterDate)" ng-model="edt.teachersubject"
+                    ng-options=" teachersubject as  teachersubject.Value for  teachersubject in teachersubjectlist"
+                    ng-required="true" required="required">
+                    <option value="" class="" selected="selected">Select subject</option>
+                </select>
+                <div class="fieldWrapper" style="text-align: left;">
+                    <input type="date" placeholder="Select Date" required="" class="form-control bg-transparent"
+                        ng-model="FilterDate" ng-change="FillTopic(edt.teachersubject.Key, FilterDate)" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container container-xxl pt-5" ng-init="init()">
+        <div class="row g-5 g-xl-10">
+            <div class="col-xl-8" ng-repeat="topic in TopicList">
+<!-- The main repeater now uses the new card and flexbox styling -->
+<div class="dataWrap setBorder card  border-0"> <!-- Assuming your list is named 'Agendas' -->
+
+    <div class="toggleContainer displayFlex flexColumn">
+        <!-- COLLAPSED HEADER: Shows the most important info at a glance -->
+        <div class="toggleHeader displayFlex flexColumn pad10">
+            <div class="d-flex align-items-center">
+
+                <!-- Left side: Agenda Title and Subject -->
+                <div class="d-flex flex-column flex-grow-1 my-lg-0 pe-3 overflow-hidden">
+                    <a class="text-gray-800 fw-bold text-hover-primary fs-5 capitalize text-lowercase text-truncate">
+                        <span class="fs-2">{{topic.Title}}</span> <br>
+                        <span class="text-gray-600 fw-normal fs-5">{{topic.Subject.Value}}</span>
+                    </a>
+                </div>
+
+                <!-- Right side: Agenda Date and the "View All" toggle button -->
+                <div class="text-gray-700 fw-bold fs-6 text-end d-flex flex-column flex-end">
+                    <span class="mb-2 text-nowrap">
+                        {{topic.Date1String}}
+                    </span>
+                    <div>
+                        <span class="text-primary flexAuto" style="cursor: pointer;" ng-click="toggleGrid($event);">
+                            View All
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPANDED CONTENT: Shows all the detailed information -->
+        <div class="toggleContent pad10 noPaddingTop">
+
+            <!-- Topics/Chapters Section -->
+            <div ng-if="topic.AgendaTopicMap.length > 0">
+                <div class="subTitle mt-3"><b>Topics / Chapters</b></div>
+                <ul class="list-group list-group-flush mt-2">
+                    <li class="list-group-item py-2 px-0" ng-repeat="item in topic.AgendaTopicMap track by $index">
+                        <strong>{{item.LectureCode}}:</strong> {{item.Topic}}
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Attachments Section -->
+            <!-- Note: Mapping AgendaTaskMap to the new attachment style -->
+            <div class="gridDataWrap" ng-if="topic.AgendaTaskMap.length > 0">
+                <div class="subTitle mt-3"><b>Attachments</b></div>
+                <div ng-repeat="attachment in topic.AgendaTaskMap track by $index" class="mt-2">
+                    <div ng-if="attachment.AttachmentReferenceID != null" class="mb-2">
+                        <!-- This is the new styled block for a single attachment -->
+                        <div class="d-flex align-items-center border border-1 border-gray-300 rounded w-100 bg-light flex-wrap overflow-hidden">
+                            <div class="d-flex flex-aligns-center flex-grow-1 p-3">
+                                <img alt="file icon" class="w-30px me-3" src="./images/pdf.svg">
+                                <div class="ms-1 fw-semibold">
+                                    <a class="fs-5 text-hover-primary fw-bold" ng-bind="attachment.AttachmentName"></a>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-aligns-center bg-white flex-end p-2 border-top border-gray-300 w-100 w-sm-auto border-sm-0">
+                                <a ng-click="DownloadURL(attachment.AttachmentReferenceID)" style="cursor: pointer;" class="d-flex align-items-center text-decoration-none">
+                                    <img src="./images/Downloadsvg.svg" class="me-2" />
+                                    <span class="fs-5 text-gray-700">Download</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Show a message if there's nothing to expand -->
+            <div ng-if="topic.AgendaTopicMap.length === 0 && topic.AgendaTaskMap.length === 0" class="text-muted text-center py-4">
+                No further details available.
+            </div>
+
+        </div> <!--/toggleContent-->
+    </div> <!--/toggleContainer-->
+</div>
+
+            </div>
+            <div class="col-md-6 col-xxl-4">
+                <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"
+                     ng-if="!ShowPreLoader && TopicList.length == 0">
+                    <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                        <svg width="24" height="24"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                            <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)"
+                                  fill="currentColor" />
+                            <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)"
+                                  fill="currentColor" />
+                        </svg>
+                    </span>
+                    <div class="d-flex flex-column">
+                        <h3 class="mb-1 text-danger">Not found!</h3>
+                        <span>No notes details found.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

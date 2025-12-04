@@ -1,0 +1,11 @@
+{
+    "android": {
+        "release": {
+            "keystore": "./eduegate.parentapp.keystore",
+            "storePassword": "EDUEGATE123",
+            "alias": "EDUEGATE",
+            "password" : "EDUEGATE123",
+            "keystoreType": ""
+        }
+    }
+}

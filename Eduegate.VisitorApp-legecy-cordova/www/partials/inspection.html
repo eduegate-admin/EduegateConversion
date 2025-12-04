@@ -1,0 +1,196 @@
+﻿<div >
+    <div class="app-header d-flex d-lg-none">
+        <!--begin::Header container-->
+        <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12"
+            id="kt_app_header_container">
+            <!--begin::Logo-->
+            <div class="d-flex align-items-center  me-lg-15">
+                <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                    <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                </a>
+            </div>
+            <!--end::Logo-->
+            <!--begin::Header mobile toggle-->
+            <div class="d-flex align-items-center d-lg-none ms-2 fs-3" title="Show sidebar menu">
+                Inspection
+            </div>
+            <div class="w-40px">
+            </div>
+            <!--end::Header mobile toggle-->
+        </div>
+        <!--end::Header container-->
+    </div>
+
+
+    <div class="app-container container-xxl pt-5" >
+        <div class="row g-5 g-xl-10 mb-xl-10">
+            <div class="d-flex flex-column">
+                <!--begin::Title-->
+                <h3 class="text-gray-900 fw-bolder mb-1 letter-spacing">
+                  Inspection Page
+                </h3>
+            </div>
+            <div ng-if="ActiveStudentPickLogs.length == 0">
+                <h5 class="text-center">No results found..</h5>
+            </div>
+            <div class="col-lg-12 col-xl-12 col-xxl-6 mb-xl-0"  ng-repeat="stud in ActiveStudentPickLogs" >
+                <div class="card h-md-100">
+                    <div class="col-xl-4 mb-xl-10">
+                        <div  class="card card-flush carousel carousel-custom carousel-light-dots carousel-stretch slide h-xl-100" >
+                            <div class="card-header">
+                                <div class="card-title d-flex flex-column">
+                                    <div class="d-flex align-items-center">
+                                        <span class="fs-4 fw-bold text-dark me-2 ">{{stud.Student.Value}}</span>
+                                    </div>
+                                    <span class="text-gray-400 pt-1 fw-semibold fs-6">{{stud.ClassSection}}</span>
+                                </div>
+                            </div>
+                            <hr class="m-0">
+                                    <div class="card-body p-4 position-relative">
+                                        <div class="d-flex align-items-center">
+                                            <div class="w-80px flex-shrink-0 me-2">
+                                                <div class="symbol  symbol-70px symbol-circle ">
+                                                    <img data-fancybox style="  object-fit: cover; object-position: left top;"
+                                                        ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{stud.StudentProfile}}"
+                                                        class="rounded-3" alt="user">
+                                                    <div
+                                                        class="symbol-badge bg-success start-100 top-100 border-4 h-25px w-25px ms-n2 mt-n2 d-flex flex-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-check"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="m-0  me-3" style="overflow: scroll;">
+                                                <div class="d-flex d-grid gap-5">
+                                                    <div class="d-flex flex-column flex-shrink-0 ">
+                                                    <div class="min-w-100px w-100 py-2  mb-3">
+                                                    <div class="fw-semibold text-gray-400">Pick Time</div>
+                                                    <span class="fs-6 text-gray-700 fw-bold ng-binding"> {{stud.PickStringDate| date | date : 'dd-MM-yyyy hh:mm a'}} </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <img id="blinking-image" ng-src="https://static.thenounproject.com/png/2002633-200.png" alt="Blinking image"class="w-25 animation-blink" ng-style="{'background-color': InspectionColor}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col mb-3"  ng-repeat="list in TodayStudentPickLogsByvisitorLoginID">
+                <div class="card ">
+                    <div class="card-header align-items-center min-h-auto">
+                        <h4 class="card-label fw-bold text-gray-800 m-0">Scanned</h4>
+                        <div class="card-toolbar">
+                            <!-- <div class="align center whiteBg ">
+                                <span ng-show="list.LogStatus" id="boot-icon" class="bi bi-check"
+                                    style="font-size: 2rem; color: rgb(0, 128, 55);"></span>
+                                <span ng-show="!list.LogStatus" id="boot-icon" class="bi bi-x"
+                                    style="font-size: 2rem; color: rgb(255, 0, 0);"></span>
+                            </div> -->
+                        </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="symbol symbol-40px me-3">
+                                <a class="position-relative" data-fancybox
+                                    href="{{ContentService}}/ReadImageContentsByID?contentID={{list.StudentProfile}}">
+                                    <img ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{list.StudentProfile}}"
+                                        on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" alt="Avatar" class="avatar"
+                                        style="  object-fit: cover; object-position: left top;  " />
+
+                                </a>
+                            </div>
+                            <div class="d-flex justify-content-start flex-column">
+                                <span class="fs-8 fw-bolder text-success text-uppercase">Student</span>
+                                <a class="fs-6 text-gray-800 fw-bold d-block text-hover-primary">{{list.Student.Value}}</a>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="d-flex align-items-center">
+                            <div class="symbol symbol-40px me-3">
+                                <a data-fancybox
+                                    href="{{ContentService}}/ReadImageContentsByID?contentID={{list.PickerProfile}}">
+                                    <img ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{list.PickerProfile}}"
+                                        on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" alt="Avatar"
+                                        class="avatar" />
+                                </a>
+                            </div>
+
+                            <div class="d-flex justify-content-start flex-column">
+                                <span class="fs-8 fw-bolder text-info text-uppercase">Picked By</span>
+                                <a class="fs-6 text-gray-800 fw-bold d-block text-hover-primary">{{list.PickByFullName}}</a>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="d-flex align-items-center">
+                            <div class="symbol symbol-40px me-3">
+                                <a data-fancybox
+                                    href="{{ContentService}}/ReadImageContentsByID?contentID={{list.EmployeeDetails.Key}}">
+                                    <img ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{list.EmployeeDetails.Key}}"
+                                        on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" alt="Avatar"
+                                        class="avatar" />
+                                </a>
+                            </div>
+
+                            <div class="d-flex justify-content-start flex-column">
+                                <span class="fs-8 fw-bolder text-info text-uppercase">scanned By</span>
+                                <a class="fs-6 text-gray-800 fw-bold d-block text-hover-primary">{{list.EmployeeDetails.Value}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="m-0">
+
+                    <div class="card-footer justify-content-end">
+                        <span>Pickup Date : </span>
+                        <a>{{list.PickDate|date | date : 'dd-MM-yyyy'}}</a>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" id="myModalLabel">Please select the picker</h6>
+              <h3 type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </h3>
+            </div>
+            <div class="modal-body text-center">
+                <span ng-repeat="pickBy in PickersList" class="p-5">
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value={{pickBy.Key}}> {{pickBy.Value}}
+                    </label>
+                </span>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-default" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-sm btn-primary" ng-click="ModalSaveChanges()">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        //automatic close the window after 5 minutes
+        setTimeout(function(){
+            window.location.href = '#/selfscan';
+        }, 300000); //5 minutes in milliseconds
+    </script>
+</div>
+<style>
+            .avatar {
+            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+        }
+</style>

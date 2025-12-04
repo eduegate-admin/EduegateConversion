@@ -1,0 +1,95 @@
+﻿<div class="app-page flex-column flex-column-fluid bg-body">
+    <div class="app-content flex-column-fluid">
+        <ng-include src="'  partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-container container-xxl pt-5  mt-n5 rounded-3 ">
+            <div class="row g-6 g-xl-9">
+                <div class="col-md-6 col-xxl-4 ">
+                    <div class="container-fluid mx-0 px-0">
+                        <div class="row my-3">
+                            <div class="col-lg-5 mb-6 mb-lg-0">
+                                <div class="mb-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Search by parent or student name..."
+                                           ng-model="searchText">
+                                </div>
+                                
+                                <div class="card card-flush card-p-0 card-reset mb-5">
+                                    
+                                    <div class="card card-flush card-p-0 card-reset bg-light-primary"
+                                        ng-repeat="ParentDetails in ParentDetailsByTeacherLoginID | filter:parentSearchFilter">
+                                        
+                                        <div class="card-body py-3">
+                                            <div class="d-flex flex-nowrap align-items-center">
+                                                <div class="me-2">
+                                                    <label>
+                                                        <input type="checkbox" class="filled-in"
+                                                            ng-model="ParentDetails.selectedForBroadcast"
+                                                            ng-change="toggleBroadcastSelection (ParentDetails)" />
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                                <div class="symbol symbol-circle symbol-50px me-4 position-relative">
+                                                    <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png" alt="" class="mw-100">
+                                                
+                                                    <!-- Tick icon -->
+                                                    <i class="fa fa-check-circle text-success position-absolute bottom-0 end-0"  aria-hidden="true" 
+                                                       ng-show="ParentDetails.selectedForBroadcast"
+                                                       style="font-size: 1.2rem;"></i>
+                                                </div>
+                                                
+                                                <div
+                                                    class="card card-reset card-xl-stretch mb-xl-10 theme-dark-bg-body w-100 rounded-2">
+                                                    <div class="card-body d-flex flex-column">
+                                                        <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                                            <div class="d-flex flex-column flex-grow-1 my-lg-0 pe-3">
+                                                                <a
+                                                                    class="text-gray-800 fw-semibold text-hover-primary fs-5">
+                                                           
+                                                                            {{ParentDetails.StudentFullName}}
+
+                                                                </a>
+                                                                <span class="text-gray-800 fw-normal fs-7 my-1">
+                                                                    {{ParentDetails.GuardianFirstName
+                                                                    ||
+                                                                    ParentDetails.FatherFirstName}}
+                                                                    {{ParentDetails.GuardianLastName
+                                                                    ||
+                                                                    ParentDetails.FatherLastName}}
+
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center my-4">
+
+                                        <li class="nav-item mx-lg-2 btn btn-lg btn-icon btn-primary  symbol position-fixed bottom-0 end-0 translate-middle mb-10 z-index-3" role="presentation">
+                                            <button class="btn-reset" ng-click="updateBroadcastList(ParentDetails)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                              </svg></button>
+
+                                        </li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .app-wrapper {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+</style>

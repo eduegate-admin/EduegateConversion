@@ -1,0 +1,337 @@
+<div class="mainwrap cart orderhistory OrderPage myOrderPage">
+    <div class="header cart-header">
+        <div class="header-inner">
+            <!-- <div class="nav-sidebar align-left">
+            <div class="main-menu"><a href="" ng-click="LoadOverlay($event)"><span></span><span></span><span></span></a></div>
+            </div> -->
+            <div class="nav-sidebar align-left">
+                <div class="backtopage"><a href="" ng-click="$root.goBack()" class=" p-5 ms-n5">&nbsp;</a></div>
+            </div><!--nav-sidebar-->
+            <div class="logo"><a uisref="#employeedashboard"><img src="clients/{{$root.ClientSettings.Client}}/img/main-logo.png"/></a></div>
+            <!-- <ng-include src="'partials/header.html'"></ng-include>         -->
+            <ng-include ng-show="ShowLoader" src="'partials/main-loader.html'"></ng-include>
+            <div class="nav-sidebar align-right">
+                <ul>
+                    <li class="headerSignout" ng-click="$root.SignOut()">
+                        <span class="cat-img"><img src="clients/{{$root.ClientSettings.Client}}/img/logout.png"/></span>
+                    </li>
+                    <li ng-click="init()">
+                        <span class="refreshIcon"><img src="clients/{{$root.ClientSettings.Client}}/img/refreshIcon.png"/></span>
+                    </li>
+                </ul>
+            </div>
+        </div>   
+    </div><!--header-->
+    <div class="maincontentarea noSearch">
+        <div class="content greybg">
+            <div class="pagesections noOverflow">
+                <div class="fullwidth align-left main-spacing relativePos fullheight">
+                    <!-- <div class="tabMenu orderTabs">
+                        <span class="tabItem active" data-tab="onlineOrders" ng-click="showOrderTabs($event)" translate>ONLINEORDERS</span>
+                        <span class="tabItem" data-tab="offlineOrders" ng-click="showOrderTabs($event)" translate>OFFLINEORDERS</span>
+                    </div> -->
+                    <div class="orderHeader" ng-if="MyOrders.length > 0">
+                        <div class="product-title">
+                            <span translate>{{ MyOrderTitle }}</span>
+                        </div>
+                        <div class="orderSearch">
+                            <div class="orderSearchInner">
+                                <input type="text" placeholder="{{'SearchOrder'|translate}}"  ng-model="SearchOrderNO" ng-keydown="$event.keyCode === 13 && Search(SearchOrderNO)"/>
+                                <span class="searchIcon" ng-click="Search(SearchOrderNO)"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="orderTabsContent">
+                        
+                        <div class="orderListData" style="display:block;" data-tab="onlineOrders"  ng-cloak>
+                            <div class="noOrders" ng-if="MyOrders.length == 0" >
+                                <div class="textcenter" translate>Sorrynoresultsfound</div>
+                            </div>
+                            <div class="orderpageGrid fullwidth fullheight" ng-if="MyOrders.length > 0">
+                                <div class="tableHeader">
+                                    <table class="orderhistory-table">
+                                        <thead>
+                                            <tr>
+                                            <th>
+                                                <table class="orderHistoryInner">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="arrowColumn"><label>&nbsp;</label></th>
+                                                            <th><label translate>OrderID</label></th>
+                                                            <th><label translate>Date</label></th>
+                                                            <th class="customerName"><label translate>CUSTOMER</label></th>
+                                                            <th><label translate>Amount</label></th>
+                                                            <th class="lasttd"><label translate>Status</label></th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="tableContent" ng-init="setScroll()">
+                                    <table class="orderhistory-table">
+                                        <tbody>
+                                            <tr class="orderdetails" ng-repeat="order in MyOrders track by $index">
+                                                <td>
+                                                    <table class="orderHistoryInner">
+                                                        <tr class="noborder" ng-click="GetOrderDetails(order.HeadIID,$event)">
+                                                            <!--<td ng-bind="$index + 1"></td>-->
+                                                            <td class="arrowColumn"><span></span></td>
+                                                            <td class="order-id digitStyle" ng-bind="order.TransactionNo"></td>
+                                                            <td class="digitStyle"> {{order.TransactionDate | date:'dd-MM-yyyy hh:mm'}}</td>
+                                                            <td class="customerName" class="order-id" ng-bind="order.FirstName"></td>
+                                                            <td class="digitStyle"> {{order.Amount | currency : $root.DefaultDisplayCurrency}}</td>
+                                                            <td class="lasttd">
+                                                                <span ng-click="showOrderStatus($event, null, order, 'add');" 
+                                                                    ng-class="{'success ':order.JobStatusID == 5,'failed':order.JobStatusID=='11' 
+                                                                    || order.JobStatusID=='12' || order.JobStatusID=='13',
+                                                                    'inprocess':order.JobStatusID!=5 && order.JobStatusID!=1,
+                                                                    'packed': order.JobStatusID == 3, 'shipped': order.JobStatusID == 4,
+                                                                    'new':order.JobStatusID==1 }"
+                                                                >
+                                                                {{  
+                                                                    order.JobStatusID == 1 ? TranslatedStatus.New :
+                                                                    order.JobStatusID == 2 ? TranslatedStatus.Picked :
+                                                                    order.JobStatusID == 3 ? TranslatedStatus.Packed : 
+                                                                    order.JobStatusID == 4 ? TranslatedStatus.Shipped : TranslatedStatus.Delivered
+                                                                }}
+                                                                
+                                                                </span>
+                                                                <!-- <i ng-if="order.ResendMail" ng-click="Resend(order.TransactionOrderIID)" class="fa fa-envelope resend"></i> -->
+                                                            </td>
+                                                            <!--<td></td>-->
+                                                        </tr>
+                                                        <tr class="productlistcommon" style="display: none;">
+                                                            <td>
+                                                                <ul class="orderhistorylist myOrderList">
+                                                                    <li class="loader" ng-if="orderDetailsLoader == true">
+                                                                        <span><i class="fa fa-spinner fa-spin newsletter-spinner"></i></span>
+                                                                    </li>
+                                                                    <li class="boxShadow padbtm30" ng-repeat="product in OrderHistoryDetails.OrderDetails" ng-if="OrderHistoryDetails != null && OrderHistoryDetails != undefined">
+                                                                        <span class="fullwidth alignleft">
+                                                                            <span class="titlecolumn">
+                                                                                <span class="caption" ng-bind-html="SkipValidation(product.ProductName)"></span>
+                                                                                <span class="orderColumnWrap">
+                                                                                    <span class="orderColumn">
+                                                                                        <span class="prod-img">
+                                                                                            <img ng-src="{{GetProductImage(product.ProductImageUrl)}}" loading="lazy" on-error-src="{{ErrorImage()}}"/>                                                                                          
+                                                                                        </span>
+                                                                                         <label translate>QUANTITY</label><span ng-bind="product.Quantity"></span>
+                                                                                    </span>                                   
+                                                                                    <span class="orderColumn priceColumn">
+                                                                                        <span class="txt12"><label translate>PRICE</label><span ng-bind="product.UnitPrice | currency : $root.DefaultDisplayCurrency"></span></span>
+                                                                                        <span class="txt12"><label translate>TOTALPRICE</label><span ng-bind="product.Amount | currency : $root.DefaultDisplayCurrency"></span></span>
+                                                                                        <span class="txt12 serialnorderhistory" ng-if="product.SerialNumber != null && product.SerialNumber != undefined && product.SerialNumber != ''">
+                                                                                            <label translate>SERIALNUMBER</label><span ng-bind="product.SerialNumber"></span>
+                                                                                        </span>
+                                                                                        <span class="txt12 changeQnty" ng-if="order.JobStatusID < 3">
+                                                                                            <!-- <label translate>ChangeQuantity</label>
+                                                                                            <select id="changedQuantity"
+                                                                                                    ng-options="item as item for item in [1,2,3,4,5,6,7,8,9,10] track by item" 
+                                                                                                    ng-model="product.ActualQuantity"
+                                                                                                    ng-change="updateQuantity(order, product)"
+                                                                                                    >                                                                                  
+                                                                                            </select> -->
+
+                                                                                            <div class="dropdown relativePos displaylineBlock">
+                                                                                                
+
+                                                                                                <div class="quantityField">
+                                                                                                    <button class="qtyCntrl reduceQty" ng-click="decreaseQty(product.ActualQuantity,product,order)" ng-disabled="product.ActualQuantity == 1"> - </button>
+                                                                                                    <span class="fieldQty"><input id="qtydropdown" type="text" ng-model="product.ActualQuantity"  ng-value="product.ActualQuantity" /></span>
+                                                                                                    <button class="qtyCntrl increaseQty" ng-click="increaseQty(product.ActualQuantity,product,order)" ng-disabled="product.ActualQuantity >= product.AvailableQuantity"> + </button>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </span>
+                                                                                    </span>   
+                                                                                    <span class="orderColumn columnControls" ng-if="order.JobStatusID <= 3">
+                                                                                        <span class="order_Icon searchIcon" ng-click="showOrderStatus($event,'searchProduct', order, 'replace', product);">&nbsp;</span>                                                                         
+                                                                                        <span class="order_Icon deleteIcon" ng-click="deleteCartItem(order, product)">&nbsp;</span>
+                                                                                    </span>  
+                                                                                </span>   
+                                                                            </span>
+                                                                        </span>
+                                                                        <span class="stickyLabel"><span translate>AVAILABLELQTY</span>&nbsp;<span>{{product.AvailableQuantity}}</span></span>
+                                                                    </li>
+                                                                    <li class="noBorder noPadding noMargin">    
+                                                                        <span class="deliveryadd-txt myOrderButtons fullwidth align-left textcenter" ng-if="order.JobStatusID <= 3">
+                                                                            <button class="btnStyle" ng-click="showOrderStatus($event, null, order);" translate>ChangeStatus</button>&nbsp;&nbsp;
+                                                                            <button class="btnStyle" ng-click="showOrderStatus($event,'searchProduct', order, 'add');" ng-if="order.JobStatusID <= 3" translate>Add</button>
+                                                                        </span>
+                                                                    </li>
+                                                                    <li ng-if="OrderHistoryDetails != null && OrderHistoryDetails != undefined">
+                                                                        <span class="deliveryadd-txt">
+                                                                            <label translate>PaymentMethod:</label>
+                                                                            <img style="max-width:50px"
+                                                                            src="clients/{{$root.ClientSettings.Client}}/img/CP.png"
+                                                                            alt="Credit" ng-if="OrderHistoryDetails.PaymentMethod=='credit'"  />
+                                                                                                                        
+                                                                        <img style="max-width:50px"
+                                                                            src="clients/{{$root.ClientSettings.Client}}/img/mastercard_icon.png"
+                                                                            alt="Master Card" ng-if="OrderHistoryDetails.PaymentMethod=='mastercard'"  />
+                                                                            
+                                                                        <img style="max-width:50px"
+                                                                            src="clients/{{$root.ClientSettings.Client}}/img/cod1.png" alt="payment method"
+                                                                            ng-if="OrderHistoryDetails.PaymentMethod=='cod'"  />
+                                                                        
+                                                                        <img style="max-width:50px"
+                                                                            src="clients/{{$root.ClientSettings.Client}}/img/cardondelivery.png"
+                                                                            alt="Card on delivery"
+                                                                            ng-if="OrderHistoryDetails.PaymentMethod=='cardondelivery'" />               
+                                                                        </span>
+                                                                        <div class="twoColumn">
+                                                                            <span class="deliveryadd" ng-if="isVoucher==true"><label translate>VoucherNo:</label> <span ng-bind="OrderHistoryDetails.VoucherNo"></span></span>
+                                                                            <span class="deliveryadd" ng-if="isVoucher==true"><label translate>VoucherAmount:</label><span ng-bind="OrderHistoryDetails.VoucherAmount | currency : $root.DefaultDisplayCurrency"></span></span>
+                                                                        </div>
+                                                                        <div class="oneColumn">
+                                                                            <span class="deliveryadd">
+                                                                                <label>
+                                                                                    <span translate>DeliveryCharges</span>&nbsp;:&nbsp;
+                                                                                    <span ng-bind="OrderHistoryDetails.DeliveryCharge | currency : $root.DefaultDisplayCurrency"></span>
+                                                                                </label>
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li ng-if="OrderHistoryDetails != null && OrderHistoryDetails != undefined">
+                                                                        <span class="deliveryadd-txt"><label translate>DeliveryAddress</label></span>
+                                                                        <span class="deliveryadd" ng-bind-html="SetAddress(OrderHistoryDetails.DeliveryAddress, OrderHistoryDetails)">
+                                                                        </span>
+                                                                    </li>                                                       
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div><!--order history-->
+
+                        <!--offline orders-->
+                        <div class="orderListData" data-tab="offlineOrders">
+                            <div class="noOrders" ng-if="OfflineOrderHistory.length == 0  &&  IsLoaded == true">
+                                <div class="textcenter" translate>Sorrynoresultsfound</div>
+                            </div>                           
+                        </div><!--offline history-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="orderStatusOverlay" ng-click="hideOrderStatus($event);">        
+    </div>
+    <div class="orderStatus myOrderDetails">
+        <div class="orderStatusInner orderstatusDetails">
+            <div class="disableOverlay"></div>
+            <div class="product-title fullwidth align-left" translate>OrderDetails</div>
+            <div class="fullwidth displaylineBlock pickbtn">
+                <span class="align-left" ng-class="{'hasPickBtn':!SelectedOrder.EmployeeID}"><span translate>PickedBy:</span></span>
+                <span class="align-left">
+                    {{SelectedOrder.EmployeeName}}
+                    <button ng-show="!SelectedOrder.EmployeeID" class="btnStyle ng-scope" ng-click="PickOrder()"><span translate>Picktheorder</span></button>  
+                </span>  
+            </div>
+            
+            <ul class="statusList setDisabled">
+                <li class="processed" ng-class="{'processed' : SelectedOrder.JobStatusID >= 1 ,'active' : SelectedOrder.JobStatusID === 1 }">
+                    <span class="statusIndicator">
+                        <span></span>
+                    </span><span translate>OrderPlaced</span>
+                    <ng-include ng-if="SelectedOrder.JobStatusID === 1" 
+                        src="'partials/status-update.html'"></ng-include>
+                </li>
+                <li ng-class="{'processed' : SelectedOrder.JobStatusID >= 2 ,'active' : SelectedOrder.JobStatusID === 2 }">
+                    <span class="statusIndicator">
+                        <span></span>
+                    </span><span translate>Picked</span>
+                    <ng-include ng-if="SelectedOrder.JobStatusID === 2" 
+                        src="'partials/status-update.html'"></ng-include>
+                </li>
+                <li ng-class="{'processed' : SelectedOrder.JobStatusID >= 3 ,'active' : SelectedOrder.JobStatusID === 3 }">
+                    <span class="statusIndicator">
+                        <span></span>
+                    </span><span translate>Packed</span>
+                    <ng-include ng-if="SelectedOrder.JobStatusID === 3" 
+                        src="'partials/status-update.html'"></ng-include>
+                </li>
+                <li ng-class="{'processed' : SelectedOrder.JobStatusID >= 4 ,'active' : SelectedOrder.JobStatusID === 4 }">
+                    <span class="statusIndicator">
+                        <span></span><span></span>
+                    </span><span translate>Shipped</span>
+                    <ng-include ng-if="SelectedOrder.JobStatusID === 4" 
+                        src="'partials/status-update.html'"></ng-include>
+                </li>
+                <li ng-class="{'processed' : SelectedOrder.JobStatusID >= 5 ,'completed' : SelectedOrder.JobStatusID === 5 }">
+                    <span class="statusIndicator">
+                        <span></span>
+                    </span><span translate>Delivered</span>
+                    <!-- <ng-include ng-if="SelectedOrder.JobStatusID === 5" 
+                        src="'partials/status-update.html'"></ng-include> -->
+                </li>
+            </ul>
+        </div>
+        <div class="orderStatusInner productSearch">
+            <h4 translate>SEARCHANDREPLACEPRODUCT</h4>
+            <div class="searchProduct fullwidth align-left">
+                <input id="productSearch" type="text" ng-model="searchText" ng-keydown="$event.keyCode === 13 && SearchProducts()"/>
+                <span class="searchIcon" ng-click="SearchProducts()"></span>
+            </div>
+            <div class="categories list-container listview pagesections">
+                <!-- on change of scroll in list-container will break the waypoint-->
+                <ul class="productlist" ng-if="NoProducts == false">
+                    <li ng-repeat="product in ProductListList" ng-class="{'hasdiscount': product.SelectedCatalog && product.SelectedCatalog.ProductPrice != product.SelectedCatalog.ProductDiscountPrice}">
+                        <a>
+                            <span class="prod-img"><img ng-src="{{product.SelectedCatalog.ProductListingImage}}" loading="lazy" on-error-src="{{ErrorImage()}}" /></span>
+                            <span class="titlecolumn">
+                                <span class="caption" ng-bind-html="SkipValidation(product.SelectedCatalog.ProductName)"></span>
+                                <span class="oldprice">
+                                    <del ng-bind="(product.SelectedCatalog && product.SelectedCatalog.ProductPrice != product.SelectedCatalog.ProductDiscountPrice ? product.SelectedCatalog.ProductPrice : 0) | currency : $root.DefaultDisplayCurrency"></del>
+                                </span>
+                                <span class="amount text-grey-700" ng-if="product.SelectedCatalog.ProductDiscountPrice > 0" ng-bind="product.SelectedCatalog.ProductDiscountPrice | currency : $root.DefaultDisplayCurrency"></span>
+                            </span>
+                        </a>
+                        <div class="product-color" data-ng-if="product.Catalogs.length>1" >
+                            <div class="arrowleft controllers"><i class="fa fa-chevron-left"></i></div>
+                            <div class="arrowright controllers"><i class="fa fa-chevron-right"></i></div>
+                            <div class="color-innerwrap">
+                                <span class="variance-wrap">
+                                    <a class="color-variance" data-ng-class="{'selected':catalog.SkuID == product.SelectedCatalog.SkuID}" 
+                                        data-ng-repeat="catalog in product.Catalogs | unique:'ProductColor'" 
+                                        data-ng-attr-title="{{catalog.ProductName}}" 
+                                        ng-if="catalog.ProductColor != undefined && catalog.ProductColor != null && catalog.ProductColor != ''" 
+                                        href="">                                        
+                                        <span ng-repeat="color in catalog.ProductColor.split(',')" ng-if="color != undefined && color != null && color != ''">
+                                            <span ng-style="{'background':color}"><span style="visibility:hidden;">&nbsp;</span></span>
+                                        </span>
+                                    </a>
+                                    <a class="more-colors" data-ng-if="product.CatalogCount>product.Catalogs.length">+</a>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="addtocart" ng-if="ButtonType == 'add'"><a href="" ng-click="AddItem(product);"><label translate>AddItem</label></a></span>
+                        <span class="addtocart" ng-if="ButtonType == 'replace'"><a href="" ng-click="ReplaceItem(product);"><label translate>ReplaceItem</label></a></span>
+                    </li>
+                </ul>
+
+                <div class="cartempty" ng-if="NoProducts == true">
+                    <img src="clients/{{$root.ClientSettings.Client}}/img/noresult.png" />
+                    <span class="errorsearchmsgheader"><label translate>Sorrynoresultsfound</label></span>
+                    <!-- <span class="errorsearchmsg"><label translate>Wecouldn'tfindanythingthatmatchesyoursearch.</label></span> -->
+                </div>
+                <ul class="AttachWayPointsDiv lazyload">
+                    <div class="d-flex justify-content-center">
+                        <div id="LoadLi" class="spinner-border text-dark " role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                    </div>
+                </ul>
+            </div><!--offers-->
+        </div>
+    </div><!--orderstatus-->
+</div>

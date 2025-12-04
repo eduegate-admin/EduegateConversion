@@ -1,0 +1,179 @@
+﻿<div ng-controller="StudentDailyPickupRequestController">
+    <div class="app-header d-flex">
+        <div class="app-container container-xxl d-flex align-items-center justify-content-between ios-pt-12">
+            <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+                <a ng-click="$root.goBack()" class=" p-5 ms-n5">
+                    <img alt="Logo" src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.svg" class="h-25px">
+                </a>
+            </div>
+            <div class="d-flex align-items-center d-lg-none ms-2" title="Show sidebar menu">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="app-main flex-column flex-row-fluid">
+        <div class="d-flex flex-column flex-column-fluid">
+            <div class="app-content flex-column-fluid">
+                <div class="app-container container-xxl pt-5">
+                    <div class="d-flex flex-column flex-lg-row">
+                        <div class="flex-lg-auto min-w-lg-300px">
+                            <div class="card" ng-init="init()">
+                                <div class="card-body p-10" id="StudentDailyPickupRequest">
+                                    <input type="hidden" id="StudentID" name="StudentID"
+                                        data_ng_model="StudentDailyPickupRequest.StudentID">
+                                    <input type="hidden" id="StudentPickerIID" name="StudentPickerIID"
+                                        data_ng_model="StudentDailyPickupRequest.StudentPickerIID">
+
+                                    <div class="mb-10">
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Student</label>
+                                                <label style="color: red;">*</label>
+                                            </span>
+                                            <select class="form-select form-select-solid" data-control="select2"
+                                                data-placeholder="Student" id="SelectedStudent"
+                                                ng-model="StudentDailyPickupRequest.StudentID">
+                                                <option ng-repeat="student in Students" value="{{student.Key}}">
+                                                    {{student.Value}}</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="fieldWrapper" style="text-align: left;">
+                                        <span>
+                                            <label class="form-label fs-6 fw-bold text-gray-700">Picked By</label>
+                                            <label style="color: red;">*</label>
+                                        </span>
+                                        <select class="form-select form-select-solid" data-control="select2"
+                                            data-placeholder="Picked By" id="SelectedPickedBy"
+                                            ng-change="PickedByChanges(StudentDailyPickupRequest)"
+                                            ng-model="StudentDailyPickupRequest.PickedByID">
+                                            <option ng-repeat="picked in StudentPickedBy" value="{{picked.Key}}">
+                                                {{picked.Value}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="fieldWrapper" style="text-align: left;" ng-if="StudentDailyPickupRequest.PickedByID == 5">
+                                        <span>
+                                            <label class="form-label fs-6 fw-bold text-gray-700">Visitor Code</label>
+                                            <label style="color: red;">*</label>
+                                        </span>
+                                        <input id="VisitorCode" name="VisitorCode" required=""
+                                            class="form-control form-control-solid" placeholder="Visitor Code"
+                                            data_ng_model="StudentDailyPickupRequest.VisitorCode" ng-change="VisitorTextBoxChanges(StudentDailyPickupRequest.VisitorCode)"/>
+                                    </div>
+                                    <div class="fieldWrapper" style="text-align: left;" ng-if="StudentDailyPickupRequest.PickedByID == 6">
+                                        <span>
+                                            <label class="form-label fs-6 fw-bold text-gray-700">Parent Code</label>
+                                            <label style="color: red;">*</label>
+                                        </span>
+                                        <input id="ParentCode" name="ParentCode" required="" class="form-control form-control-solid"
+                                            placeholder="Parent Code" data_ng_model="StudentDailyPickupRequest.ParentCode"
+                                            ng-change="ParentCodeTextBoxChanges(StudentDailyPickupRequest.ParentCode)" />
+                                    </div>
+                                    <div ng-if="OtherParentDetails.LoginID">
+                                        <span class="m-3" ng-click="RadioButtonClick()" ng-repeat="option in parentRadioButtons">
+                                            <label class="m-2"><input type="radio" name="RadioValue" value="{{option.Value}}"> {{option.Value}}</label>
+                                        </span>
+                                    </div>
+                                    <div class="mb-5" >
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">First Name</label>
+                                                <label style="color: red;">*</label>
+                                            </span>
+                                            <input id="FirstName" name="FirstName" required=""
+                                                class="form-control form-control-solid" placeholder="First name"
+                                                data_ng_model="StudentDailyPickupRequest.FirstName" ng-disabled="StudentDailyPickupRequest.PickedByID != 4"/>
+                                        </div>
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Middle Name</label>
+                                            </span>
+                                            <input id="MiddleName" name="MiddleName"
+                                                class="form-control form-control-solid" placeholder="Middle name"
+                                                data_ng_model="StudentDailyPickupRequest.MiddleName" ng-disabled="StudentDailyPickupRequest.PickedByID != 4"/>
+                                        </div>
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Last Name</label>
+                                            </span>
+                                            <input id="LastName" name="LastName" class="form-control form-control-solid"
+                                                placeholder="Last name" data_ng_model="StudentDailyPickupRequest.LastName" ng-disabled="StudentDailyPickupRequest.PickedByID != 4"/>
+                                        </div>
+                                    </div>
+                                    <div class="center mb-5" ng-if="StudentDailyPickupRequest.VisitorProfileID">
+                                        <img
+                                         on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                class="bd-placeholder-img rounded mx-auto d-block" height="200" width="180" name="avatar"
+                                         ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{StudentDailyPickupRequest.VisitorProfileID}}" alt="user" >
+                                    </div>
+
+                                    <div class="mb-10"   ng-if="StudentDailyPickupRequest.PickedByID == 5">
+                                        <div class="fieldWrapper" style="text-align: left;">
+                                            <span>
+                                                <label class="form-label fs-6 fw-bold text-gray-700">Additional Info</label>
+                                            </span>
+                                            <textarea id="AdditionalInfo" name="AdditionalInfo"
+                                                class="form-control form-control-solid" placeholder="Additional info"
+                                                data_ng_model="StudentDailyPickupRequest.AdditionalInfo"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="body mb-10" ng-show="StudentDailyPickupRequest.PickedByID != 5" >
+                                        <div class="m-b-15" >
+                                            <img id="myImage" on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                                class="bd-placeholder-img rounded mx-auto d-block" height="200" width="200" name="avatar"
+                                                accept=".png, .jpg, .jpeg" />
+                                            <div class="text-center pt-5">
+                                                <span class="text-center">
+                                                    <button type="button" id="cameraTakePicture" class="btn btn-secondary btn-sm" >Take Picture</button>
+                                                </span>
+                                                <span class="text-center">
+                                                    <button type="button" id="UploadPicture" class="btn btn-secondary btn-sm">Upload Image</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-0" >
+                                        <div class="row mb-5">
+                                            <div class="col">
+                                                <a ng-click="$root.goBack()"
+                                                    class="btn btn btn-active-light-primary w-100"  >Cancel</a>
+                                            </div>
+                                            <div class="col">
+                                                <a type="button" ng-click="ClearClick()" value="Clear"
+                                                    class="btn btn-primary w-100">Clear</a>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary w-100" type="submit"
+                                            ng-click="SubmitStudentDailyPickupRequest()" value="Submit"
+                                            style="width: 45%;float: left;">
+                                            <span class="svg-icon svg-icon-3">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M15.43 8.56949L10.744 15.1395C10.6422 15.282 10.5804 15.4492 10.5651 15.6236C10.5498 15.7981 10.5815 15.9734 10.657 16.1315L13.194 21.4425C13.2737 21.6097 13.3991 21.751 13.5557 21.8499C13.7123 21.9488 13.8938 22.0014 14.079 22.0015H14.117C14.3087 21.9941 14.4941 21.9307 14.6502 21.8191C14.8062 21.7075 14.9261 21.5526 14.995 21.3735L21.933 3.33649C22.0011 3.15918 22.0164 2.96594 21.977 2.78013C21.9376 2.59432 21.8452 2.4239 21.711 2.28949L15.43 8.56949Z"
+                                                        fill="currentColor"></path>
+                                                    <path opacity="0.3"
+                                                        d="M20.664 2.06648L2.62602 9.00148C2.44768 9.07085 2.29348 9.19082 2.1824 9.34663C2.07131 9.50244 2.00818 9.68731 2.00074 9.87853C1.99331 10.0697 2.04189 10.259 2.14054 10.4229C2.23919 10.5869 2.38359 10.7185 2.55601 10.8015L7.86601 13.3365C8.02383 13.4126 8.19925 13.4448 8.37382 13.4297C8.54839 13.4145 8.71565 13.3526 8.85801 13.2505L15.43 8.56548L21.711 2.28448C21.5762 2.15096 21.4055 2.05932 21.2198 2.02064C21.034 1.98196 20.8409 1.99788 20.664 2.06648Z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="position-fixed top-50 start-50" ng-if="spinner">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+</div>

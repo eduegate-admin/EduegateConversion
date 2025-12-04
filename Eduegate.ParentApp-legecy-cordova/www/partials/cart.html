@@ -1,0 +1,297 @@
+﻿<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+    <!--begin::Main-->
+    <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+        <!--begin::Content wrapper-->
+        <div class="d-flex flex-column flex-column-fluid">
+
+            <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+            <div class="app-toolbar py-3 py-lg-0">
+                <!--begin::Toolbar container-->
+                <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+                    <!--begin::Page title-->
+                    <div class="page-title d-flex flex-column justify-content-center me-3">
+                        <!--begin::Title-->
+                        <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                            eCommerce Shopping cart
+                        </h1>
+                    </div>
+                </div>
+                <!--end::Toolbar container-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Content-->
+            <div id="kt_app_content" class="app-content flex-column-fluid">
+                <!--begin::Content container-->
+                <div id="kt_app_content_container" class="app-container container-xxl">
+                    <div class="row gy-5 g-xl-10">
+                        <!--begin::Col-->
+                        <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10 pt-5">
+                            <!--begin::List widget 5-->
+                            <div class="card h-md-100" ng-if="(shoppingCart.Products.length <= 0 || shoppingCart.Products == null) && isLoaded == true">
+                                <!--begin::Body-->
+                                <div class="card-body d-flex flex-column flex-center">
+                                    <!--begin::Heading-->
+                                    <div class="mb-2">
+                                        <!--begin::Title-->
+                                        <h1 class="fw-bold text-gray-800 text-center lh-lg">
+                                            <span class="fw-bolder" translate>Shoppingcartisempty</span>
+                                        </h1>
+                                        <!--end::Title-->
+                                        <!--begin::Illustration-->
+                                        <div class="py-10 text-center">
+                                            <img src="clients/{{$root.ClientSettings.Client}}/img/cartempty.png" alt="Empty Cart" class="theme-light-show w-200px">
+                                        </div>
+                                        <!--end::Illustration-->
+                                    </div>
+                                    <!--end::Heading-->
+                                    <!--begin::Links-->
+                                    <div class="text-center mb-1">
+                                        <!--begin::Link-->
+                                        <a class="btn btn-sm btn-primary" type="submit" class="btnStyle" href="" ui-sref="onlinestore" ui-sref-opts="{reload: true}" translate>StartShoppingNow</a>
+
+                                    </div>
+                                    <!--end::Links-->
+                                </div>
+                                <!--end::Body-->
+                            </div>
+                            <div class="card card-flush h-xl-100" ng-if="shoppingCart.Products.length > 0">
+                                <!--begin::Header-->
+                                <div class="card-header pt-7">
+                                    <!--begin::Title-->
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-bold text-dark">Cart</span>
+
+                                    </h3>
+                                    <!--end::Title-->
+                                    <!--begin::Toolbar-->
+                                    <div class="card-toolbar">
+
+                                    </div>
+                                    <!--end::Toolbar-->
+                                </div>
+                                <!--end::Header-->
+                                <!--begin::Body-->
+                                <div class="card-body">
+                                    <!--begin::Scroll-->
+                                    <div class="hover-scroll-overlay-y pe-6 me-n6" style="height: 415px">
+
+                                        <!--begin::Item-->
+                                        <div class="border border-dashed border-gray-300 rounded px-7 py-3 mb-6"
+                                             ng-repeat="product in shoppingCart.Products track by $index"
+                                             ng-class="{'liproductqtyoutofstock':errorcheckout[$index] == 3}">
+                                            <!--begin::Info-->
+                                            <div class="d-flex flex-stack mb-6">
+                                                <!--begin::Wrapper-->
+                                                <div class="me-3">
+                                                    <!--begin::Icon-->
+                                                    <img ng-src="{{GetProductImage(product.ImageFile)}}" loading="lazy"
+                                                         on-error-src="{{ErrorImage()}}" class="w-50px ms-n1 me-1"
+                                                         alt="">
+                                                    <!--end::Icon-->
+                                                    <!--begin::Title-->
+                                                    <a ui-sref="productdetails({skuID:product.SKUID})"
+                                                       class="text-gray-800 text-hover-primary fw-bold"
+                                                       ng-bind-html="SkipValidation(product.ProductName)"></a>
+                                                    <!--end::Title-->
+                                                </div>
+                                                <!--end::Wrapper-->
+                                                <!--begin::Action-->
+                                                <div class="m-0">
+                                                    <span class="text-gray-600 fw-bold fs-6"
+                                                          ng-bind="product.Total | currency : $root.DefaultDisplayCurrency"></span>
+                                                </div>
+                                                <!--end::Action-->
+                                            </div>
+
+                                            <div class="d-flex flex-stack mb-6">
+
+
+                                                <button class="btn btn-sm btn-light btn-active-light-primary me-3">
+                                                    <!--begin::Indicator label-->
+                                                    <span class="indicator-label"
+                                                          ng-click="RemoveCartItem(product.SKUID,true, $index)">Delete</span>
+                                                    <!--end::Indicator label-->
+                                                    <!--begin::Indicator progress-->
+                                                    <span class="indicator-progress">
+                                                        Please wait...
+                                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                    <!--end::Indicator progress-->
+                                                </button>
+                                                <span class="cart-button">
+                                                    <span class="itemcount">
+                                                        <div class="d-flex flex-row" ng-if="errorcheckout[$index] == 1">
+                                                            <button type="button"
+                                                                    ng-click="decreaseQty(product.Quantity,product)"
+                                                                    ng-disabled="product.Quantity == 1"
+                                                                    class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px">
+                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr087.svg-->
+                                                                <span class="svg-icon svg-icon-3 m-0 toggle-off">
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <rect x="6" y="11" width="12" height="2" rx="1"
+                                                                              fill="currentColor"></rect>
+                                                                    </svg>
+                                                                </span>
+                                                            </button>
+                                                            <input type="text"
+                                                                   class="fs-2hx fw-bold text-gray-800 mx-2 lh-1 ls-n2 w-60px text-center"
+                                                                   ng-model="product.Quantity"
+                                                                   ng-change="UpdateItem(product,product.Quantity)"
+                                                                   ng-value="product.Quantity" />
+                                                            <button type="button"
+                                                                    ng-click="increaseQty(product.Quantity,product)"
+                                                                    class="btn btn-sm btn-icon btn-light btn-active-light-primary  h-25px w-25px">
+                                                                <span class="svg-icon svg-icon-3 m-0">
+
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <rect opacity="0.5" x="11" y="18" width="12"
+                                                                              height="2" rx="1"
+                                                                              transform="rotate(-90 11 18)"
+                                                                              fill="currentColor"></rect>
+                                                                        <rect x="6" y="11" width="12" height="2" rx="1"
+                                                                              fill="currentColor"></rect>
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
+                                                            </button>
+                                                        </div>
+                                                        <div class="d-flex flex-row" ng-if="errorcheckout[$index] == 3">
+
+                                                            <button type="button"
+                                                                    ng-click="decreaseQty(product.Quantity,product)"
+                                                                    ng-disabled="product.Quantity == 1"
+                                                                    class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px">
+                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr087.svg-->
+                                                                <span class="svg-icon svg-icon-3 m-0 toggle-off">
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <rect x="6" y="11" width="12" height="2" rx="1"
+                                                                              fill="currentColor"></rect>
+                                                                    </svg>
+                                                                </span>
+                                                            </button>
+                                                            <input type="text"
+                                                                   class="fs-2hx fw-bold text-gray-800 mx-2 lh-1 ls-n2 w-60px text-center"
+                                                                   ng-model="product.Quantity"
+                                                                   ng-change="UpdateItem(product,product.Quantity)"
+                                                                   ng-value="product.Quantity" />
+                                                            <button type="button"
+                                                                    ng-click="increaseQty(product.Quantity,product)"
+                                                                    class="btn btn-sm btn-icon btn-light btn-active-light-primary  h-25px w-25px">
+                                                                <span class="svg-icon svg-icon-3 m-0">
+
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <rect opacity="0.5" x="11" y="18" width="12"
+                                                                              height="2" rx="1"
+                                                                              transform="rotate(-90 11 18)"
+                                                                              fill="currentColor"></rect>
+                                                                        <rect x="6" y="11" width="12" height="2" rx="1"
+                                                                              fill="currentColor"></rect>
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
+                                                            </button>
+                                                        </div>
+                                                    </span>
+                                                    <span ng-if="errorcheckout[$index] == 3" class="quantityoos-sign">
+                                                        <i id="quantityoostxt" ng-click="showQtyError()"
+                                                           class="fa fa-question-circle-o"></i>
+                                                    </span>
+                                                </span>
+                                                <span class="button disableanchor savelater displaynone"
+                                                      ng-if="LoggedIn==true">
+                                                    <a href="" ng-click="AddSaveForLater(product.SKUID)"
+                                                       class="greygradient"><label translate>SaveforLater</label></a>
+                                                </span>
+                                            </div>
+                                            <!--end::Customer-->
+                                        </div>
+                                        <span ng-if="errorcheckout[$index] == 3" class="quantityoos">
+                                            <label translate>SelectedproductQuantityisnotavailable </label><br />
+                                            <label translate>Defaultmaxquantityselected </label><i class="fa fa-caret-up"></i>
+                                        </span>
+                                        <div class="d-flex flex-stack bg-success rounded-3 p-6 mb-11">
+                                            <!--begin::Content-->
+                                            <div class="fs-6 fw-bold text-white">
+                                                <span class="d-block lh-1 mb-2" translate>TOTAL PRODUCTS</span>
+                                                <span class="d-block mb-2" translate>TOTAL QUANTITY</span>
+                                                <span class="d-block fs-2qx lh-1" translate>Total</span>
+                                            </div>
+                                            <!--end::Content-->
+                                            <!--begin::Content-->
+                                            <div class="fs-6 fw-bold text-white text-end">
+                                                <span class="d-block lh-1 mb-2">{{shoppingCart.Products.length}}</span>
+                                                <span class="d-block mb-2">{{GetTotalProductQuantity()}}</span>
+                                                <span class="d-block fs-2qx lh-1"
+                                                      ng-bind="CartTotal| currency : $root.DefaultDisplayCurrency"></span>
+                                            </div>
+                                            <!--end::Content-->
+                                        </div>
+                                        <button ng-if="shoppingCart.Products.length > 0" class="btn btn-primary fs-1 w-100 py-4" type="submit"
+                                                ng-click="ProceedtoCheckout()" translate>
+                                            CONFIRM THE CART TO CHECKOUT
+                                        </button>
+
+                                    </div>
+                                    <!--saved for later-->
+                                    <div class="categories list-container greybg listview saveforlater displaynone"
+                                         ng-if="LoggedIn==true">
+                                        <span class="save-later whitebg">
+                                            <span class="total-amt">
+                                                <b ng-bind="'Saved for later (' + SaveForLaterCount + ' item(s))'"></b>
+                                            </span>
+                                        </span>
+                                        <ul class="productlist">
+                                            <li ng-repeat="product in SaveForLaterCart">
+                                                <span class="prod-img">
+                                                    <img ng-src="{{GetProductImage(product.ProductImageUrl)}}"
+                                                         loading="lazy" on-error-src="{{ErrorImage()}}" />
+                                                </span>
+                                                <span class="titlecolumn">
+                                                    <span class="caption"
+                                                          ng-bind-html="SkipValidation(product.ProductName)"></span>
+                                                    <!--<span class="prop"><span>Color - Gray</span></span>-->
+                                                    <!--<span class="amount text-grey-700">216.900 KD</span>-->
+                                                    <span class="amount text-grey-700"
+                                                          ng-bind="product.ProductDiscountedPrice | currency : $root.DefaultDisplayCurrency"></span>
+                                                    <span class="cart-button">
+                                                        <span class="button disableanchor">
+                                                            <a href=""
+                                                               class="button-orange"
+                                                               ng-click="AddToCartFromSaveForLater(product.SKUID,1)">
+                                                                <label translate>Addtocart</label>
+                                                            </a>
+                                                        </span>
+                                                    </span>
+                                                    <span class="button disableanchor remove">
+                                                        <a href=""
+                                                           ng-click="RemoveSaveForLater(product.SKUID,true)">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                    </span>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!--saved for later-->
+                                    <!--end::Scroll-->
+                                </div>
+                                <!--end::Body-->
+                            </div>
+                            <!--end::List widget 5-->
+                        </div>
+                    </div>
+                    <!--end::Row-->
+                </div>
+                <!--end::Content container-->
+            </div>
+            <!--end::Content-->
+        </div>
+    </div>
+    <!--end:::Main-->
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

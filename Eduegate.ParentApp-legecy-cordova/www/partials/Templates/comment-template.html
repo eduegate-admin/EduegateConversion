@@ -1,0 +1,46 @@
+
+
+<div class="card  pb-5 mb-5" ng-controller="CommentController" data-tab="commentPanel">
+    <!--begin::Body-->
+    <div class="card-body p-lg-17">
+        <!--begin::Row-->
+        <div class="row mb-3">
+            <!--begin::Col-->
+            <div class="col-md-6 pe-lg-10">
+                <!--begin::Form-->
+                <form action="" class="form mb-15 fv-plugins-bootstrap5 fv-plugins-framework" method="post"
+                    id="kt_contact_form">
+                    <h1 class="fw-bold text-dark mb-9">Send Us Comments</h1>
+
+
+
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-10 fv-row fv-plugins-icon-container">
+                        <label class="fs-6 fw-semibold mb-2">Message</label>
+
+                        <textarea class="form-control form-control-solid h-150px" rows="6" name="message" placeholder=""
+                            ng-model="NewComment" id="newComment">        </textarea>
+                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                    <!--end::Input group-->
+
+                    <!--begin::Submit-->
+                    <button type="reset" class="btn  btn-secondary padLeft10" ng-click="NewComment=''">
+                        <div translate>Clear</div>
+                    </button>
+                   
+                    <button type="submit" class="btn btn-primary" ng-disabled="ShowLoader || NewComment.length == 0" class="btnStyle"
+                    ng-click="SaveComment(NewComment, $event)">
+                        <span class="indicator-label">
+                            Send Feedback</span>
+                        <span class="indicator-progress">
+                            Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span> </button>
+                        
+                     
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

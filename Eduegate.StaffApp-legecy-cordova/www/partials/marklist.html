@@ -1,0 +1,24 @@
+﻿<div ng-controller="MarklistController">
+
+    <div class="headerBar displayFlex alignItemCenter innerHeader">
+        <div class="nav-sidebar align-left">
+            <div class="backtopage" ng-click="$root.goBack()">
+                <img ng-src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.png" />
+            </div>
+        </div>
+        <!--nav-sidebar-->
+        <div class="header-text"><span translate>Mark lists</span></div>
+        <div class="headerRight alignright">
+            <div class="notifyIcon"><i class="fa fa-bell-o"></i></div>
+        </div>
+    </div>
+    <div class="excludeHeader" ng-init="Init()">
+        <div class="containerWrap">
+
+            <div class="alert alert-warning text-center" role="alert" ng-if="!ShowLoader && MarkLists.length == 0">
+                <b>No mark list found.</b>
+            </div>
+        </div>
+    </div>
+</div>
+<!--about us-->

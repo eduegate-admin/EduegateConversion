@@ -1,0 +1,68 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="OnlinePaymentController">
+    <div class="app-content flex-column-fluid">
+
+<ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+        <div class="app-container container-xxl pt-5">
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+
+                    <div class="row g-6 g-xl-9">
+                        <div class="modal fade show"  tabindex="-1" style="display: block;"
+                            aria-modal="true" role="dialog">
+                            <!--begin::Modal dialog-->
+                            <div class="modal-dialog modal-dialog-centered mw-650px">
+                                <!--begin::Modal content-->
+                                <div class="modal-content">
+                                    <!--begin::Modal header-->
+                                    <div class="modal-header pb-0 border-0 justify-content-end">
+                                        <!--begin::Close-->
+                                        <div class="btn btn-sm btn-icon btn-active-color-primary"
+                                            ui-sref="feepaymenthistory">
+                                            <span class="svg-icon svg-icon-1"><svg width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                                        transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                                                    <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                                        transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+                                                </svg>
+
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
+                                        <div class="text-center">
+                                            <h1 class="mb-3">cancel payment</h1>
+
+                                            <div class="text-muted fw-semibold fs-5">
+
+                                                <div>
+                                                    <p
+                                                        style="margin-bottom:9px; color:#181C32; font-size: 18px; font-weight:600">
+                                                        Dear Parent,</p>
+                                                    <p style="margin-bottom:2px; color:#5E6278">Please confirm that you
+                                                        wish to CANCEL this transaction. This action can't be undone.
+                                                    </p>
+                                                    <p style="margin-bottom:2px; color:#5E6278">
+                                                    <div class="d-flex flex-wrap justify-content-center pb-lg-0 mt-10">
+                                                        <button class="btn btn-sm btn-primary me-3" type="submit"
+                                                            ng-click="RetryPayment()">
+                                                            RETRY
+                                                        </button>
+                                                        <a ui-sref="singlecheckout" class="btn btn-light">Cancel</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

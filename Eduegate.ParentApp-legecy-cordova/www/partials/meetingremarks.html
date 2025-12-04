@@ -1,0 +1,213 @@
+<div ng-controller="MeetingRemarksController">
+
+  <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+  <div class="app-toolbar py-3 py-lg-0">
+    <div class="app-container container-xxl d-flex flex-stack">
+      <div class="page-title d-flex flex-column justify-content-center me-3">
+        <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+          Meeting Remarks
+        </h1>
+      </div>
+      <div class="d-flex align-items-center gap-2 gap-lg-3">
+        <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container container-xxl pt-5" ng-init="init()">
+    <div class="row g-5 g-xl-10">
+
+      <div class="col-sm-6 col-xl-2 mb-xl-10"  ng-if="AllottedMeetings.length != 0">
+        <!--begin::Tables Widget 5-->
+        <div class="card mb-5 mb-xl-8">
+
+          <!--begin::Body-->
+          <div class="card-body py-3">
+            <div class="tab-content">
+
+              <div class="text-left noPaddingLeft noPaddingRight">
+
+                <div class="accordion accordion-flush mb-3" id="accordionRemarks"
+                  ng-repeat="slotAlloc in AllottedMeetings track by $index"
+                  ng-init="current = $parent.start; $parent.start=$parent.start+1;"
+                  style="background:#F2FAFF; border-radius: 14px;">
+
+                  <div class="accordion-item border-0">
+                    <h2 class="accordion-header" id="heading{{current}}">
+                      <button class="accordion-button collapsed fs-2 h-100 border-0 fw-bold" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse{{current}}" aria-expanded="true"
+                        aria-controls="collapse{{current}}" style="background: #F2FAFF; border-radius: 14px;">
+                        <div class="container p-0">
+                          <div class="row justify-content-start">
+                            <div class="col signup-group-title">
+                              <span ng-bind="slotAlloc.SignupGroupTitle"></span>
+                            </div>
+                          </div>
+                          <div class="row justify-content-start">
+                            <div class="col signup-group-sub-title">
+                              <label ng-bind-html="slotAlloc.SignupGroupDescription"></label>
+                            </div>
+                          </div>
+
+                          <div class="row align-items-start">
+                            <div class="col-12">
+                              <span class="d-flex align-items-center mb-4">
+                                <span class="d-flex align-items-center me-3">
+                                  <img src="./images/date-icon-cyan.svg" />
+                                </span>
+                                <span>
+                                  <span class="meeting-detail-date-label">Date</span><br />
+                                  <span class="meeting-detail-date-value" ng-bind="slotAlloc.SlotDateString"></span>
+                                </span>
+                              </span>
+                            </div>
+                            <div class="col-12">
+                              <span class="d-flex align-items-center">
+                                <span class="d-flex align-items-center me-3">
+                                  <img src="./images/time-icon-cyan.svg" />
+                                </span>
+                                <span>
+                                  <span class="meeting-detail-date-label">Time</span><br />
+                                  <span class="meeting-detail-date-value">
+                                    <span ng-bind="slotAlloc.StartTimeString"></span> - <span
+                                      ng-bind="slotAlloc.EndTimeString"></span>
+                                  </span>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="row justify-content-start">
+                            <div class="col-12">
+                              <span class="d-flex align-items-center mb-4">
+                                <span class="d-flex align-items-center me-3">
+                                  <img src="./images/student-icon-cyan.svg" />
+                                </span>
+                                <span>
+                                  <span class="meeting-detail-date-label">Student</span><br />
+                                  <span class="meeting-detail-date-value" ng-bind="slotAlloc.Student"></span>
+                                </span>
+                              </span>
+                            </div>
+                            <div class="col-12">
+                              <span class="d-flex align-items-center mb-4">
+                                <span class="d-flex align-items-center me-3">
+                                  <img src="./images/facuality-icon-cyan.svg" />
+                                </span>
+                                <span>
+                                  <span class="meeting-detail-date-label">Faculty</span><br />
+                                  <span class="meeting-detail-date-value"
+                                    ng-bind="slotAlloc.OrganizerEmployeeName"></span>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                          <!--end::Action-->
+                        </div>
+                      </button>
+                    </h2>
+
+                    <div id="collapse{{current}}" class="accordion-collapse border-0 collapse"
+                      aria-labelledby="heading{{current}}" data-bs-parent="#accordionRemarks">
+                      <div class="accordion-body">
+                        <div class="row">
+                          <label for="RequesterRemark" class="form-label signup-label">Teacher Remark</label>
+                          <div class="card card-flush">
+                            <!--begin::Header-->
+                            <div class="card-header pt-5 text-start"
+                              ng-if="slotAlloc.SignupSlotRemarkMap.TeacherRemarks">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14"
+                                fill="none">
+                                <path
+                                  d="M10.0632 0H17.0634C17.3051 0 17.501 0.195872 17.501 0.43754V7.43778C17.501 7.67932 17.3051 7.87519 17.0634 7.87519H11.3844C11.3758 10.5003 13.3125 12.2503 15.3134 12.2503C15.5551 12.2503 15.7509 12.4462 15.7509 12.6879V13.5629C15.7509 13.8046 15.5551 14.0005 15.3134 14.0005C12.6896 14.0005 9.62579 12.2503 9.62579 7.87519V0.43754C9.62579 0.195872 9.82166 0 10.0632 0Z"
+                                  fill="#697380" />
+                                <path
+                                  d="M0.438326 0H7.43857C7.6801 0 7.87598 0.195872 7.87598 0.43754V7.43778C7.87598 7.67932 7.6801 7.87519 7.43857 7.87519H1.75936C1.75081 10.5003 3.68763 12.2503 5.68841 12.2503C5.93008 12.2503 6.12595 12.4462 6.12595 12.6879V13.5629C6.12595 13.8046 5.93008 14.0005 5.68841 14.0005C3.06464 14.0005 0.000785351 12.2503 0.000785351 7.87519V0.43754C0.000785351 0.195872 0.196657 0 0.438326 0Z"
+                                  fill="#697380" />
+                              </svg>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Card body-->
+                            <div class="card-body d-flex align-items-start">
+                              <!--begin::Wrapper-->
+                              <div class="d-flex align-items-center flex-wrap">
+                                <span class="signup-label">
+                                  <label ng-bind-html="slotAlloc.SignupSlotRemarkMap.TeacherRemarks"></label>
+                                  <label ng-if="!slotAlloc.SignupSlotRemarkMap.TeacherRemarks" style="color:#ff7575;">No
+                                    remarks available.</label>
+                                </span>
+                              </div>
+                              <!--end::Wrapper-->
+                            </div>
+                            <!--end::Card body-->
+                            <!--begin::Card footer-->
+                            <div class="card-footer text-end" ng-if="slotAlloc.SignupSlotRemarkMap.TeacherRemarks">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="14" viewBox="0 0 19 14"
+                                fill="none">
+                                <path
+                                  d="M7.86279 0H0.462542C0.207064 0 0 0.195872 0 0.43754V7.43778C0 7.67932 0.207064 7.87519 0.462542 7.87519H6.46613C6.47516 10.5003 4.42781 12.2503 2.31257 12.2503C2.05709 12.2503 1.85003 12.4462 1.85003 12.6879V13.5629C1.85003 13.8046 2.05709 14.0005 2.31257 14.0005C5.08627 14.0005 8.32519 12.2503 8.32519 7.87519V0.43754C8.32519 0.195872 8.11812 0 7.86279 0Z"
+                                  fill="#697380" />
+                                <path
+                                  d="M18.0375 0H10.6372C10.3819 0 10.1748 0.195872 10.1748 0.43754V7.43778C10.1748 7.67932 10.3819 7.87519 10.6372 7.87519H16.6409C16.65 10.5003 14.6025 12.2503 12.4874 12.2503C12.2319 12.2503 12.0248 12.4462 12.0248 12.6879V13.5629C12.0248 13.8046 12.2319 14.0005 12.4874 14.0005C15.2611 14.0005 18.5 12.2503 18.5 7.87519V0.43754C18.5 0.195872 18.2929 0 18.0375 0Z"
+                                  fill="#697380" />
+                              </svg>
+                            </div>
+                            <!--end::Card footer-->
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col w-100">
+                            <label for="ParentRemarks" class="form-label signup-label">Remark</label>
+                            <textarea class="form-control signup-label" rows="5"
+                              ng-model="slotAlloc.SignupSlotRemarkMap.ParentRemarks" id="ParentRemarks"
+                              name="ParentRemarks"></textarea>
+                          </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                          <button class="btn btn-primary me-md-2" type="button" ng-click="SubmitRemarkEntry(slotAlloc)"
+                            id="SlotRequest">Submit</button>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+            <!--end::Tab content-->
+          </div>
+          <!--end::Body-->
+        </div>
+        <!--end::Tables Widget 5-->
+      </div>
+      <div class="col-md-6 col-xxl-4">
+        <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert"
+             ng-if="!ShowLoader && AllottedMeetings.length == 0">
+            <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                <svg width="24" height="24"
+                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                    <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)"
+                          fill="currentColor" />
+                    <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)"
+                          fill="currentColor" />
+                </svg>
+            </span>
+            <div class="d-flex flex-column">
+                <h3 class="mb-1 text-danger">
+                    Meeting Request Requests not found.</h4>
+                    <span>Meeting Request not found.</span>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>

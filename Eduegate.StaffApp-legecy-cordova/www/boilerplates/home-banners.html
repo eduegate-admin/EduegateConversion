@@ -1,0 +1,13 @@
+﻿<section class="" ng-controller="HomeBannerController" ng-init="init()">
+    <div ng-show="ShowLoaders" id="HomeBannerLoader" class="LoaderSmall ">
+        <div>
+            <i class="fa fa-spinner fa-pulse"></i>
+        </div>
+    </div>
+    <div class="main-carousel" data-flickity='{ "freeScroll": true }' id="demo-slider1">
+        <div class="carousel-cell"  ng-repeat="banner in $root.HomeBanners">
+            <img ng-src="{{ContentService}}/ReadImageContentsByID?contentID={{banner.BannerFile}}" on-error-src="./clients/{{$root.ClientSettings.Client}}/images/banner_slider_{{$index + 1}}.png" alt="image"/>
+        </div>
+
+    </div>
+</section>

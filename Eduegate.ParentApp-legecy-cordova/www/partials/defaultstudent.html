@@ -1,0 +1,122 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="DefaultstudentController" ng-init="init()">
+    <div class="app-content flex-column-fluid bg-white theme-dark-bg-body">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        Student selection
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                </div>
+            </div>
+        </div>
+        <div class="app-container container-xxl pt-5">
+
+            <div class="mb-10" data-select2-id="select2-data-130-n4pt">
+                <div class="fs-6 fw-semibold mb-2">Please select the default ward</div>
+                <div class="me-n7 pe-7" data-select2-id="select2-data-129-zyrm">
+                    <div class="card mb-3"
+                         ng-repeat="ward in MyWards">
+                        <div class="card-body">
+                            <div class="d-flex flex-stack border-gray-300">
+                                <div class="d-flex align-items-center">
+                                    <div class="symbol symbol-35px symbol-circle">
+                                    </div>
+
+                                    <img style="    object-fit: cover;     object-position: right top;" class="z-index-3 w-40px"
+                                         ng-src="{{ward.StudentProfileImageUrl}}"
+                                         on-error-src="./clients/{{$root.ClientSettings.Client}}/images/profile_img.png"
+                                         alt="image" loading="lazy">
+                                    <div class="ms-5">
+                                        <a
+                                           class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">
+                                            {{ward.FirstName}}
+                                            {{ward.MiddleName}} {{ward.LastName}}
+                                        </a>
+
+                                        <div class="fw-semibold text-muted">{{ward.ClassName}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="ms-2 w-100 d-flex flex-end">
+                                <button class="btn btn-sm btn-primary"
+                                        ng-click="saveDefaultStudent($event, ward.StudentIID)">
+                                    <span ng-if="ward.StudentIID == DefaultStudent.DefaultStudentID">selected</span>
+                                    <span ng-if="ward.StudentIID != DefaultStudent.DefaultStudentID">select</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>
+
+
+<style>
+    .loader-blk:before {
+        opacity: 1;
+    }
+
+    .Pressent_A {
+        color: #ef5350 !important;
+        font-weight: bold;
+    }
+
+    .Pressent_AE {
+        color: #e57373 !important;
+        font-weight: bold;
+    }
+
+    .Pressent_H {
+        color: #f8bbd0 !important;
+        font-weight: bold;
+    }
+
+    .Pressent_L {
+        color: #ce93d8 !important;
+        font-weight: bold;
+    }
+
+    .Pressent_NA {
+        color: #e0e0e0 !important;
+        font-weight: bold;
+    }
+
+    .Pressent_P {
+        color: #81c784 !important;
+        font-weight: bold;
+    }
+
+    .Pressent_T {
+        color: #b2ebf2 !important;
+        font-weight: bold;
+    }
+
+    .Pressent_TE {
+        color: #b2dfdb !important;
+        font-weight: bold;
+    }
+
+    .Pressent_UM {
+        color: #90a4ae !important;
+        font-weight: bold;
+    }
+
+    .Pressent_W {
+        color: #c5cae9 !important;
+        font-weight: bold;
+    }
+
+    * {
+        padding: 1px;
+    }
+</style>

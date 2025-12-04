@@ -1,0 +1,120 @@
+﻿<div ng-controller="LessonPlanController">
+
+    <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+
+    <div class="app-toolbar py-3 py-lg-0">
+        <div class="app-container container-xxl d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                    Lesson plan
+                </h1>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container container-xxl pt-5" ng-init="init()">
+        <div class="row g-5 g-xl-10">
+            <div class="col-xl-8" ng-repeat="lessonplan in LessonPlanList">
+                <div class="card">
+                    <!--begin::Body-->
+                    <div class="card-body p-lg-20">
+                        <!--begin::Layout-->
+                        <div class="d-flex flex-column flex-xl-row">
+                            <!--begin::Content-->
+                            <div class="flex-lg-row-fluid me-xl-18">
+                                <!--begin::Invoice 2 content-->
+                                <div class="mt-n1">
+                                    <!--begin::Top-->
+                                    <div class="d-flex flex-stack pb-10">
+                                        <!--begin::Logo-->
+                                        <h4 class="card-label fw-bold text-gray-800 m-0">{{lessonplan.Subject.Value}}</h4>
+                                    </div>
+                                    <!--end::Top-->
+                                    <!--begin::Wrapper-->
+                                    <div class="m-0">
+                                        <!--begin::Label-->
+                                        <div class="fw-bold fs-3 text-gray-800 mb-8">{{lessonplan.Title}}</div>
+                                        <!--end::Label-->
+                                        <!--begin::Row-->
+                                        <div class="row g-5 mb-11">
+                                            <!--end::Col-->
+                                            <div class="col-sm-6">
+                                                <!--end::Label-->
+                                                <div class="fw-bold fs-7 text-gray-600 mb-1">Created date:</div>
+                                                <div class="fw-bold fs-6 text-gray-800">{{lessonplan.CreatedDate | date | date : 'dd-MM-yyyy'}}</div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="fw-bold fs-7 text-gray-600 mb-1">Start date:</div>
+                                                <div class="fw-bold fs-6 text-gray-800">{{lessonplan.Date1 | date | date : 'dd-MM-yyyy'}}</div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="fw-bold fs-7 text-gray-600 mb-1">End date :</div>
+                                                <div class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap">
+                                                    <span class="pe-2">{{lessonplan.Date2 | date | date : 'dd-MM-yyyy'}}</span>
+                                                    <span class="fs-7 text-danger d-flex align-items-center">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="fw-bold fs-7 text-gray-600 mb-1">Maximum extended date :</div>
+                                                <div class="fw-bold fs-6 text-gray-800">{{lessonplan.Date3 | date | date : 'dd-MM-yyyy'}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="row g-5">
+                                            <div class="col-sm-6">
+                                                <div class="fw-bold fs-7 text-gray-600 mb-1">Activity:</div>
+                                                <div class="fw-bold fs-6 text-gray-800">{{lessonplan.Activity}}</div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="fw-bold fs-7 text-gray-600 mb-1">Learning experiences:</div>
+                                                <div class="fw-bold fs-6 text-gray-800">{{lessonplan.LearningExperiences}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-stack flex-wrap mt-lg-20">
+                                            <!-- begin::Actions-->
+                                            <div class="my-1 me-5" ng-repeat="attachment in lessonplan.LessonPlanAttachmentMap track by $index">
+                                                <div class="" ng-if="attachment.AttachmentReferenceID != null">
+                                                    <button type="button" class="btn btn-light-success my-1"
+                                                            ng-click="DownloadURL(attachment.AttachmentReferenceID)">
+                                                        <i class="fa fa-2x fa-download" aria-hidden="true"></i>
+                                                        <span ng-bind="attachment.AttachmentName"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-xxl-4">
+                <div class="alert alert-danger d-flex align-items-center p-5 mb-10" role="alert" ng-if="!ShowPreLoader && LessonPlanList.length == 0">
+                    <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                            <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                            <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor" />
+                        </svg>
+                    </span>
+                    <div class="d-flex flex-column">
+                        <h3 class="mb-1 text-danger">Not found!</h3>
+                        <span>Lesson plans not found.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--containerWrap-->
+
+
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

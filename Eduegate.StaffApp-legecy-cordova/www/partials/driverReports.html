@@ -1,0 +1,80 @@
+<div class="app-page flex-column flex-column-fluid" ng-controller="VehicleAttendantController">
+
+
+  <div class="app-content flex-column-fluid">
+
+      <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>
+
+      <div class="app-container container-xxl pt-5">
+
+          <div class="tab-content">
+              <div class="tab-pane fade show active">
+                  <div class="row g-6 g-xl-9" >
+
+                      <div class="col-md-6 col-xxl-4">
+                        <div class="card" ng-init="LoadVehicleInfo()">
+                          <div class="pad10 noPaddingTop">
+                              <div class="gridNestedContainer">
+                                          <div class="gridNestedData">
+                             <label for="scheduletype" class="fw-semibold fs-4 mb-3">Get data by :</label><br>
+                              <select class="form-select form-select-solid select-arrow rounded-2" ng-model="ScheduleType" id="ScheduleType" convert-to-number>
+                                  <option value="0">Today</option>
+                                  <option value="1">Yesterday</option>
+                                </select>
+                              <br>
+                          <div class="d-flex flex-end">
+                              <span class="btn btn-sm btn-primary me-3" ng-click="viewData($event);"><i class="fa fa-eye filter-green" aria-hidden="true"></i> View</span>
+                              <!-- <span class="btn btn-sm btn-primary" onclick="window.print()"><i class="fa fa-print filter-green" aria-hidden="true"></i> Print</span> -->
+                          </div>
+                          <br>
+                          <div
+                        class="alert alert-warning text-center"
+                        role="alert"
+                        ng-if="!ShowLoader && passengerList.length == 0"
+                      >
+                        <b>Sorry, no data found !</b>
+                      </div>
+                          <div class="card p-3 bg-light" ng-if="passengerList.length > 0">
+                              <div class="gridStyle displayFlex fs-5  flexColumn p-2  marginBtm10" >
+                                  <div class="gridDataWrap bg-transparent pb-0">
+                                      <label>Selected date :</label><span>&nbsp;&nbsp;{{SelectedDateString}}</span>
+                                  </div>
+                                  <div class="gridDataWrap bg-transparent pb-0">
+                                      <label>Vehicle reg.No :</label><span>&nbsp;&nbsp;{{VehicleRegistrationNo}}</span>
+                                  </div>
+                                  <div class="gridDataWrap bg-transparent pb-0">
+                                      <label>Route code :</label><span>&nbsp;&nbsp;{{RouteCode}}</span>
+                                  </div>
+                                  <div class="gridDataWrap bg-transparent pb-0">
+                                      <label>Total Pick-IN :</label><span>&nbsp;&nbsp;{{PickINCount}}</span>
+                                  </div>
+                                  <div class="gridDataWrap bg-transparent pb-0">
+                                      <label>Total Drop-IN :</label><span>&nbsp;&nbsp;{{DropINCount}}</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <table id="passengers" ng-if="passengerList.length > 0">
+                              <tr>
+                                <th></th>
+                                <th>Passenger</th>
+                                <th>Class</th>
+                                <th>Status</th>
+                              </tr>
+                              <tr ng-repeat="list in passengerList">
+                                <td>{{$index+1}}</td>
+                                <td>{{list.PassengerName}}</td>
+                                <td>{{list.ClassSection}}</td>
+                                <td class="align center">{{list.StatusMark}}</td>
+                              </tr>
+                            </table>
+                  </div>
+                  </div></div>
+                  </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

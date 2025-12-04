@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management App - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            height: 100vh;
+        }
+        
+        .app-container {
+            max-width: 400px;
+            margin: 0 auto;
+            height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            background: white;
+            overflow: hidden;
+        }
+        
+        /* Login Screen Styles */
+        .login-screen {
+            background-color: #f0f4f8;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #1976d2, #1565c0);
+            padding: 60px 20px 40px;
+            text-align: center;
+            color: white;
+        }
+        
+        .logo-text {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .tagline {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .login-card {
+            margin: -20px 20px 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .login-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1976d2;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        
+        .login-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 16px;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .input-field:focus {
+            border-color: #1976d2;
+            outline: none;
+        }
+        
+        .login-button {
+            width: 100%;
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .login-button:hover {
+            background: #1565c0;
+        }
+        
+        .demo-credentials {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* Dashboard Screen Styles */
+        .dashboard-screen {
+            background-color: #f0f4f8;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+        }
+        
+        .dashboard-header {
+            background: linear-gradient(135deg, #1976d2, #1565c0);
+            padding: 45px 20px 20px;
+            color: white;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .welcome-text {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+        
+        .user-name {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .employee-id {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+        
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .current-time {
+            text-align: center;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin: -10px 20px 20px;
+        }
+        
+        .stat-card {
+            flex: 1;
+            margin: 0 5px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card.green { background: #4caf50; }
+        .stat-card.orange { background: #ff9800; }
+        .stat-card.blue { background: #2196f3; }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        
+        .dashboard-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .card-title {
+            color: #1976d2;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+        
+        .button-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .action-button {
+            flex: 1;
+            min-width: calc(50% - 6px);
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: none;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .action-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .action-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        
+        .action-count {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .bg-blue { background-color: #e3f2fd; }
+        .bg-orange { background-color: #fff3e0; }
+        .bg-green { background-color: #e8f5e8; }
+        .bg-pink { background-color: #fce4ec; }
+        .bg-cyan { background-color: #e1f5fe; }
+        .bg-red { background-color: #ffebee; }
+        .bg-purple { background-color: #f3e5f5; }
+        
+        .hidden { display: none; }
+        .show-dashboard { display: flex; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Login Screen -->
+        <div id="loginScreen" class="login-screen">
+            <div class="login-header">
+                <div class="logo-text">🧑‍💼</div>
+                <div class="company-name">Employee Management</div>
+                <div class="tagline">iTrade Employee Portal</div>
+            </div>
+            
+            <div class="login-card">
+                <div class="login-title">Welcome Back</div>
+                <div class="login-subtitle">Sign in to your employee account</div>
+                
+                <div class="input-group">
+                    <input type="email" id="email" class="input-field" placeholder="Email Address" value="admin@employee.com">
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" id="password" class="input-field" placeholder="Password" value="password123">
+                </div>
+                
+                <button class="login-button" onclick="handleLogin()">Sign In</button>
+                
+                <div class="demo-credentials">
+                    Demo Credentials: admin@employee.com / password123
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Screen -->
+        <div id="dashboardScreen" class="dashboard-screen">
+            <div class="dashboard-header">
+                <div class="header-content">
+                    <div>
+                        <div class="welcome-text">Welcome back,</div>
+                        <div class="user-name">Employee User</div>
+                        <div class="employee-id">ID: EMP001</div>
+                    </div>
+                    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+                </div>
+                <div class="current-time" id="currentTime"></div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card green">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">New Orders</div>
+                </div>
+                <div class="stat-card orange">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+                <div class="stat-card blue">
+                    <div class="stat-number">25</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+            </div>
+            
+            <div class="dashboard-content">
+                <div class="card">
+                    <div class="card-title">📋 Order Management</div>
+                    <div class="button-grid">
+                        <button class="action-button bg-blue">
+                            <div class="action-icon">📦</div>
+                            <div class="action-text">New Orders</div>
+                            <div class="action-count">12</div>
+                        </button>
+                        <button class="action-button bg-orange">
+                            <div class="action-icon">⏳</div>
+                            <div class="action-text">Pending</div>
+                            <div class="action-count">8</div>
+                        </button>
+                        <button class="action-button bg-green">
+                            <div class="action-icon">✅</div>
+                            <div class="action-text">Completed</div>
+                            <div class="action-count">25</div>
+                        </button>
+                        <button class="action-button bg-pink">
+                            <div class="action-icon">📊</div>
+                            <div class="action-text">All Orders</div>
+                            <div class="action-count">View All</div>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">📦 Inventory Management</div>
+                    <div class="button-grid">
+                        <button class="action-button bg-cyan">
+                            <div class="action-icon">🏷️</div>
+                            <div class="action-text">Products</div>
+                            <div class="action-count">156</div>
+                        </button>
+                        <button class="action-button bg-red">
+                            <div class="action-icon">📊</div>
+                            <div class="action-text">Stock</div>
+                            <div class="action-count">3 Low</div>
+                        </button>
+                        <button class="action-button bg-purple">
+                            <div class="action-icon">💰</div>
+                            <div class="action-text">POS</div>
+                            <div class="action-count">Sell</div>
+                        </button>
+                        <button class="action-button bg-green">
+                            <div class="action-icon">👥</div>
+                            <div class="action-text">Tracking</div>
+                            <div class="action-count">Active</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleDateString() + ' • ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const timeElement = document.getElementById('currentTime');
+            if (timeElement) {
+                timeElement.textContent = timeString;
+            }
+        }
+        
+        function handleLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation
+            if (!email || !password) {
+                alert('Please enter both email and password');
+                return;
+            }
+            
+            // Simulate login process
+            document.querySelector('.login-button').textContent = 'Signing In...';
+            document.querySelector('.login-button').style.opacity = '0.7';
+            
+            setTimeout(() => {
+                // Hide login screen and show dashboard
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('dashboardScreen').classList.add('show-dashboard');
+                
+                // Start time updates
+                updateTime();
+                setInterval(updateTime, 60000);
+            }, 1500);
+        }
+        
+        function handleLogout() {
+            // Show login screen and hide dashboard
+            document.getElementById('dashboardScreen').classList.remove('show-dashboard');
+            document.getElementById('loginScreen').classList.remove('hidden');
+            
+            // Reset login button
+            document.querySelector('.login-button').textContent = 'Sign In';
+            document.querySelector('.login-button').style.opacity = '1';
+        }
+        
+        // Add click handlers for action buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const actionButtons = document.querySelectorAll('.action-button');
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const text = this.querySelector('.action-text').textContent;
+                    alert(`Opening ${text} screen...\\n\\nThis would navigate to the ${text} functionality in the full React Native app.`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

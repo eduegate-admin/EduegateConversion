@@ -1,0 +1,106 @@
+﻿<div class="app-page flex-column flex-column-fluid" ng-controller="StudentTransportRequestListController">
+
+
+    <div class="app-content flex-column-fluid">
+
+        <ng-include src="'partials/Templates/header.html'" class="app-header d-flex"></ng-include>  
+
+        <div class="app-toolbar py-3 py-lg-0">
+            <div class="app-container container-xxl d-flex flex-stack">
+                <div class="page-title d-flex flex-column justify-content-center me-3">
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-2 flex-column justify-content-center my-0">
+                        Transport Application List
+
+                    </h1>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+<div class="d-flex align-items-center py-2"><a class="btn btn-sm btn-primary" ui-sref="studenttransportrequestapplication">New Transport Request</a></div>
+                </div>
+            </div>
+        </div>
+       <div class="app-container container-xxl pt-5">
+    <div class="tab-content">
+        <div class="tab-pane fade show active">
+            <div class="row g-6 g-xl-9" ng-init="loadMessages()">
+                <div class="col-md-6 col-xxl-4" ng-repeat="application in Applications">
+                    <div class="card">
+                        <div class="card-header bg-pearl min-h-auto">
+                            <div class="fw-bold fs-4 text-gray-100">{{application.StudentName}}</div>
+                        </div>
+                        <div class="card-body p-lg-20">
+                            <div class="d-flex flex-column flex-xl-row">
+                                <div class="flex-lg-row-fluid me-xl-18">
+                                    <div class="mt-n1">
+                                        <div class="m-0">
+                                            <div class="d-grid g-5 mb-11" style="grid-template-columns: 120px 16px 1fr;">
+                                                <div class="fw-normal fs-4 text-gray-600 mb-1">Applied Date</div>
+                                                <div>:</div>
+                                                <div class="fw-semibold fs-4 text-gray-800">{{application.CreatedDate | date:'dd/MM/yyyy'}}</div>
+
+                                                <div class="fw-normal fs-4 text-gray-600 mb-1">Application No.</div>
+                                                <div>:</div>
+                                                <div class="fw-semibold fs-4 text-gray-800">{{application.ApplicationNumber}}</div>
+
+                                                <div class="fw-normal fs-4 text-gray-600 mb-1">Admission No.</div>
+                                                <div>:</div>
+                                                <div class="fw-semibold fs-4 text-gray-800">{{application.FirstName}}&nbsp;{{application.MiddleName}}&nbsp;{{application.LastName}}  </div>
+                                                
+                                                <div class="fw-normal fs-4 text-gray-600 mb-1">Student Name</div>
+                                                <div>:</div>
+                                                <div class="fw-semibold fs-4 text-gray-800">{{application.AdmissionNumber}}</div>
+
+                                                <div class="fw-normal fs-4 text-gray-600 mb-1">Contact No.</div>
+                                                <div>:</div>
+                                                <div class="fw-semibold fs-4 text-gray-800">{{application.ContactNumber}}</div>
+
+                                                <div class="fw-normal fs-4 text-gray-600 mb-1">Start Date</div>
+                                                <div>:</div>
+                                                <div class="fw-semibold fs-4 text-gray-800">{{application.StartDate | date:'dd/MM/yyyy'}}</div>
+
+                                                <div class="fw-normal fs-4 text-gray-600 mb-1">Status</div>
+                                                <div>:</div>
+                                                <div class="fw-semibold fs-4 text-orange">{{application.ApplicationStatus}}</div>
+
+                                                <div class="fw-normal fs-4 text-gray-600 mb-1">Remarks</div>
+                                                <div>:</div>
+                                                <div class="fw-semibold fs-4 text-gray-800">{{application.Remarks}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-4">
+                                <a class="btn btn-sm btn-primary" ng-click="EditTransportApplicationClick(application.TransportApplctnStudentMapIID)" ng-if="application.TransportApplcnStatusID != 4 && application.TransportApplcnStatusID != 3 && application.TransportApplcnStatusID != 5">
+                                    Edit
+                                </a>
+                                  <a ng-click="CancelTransportApplication(application)">
+                                    <span class="btn btn-sm btn-danger" ng-if="application.TransportApplcnStatusID != 4 && application.TransportApplcnStatusID != 3 && application.TransportApplcnStatusID != 5" ng-hide="cancelBtn" >cancel </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xxl-4" ng-if="Applications.length == 0">
+                    <div class="alert alert-danger d-flex align-items-center p-5 mb-10">
+                        <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                                <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor" />
+                            </svg>
+                        </span>
+                        <div class="d-flex flex-column">
+                            <h3 class="mb-1 text-danger">Not found!</h3>
+                            <span>No applications found, please try again later.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+<ng-include src="'partials/Templates/footer.html'"></ng-include>

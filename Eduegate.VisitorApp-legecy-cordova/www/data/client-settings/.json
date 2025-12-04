@@ -1,0 +1,16 @@
+{
+	 "GeolocationEnabled" : false,
+	 "IsSingleBranch" : false,
+	 "DeliveryTypeDropdown" : true,
+	 "DeliveryTypeRadio" : false,
+	 "SuggestSingleSelect" : false,
+	 "SuggestMultiSelect" : true,
+	 "RegisterWithGeoLocation" : false,
+	 "SingleCheckout" : true,
+	 "SubCategoryScrollWithImage" : true,
+	 "PrefixWithDropdown" : false,
+	 "AddItemOneFocus" : true,
+	 "EnableOrderCancellation" : true,
+	 "OrderCancellationTillStatus" : 3,
+	 "ShowStickyDeliveryPoint" : false
+}

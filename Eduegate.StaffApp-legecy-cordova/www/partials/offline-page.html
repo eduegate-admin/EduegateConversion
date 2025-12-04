@@ -1,0 +1,46 @@
+<div ng-controller="OfflineController">
+    <!-- <div class="headerBar displayFlex alignItemCenter innerHeader">
+        <div class="nav-sidebar align-left">
+            <div class="backtopage" ng-click="$root.goBack()">
+                <img src="./clients/{{$root.ClientSettings.Client}}/images/back-arrow.png" />
+            </div>
+        </div>
+        <div class="header-text"><span translate>Offline Home</span></div>
+        <div class="headerRight alignright">
+            <div class="notifyIcon"><i class="fa fa-bell-o"></i></div>
+        </div>
+    </div> -->
+
+	<section class="banner vw-100" >
+        <div class="container">
+            <div class="banner-cnt text-center text-gray-900">
+                <h2 class="text-gray-800">Welcome <span class="user-name">user</span></h2>
+            </div>
+        </div>
+    </section>
+    <div class="excludeHeader " style="display: flex;flex-direction: column;justify-content: center;align-items: center;width: 100%;">
+        <div class="d-flex flex-column flex-root">
+			<div class="d-flex flex-column flex-center flex-column-fluid vw-100">
+				<div class="d-flex flex-column flex-center text-center p-10 m-3">
+					<div class="Vehicle-accordion-item w-lg-650px py-5">
+						<div class="card-body py-15 py-lg-20">
+							<div class="loginLogo innerPage"><img src="../images/warning.png"/></div>
+
+							<h1 class="fw-bolder fs-2hx text-gray-900 mb-4">You are offline</h1>
+							<!-- <div class="fw-semibold fs-6 text-gray-500 mb-4">You are offline</div> -->
+							<div class="mb-3 mt-3">
+								<img src="../images/offline.svg" class="    w-25 mh-300px theme-light-show" alt="">
+							</div>
+                            <div class="mb-0 mt-5" ng-if="Driver">
+								<a  class="btn btn-sm btn-primary mb-3"  ng-click="ButtonClick('DriverSchedule')">Driver Schedule</a>
+							</div>
+							<div class="mb-0" ng-if="Driver">
+								<a ng-click="RemoveSideMenu();$root.SignOut()" class="btn btn-sm btn-primary">SignOut</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>

@@ -1,0 +1,218 @@
+import { StyleSheet } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
+const cartStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F8F9FA",
+    width: "100%",
+  },
+  scrollView: {
+    backgroundColor: "#F8F9FA",
+    paddingBottom: hp("15%"),
+  },
+  contentHeader: {
+    marginHorizontal: wp("4%"),
+    marginVertical: hp("2%"),
+  },
+  contentHeaderText: {
+    fontSize: wp("5.5%"),
+    fontWeight: "700",
+    color: "#133051",
+    lineHeight: hp("4%"),
+  },
+  cartItemContainer: {
+    backgroundColor: "#FFFFFF",
+    marginHorizontal: wp("4%"),
+    marginVertical: hp("1%"),
+    borderRadius: 16,
+    flexDirection: "row",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
+    minHeight: hp("13%"),
+  },
+  imageContainer: {
+    backgroundColor: "#F8F9FA",
+    width: wp("25%"),
+    justifyContent: "center",
+    alignItems: "center",
+    borderTopLeftRadius: 16,
+    borderBottomLeftRadius: 16,
+    overflow: "hidden",
+  },
+  productImage: {
+    width: wp("20%"),
+    height: wp("20%"),
+    resizeMode: "contain",
+  },
+  detailsContainer: {
+    flex: 1,
+    paddingHorizontal: wp("3%"),
+    paddingVertical: hp("2%"),
+    justifyContent: "space-between",
+  },
+  productInfoContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  productName: {
+    fontSize: wp("4%"),
+    fontWeight: "600",
+    color: "#252525",
+    marginBottom: hp("0.5%"),
+    lineHeight: wp("5%"),
+  },
+  productWeight: {
+    fontSize: wp("3.8%"),
+    fontWeight: "500",
+    color: "#6C757D",
+    marginBottom: hp("1%"),
+  },
+  productPrice: {
+    fontSize: wp("5%"),
+    fontWeight: "700",
+    color: "#133051",
+  },
+  quantityContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#F8F9FA",
+    borderRadius: 12,
+    paddingHorizontal: wp("2%"),
+    paddingVertical: hp("1%"),
+    marginTop: hp("1%"),
+  },
+  quantityButton: {
+    width: wp("8%"),
+    height: wp("8%"),
+    borderRadius: wp("4%"),
+    backgroundColor: "#68B054",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  quantityButtonText: {
+    color: "#FFFFFF",
+    fontSize: wp("5%"),
+    fontWeight: "700",
+  },
+  quantityText: {
+    fontSize: wp("4.5%"),
+    fontWeight: "700",
+    color: "#252525",
+    marginHorizontal: wp("3%"),
+  },
+  paymentSection: {
+    backgroundColor: "#FFFFFF",
+    marginHorizontal: wp("4%"),
+    marginVertical: hp("2%"),
+    borderRadius: 16,
+    paddingHorizontal: wp("4%"),
+    paddingVertical: hp("3%"),
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  promoCodeContainer: {
+    marginBottom: hp("3%"),
+  },
+  amountContainer: {
+    marginTop: hp("2%"),
+  },
+  amountRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: hp("1.5%"),
+    borderBottomWidth: 1,
+    borderBottomColor: "#E9ECEF",
+  },
+  amountRowLast: {
+    borderBottomWidth: 0,
+    borderTopWidth: 2,
+    borderTopColor: "#E9ECEF",
+    marginTop: hp("1%"),
+    paddingTop: hp("2%"),
+  },
+  amountLabel: {
+    fontSize: wp("4.2%"),
+    fontWeight: "500",
+    color: "#495057",
+  },
+  amountValue: {
+    fontSize: wp("4.5%"),
+    fontWeight: "600",
+    color: "#133051",
+  },
+  discountValue: {
+    color: "#DC3545",
+  },
+  totalLabel: {
+    fontSize: wp("5%"),
+    fontWeight: "700",
+    color: "#133051",
+  },
+  totalValue: {
+    fontSize: wp("5.5%"),
+    fontWeight: "700",
+    color: "#133051",
+  },
+  checkoutButton: {
+    position: "absolute",
+    bottom: hp("8%"),
+    left: wp("5%"),
+    right: wp("5%"),
+    height: hp("6%"),
+    backgroundColor: "#68B054",
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
+  },
+  checkoutButtonText: {
+    color: "#FFFFFF",
+    fontSize: wp("4.2%"),
+    fontWeight: "700",
+  },
+  emptyCartContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: wp("10%"),
+  },
+  emptyCartText: {
+    fontSize: wp("5%"),
+    fontWeight: "600",
+    color: "#6C757D",
+    textAlign: "center",
+    marginTop: hp("2%"),
+  },
+  // loadingContainer: {
+  //   flex: 1,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // },
+});
+
+export default cartStyles;

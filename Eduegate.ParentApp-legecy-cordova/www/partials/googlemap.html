@@ -1,0 +1,36 @@
+<div class="mainwrap googlemap noSwipe" ng-controller="GoogleMapController" id="addressGoogleMap">
+    <div class="header">
+        <div class="header-inner">
+            <div class="nav-sidebar align-left">
+                <!--<div class="backtopage"><a  ui-sref="cart" ui-sref-opts="{reload: true}"><img src="clients/{{$root.ClientSettings.Client}}/img/back-arrow.png" /></a></div>-->
+                <div class="backtopage"><a href="" ng-click="hideMap()">&nbsp;</a></div>
+            </div><!--nav-sidebar-->
+            <div class="header-text"><span translate>MAP</span></div>
+            <ng-include src="'partials/header.html'"></ng-include>
+        </div>
+        <ng-include src="'partials/searchheader.html'"></ng-include>
+        <ng-include ng-show="ShowLoader" src="'partials/main-loader.html'"></ng-include>
+    </div>
+
+    <div class="maincontentarea noSearch">
+      <div class="content noPaddingBtm">
+        <div class="pagesections noPaddingBtm">
+            <div id="map" class="fullwidth fullheight mapStore" ng-init="initMapLocationPicker()"></div>
+            <div class="storesNearBy whiteBg">
+                <div class="storeHeader">
+                    <span><i class="fa fa-map-marker icon" aria-hidden="true"></i></span>
+                    <span translate>Findyourlocationnearby</span>
+                </div>
+                <div class="storeList">
+                    <ul>
+                        <li ng-repeat="places in nearestplaces track by $index"  ng-click="setplace(places)">
+                            <span class="icon" ><i class="fa fa-crosshairs" aria-hidden="true"></i></span>
+                            <span>{{places}} </span> 
+                        </li>                          
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </div>  
+    </div>
+</div>

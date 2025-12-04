@@ -1,0 +1,25 @@
+<div class="delivery-op commonOption justify-spacebetween displayFlex flexWrap chooseDelivery"> 
+    <div class="relativePos selectRadioOption" ng-repeat="delivery in DeliveryTypes"
+    ng-if="delivery.DeliveryTypeID !== -1"
+    ng-click="CartDeliverySelectionChanged($event,'type',undefined, delivery.DeliveryTypeID, delivery)">
+        <div class="displaylineBlock bckone">
+            <input type="radio" name="deliveryOption">
+            <label>{{ delivery.DeliveryTypeName }}</label>
+        </div>
+       
+    </div>
+</div>
+
+
+<div class="delivery-op commonOption deliveryType" ng-show="TimeSlots" ng-if="HastimeSlot">
+    <label translate>CHOOSEDELIVERYSLOT</label>
+    <div class="displayFlex flexWrap fullwidth justify-spacebetween slot">
+        <div  id="timeSlot" class="relativePos selectRadioOption bgSelect" ng-repeat="time in TimeSlots" ng-click="CartDeliverySelectionChanged($event,undefined,time.DeliveryTypeTimeSlotMapIID, undefined, delivery)">
+            <div class="displayFlex justify-center">
+                <input type="radio" name="deliveryslot">
+                <span class="selection">{{time.TimeFrom}} - {{time.TimeTo}}</span>
+            </div>
+        </div>
+    </div>
+    
+</div>
