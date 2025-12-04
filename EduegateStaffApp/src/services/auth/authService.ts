@@ -59,13 +59,29 @@ export const authService = {
             console.log('✅ StaffLogin successful');
 
             console.log('2. Fetching User Details...');
-            const context = { UserId: credentials.employeeCode };
-            const callContext = JSON.stringify(context);
+            console.log('2. Fetching User Details...');
+            // Initial context for fetching user details
+            const initialContext = {
+                CompanyID: "",
+                EmailID: "",
+                IPAddress: "",
+                LoginID: "",
+                GUID: "",
+                CurrencyCode: "",
+                UserId: credentials.employeeCode,
+                ApiKey: "",
+                UserRole: "",
+                UserClaims: "",
+                LanguageCode: "en",
+                SiteID: "",
+                UserReferenceID: ""
+            };
+            const callContextString = JSON.stringify(initialContext);
 
             let userDetailsResponse;
             try {
                 userDetailsResponse = await apiClient.get(`${API_CONFIG.RootUrl}/GetUserDetails`, {
-                    headers: { 'CallContext': callContext }
+                    headers: { 'CallContext': callContextString }
                 });
             } catch (err: any) {
                 console.error('❌ GetUserDetails Failed:', err.message);
@@ -82,7 +98,7 @@ export const authService = {
             let apiKeyResponse;
             try {
                 apiKeyResponse = await apiClient.get(`${API_CONFIG.RootUrl}/GenerateApiKey`, {
-                    headers: { 'CallContext': callContext },
+                    headers: { 'CallContext': callContextString },
                     params: {
                         uuid: 'react-native-app',
                         version: '1.0.0'
@@ -101,16 +117,40 @@ export const authService = {
                 isDriver: false
             };
 
+            let userRolesString = "";
             if (user.Employee?.EmployeeRoles) {
                 const roles = user.Employee.EmployeeRoles.map((r: any) => r.Value);
                 user.isDriver = roles.includes('Driver');
+                userRolesString = roles.join('');
             }
+
+            // Construct full CallContext matching legacy app
+            const fullContext = {
+                CompanyID: "",
+                EmailID: user.LoginEmailID || "",
+                IPAddress: "",
+                LoginID: user.LoginID?.toString() || "",
+                GUID: "",
+                CurrencyCode: "",
+                UserId: user.LoginUserID || credentials.employeeCode,
+                ApiKey: apiKey,
+                UserRole: "",
+                UserClaims: "",
+                LanguageCode: "en",
+                SiteID: "",
+                UserReferenceID: "",
+                EmployeeID: user.Employee?.EmployeeIID || null,
+                SchoolID: user.SchoolID || null,
+                UserRoles: userRolesString
+            };
+
+            const finalCallContext = JSON.stringify(fullContext);
 
             await AsyncStorage.multiSet([
                 [STORAGE_KEYS.AUTH_TOKEN, apiKey],
                 [STORAGE_KEYS.USER_DATA, JSON.stringify(user)],
                 [STORAGE_KEYS.IS_DRIVER, user.isDriver?.toString() || 'false'],
-                ['@app:context', callContext]
+                ['@app:context', finalCallContext]
             ]);
 
             return { user, apiKey };

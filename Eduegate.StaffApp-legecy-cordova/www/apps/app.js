@@ -9,7 +9,7 @@
 ]);
 
 app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
-    $httpProvider.interceptors.push('AuthInterceptor');
+  $httpProvider.interceptors.push('AuthInterceptor');
   console.log("App.js loaded.");
 
   $urlRouterProvider.otherwise("/home");
@@ -46,7 +46,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
       templateUrl: "partials/login.html",
       controller: "LoginController",
     })
-      .state('multitenant', {
+    .state('multitenant', {
       url: "/login:redirectUrl?IsDigitalCart",
       templateUrl: "partials/login.html",
       controller: 'LoginController'
@@ -292,7 +292,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         BroadcastID: null,
       }
     })
-      // 1. Classes list page
+    // 1. Classes list page
     .state('attendanceclasses', {
       url: '/attendanceclasses',
       templateUrl: 'partials/attendanceclasses.html',
@@ -335,16 +335,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
       templateUrl: "partials/studentearlypickup.html",
       controller: 'StudentEarlyPickupController'
     })
-.state('facedetection', {
-  parent: 'driverschedule',
-  url: "/facedetection",
-  views: {
-    'DriverSchedule@driverschedule': {
-      templateUrl: "partials/facedetection.html",
-      controller: 'FaceDetectionController'
-    }
-  }
-})
+    .state('facedetection', {
+      parent: 'driverschedule',
+      url: "/facedetection",
+      views: {
+        'DriverSchedule@driverschedule': {
+          templateUrl: "partials/facedetection.html",
+          controller: 'FaceDetectionController'
+        }
+      }
+    })
 
     ;
 
@@ -360,9 +360,9 @@ app.factory("clientSettings", function ($http) {
 
 
 app.factory('rootUrl', function ($http, clientSettings) {
-  // var environment = "live";
+  var environment = "live";
   // var environment = "staging";
-  var environment = "test";  
+  // var environment = "test";  
   // var environment = "linux";
   // var environment = "local";
 
@@ -521,7 +521,7 @@ app.run(function ($state, $rootScope, $timeout, offlineSync, LocationService) {
     if (localStorage.getItem("isDriver") === null) {
       localStorage.setItem("isDriver", "false");
       console.log("isDriver not set. Defaulting to false.");
-  }
+    }
     // Load the saved setting from local storage
     var isBiometricEnabled = localStorage.getItem("biometricEnabled") === "true";
     var biometricSwitch = document.getElementById("biometricSwitch"); // Ensure biometricSwitch is defined
@@ -618,7 +618,7 @@ app.run(function ($state, $rootScope, $timeout, offlineSync, LocationService) {
       }, function (error) {
         console.error("Failed to start server: ", error);
       });
-      
+
     }
   }
 
@@ -661,7 +661,7 @@ app.run(function ($state, $rootScope, $timeout, offlineSync, LocationService) {
   }
 
   function showBiometricAuthentication() {
-      $state.go("biometricauthentication");
+    $state.go("biometricauthentication");
 
     Fingerprint.isAvailable(isAvailableSuccess, isAvailableError);
 
@@ -709,7 +709,7 @@ app.run(function ($state, $rootScope, $timeout, offlineSync, LocationService) {
     else if (modalOpen) {
       e.preventDefault(); // prevent default back action
       $(modalOpen).modal("hide"); // close modal
-    } 
+    }
     else {
       navigator.app.backHistory();
     }

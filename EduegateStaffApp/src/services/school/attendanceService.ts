@@ -1,4 +1,5 @@
 import { apiClient } from '../api/client';
+import { API_CONFIG } from '../../constants/config';
 import { TeacherClass, Student, AttendanceRecord } from '../../types/models/attendance';
 
 export const attendanceService = {
@@ -7,7 +8,7 @@ export const attendanceService = {
      */
     getTeacherClasses: async (): Promise<TeacherClass[]> => {
         try {
-            const response = await apiClient.get<TeacherClass[]>('/school/GetTeacherClass');
+            const response = await apiClient.get<TeacherClass[]>(`${API_CONFIG.SchoolServiceUrl}/GetTeacherClass`);
             console.log('✅ Loaded teacher classes:', response.data.length);
             return response.data;
         } catch (error) {
@@ -25,7 +26,7 @@ export const attendanceService = {
     ): Promise<Student[]> => {
         try {
             const response = await apiClient.get<Student[]>(
-                `/school/GetStudentsByTeacherClassAndSection`,
+                `${API_CONFIG.SchoolServiceUrl}/GetStudentsByTeacherClassAndSection`,
                 {
                     params: {
                         classID: classId,
@@ -48,7 +49,7 @@ export const attendanceService = {
         attendanceRecords: AttendanceRecord[]
     ): Promise<void> => {
         try {
-            await apiClient.post('/school/SubmitAttendance', attendanceRecords);
+            await apiClient.post(`${API_CONFIG.SchoolServiceUrl}/SubmitAttendance`, attendanceRecords);
             console.log('✅ Attendance submitted successfully');
         } catch (error) {
             console.error('❌ Failed to submit attendance:', error);

@@ -2,8 +2,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_CONFIG, TIMEOUT, STORAGE_KEYS } from '../../constants/config';
 
+// Create API client without baseURL - services will use full URLs
 export const apiClient = axios.create({
-    baseURL: API_CONFIG.RootUrl,
     timeout: TIMEOUT,
     headers: {
         'Content-Type': 'application/json',
@@ -26,6 +26,9 @@ apiClient.interceptors.request.use(
             }
 
             console.log('📤 API Request:', config.method?.toUpperCase(), config.url);
+            console.log('📋 Headers:', JSON.stringify(config.headers, null, 2));
+            console.log('🔑 Has Token:', !!token);
+            console.log('📝 Has CallContext:', !!callContext);
         } catch (error) {
             console.error('Error getting auth token:', error);
         }
