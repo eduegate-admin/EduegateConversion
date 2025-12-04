@@ -15,9 +15,15 @@ export interface User {
     LoginID: number;
     Name: string;
     isDriver?: boolean;
+    // Added for compatibility with HomeScreen
+    name?: string;
+    employeeCode?: string;
     Employee?: {
         EmployeeIID: number;
         EmployeeRoles?: Array<{ Value: string }>;
+        EmployeeName?: string;
+        EmployeeCode?: string;
+        EmployeeProfileImageUrl?: string;
     };
 }
 
@@ -114,7 +120,9 @@ export const authService = {
 
             const user: User = {
                 ...userData,
-                isDriver: false
+                isDriver: false,
+                name: userData.Name,
+                employeeCode: userData.LoginUserID || credentials.employeeCode
             };
 
             let userRolesString = "";

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../screens/auth/LoginScreen';
@@ -6,14 +7,42 @@ import { HomeScreen } from '../screens/home/HomeScreen';
 import { AttendanceClassesScreen } from '../screens/teacher/AttendanceClassesScreen';
 import { PlaceholderScreen } from '../components/PlaceholderScreen';
 import { RootStackParamList } from '../types/navigation';
+import { authService } from '../services/auth/authService';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 export const AppNavigator: React.FC = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [initialRoute, setInitialRoute] = useState<keyof RootStackParamList>('Login');
+
+    useEffect(() => {
+        checkAuthStatus();
+    }, []);
+
+    const checkAuthStatus = async () => {
+        try {
+            const isAuthenticated = await authService.isAuthenticated();
+            setInitialRoute(isAuthenticated ? 'Home' : 'Login');
+        } catch (error) {
+            console.error('Auth check failed:', error);
+            setInitialRoute('Login');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    if (isLoading) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size="large" color="#5D3A7C" />
+            </View>
+        );
+    }
+
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="Login"
+                initialRouteName={initialRoute}
                 screenOptions={{
                     headerShown: false,
                     cardStyle: { backgroundColor: '#fff' },
@@ -215,6 +244,43 @@ export const AppNavigator: React.FC = () => {
                     )}
                 />
 
+                {/* ========== NEW HOME SCREEN ROUTES ========== */}
+                <Stack.Screen
+                    name="Academics"
+                    children={() => (
+                        <PlaceholderScreen
+                            screenName="Academics"
+                            message="Academics Dashboard"
+                        />
+                    )}
+                />
+                <Stack.Screen
+                    name="HR"
+                    children={() => (
+                        <PlaceholderScreen
+                            screenName="HR"
+                            message="HR Dashboard"
+                        />
+                    )}
+                />
+                <Stack.Screen
+                    name="Notifications"
+                    children={() => (
+                        <PlaceholderScreen
+                            screenName="Notifications"
+                            message="View all notifications"
+                        />
+                    )}
+                />
+                <Stack.Screen
+                    name="PickupVerification"
+                    children={() => (
+                        <PlaceholderScreen
+                            screenName="Pickup Verification"
+                            message="Verify student pickup"
+                        />
+                    )}
+                />
                 {/* Add more screens as placeholders... */}
             </Stack.Navigator>
         </NavigationContainer>

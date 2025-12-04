@@ -83,6 +83,12 @@ export type RootStackParamList = {
     UserRegistration: { id?: string; isAnonymous?: boolean };
     MyWards: undefined;
     Enroll: undefined;
+
+    // New Home Screen Routes
+    Academics: undefined;
+    HR: undefined;
+    Notifications: undefined;
+    PickupVerification: undefined;
 };
 
 declare global {
