@@ -344,6 +344,32 @@ export const HomeScreen: React.FC = () => {
                 gradientColors={['#708FFF', '#4062D9']}
                 onPress={() => navigation.navigate('Inbox')}
             />
+
+            <MenuGridItem
+                title="Sign Out"
+                icon={require('../../assets/images/signout.png')}
+                gradientColors={['#FF5252', '#D32F2F']}
+                onPress={() => {
+                    Alert.alert(
+                        'Sign Out',
+                        'Are you sure you want to sign out?',
+                        [
+                            { text: 'Cancel', style: 'cancel' },
+                            {
+                                text: 'Sign Out',
+                                style: 'destructive',
+                                onPress: async () => {
+                                    await authService.logout();
+                                    navigation.reset({
+                                        index: 0,
+                                        routes: [{ name: 'Login' }],
+                                    });
+                                },
+                            },
+                        ]
+                    );
+                }}
+            />
         </View>
     );
 
