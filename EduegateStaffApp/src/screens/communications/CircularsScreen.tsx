@@ -12,6 +12,8 @@ import {
     Dimensions,
     Linking,
     Alert,
+    Platform,
+    StatusBar,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { apiClient } from '../../services/api/client';
@@ -355,15 +357,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#F3F4F6',
     },
     header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 16,
-        paddingTop: 50,
-        paddingBottom: 16,
-        backgroundColor: '#fff',
-        borderBottomWidth: 1,
-        borderBottomColor: '#E5E7EB',
+           flexDirection: 'row',
+           alignItems: 'center',
+           justifyContent: 'space-between',
+           paddingHorizontal: 16,
+    paddingTop: 0,
+           paddingBottom: 16,
+           backgroundColor: '#fff',
+           borderBottomWidth: 1,
+           borderBottomColor: '#E5E7EB',
     },
     backButton: {
         fontSize: 24,
