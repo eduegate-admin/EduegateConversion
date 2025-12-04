@@ -46,3 +46,4 @@ yarn-error.log*
 local.properties
 *.keystore
 *.jks
+EduegateStaffApp/.antigravity/mcp_config.project.json
