@@ -213,13 +213,13 @@ export const HomeScreen: React.FC = () => {
                 onPress={() => navigation.navigate('Academics')}
             >
                 <LinearGradient
-                    colors={['#AF70FF', '#694399']}
+                    colors={['#1B8FBF', '#0D5F8F']}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
                     style={styles.gradientCard}
                 >
                     <View style={styles.quickAccessContent}>
-                        <Image source={require('../../assets/images/hr.svg')} style={styles.quickAccessIcon} />
+                        <Image source={require('../../assets/images/academics.svg')} style={styles.quickAccessIcon} />
                         <Text style={styles.quickAccessTitle}>Academics</Text>
                     </View>
                 </LinearGradient>
@@ -230,13 +230,13 @@ export const HomeScreen: React.FC = () => {
                 onPress={() => navigation.navigate('HR')}
             >
                 <LinearGradient
-                    colors={['#4B9DE9', '#3CCFFD']}
+                    colors={['#2BB878', '#1A8F54']}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
                     style={styles.gradientCard}
                 >
                     <View style={styles.quickAccessContent}>
-                        <Image source={require('../../assets/images/academics.svg')} style={styles.quickAccessIcon} />
+                        <Image source={require('../../assets/images/hr.svg')} style={styles.quickAccessIcon} />
                         <Text style={styles.quickAccessTitle}>HR</Text>
                     </View>
                 </LinearGradient>
@@ -264,86 +264,88 @@ export const HomeScreen: React.FC = () => {
     );
 
     const renderMenuGrid = () => (
-        <View style={styles.menuGrid}>
-            {!user?.isDriver && (
-                <>
-                    <MenuGridItem
-                        title="Classes"
-                        icon={require('../../assets/images/classes.svg')}
-                        gradientColors={['#AF70FF', '#694399']}
-                        onPress={() => navigation.navigate('TeacherClasses')}
-                        badgeCount={dashboardData.counts.myClass}
-                    />
-                    <MenuGridItem
-                        title="Assignments"
-                        icon={require('../../assets/images/assignments.svg')}
-                        gradientColors={['#97DA77', '#50743F']}
-                        onPress={() => navigation.navigate('Assignments')}
-                        badgeCount={dashboardData.counts.assignments}
-                    />
-                    <MenuGridItem
-                        title="Lesson plan"
-                        icon={require('../../assets/images/lessonplan.svg')}
-                        gradientColors={['#708FFF', '#4062D9']}
-                        onPress={() => navigation.navigate('LessonPlan')}
-                        badgeCount={dashboardData.counts.lessonPlans}
-                    />
-                </>
-            )}
+        <View style={styles.menuGridContainer}>
+            <View style={styles.menuGrid}>
+                {!user?.isDriver && (
+                    <>
+                        <MenuGridItem
+                            title="Classes"
+                            icon={require('../../assets/images/classes.svg')}
+                            gradientColors={['#AF70FF', '#694399']}
+                            onPress={() => navigation.navigate('TeacherClasses')}
+                            badgeCount={dashboardData.counts.myClass}
+                        />
+                        <MenuGridItem
+                            title="Assignments"
+                            icon={require('../../assets/images/assignments.svg')}
+                            gradientColors={['#97DA77', '#50743F']}
+                            onPress={() => navigation.navigate('Assignments')}
+                            badgeCount={dashboardData.counts.assignments}
+                        />
+                        <MenuGridItem
+                            title="Lesson plan"
+                            icon={require('../../assets/images/lessonplan.svg')}
+                            gradientColors={['#708FFF', '#4062D9']}
+                            onPress={() => navigation.navigate('LessonPlan')}
+                            badgeCount={dashboardData.counts.lessonPlans}
+                        />
+                    </>
+                )}
 
-            <MenuGridItem
-                title="Circulars"
-                icon={require('../../assets/images/circulars.svg')}
-                gradientColors={['#FF8170', '#CF402C']}
-                onPress={() => navigation.navigate('Circulars')}
-                badgeCount={dashboardData.counts.circulars}
-            />
+                <MenuGridItem
+                    title="Circulars"
+                    icon={require('../../assets/images/circulars.svg')}
+                    gradientColors={['#FF8170', '#CF402C']}
+                    onPress={() => navigation.navigate('Circulars')}
+                    badgeCount={dashboardData.counts.circulars}
+                />
 
-            <MenuGridItem
-                title="Pending notifications"
-                icon={require('../../assets/images/notifications.svg')}
-                gradientColors={['#FFA370', '#E3BF00']}
-                onPress={() => navigation.navigate('Notifications')}
-                badgeCount={dashboardData.counts.notifications}
-            />
+                <MenuGridItem
+                    title="Pending notifications"
+                    icon={require('../../assets/images/notifications.svg')}
+                    gradientColors={['#FFA370', '#E3BF00']}
+                    onPress={() => navigation.navigate('Notifications')}
+                    badgeCount={dashboardData.counts.notifications}
+                />
 
-            <MenuGridItem
-                title="Pickup verification"
-                icon={require('../../assets/images/scan.svg')}
-                gradientColors={['#4B9DE9', '#3CCFFD']}
-                onPress={() => navigation.navigate('PickupVerification')}
-            />
+                <MenuGridItem
+                    title="Pickup verification"
+                    icon={require('../../assets/images/scan.svg')}
+                    gradientColors={['#4B9DE9', '#3CCFFD']}
+                    onPress={() => navigation.navigate('PickupVerification')}
+                />
 
-            <MenuGridItem
-                title="Employee leave request"
-                icon={require('../../assets/images/leaverequest.svg')}
-                gradientColors={['#4B9DE9', '#3CCFFD']}
-                onPress={() => navigation.navigate('StaffLeaveList')}
-            />
+                <MenuGridItem
+                    title="Employee leave request"
+                    icon={require('../../assets/images/leaverequest.svg')}
+                    gradientColors={['#4B9DE9', '#3CCFFD']}
+                    onPress={() => navigation.navigate('StaffLeaveList')}
+                />
 
-            {user?.isDriver && (
-                <>
-                    <MenuGridItem
-                        title="Driver Tracking"
-                        icon={require('../../assets/images/transportbus.svg')}
-                        gradientColors={['#FFA370', '#E3BF00']}
-                        onPress={() => navigation.navigate('VehicleTracking')}
-                    />
-                    <MenuGridItem
-                        title="Routes details"
-                        icon={require('../../assets/images/routedetails.svg')}
-                        gradientColors={['#8B4FD7', '#694399']}
-                        onPress={() => navigation.navigate('DriverSchedule')}
-                    />
-                </>
-            )}
+                {user?.isDriver && (
+                    <>
+                        <MenuGridItem
+                            title="Driver Tracking"
+                            icon={require('../../assets/images/transportbus.svg')}
+                            gradientColors={['#FFA370', '#E3BF00']}
+                            onPress={() => navigation.navigate('VehicleTracking')}
+                        />
+                        <MenuGridItem
+                            title="Routes details"
+                            icon={require('../../assets/images/routedetails.svg')}
+                            gradientColors={['#8B4FD7', '#694399']}
+                            onPress={() => navigation.navigate('DriverSchedule')}
+                        />
+                    </>
+                )}
 
-            <MenuGridItem
-                title="Communication"
-                icon={require('../../assets/images/homenotifications.svg')}
-                gradientColors={['#708FFF', '#4062D9']}
-                onPress={() => navigation.navigate('Inbox')}
-            />
+                <MenuGridItem
+                    title="Communication"
+                    icon={require('../../assets/images/homenotifications.svg')}
+                    gradientColors={['#708FFF', '#4062D9']}
+                    onPress={() => navigation.navigate('Inbox')}
+                />
+            </View>
         </View>
     );
 
@@ -565,14 +567,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingHorizontal: 16,
         marginBottom: 16,
-        gap: 16,
+        gap: 12,
     },
     quickAccessCard: {
         flex: 1,
-        height: 80,
-        borderRadius: 12,
+        height: 85,
+        borderRadius: 16,
         overflow: 'hidden',
         elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.15,
+        shadowRadius: 4,
     },
     gradientCard: {
         flex: 1,
@@ -584,8 +590,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     quickAccessIcon: {
-        width: 32,
-        height: 32,
+        width: 40,
+        height: 40,
         marginRight: 12,
         tintColor: '#fff',
     },
@@ -594,24 +600,35 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
     },
+    menuGridContainer: {
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        marginHorizontal: 16,
+        marginBottom: 16,
+        padding: 16,
+        elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+    },
     menuGrid: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        paddingHorizontal: 8,
     },
     menuItem: {
         width: '33.33%',
         alignItems: 'center',
-        marginBottom: 24,
+        marginBottom: 32,
         position: 'relative',
     },
     menuIconContainer: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
+        width: 76,
+        height: 76,
+        borderRadius: 38,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 8,
+        marginBottom: 12,
         elevation: 4,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -619,8 +636,8 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
     },
     menuIconImage: {
-        width: 30,
-        height: 30,
+        width: 36,
+        height: 36,
         tintColor: '#fff',
     },
     menuTitle: {
@@ -629,11 +646,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '600',
         paddingHorizontal: 4,
+        lineHeight: 16,
     },
     menuBadge: {
         position: 'absolute',
         top: 0,
-        right: 20,
+        right: '16%',
         backgroundColor: theme.colors.danger,
         borderRadius: 10,
         minWidth: 20,
@@ -641,7 +659,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 2,
-        borderColor: '#F5F5F5',
+        borderColor: '#fff',
     },
     menuBadgeText: {
         color: '#fff',

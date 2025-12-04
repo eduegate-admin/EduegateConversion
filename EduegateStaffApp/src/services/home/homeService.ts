@@ -48,4 +48,24 @@ export const homeService = {
         const response = await apiClient.get<number>(`${API_CONFIG.SchoolServiceUrl}/GetMyNotificationCount`);
         return response.data;
     },
+
+    getNotesCount: async (): Promise<number> => {
+        try {
+            const response = await apiClient.get<number>(`${API_CONFIG.SchoolServiceUrl}/GetNotesCount`);
+            return response.data || 0;
+        } catch (error) {
+            console.error('Error fetching notes count:', error);
+            return 0;
+        }
+    },
+
+    getStudentAttendanceCount: async (): Promise<number> => {
+        try {
+            const response = await apiClient.get<number>(`${API_CONFIG.SchoolServiceUrl}/GetStudentAttendanceCount`);
+            return response.data || 0;
+        } catch (error) {
+            console.error('Error fetching student attendance count:', error);
+            return 0;
+        }
+    },
 };

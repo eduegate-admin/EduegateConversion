@@ -8,6 +8,15 @@ import { AttendanceClassesScreen } from '../screens/teacher/AttendanceClassesScr
 import { PlaceholderScreen } from '../components/PlaceholderScreen';
 import { RootStackParamList } from '../types/navigation';
 import { authService } from '../services/auth/authService';
+import { AcademicsScreen } from '../screens/academics/AcademicsScreen';
+import { NotificationsScreen } from '../screens/notifications/NotificationsScreen';
+import { TeacherClassesScreen } from '../screens/teacher/TeacherClassesScreen';
+import { AssignmentsScreen } from '../screens/academics/AssignmentsScreen';
+import { ClassStudentsScreen } from '../screens/teacher/ClassStudentsScreen';
+import { CircularsScreen } from '../screens/communications/CircularsScreen';
+import { PickupVerificationScreen } from '../screens/staff/PickupVerificationScreen';
+import { StaffLeaveScreen } from '../screens/staff/StaffLeaveScreen';
+import { InboxScreen } from '../screens/communications/InboxScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -117,22 +126,17 @@ export const AppNavigator: React.FC = () => {
                 {/* ========== TEACHER SCREENS ========== */}
                 <Stack.Screen
                     name="TeacherClasses"
-                    children={() => (
-                        <PlaceholderScreen
-                            screenName="Teacher Classes"
-                            message="View and manage your classes"
-                        />
-                    )}
+                    component={TeacherClassesScreen}
+                />
+
+                <Stack.Screen
+                    name="ClassStudents"
+                    component={ClassStudentsScreen}
                 />
 
                 <Stack.Screen
                     name="Assignments"
-                    children={() => (
-                        <PlaceholderScreen
-                            screenName="Assignments"
-                            message="Create and manage assignments"
-                        />
-                    )}
+                    component={AssignmentsScreen}
                 />
 
                 <Stack.Screen
@@ -184,12 +188,7 @@ export const AppNavigator: React.FC = () => {
 
                 <Stack.Screen
                     name="StaffLeaveList"
-                    children={() => (
-                        <PlaceholderScreen
-                            screenName="Staff Leave"
-                            message="View and apply for leave"
-                        />
-                    )}
+                    component={StaffLeaveScreen}
                 />
 
                 <Stack.Screen
@@ -205,22 +204,12 @@ export const AppNavigator: React.FC = () => {
                 {/* ========== COMMUNICATION SCREENS ========== */}
                 <Stack.Screen
                     name="Inbox"
-                    children={() => (
-                        <PlaceholderScreen
-                            screenName="Inbox"
-                            message="View your messages"
-                        />
-                    )}
+                    component={InboxScreen}
                 />
 
                 <Stack.Screen
                     name="Circulars"
-                    children={() => (
-                        <PlaceholderScreen
-                            screenName="Circulars"
-                            message="View school circulars"
-                        />
-                    )}
+                    component={CircularsScreen}
                 />
 
                 {/* ========== DRIVER SCREENS ========== */}
@@ -247,12 +236,7 @@ export const AppNavigator: React.FC = () => {
                 {/* ========== NEW HOME SCREEN ROUTES ========== */}
                 <Stack.Screen
                     name="Academics"
-                    children={() => (
-                        <PlaceholderScreen
-                            screenName="Academics"
-                            message="Academics Dashboard"
-                        />
-                    )}
+                    component={AcademicsScreen}
                 />
                 <Stack.Screen
                     name="HR"
@@ -265,21 +249,52 @@ export const AppNavigator: React.FC = () => {
                 />
                 <Stack.Screen
                     name="Notifications"
+                    component={NotificationsScreen}
+                />
+
+                <Stack.Screen
+                    name="Notes"
                     children={() => (
                         <PlaceholderScreen
-                            screenName="Notifications"
-                            message="View all notifications"
+                            screenName="Notes"
+                            message="View and manage notes"
                         />
                     )}
                 />
+
                 <Stack.Screen
-                    name="PickupVerification"
+                    name="StudentAttendance"
                     children={() => (
                         <PlaceholderScreen
-                            screenName="Pickup Verification"
-                            message="Verify student pickup"
+                            screenName="Student Attendance"
+                            message="View student attendance records"
                         />
                     )}
+                />
+
+                <Stack.Screen
+                    name="StudentLeaveRequest"
+                    children={() => (
+                        <PlaceholderScreen
+                            screenName="Student Leave Applications"
+                            message="Manage student leave requests"
+                        />
+                    )}
+                />
+
+                <Stack.Screen
+                    name="StudentEarlyPickup"
+                    children={() => (
+                        <PlaceholderScreen
+                            screenName="Student Early Pickup"
+                            message="Manage early pickup requests"
+                        />
+                    )}
+                />
+
+                <Stack.Screen
+                    name="PickupVerification"
+                    component={PickupVerificationScreen}
                 />
                 {/* Add more screens as placeholders... */}
             </Stack.Navigator>
