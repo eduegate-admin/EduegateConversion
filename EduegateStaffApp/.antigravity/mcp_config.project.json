@@ -1,0 +1,13 @@
+{
+    "mcpServers": {
+        "figma": {
+            "command": "node",
+            "args": [
+                "__ABSOLUTE_PATH__/node_modules/figma-mcp-server/mcpServer.js"
+            ],
+            "env": {
+                "FIGMA_ACCESS_TOKEN": "<PUT_YOUR_TOKEN_HERE>"
+            }
+        }
+    }
+}
