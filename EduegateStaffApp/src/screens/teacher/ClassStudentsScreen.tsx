@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
     View,
     Text,
@@ -7,13 +8,26 @@ import {
     ScrollView,
     Image,
     ActivityIndicator,
-    SafeAreaView,
     Dimensions,
 } from 'react-native';
 import { useNavigation, useFocusEffect, useRoute, RouteProp } from '@react-navigation/native';
 import { apiClient } from '../../services/api/client';
 import { API_CONFIG } from '../../constants/config';
 import { theme } from '../../constants/theme';
+
+interface InfoRowProps {
+    label: string;
+    value: string;
+    multiline?: boolean;
+}
+
+const InfoRow: React.FC<InfoRowProps> = ({ label, value, multiline = false }) => (
+    <View style={styles.infoRow}>
+        <Text style={styles.infoLabel}>{label}</Text>
+        <Text style={styles.infoColon}>:</Text>
+        <Text style={[styles.infoValue, multiline && styles.multilineValue]}>{value}</Text>
+    </View>
+);
 
 interface StudentDetail {
     StudentIID: number;
@@ -47,7 +61,7 @@ interface StudentDetail {
 }
 
 type ClassStudentsScreenRouteProp = RouteProp<
-    { ClassStudents: { studentID: number } },
+    { ClassStudents: { studentId: number } },
     'ClassStudents'
 >;
 
@@ -61,11 +75,11 @@ export const ClassStudentsScreen: React.FC = () => {
 
     useFocusEffect(
         useCallback(() => {
-            const studentID = route.params?.studentID;
-            if (studentID) {
-                loadStudentDetails(studentID);
+            const studentId = route.params?.studentId;
+            if (studentId) {
+                loadStudentDetails(studentId);
             }
-        }, [route.params?.studentID])
+        }, [route.params?.studentId])
     );
 
     const loadStudentDetails = async (studentID: number) => {
@@ -109,16 +123,6 @@ export const ClassStudentsScreen: React.FC = () => {
             </TouchableOpacity>
             <Text style={styles.headerTitle}>Class students</Text>
             <View style={{ width: 24 }} />
-        </View>
-    );
-
-    const InfoRow = ({ label, value }: { label: string; value: string }) => (
-        <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>{label}</Text>
-            <Text style={styles.infoColon}>:</Text>
-            <Text style={styles.infoValue} numberOfLines={2}>
-                {value}
-            </Text>
         </View>
     );
 
@@ -385,6 +389,9 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: '#2F2F2F',
         flex: 1,
+    },
+    multilineValue: {
+        textAlign: 'left',
     },
     guardianCard: {
         backgroundColor: '#fff',

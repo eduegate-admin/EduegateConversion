@@ -90,7 +90,7 @@ export const InboxScreen: React.FC = () => {
     const checkCommunicationStatus = async () => {
         try {
             const currentUser = await authService.getCurrentUser();
-            const loginID = currentUser?.loginID || 0;
+            const loginID = currentUser?.LoginID || 0;
 
             const response = await apiClient.get<boolean>(
                 `${API_CONFIG.CommunicationServiceUrl}/GetIsEnableCommunication?loginID=${loginID}`
@@ -130,7 +130,7 @@ export const InboxScreen: React.FC = () => {
     const loadBroadcasts = async () => {
         try {
             const currentUser = await authService.getCurrentUser();
-            const loginID = currentUser?.loginID || 0;
+            const loginID = currentUser?.LoginID || 0;
 
             const response = await apiClient.get<any[]>(
                 `${API_CONFIG.CommunicationServiceUrl}/GetBroadcastDetailsByUserId?userId=${loginID}`
@@ -145,7 +145,7 @@ export const InboxScreen: React.FC = () => {
     const handleToggleCommunication = async (enabled: boolean) => {
         try {
             const currentUser = await authService.getCurrentUser();
-            const loginID = currentUser?.loginID || 0;
+            const loginID = currentUser?.LoginID || 0;
 
             await apiClient.post(
                 `${API_CONFIG.CommunicationServiceUrl}/MarkEnableCommunication?LoginID=${loginID}&enableCommunication=${enabled}`,
@@ -309,7 +309,7 @@ export const InboxScreen: React.FC = () => {
 
     const renderAllParents = (parent: ParentDetail, index: number) => (
         <TouchableOpacity
-            key={parent.LoginID}
+            key={`${parent.LoginID}-${parent.Student.StudentIID}`}
             style={styles.allParentsCard}
             onPress={() => handleChatClick(parent as any)}
         >
@@ -342,7 +342,7 @@ export const InboxScreen: React.FC = () => {
     );
 
     const renderBroadcastParents = (parent: ParentDetail, index: number) => (
-        <View key={parent.LoginID} style={styles.broadcastParentCard}>
+        <View key={`${parent.LoginID}-${parent.Student.StudentIID}`} style={styles.broadcastParentCard}>
             <TouchableOpacity
                 style={styles.checkbox}
                 onPress={() => handleParentSelect(parent.LoginID)}

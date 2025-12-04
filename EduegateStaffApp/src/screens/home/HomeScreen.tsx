@@ -209,34 +209,34 @@ export const HomeScreen: React.FC = () => {
     const renderQuickAccess = () => (
         <View style={styles.quickAccessContainer}>
             <TouchableOpacity
-                style={styles.quickAccessCard}
+                style={[styles.quickAccessCard, { flex: 1 }]}
                 onPress={() => navigation.navigate('Academics')}
             >
                 <LinearGradient
-                    colors={['#AF70FF', '#694399']}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                    style={styles.gradientCard}
-                >
-                    <View style={styles.quickAccessContent}>
-                        <Image source={require('../../assets/images/hr.svg')} style={styles.quickAccessIcon} />
-                        <Text style={styles.quickAccessTitle}>Academics</Text>
-                    </View>
-                </LinearGradient>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                style={styles.quickAccessCard}
-                onPress={() => navigation.navigate('HR')}
-            >
-                <LinearGradient
-                    colors={['#4B9DE9', '#3CCFFD']}
+                    colors={['#378ba6', '#1967ae']}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
                     style={styles.gradientCard}
                 >
                     <View style={styles.quickAccessContent}>
                         <Image source={require('../../assets/images/academics.svg')} style={styles.quickAccessIcon} />
+                        <Text style={styles.quickAccessTitle}>Academics</Text>
+                    </View>
+                </LinearGradient>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={[styles.quickAccessCard, { flex: 1 }]}
+                onPress={() => navigation.navigate('HR')}
+            >
+                <LinearGradient
+                    colors={['#21aa68', '#1a8a54']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.gradientCard}
+                >
+                    <View style={styles.quickAccessContent}>
+                        <Image source={require('../../assets/images/hr.svg')} style={styles.quickAccessIcon} />
                         <Text style={styles.quickAccessTitle}>HR</Text>
                     </View>
                 </LinearGradient>
@@ -591,12 +591,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingHorizontal: 16,
         marginBottom: 16,
-        gap: 16,
+        gap: 12,
     },
     quickAccessCard: {
-        flex: 1,
-        height: 80,
-        borderRadius: 12,
+        height: 85,
+        borderRadius: 13,
         overflow: 'hidden',
         elevation: 3,
     },
@@ -610,8 +609,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     quickAccessIcon: {
-        width: 32,
-        height: 32,
+        width: 48,
+        height: 48,
         marginRight: 12,
         tintColor: '#fff',
     },

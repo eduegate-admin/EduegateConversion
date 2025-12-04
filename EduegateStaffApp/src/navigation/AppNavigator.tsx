@@ -17,6 +17,9 @@ import { CircularsScreen } from '../screens/communications/CircularsScreen';
 import { PickupVerificationScreen } from '../screens/staff/PickupVerificationScreen';
 import { StaffLeaveScreen } from '../screens/staff/StaffLeaveScreen';
 import { InboxScreen } from '../screens/communications/InboxScreen';
+import { StudentAttendanceScreen } from '../screens/teacher/StudentAttendanceScreen';
+import { HRScreen } from '../screens/staff/HRScreen';
+import { PaySlipScreen } from '../screens/staff/PaySlipScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -239,15 +242,6 @@ export const AppNavigator: React.FC = () => {
                     component={AcademicsScreen}
                 />
                 <Stack.Screen
-                    name="HR"
-                    children={() => (
-                        <PlaceholderScreen
-                            screenName="HR"
-                            message="HR Dashboard"
-                        />
-                    )}
-                />
-                <Stack.Screen
                     name="Notifications"
                     component={NotificationsScreen}
                 />
@@ -264,12 +258,7 @@ export const AppNavigator: React.FC = () => {
 
                 <Stack.Screen
                     name="StudentAttendance"
-                    children={() => (
-                        <PlaceholderScreen
-                            screenName="Student Attendance"
-                            message="View student attendance records"
-                        />
-                    )}
+                    component={StudentAttendanceScreen}
                 />
 
                 <Stack.Screen
@@ -295,6 +284,16 @@ export const AppNavigator: React.FC = () => {
                 <Stack.Screen
                     name="PickupVerification"
                     component={PickupVerificationScreen}
+                />
+
+                <Stack.Screen
+                    name="HR"
+                    component={HRScreen}
+                />
+
+                <Stack.Screen
+                    name="SalarySlip"
+                    component={PaySlipScreen}
                 />
                 {/* Add more screens as placeholders... */}
             </Stack.Navigator>

@@ -21,8 +21,8 @@ export type RootStackParamList = {
 
     // Attendance Screens
     AttendanceClasses: undefined;
-    AttendanceStudents: { classId: number; sectionId: number };
     AttendanceDetail: { studentId: number; studentName: string };
+    StudentAttendance: { classId: number; sectionId: number };
 
     // Staff Screens
     Profile: undefined;
@@ -31,6 +31,7 @@ export type RootStackParamList = {
     StaffLeaveEntry: undefined;
     StaffTimetable: undefined;
     SalarySlip: { employeeId: number };
+    HR: undefined;
 
     // Communication Screens
     Inbox: undefined;
@@ -86,9 +87,9 @@ export type RootStackParamList = {
 
     // New Home Screen Routes
     Academics: undefined;
-    HR: undefined;
     Notifications: undefined;
     PickupVerification: undefined;
+    Notes: undefined;
 };
 
 declare global {

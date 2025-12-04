@@ -52,13 +52,15 @@ export const TeacherClassesScreen: React.FC = () => {
     );
 
     const getColorForClass = (classId: number) => {
-        if (!colorMap[classId]) {
-            const newColorMap = { ...colorMap };
-            newColorMap[classId] = COLORS[Object.keys(colorMap).length % COLORS.length];
-            setColorMap(newColorMap);
-            return newColorMap[classId];
-        }
-        return colorMap[classId];
+        return colorMap[classId] || COLORS[0];
+    };
+
+    const initializeColorMap = (classesToColor: TeacherClass[]) => {
+        const newColorMap: { [key: number]: string } = {};
+        classesToColor.forEach((classData, index) => {
+            newColorMap[classData.ClassID] = COLORS[index % COLORS.length];
+        });
+        setColorMap(newColorMap);
     };
 
     const loadClasses = async (isRefresh: boolean = false) => {
@@ -73,7 +75,9 @@ export const TeacherClassesScreen: React.FC = () => {
                 `${API_CONFIG.SchoolServiceUrl}/GetTeacherClass`
             );
 
-            setClasses(response.data || []);
+            const classesData = response.data || [];
+            setClasses(classesData);
+            initializeColorMap(classesData);
         } catch (error) {
             console.error('Error loading classes:', error);
         } finally {
@@ -205,7 +209,7 @@ export const TeacherClassesScreen: React.FC = () => {
                                                 style={styles.studentItem}
                                                 onPress={() => {
                                                     navigation.navigate('ClassStudents', {
-                                                        studentID: student.StudentIID,
+                                                        studentId: student.StudentIID,
                                                     });
                                                 }}
                                             >

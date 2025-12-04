@@ -345,7 +345,7 @@ export const PickupVerificationScreen: React.FC = () => {
                 <View style={styles.classesContainer}>
                     {classes.length > 0 ? (
                         classes.map((classData) => (
-                            <ClassCard key={classData.ClassID} classData={classData} />
+                            <ClassCard key={`${classData.ClassID}-${classData.SectionID}`} classData={classData} />
                         ))
                     ) : (
                         renderEmptyState()

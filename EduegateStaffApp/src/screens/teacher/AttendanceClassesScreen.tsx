@@ -68,7 +68,7 @@ export const AttendanceClassesScreen: React.FC = () => {
     };
 
     const handleClassPress = (classItem: TeacherClass) => {
-        navigation.navigate('AttendanceStudents', {
+        navigation.navigate('StudentAttendance', {
             classId: classItem.ClassID,
             sectionId: classItem.SectionID,
         });

@@ -205,7 +205,7 @@ export const StaffLeaveScreen: React.FC = () => {
             setSubmitting(true);
 
             const currentUser = await authService.getCurrentUser();
-            const employeeID = currentUser?.employeeID || application.EmployeeID || 0;
+            const employeeID = currentUser?.Employee?.EmployeeIID || application.EmployeeID || 0;
 
             // Parse dates for conflict check
             const parts = application.FromDateString!.split('/');

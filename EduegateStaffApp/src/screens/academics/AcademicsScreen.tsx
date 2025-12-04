@@ -54,14 +54,12 @@ export const AcademicsScreen: React.FC = () => {
                 lessonPlansCount,
                 circularsCount,
                 notificationsCount,
-                studentAttendanceCount,
             ] = await Promise.all([
                 homeService.getMyClassCount(),
                 homeService.getEmployeeAssignmentsCount(),
                 homeService.getMyLessonPlanCount(),
                 homeService.getLatestStaffCircularCount(),
                 homeService.getMyNotificationCount(),
-                homeService.getStudentAttendanceCount(),
             ]);
 
             setAcademicsData({
@@ -70,7 +68,7 @@ export const AcademicsScreen: React.FC = () => {
                 lessonPlansCount,
                 circularsCount,
                 notificationsCount,
-                studentAttendanceCount,
+                studentAttendanceCount: 0, // API endpoint not available
             });
         } catch (error) {
             console.error('Error loading academics data:', error);
@@ -226,7 +224,7 @@ export const AcademicsScreen: React.FC = () => {
                                 count={academicsData.studentAttendanceCount}
                                 icon={require('../../assets/images/student_attandance.svg')}
                                 gradientColors={['#06B6D4', '#67E8F9']}
-                                onPress={() => navigation.navigate('StudentAttendance')}
+                                onPress={() => navigation.navigate('AttendanceClasses')}
                             />
                         </View>
                     </View>
