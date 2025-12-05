@@ -367,4 +367,28 @@ export const studentService = {
             return false;
         }
     },
+
+    // Payment History endpoint
+    getPaymentHistory: async (): Promise<any[]> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetLastTenFeeCollectionHistories`);
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch payment history', error);
+            return [];
+        }
+    },
+
+    // Transport/Driver endpoints
+    getDriverDetails: async (studentID: number): Promise<any> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetDriverDetailsByStudent`, {
+                params: { studentID }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch driver details', error);
+            return null;
+        }
+    },
 };
