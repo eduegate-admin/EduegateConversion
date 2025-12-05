@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { theme } from '../constants/theme';
 import { API_CONFIG } from '../constants/config';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface StudentProfile {
     FirstName: string;
@@ -179,7 +180,10 @@ export const StudentProfile = () => {
                         </View>
                     </View>
                 )}
+                <View style={{ height: 100 }} />
             </ScrollView>
+
+            <BottomMenu />
         </View>
     );
 };

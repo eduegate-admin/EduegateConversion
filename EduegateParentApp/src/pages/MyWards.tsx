@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { studentService, Student } from '../services/student/studentService';
 import { theme } from '../constants/theme';
+import { BottomMenu } from '../components/BottomMenu';
 
 // Import SVGs
 import CalendarIllustration from '../assets/images/calneder_illustration.svg';
@@ -290,8 +291,11 @@ export const MyWards = () => {
           </View>
         </LinearGradient>
 
-        <View style={{ height: 50 }} />
+        <View style={{ height: 100 }} />
       </ScrollView>
+
+      {/* Bottom Menu */}
+      <BottomMenu />
     </View>
   );
 };

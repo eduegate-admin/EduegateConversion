@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { theme } from '../constants/theme';
+import { BottomMenu } from '../components/BottomMenu';
 
 export const Communications = () => {
     const navigation = useNavigation();
@@ -62,7 +63,10 @@ export const Communications = () => {
                         </Text>
                     </View>
                 </View>
+                <View style={{ height: 100 }} />
             </ScrollView>
+
+            <BottomMenu />
         </View>
     );
 };

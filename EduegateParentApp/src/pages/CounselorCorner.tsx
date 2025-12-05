@@ -6,6 +6,7 @@ import { theme } from '../constants/theme';
 import RNFS from 'react-native-fs';
 import FileViewer from 'react-native-file-viewer';
 import { API_CONFIG } from '../constants/config';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface CounselorAttachment {
     AttachmentReferenceID: string;
@@ -211,7 +212,9 @@ export const CounselorCorner = () => {
                         </View>
                     </View>
                 )}
+                <View style={{ height: 100 }} />
             </ScrollView>
+            <BottomMenu />
         </View>
     );
 };

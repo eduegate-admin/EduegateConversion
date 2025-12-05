@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { studentService } from '../services/student/studentService';
 import { theme } from '../constants/theme';
+import { BottomMenu } from '../components/BottomMenu';
 
 const { width } = Dimensions.get('window');
 
@@ -89,7 +90,9 @@ export const ClassTeachers = () => {
                         <Text style={styles.emptyStateText}>No teacher details found.</Text>
                     </View>
                 )}
+                <View style={{ height: 100 }} />
             </ScrollView>
+            <BottomMenu />
         </View>
     );
 };

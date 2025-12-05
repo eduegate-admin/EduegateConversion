@@ -8,6 +8,7 @@ import { theme } from '../constants/theme';
 import RNFS from 'react-native-fs';
 import FileViewer from 'react-native-file-viewer';
 import { API_CONFIG } from '../constants/config';
+import { BottomMenu } from '../components/BottomMenu';
 
 export const ReportCard = () => {
     const navigation = useNavigation();
@@ -268,6 +269,7 @@ export const ReportCard = () => {
                                     </Text>
                                 </TouchableOpacity>
                             ))}
+                            <View style={{ height: 100 }} />
                         </ScrollView>
                         <TouchableOpacity
                             style={styles.closeButton}
@@ -278,6 +280,7 @@ export const ReportCard = () => {
                     </View>
                 </View>
             </Modal>
+            <BottomMenu />
         </View>
     );
 };

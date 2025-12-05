@@ -7,6 +7,7 @@ import { theme } from '../constants/theme';
 import RNFS from 'react-native-fs';
 import FileViewer from 'react-native-file-viewer';
 import { API_CONFIG } from '../constants/config';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface Note {
     Title: string;
@@ -330,6 +331,7 @@ export const Notes = () => {
                     </View>
                 </View>
             </Modal>
+            <BottomMenu />
         </View>
     );
 };

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { theme } from '../constants/theme';
+import { BottomMenu } from '../components/BottomMenu';
 
 export const Transport = () => {
     const navigation = useNavigation();
@@ -117,6 +118,7 @@ export const Transport = () => {
                     </View>
                 </View>
             </ScrollView>
+            <BottomMenu />
         </View>
     );
 };

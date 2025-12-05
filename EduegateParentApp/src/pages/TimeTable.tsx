@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { studentService, Student } from '../services/student/studentService';
 import { theme } from '../constants/theme';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface WeekDay {
     Key: number;
@@ -270,6 +271,7 @@ export const TimeTable = () => {
                     </View>
                 )}
             </ScrollView>
+            <BottomMenu />
         </View>
     );
 };

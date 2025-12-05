@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { studentService, Student } from '../services/student/studentService';
 import { theme } from '../constants/theme';
+import { BottomMenu } from '../components/BottomMenu';
+
 
 const ATTENDANCE_STATUS_COLORS: { [key: string]: { color: string; label: string } } = {
     P: { color: '#0ead1f', label: 'Present' },
@@ -376,6 +378,7 @@ export const StudentAttendance = () => {
                                     </Text>
                                 </TouchableOpacity>
                             ))}
+                            <View style={{ height: 100 }} />
                         </ScrollView>
                         <TouchableOpacity
                             style={styles.closeButton}
@@ -386,6 +389,7 @@ export const StudentAttendance = () => {
                     </View>
                 </View>
             </Modal>
+            <BottomMenu />
         </View>
     );
 };

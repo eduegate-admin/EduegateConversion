@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator
 import { useNavigation } from '@react-navigation/native';
 import { studentService } from '../services/student/studentService';
 import { theme } from '../constants/theme';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface LibraryTransaction {
     BookTitle: string;
@@ -146,7 +147,9 @@ export const Library = () => {
                 ) : (
                     <EmptyState message="No books have been returned yet" />
                 )}
+                <View style={{ height: 100 }} />
             </ScrollView>
+            <BottomMenu />
         </View>
     );
 };

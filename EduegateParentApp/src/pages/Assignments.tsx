@@ -7,6 +7,7 @@ import { theme } from '../constants/theme';
 import RNFS from 'react-native-fs';
 import FileViewer from 'react-native-file-viewer';
 import { API_CONFIG } from '../constants/config';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface Assignment {
     Title: string;
@@ -302,6 +303,7 @@ export const Assignments = () => {
                                     </Text>
                                 </TouchableOpacity>
                             ))}
+                            <View style={{ height: 100 }} />
                         </ScrollView>
                         <TouchableOpacity
                             style={styles.closeButton}
@@ -312,6 +314,7 @@ export const Assignments = () => {
                     </View>
                 </View>
             </Modal>
+            <BottomMenu />
         </View>
     );
 };

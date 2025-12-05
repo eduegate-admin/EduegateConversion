@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { studentService } from '../services/student/studentService';
 import { theme } from '../constants/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface FeeMonthlySplit {
     FeeDueMonthlySplitID: number;
@@ -321,6 +322,7 @@ export const FeePayment = () => {
                     <Text style={styles.payButtonText}>Pay Now</Text>
                 </TouchableOpacity>
             </View>
+            <BottomMenu />
         </View>
     );
 };

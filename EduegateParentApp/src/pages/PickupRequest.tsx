@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { studentService } from '../services/student/studentService';
 import { theme } from '../constants/theme';
 import { API_CONFIG } from '../constants/config';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface PickupRequest {
     StudentPickerStudentMapIID: number;
@@ -184,6 +185,7 @@ export const PickupRequest = () => {
                     </View>
                 )}
             </ScrollView>
+            <BottomMenu />
         </View>
     );
 };

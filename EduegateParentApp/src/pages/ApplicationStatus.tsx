@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator
 import { useNavigation } from '@react-navigation/native';
 import { studentService } from '../services/student/studentService';
 import { theme } from '../constants/theme';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface Application {
     ApplicationIID: number;
@@ -156,6 +157,7 @@ export const ApplicationStatus = () => {
                     </View>
                 )}
             </ScrollView>
+            <BottomMenu />
         </View>
     );
 };

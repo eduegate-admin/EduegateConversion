@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, 
 import { useNavigation } from '@react-navigation/native';
 import { studentService } from '../services/student/studentService';
 import { theme } from '../constants/theme';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface Notification {
     NotificationAlertIID: number;
@@ -181,6 +182,8 @@ export const Notifications = () => {
                     <Text style={styles.emptyTitle}>No notifications found.</Text>
                 </View>
             )}
+            <View style={{ height: 100 }} />
+            <BottomMenu />
         </View>
     );
 };

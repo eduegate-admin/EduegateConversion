@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { studentService, Student } from '../services/student/studentService';
 import { theme } from '../constants/theme';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface LeaveApplication {
     StudentLeaveApplicationIID: number;
@@ -206,6 +207,7 @@ export const StudentLeave = () => {
                     </View>
                 )}
             </ScrollView>
+            <BottomMenu />
         </View>
     );
 };

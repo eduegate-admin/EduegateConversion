@@ -6,6 +6,7 @@ import { studentService } from '../services/student/studentService';
 import { theme } from '../constants/theme';
 import RNFS from 'react-native-fs';
 import FileViewer from 'react-native-file-viewer';
+import { BottomMenu } from '../components/BottomMenu';
 
 export const Circulars = () => {
     const navigation = useNavigation();
@@ -138,7 +139,9 @@ export const Circulars = () => {
                         <Text style={styles.emptyStateText}>Circular not found, please try again later.</Text>
                     </View>
                 )}
+                <View style={{ height: 100 }} />
             </ScrollView>
+            <BottomMenu />
         </View>
     );
 };

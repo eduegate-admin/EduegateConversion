@@ -8,6 +8,7 @@ import { API_CONFIG } from '../constants/config';
 import QRCode from 'react-native-qrcode-svg';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Share from 'react-native-share';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface PickupRequest {
     StudentPickerStudentMapIID: number;
@@ -285,6 +286,7 @@ export const EarlyPickup = () => {
                     </View>
                 </View>
             </Modal>
+            <BottomMenu />
         </View>
     );
 };

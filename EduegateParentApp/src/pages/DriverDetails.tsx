@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { studentService } from '../services/student/studentService';
 import { theme } from '../constants/theme';
 import { API_CONFIG } from '../constants/config';
+import { BottomMenu } from '../components/BottomMenu';
 
 interface DriverDetails {
     EmployeeName: string;
@@ -141,7 +142,9 @@ export const DriverDetails = () => {
                         </Text>
                     </View>
                 )}
+                <View style={{ height: 100 }} />
             </ScrollView>
+            <BottomMenu />
         </View>
     );
 };

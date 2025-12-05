@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, ActivityIndicator, Dimensions, StatusBar, Animated } from 'react-native';
+import Svg, { Path, Circle } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import { authService, User } from '../../services/auth/authService';
 import { studentService, Student } from '../../services/student/studentService';
 import { theme } from '../../constants/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import SideMenu from '../../components/SideMenu';
+import { BottomMenu } from '../../components/BottomMenu';
 
 // Import SVGs
 import MenuIcon from '../../assets/images/magicoon-Bold.svg';
@@ -371,6 +373,9 @@ export const HomeScreen = () => {
                 <View style={{ height: 100 }} />
             </ScrollView>
 
+            {/* Bottom Menu */}
+            <BottomMenu />
+
             {/* Side Menu */}
             <SideMenu visible={menuVisible} onClose={() => setMenuVisible(false)} />
         </View>
@@ -451,7 +456,7 @@ const styles = StyleSheet.create({
     },
     content: {
         paddingHorizontal: 0,
-        paddingBottom: 20,
+        paddingBottom: 100, // Accommodate bottom menu
     },
     carouselContainer: {
         height: CARD_HEIGHT + 30, // Card height + pagination space
