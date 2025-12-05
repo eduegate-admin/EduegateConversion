@@ -391,4 +391,63 @@ export const studentService = {
             return null;
         }
     },
+
+    // Tickets/Communication endpoints
+    getTickets: async (): Promise<any[]> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetAllTickets`);
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch tickets', error);
+            return [];
+        }
+    },
+
+    // Counselor endpoint
+    getCounselorList: async (): Promise<any[]> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetCounselorList`);
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch counselor list', error);
+            return [];
+        }
+    },
+
+    // Time Table endpoints
+    getWeekDays: async (): Promise<any[]> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetDynamicLookUpDataForMobileApp`, {
+                params: { lookType: 'WeekDay', defaultBlank: false }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch weekdays', error);
+            return [];
+        }
+    },
+
+    getClassTimes: async (studentID: number): Promise<any[]> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetClassTimes`, {
+                params: { studentID }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch class times', error);
+            return [];
+        }
+    },
+
+    getTimeTable: async (studentID: number): Promise<any[]> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetTimeTableByStudentID`, {
+                params: { studentID }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch time table', error);
+            return [];
+        }
+    },
 };

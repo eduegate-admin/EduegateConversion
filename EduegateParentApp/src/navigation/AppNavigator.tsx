@@ -22,6 +22,9 @@ import Notifications from '../pages/Notifications';
 import PaymentHistory from '../pages/PaymentHistory';
 import Transport from '../pages/Transport';
 import DriverDetails from '../pages/DriverDetails';
+import Communications from '../pages/Communications';
+import Tickets from '../pages/Tickets';
+import TimeTable from '../pages/TimeTable';
 import { LoginScreen } from '../screens/auth/LoginScreen';
 import { HomeScreen } from '../screens/home/HomeScreen';
 import { authService } from '../services/auth/authService';
@@ -51,6 +54,9 @@ export type RootStackParamList = {
     PaymentHistory: undefined;
     Transport: undefined;
     DriverDetails: undefined;
+    Communications: undefined;
+    Tickets: undefined;
+    TimeTable: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -113,6 +119,9 @@ export const AppNavigator = () => {
                 <Stack.Screen name="PaymentHistory" component={PaymentHistory} />
                 <Stack.Screen name="Transport" component={Transport} />
                 <Stack.Screen name="DriverDetails" component={DriverDetails} />
+                <Stack.Screen name="Communications" component={Communications} />
+                <Stack.Screen name="Tickets" component={Tickets} />
+                <Stack.Screen name="TimeTable" component={TimeTable} />
             </Stack.Navigator>
         </NavigationContainer>
     );

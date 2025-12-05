@@ -185,6 +185,12 @@ export const HomeScreen = () => {
                             onPress={() => navigation.navigate('Circulars')}
                         />
                         <QuickAccessItem
+                            icon={CircularsIcon} // Placeholder icon
+                            label="Time Table"
+                            color1="#20c997" color2="#148060" // Teal color
+                            onPress={() => navigation.navigate('TimeTable')}
+                        />
+                        <QuickAccessItem
                             icon={TransportIcon}
                             label="Transport"
                             color1="#FFA370" color2="#E3BF00"
