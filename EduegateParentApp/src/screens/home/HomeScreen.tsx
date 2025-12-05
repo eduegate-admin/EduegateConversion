@@ -5,6 +5,7 @@ import { authService, User } from '../../services/auth/authService';
 import { studentService, Student } from '../../services/student/studentService';
 import { theme } from '../../constants/theme';
 import LinearGradient from 'react-native-linear-gradient';
+import SideMenu from '../../components/SideMenu';
 
 // Import SVGs
 import MenuIcon from '../../assets/images/magicoon-Bold.svg';
@@ -28,6 +29,7 @@ export const HomeScreen = () => {
     const [students, setStudents] = useState<Student[]>([]);
     const [feeDue, setFeeDue] = useState<number>(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [menuVisible, setMenuVisible] = useState(false);
     const [notificationCount, setNotificationCount] = useState(0);
     const [pickupRequestCount, setPickupRequestCount] = useState(0);
     const [pickupRegisterCount, setPickupRegisterCount] = useState(0);
@@ -114,7 +116,7 @@ export const HomeScreen = () => {
             {/* Header */}
             <View style={styles.header}>
                 <View style={styles.headerTop}>
-                    <TouchableOpacity onPress={() => { }}>
+                    <TouchableOpacity onPress={() => setMenuVisible(true)}>
                         <MenuIcon width={30} height={30} fill={theme.colors.white} />
                     </TouchableOpacity>
 
@@ -298,6 +300,9 @@ export const HomeScreen = () => {
 
                 <View style={{ height: 100 }} />
             </ScrollView>
+
+            {/* Side Menu */}
+            <SideMenu visible={menuVisible} onClose={() => setMenuVisible(false)} />
         </View>
     );
 };

@@ -15,6 +15,10 @@ import StudentProfile from '../pages/StudentProfile';
 import Library from '../pages/Library';
 import CounselorCorner from '../pages/CounselorCorner';
 import ApplicationStatus from '../pages/ApplicationStatus';
+import EarlyPickup from '../pages/EarlyPickup';
+import PickupRequest from '../pages/PickupRequest';
+import AllergyDetails from '../pages/AllergyDetails';
+import Notifications from '../pages/Notifications';
 import { LoginScreen } from '../screens/auth/LoginScreen';
 import { HomeScreen } from '../screens/home/HomeScreen';
 import { authService } from '../services/auth/authService';
@@ -37,6 +41,10 @@ export type RootStackParamList = {
     Library: undefined;
     CounselorCorner: undefined;
     ApplicationStatus: undefined;
+    EarlyPickup: undefined;
+    PickupRequest: undefined;
+    AllergyDetails: undefined;
+    Notifications: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -92,6 +100,10 @@ export const AppNavigator = () => {
                 <Stack.Screen name="Library" component={Library} />
                 <Stack.Screen name="CounselorCorner" component={CounselorCorner} />
                 <Stack.Screen name="ApplicationStatus" component={ApplicationStatus} />
+                <Stack.Screen name="EarlyPickup" component={EarlyPickup} />
+                <Stack.Screen name="PickupRequest" component={PickupRequest} />
+                <Stack.Screen name="AllergyDetails" component={AllergyDetails} />
+                <Stack.Screen name="Notifications" component={Notifications} />
             </Stack.Navigator>
         </NavigationContainer>
     );

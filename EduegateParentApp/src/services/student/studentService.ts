@@ -287,4 +287,84 @@ export const studentService = {
             return [];
         }
     },
+
+    getDailyPickupRequests: async (loginID: number): Promise<any[]> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetRegisteredPickupRequests`, {
+                params: { loginID, barCodeValue: null }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch pickup requests', error);
+            return [];
+        }
+    },
+
+    cancelOrActivatePickupRequest: async (studentPickerStudentMapIID: number): Promise<any> => {
+        try {
+            const response = await apiClient.post(`${API_CONFIG.SchoolServiceUrl}/CancelorActiveStudentPickupRegistration`, null, {
+                params: { studentPickerStudentMapIID }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Failed to cancel/activate pickup request', error);
+            throw error;
+        }
+    },
+
+    // Allergy-related endpoints
+    getAllergies: async (): Promise<any[]> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetAllergies`);
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch allergies', error);
+            return [];
+        }
+    },
+
+    getSeverity: async (): Promise<any[]> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetSeverity`);
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch severity levels', error);
+            return [];
+        }
+    },
+
+    getStudentAllergies: async (): Promise<any[]> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetStudentAllergies`);
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch student allergies', error);
+            return [];
+        }
+    },
+
+    // Notification endpoints
+    getNotifications: async (page: number = 1, pageSize: number = 20): Promise<any[]> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetMyNotification`, {
+                params: { page, pageSize }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch notifications', error);
+            return [];
+        }
+    },
+
+    markNotificationAsRead: async (notificationAlertID: number = 0): Promise<boolean> => {
+        try {
+            const response = await apiClient.post(`${API_CONFIG.SchoolServiceUrl}/MarkNotificationAsRead`, null, {
+                params: { notificationAlertID }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Failed to mark notification as read', error);
+            return false;
+        }
+    },
 };
