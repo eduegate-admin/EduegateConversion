@@ -268,15 +268,7 @@ export const studentService = {
         }
     },
 
-    getCounselorList: async (): Promise<any[]> => {
-        try {
-            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetCounselorList`);
-            return response.data;
-        } catch (error) {
-            console.error('Failed to fetch counselor list', error);
-            return [];
-        }
-    },
+
 
     getStudentApplications: async (): Promise<any[]> => {
         try {
@@ -448,6 +440,63 @@ export const studentService = {
         } catch (error) {
             console.error('Failed to fetch time table', error);
             return [];
+        }
+    },
+
+    // Fee Payment endpoints
+    getStudentsFeePaymentDetails: async (): Promise<any[]> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.SchoolServiceUrl}/GetStudentsFeePaymentDetails`);
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch fee payment details', error);
+            return [];
+        }
+    },
+
+    getSettingValueByKey: async (settingKey: string): Promise<any> => {
+        try {
+            const response = await apiClient.get(`${API_CONFIG.RootUrl}/GetSettingValueByKey`, {
+                params: { settingKey }
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Failed to fetch setting ${settingKey}`, error);
+            return null;
+        }
+    },
+
+    submitAmountAsLog: async (totalAmount: number): Promise<boolean> => {
+        try {
+            const response = await apiClient.post(`${API_CONFIG.SchoolServiceUrl}/SubmitAmountAsLog`, null, {
+                params: { totalAmount }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Failed to submit amount log', error);
+            return false;
+        }
+    },
+
+    generateCardSession: async (paymentModeID: number): Promise<boolean> => {
+        try {
+            const response = await apiClient.post(`${API_CONFIG.SchoolServiceUrl}/GenerateCardSession`, null, {
+                params: { PaymentModeID: paymentModeID }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Failed to generate card session', error);
+            return false;
+        }
+    },
+
+    initiateFeeCollections: async (feeList: any[]): Promise<any> => {
+        try {
+            const response = await apiClient.post(`${API_CONFIG.SchoolServiceUrl}/InitiateFeeCollections`, feeList);
+            return response.data;
+        } catch (error) {
+            console.error('Failed to initiate fee collections', error);
+            return { operationResult: 0, Message: 'Network error' };
         }
     },
 };

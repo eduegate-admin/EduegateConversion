@@ -25,6 +25,7 @@ import DriverDetails from '../pages/DriverDetails';
 import Communications from '../pages/Communications';
 import Tickets from '../pages/Tickets';
 import TimeTable from '../pages/TimeTable';
+import FeePayment from '../pages/FeePayment';
 import { LoginScreen } from '../screens/auth/LoginScreen';
 import { HomeScreen } from '../screens/home/HomeScreen';
 import { authService } from '../services/auth/authService';
@@ -57,6 +58,7 @@ export type RootStackParamList = {
     Communications: undefined;
     Tickets: undefined;
     TimeTable: undefined;
+    FeePayment: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -122,6 +124,7 @@ export const AppNavigator = () => {
                 <Stack.Screen name="Communications" component={Communications} />
                 <Stack.Screen name="Tickets" component={Tickets} />
                 <Stack.Screen name="TimeTable" component={TimeTable} />
+                <Stack.Screen name="FeePayment" component={FeePayment} />
             </Stack.Navigator>
         </NavigationContainer>
     );
