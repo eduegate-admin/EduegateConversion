@@ -168,7 +168,7 @@ export const HomeScreen = () => {
                             icon={ApplicationsIcon}
                             label="Applications"
                             color1="#97DA77" color2="#50743F"
-                            onPress={() => navigation.navigate('Applications')}
+                            onPress={() => navigation.navigate('ApplicationStatus')}
                         />
                         <QuickAccessItem
                             icon={CommunicationsIcon}
@@ -204,7 +204,7 @@ export const HomeScreen = () => {
                             icon={CounselorIcon}
                             label="Counsellor Corner"
                             color1="#708FFF" color2="#4062D9"
-                            onPress={() => navigation.navigate('Counselor')}
+                            onPress={() => navigation.navigate('CounselorCorner')}
                         />
                     </View>
                 </View>
