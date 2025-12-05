@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, ActivityIndicator, Dimensions, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, ActivityIndicator, Dimensions, StatusBar, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { authService, User } from '../../services/auth/authService';
 import { studentService, Student } from '../../services/student/studentService';
@@ -22,8 +22,13 @@ import FeePaymentIcon from '../../assets/images/fee_payment.svg';
 import PaymentHistoryIcon from '../../assets/images/payment-history.svg';
 
 const { width } = Dimensions.get('window');
+const CARD_WIDTH = width * 0.8;
+const CARD_ASPECT_RATIO = 2.5; // Wider aspect ratio to avoid cropping text
+const CARD_HEIGHT = CARD_WIDTH / CARD_ASPECT_RATIO;
 
 export const HomeScreen = () => {
+    // ... existing hook logic ... 
+
     const navigation = useNavigation<any>();
     const [user, setUser] = useState<User | null>(null);
     const [students, setStudents] = useState<Student[]>([]);
@@ -33,11 +38,14 @@ export const HomeScreen = () => {
     const [notificationCount, setNotificationCount] = useState(0);
     const [pickupRequestCount, setPickupRequestCount] = useState(0);
     const [pickupRegisterCount, setPickupRegisterCount] = useState(0);
+    const [activeSlide, setActiveSlide] = useState(0);
+    const scrollX = React.useRef(new Animated.Value(0)).current;
 
-    // Placeholder banners
+    // Banners
     const banners = [
-        require('../../assets/images/pearl_logo.png'), // Use logo as placeholder banner for now
-        require('../../assets/images/pearl_logo.png'),
+        require('../../assets/images/Component 1.png'),
+        require('../../assets/images/Component 2.png'),
+        require('../../assets/images/Component 3.png'),
     ];
 
     useEffect(() => {
@@ -146,160 +154,216 @@ export const HomeScreen = () => {
             </View>
 
             <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-                {/* Banners Carousel */}
                 <View style={styles.carouselContainer}>
-                    <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
-                        {banners.map((banner, index) => (
-                            <View key={index} style={styles.bannerSlide}>
-                                <Image source={banner} style={styles.bannerImage} resizeMode="cover" />
-                            </View>
+                    <Animated.ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        decelerationRate="fast"
+                        snapToInterval={CARD_WIDTH + 12} // CARD_WIDTH + SPACING
+                        snapToAlignment="start"
+                        contentContainerStyle={{
+                            paddingHorizontal: (width - CARD_WIDTH) / 2 - 6, // Centering logic
+                        }}
+                        onScroll={Animated.event(
+                            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                            {
+                                useNativeDriver: true,
+                                listener: (e: any) => {
+                                    const slide = Math.round(e.nativeEvent.contentOffset.x / (CARD_WIDTH + 12));
+                                    if (slide !== activeSlide) {
+                                        setActiveSlide(slide);
+                                    }
+                                }
+                            }
+                        )}
+                        scrollEventThrottle={16}
+                    >
+                        {banners.map((banner, index) => {
+                            const ITEM_SIZE = CARD_WIDTH + 12;
+                            const inputRange = [
+                                (index - 1) * ITEM_SIZE,
+                                index * ITEM_SIZE,
+                                (index + 1) * ITEM_SIZE,
+                            ];
+                            const scale = scrollX.interpolate({
+                                inputRange,
+                                outputRange: [0.9, 1, 0.9],
+                                extrapolate: 'clamp',
+                            });
+                            const opacity = scrollX.interpolate({
+                                inputRange,
+                                outputRange: [0.6, 1, 0.6],
+                                extrapolate: 'clamp',
+                            });
+
+                            return (
+                                <View key={index} style={styles.bannerSlide}>
+                                    <Animated.View style={[styles.bannerCard, { transform: [{ scale }], opacity }]}>
+                                        <Image source={banner} style={styles.bannerImage} resizeMode="cover" />
+                                    </Animated.View>
+                                </View>
+                            );
+                        })}
+                    </Animated.ScrollView>
+                    {/* Pagination Dots */}
+                    <View style={styles.pagination}>
+                        {banners.map((_, index) => (
+                            <View
+                                key={index}
+                                style={[
+                                    styles.dot,
+                                    index === activeSlide ? styles.activeDot : styles.inactiveDot,
+                                ]}
+                            />
                         ))}
-                    </ScrollView>
-                </View>
-
-                {/* Quick Access Grid */}
-                <View style={styles.section}>
-                    <View style={styles.gridContainer}>
-                        <QuickAccessItem
-                            icon={MyWardsIcon}
-                            label="My Wards"
-                            color1="#AF70FF" color2="#694399"
-                            onPress={() => navigation.navigate('MyWards')}
-                        />
-                        <QuickAccessItem
-                            icon={ApplicationsIcon}
-                            label="Applications"
-                            color1="#97DA77" color2="#50743F"
-                            onPress={() => navigation.navigate('ApplicationStatus')}
-                        />
-                        <QuickAccessItem
-                            icon={CommunicationsIcon}
-                            label="Communications"
-                            color1="#708FFF" color2="#4062D9"
-                            onPress={() => navigation.navigate('Communications')}
-                        />
-                        <QuickAccessItem
-                            icon={CircularsIcon}
-                            label="Circulars"
-                            color1="#FF8170" color2="#CF402C"
-                            onPress={() => navigation.navigate('Circulars')}
-                        />
-                        <QuickAccessItem
-                            icon={CircularsIcon} // Placeholder icon
-                            label="Time Table"
-                            color1="#20c997" color2="#148060" // Teal color
-                            onPress={() => navigation.navigate('TimeTable')}
-                        />
-                        <QuickAccessItem
-                            icon={TransportIcon}
-                            label="Transport"
-                            color1="#FFA370" color2="#E3BF00"
-                            onPress={() => navigation.navigate('Transport')}
-                        />
-                        <QuickAccessItem
-                            icon={OnlineStoreIcon}
-                            label="Online Store"
-                            color1="#4B9DE9" color2="#3CCFFD"
-                            onPress={() => navigation.navigate('OnlineStore')}
-                        />
-                        <QuickAccessItem
-                            icon={LibraryIcon}
-                            label="Library"
-                            color1="#FF8170" color2="#CF402C"
-                            onPress={() => navigation.navigate('Library')}
-                        />
-                        <QuickAccessItem
-                            icon={CounselorIcon}
-                            label="Counsellor Corner"
-                            color1="#708FFF" color2="#4062D9"
-                            onPress={() => navigation.navigate('CounselorCorner')}
-                        />
                     </View>
                 </View>
 
-                {/* Daily Pickup Section */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Daily Pickup</Text>
-                    <View style={styles.pickupRow}>
-                        <TouchableOpacity
-                            style={[styles.pickupCard, { backgroundColor: '#1A7F80' }]}
-                            onPress={() => navigation.navigate('EarlyPickup')}
-                        >
-                            <LinearGradient
-                                colors={['#1A7F80', '#2E9F9F']}
-                                style={styles.pickupGradient}
-                            >
-                                <View style={styles.pickupContent}>
-                                    <Text style={styles.pickupLabel}>Early Pickup Request</Text>
-                                    <View style={styles.pickupCountCircle}>
-                                        <Text style={[styles.pickupCount, { color: '#1A7F80' }]}>{pickupRequestCount}</Text>
-                                    </View>
-                                </View>
-                            </LinearGradient>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={[styles.pickupCard, { backgroundColor: '#7D45B2' }]}
-                            onPress={() => navigation.navigate('PickupRequest')}
-                        >
-                            <LinearGradient
-                                colors={['#7D45B2', '#9B6AD6']}
-                                style={styles.pickupGradient}
-                            >
-                                <View style={styles.pickupContent}>
-                                    <Text style={styles.pickupLabel}>Pickup Request</Text>
-                                    <View style={styles.pickupCountCircle}>
-                                        <Text style={[styles.pickupCount, { color: '#7D45B2' }]}>{pickupRegisterCount}</Text>
-                                    </View>
-                                </View>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-                {/* Fee Payment Section */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Fee Payment</Text>
-                    <View style={styles.feeContainer}>
-                        <View style={styles.feeDueCard}>
-                            <View style={styles.feeDueHeader}>
-                                <View style={styles.feeIconCircle}>
-                                    <Text style={{ fontSize: 20 }}>💰</Text>
-                                </View>
-                                <View>
-                                    <Text style={styles.feeDueLabel}>Fee Dues</Text>
-                                    <Text style={styles.feeDueSubLabel}>Total amount of fee for all wards</Text>
-                                </View>
-                            </View>
-                            <Text style={styles.feeAmount}>QAR {feeDue.toFixed(2)}</Text>
+                <View style={styles.paddedContent}>
+                    {/* Quick Access Grid */}
+                    <View style={styles.section}>
+                        <View style={styles.gridContainer}>
+                            <QuickAccessItem
+                                icon={MyWardsIcon}
+                                label="My Wards"
+                                color1="#AF70FF" color2="#694399"
+                                onPress={() => navigation.navigate('MyWards')}
+                            />
+                            <QuickAccessItem
+                                icon={ApplicationsIcon}
+                                label="Applications"
+                                color1="#97DA77" color2="#50743F"
+                                onPress={() => navigation.navigate('ApplicationStatus')}
+                            />
+                            <QuickAccessItem
+                                icon={CommunicationsIcon}
+                                label="Communications"
+                                color1="#708FFF" color2="#4062D9"
+                                onPress={() => navigation.navigate('Communications')}
+                            />
+                            <QuickAccessItem
+                                icon={CircularsIcon}
+                                label="Circulars"
+                                color1="#FF8170" color2="#CF402C"
+                                onPress={() => navigation.navigate('Circulars')}
+                            />
+                            <QuickAccessItem
+                                icon={CircularsIcon} // Placeholder icon
+                                label="Time Table"
+                                color1="#20c997" color2="#148060" // Teal color
+                                onPress={() => navigation.navigate('TimeTable')}
+                            />
+                            <QuickAccessItem
+                                icon={TransportIcon}
+                                label="Transport"
+                                color1="#FFA370" color2="#E3BF00"
+                                onPress={() => navigation.navigate('Transport')}
+                            />
+                            <QuickAccessItem
+                                icon={OnlineStoreIcon}
+                                label="Online Store"
+                                color1="#4B9DE9" color2="#3CCFFD"
+                                onPress={() => navigation.navigate('OnlineStore')}
+                            />
+                            <QuickAccessItem
+                                icon={LibraryIcon}
+                                label="Library"
+                                color1="#FF8170" color2="#CF402C"
+                                onPress={() => navigation.navigate('Library')}
+                            />
+                            <QuickAccessItem
+                                icon={CounselorIcon}
+                                label="Counsellor Corner"
+                                color1="#708FFF" color2="#4062D9"
+                                onPress={() => navigation.navigate('CounselorCorner')}
+                            />
                         </View>
+                    </View>
 
-                        <View style={styles.feeButtonsRow}>
+                    {/* Daily Pickup Section */}
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Daily Pickup</Text>
+                        <View style={styles.pickupRow}>
                             <TouchableOpacity
-                                style={styles.feeButton}
-                                onPress={() => navigation.navigate('FeePayment')}
+                                style={[styles.pickupCard, { backgroundColor: '#1A7F80' }]}
+                                onPress={() => navigation.navigate('EarlyPickup')}
                             >
                                 <LinearGradient
-                                    colors={['#FFC107', '#FF9800']}
-                                    style={styles.feeButtonGradient}
+                                    colors={['#1A7F80', '#2E9F9F']}
+                                    style={styles.pickupGradient}
                                 >
-                                    <FeePaymentIcon width={30} height={30} fill="#fff" />
-                                    <Text style={styles.feeButtonText}>Fee Payment</Text>
+                                    <View style={styles.pickupContent}>
+                                        <Text style={styles.pickupLabel}>Early Pickup Request</Text>
+                                        <View style={styles.pickupCountCircle}>
+                                            <Text style={[styles.pickupCount, { color: '#1A7F80' }]}>{pickupRequestCount}</Text>
+                                        </View>
+                                    </View>
                                 </LinearGradient>
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                style={styles.feeButton}
-                                onPress={() => navigation.navigate('PaymentHistory')}
+                                style={[styles.pickupCard, { backgroundColor: '#7D45B2' }]}
+                                onPress={() => navigation.navigate('PickupRequest')}
                             >
                                 <LinearGradient
-                                    colors={['#FF5722', '#F44336']}
-                                    style={styles.feeButtonGradient}
+                                    colors={['#7D45B2', '#9B6AD6']}
+                                    style={styles.pickupGradient}
                                 >
-                                    <PaymentHistoryIcon width={30} height={30} fill="#fff" />
-                                    <Text style={styles.feeButtonText}>Payment History</Text>
+                                    <View style={styles.pickupContent}>
+                                        <Text style={styles.pickupLabel}>Pickup Request</Text>
+                                        <View style={styles.pickupCountCircle}>
+                                            <Text style={[styles.pickupCount, { color: '#7D45B2' }]}>{pickupRegisterCount}</Text>
+                                        </View>
+                                    </View>
                                 </LinearGradient>
                             </TouchableOpacity>
+                        </View>
+                    </View>
+
+                    {/* Fee Payment Section */}
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Fee Payment</Text>
+                        <View style={styles.feeContainer}>
+                            <View style={styles.feeDueCard}>
+                                <View style={styles.feeDueHeader}>
+                                    <View style={styles.feeIconCircle}>
+                                        <Text style={{ fontSize: 20 }}>💰</Text>
+                                    </View>
+                                    <View>
+                                        <Text style={styles.feeDueLabel}>Fee Dues</Text>
+                                        <Text style={styles.feeDueSubLabel}>Total amount of fee for all wards</Text>
+                                    </View>
+                                </View>
+                                <Text style={styles.feeAmount}>QAR {feeDue.toFixed(2)}</Text>
+                            </View>
+
+                            <View style={styles.feeButtonsRow}>
+                                <TouchableOpacity
+                                    style={styles.feeButton}
+                                    onPress={() => navigation.navigate('FeePayment')}
+                                >
+                                    <LinearGradient
+                                        colors={['#FFC107', '#FF9800']}
+                                        style={styles.feeButtonGradient}
+                                    >
+                                        <FeePaymentIcon width={30} height={30} fill="#fff" />
+                                        <Text style={styles.feeButtonText}>Fee Payment</Text>
+                                    </LinearGradient>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={styles.feeButton}
+                                    onPress={() => navigation.navigate('PaymentHistory')}
+                                >
+                                    <LinearGradient
+                                        colors={['#FF5722', '#F44336']}
+                                        style={styles.feeButtonGradient}
+                                    >
+                                        <PaymentHistoryIcon width={30} height={30} fill="#fff" />
+                                        <Text style={styles.feeButtonText}>Payment History</Text>
+                                    </LinearGradient>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -326,7 +390,7 @@ const styles = StyleSheet.create({
     header: {
         backgroundColor: theme.colors.primary,
         paddingTop: 40, // For status bar
-        paddingBottom: 60,
+        paddingBottom: 30,
         paddingHorizontal: 20,
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
@@ -386,23 +450,54 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     content: {
-        marginTop: -40,
-        paddingHorizontal: 20,
+        paddingHorizontal: 0,
+        paddingBottom: 20,
     },
     carouselContainer: {
+        height: CARD_HEIGHT + 30, // Card height + pagination space
+        marginTop: 20,
         marginBottom: 20,
-        borderRadius: 16,
-        overflow: 'hidden',
-        elevation: 5,
-        backgroundColor: '#fff',
     },
     bannerSlide: {
-        width: width - 40,
-        height: 180,
+        width: CARD_WIDTH,
+        height: CARD_HEIGHT,
+        marginHorizontal: 6, // Half of spacing (12)
+        justifyContent: 'center',
+    },
+    bannerCard: {
+        flex: 1,
+        borderRadius: 16,
+        overflow: 'hidden',
     },
     bannerImage: {
         width: '100%',
         height: '100%',
+        resizeMode: 'cover',
+    },
+    pagination: {
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 8, // Inside the card or below? M3 usually inside if hero, or below. Let's put it inside.
+        alignSelf: 'center',
+    },
+    dot: {
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        marginHorizontal: 4,
+    },
+    activeDot: {
+        backgroundColor: '#fff',
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        marginTop: -2,
+    },
+    inactiveDot: {
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    },
+    paddedContent: {
+        paddingHorizontal: 20,
     },
     section: {
         marginBottom: 24,
